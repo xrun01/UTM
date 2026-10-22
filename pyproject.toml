@@ -1,0 +1,15 @@
+[project]
+name = "utm-build"
+version = "0.1.0"
+description = "UTM 构建与脚本生成 Python 依赖环境"
+requires-python = ">=3.12"
+dependencies = [
+  "distlib>=0.4.4",
+  "mako>=1.4.3",
+  "meson>=1.12.1",
+  "ninja>=1.13.0",
+  "pyparsing>=3.3.3",
+  "pyyaml>=6.0.3",
+  "setuptools>=84.2.1",
+  "six>=1.17.0",
+]

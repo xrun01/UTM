@@ -71,3 +71,8 @@ build*/
 sysroot*/
 .DS_Store
 CodeSigning.xcconfig
+node_modules/
+bun.lock
+.venv/
+uv.lock
+

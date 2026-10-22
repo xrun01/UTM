@@ -1,0 +1,10 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "env": { "builtin": true, "node": true, "es2024": true },
+  "globals": { "Bun": "readonly" },
+  "ignorePatterns": ["node_modules", "build", "DerivedData*", "sysroot*"],
+  "rules": {
+    "no-undef": "error",
+    "no-unused-vars": "error"
+  }
+}

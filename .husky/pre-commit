@@ -1,0 +1,2 @@
+bun x oxfmt make
+bun x oxlint --fix make

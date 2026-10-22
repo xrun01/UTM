@@ -1,0 +1,9 @@
+[tools]
+bun = "latest"
+python = "latest"
+uv = "latest"
+
+[env]
+UV_LINK_MODE = "copy"
+_.python.venv = { path = ".venv", create = true }
+_.path = [".venv/bin", "/opt/homebrew/opt/bison/bin", "/opt/homebrew/bin"]
