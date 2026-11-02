@@ -76,3 +76,4 @@ bun.lock
 .venv/
 uv.lock
 
+/HANDOFF.md
