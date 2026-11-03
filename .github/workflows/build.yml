@@ -20,7 +20,7 @@ jobs:
           repository: xrun01/vm
           token: ${{ secrets.GH_TOKEN }}
           path: git/vm
-      - name: Setup MSVC ARM64 toolchain
+      - name: Setup latest MSVC ARM64 toolchain
         uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: x64_arm64
@@ -38,6 +38,10 @@ jobs:
     name: Build macOS VM Engine
     runs-on: macos-latest
     steps:
+      - name: Select latest Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest
       - name: Checkout UTM repository
         uses: actions/checkout@v7
         with:
@@ -69,6 +73,10 @@ jobs:
     runs-on: macos-latest
     needs: [build-win-guest, build-mac-engine]
     steps:
+      - name: Select latest Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest
       - name: Checkout UTM repository
         uses: actions/checkout@v7
         with:
