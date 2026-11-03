@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - main
-      - xvm
     paths-ignore:
       - LICENSE
       - '**.md'
