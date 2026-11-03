@@ -139,15 +139,19 @@ struct AlertMessage: Identifiable {
     @Published var linuxBootArguments: String = ""
     @Published var linuxHasRosetta: Bool = false
     @Published var isWindows10OrHigher: Bool = true
+    @Published var isWindowsExpressInstall: Bool = true
+    @Published var windowsUnattendedUserName: String = UTMVmConfig.defaultGuestUserName()
+    @Published var windowsUnattendedPassword: String = ""
+    @Published var windowsDetectedLocale: String = UTMVmConfig.detectedHostWindowsLocale()
     @Published var quadra800RomUrl: URL?
     #if os(macOS)
-    @Published var systemMemoryMib: Int = 4096
-    @Published var storageSizeGib: Int = 64
+    @Published var systemMemoryMib: Int = Int(UTMVmConfig.recommendedMemorySizeMib())
+    @Published var storageSizeGib: Int = Int(UTMVmConfig.recommendedDiskSizeGib())
     #else
     @Published var systemMemoryMib: Int = 512
     @Published var storageSizeGib: Int = 8
     #endif
-    @Published var systemCpuCount: Int = 0
+    @Published var systemCpuCount: Int = Int(UTMVmConfig.recommendedCpuCount())
     @Published var isDisplayEnabled: Bool = true
     @Published var isGLEnabled: Bool = false
     @Published var sharingDirectoryURL: URL?
@@ -175,6 +179,8 @@ struct AlertMessage: Identifiable {
             return false
         case .operatingSystem:
             return false
+        case .windowsBoot:
+            return !isWindowsExpressInstall
         case .summary:
             return false
         default:
@@ -210,7 +216,11 @@ struct AlertMessage: Identifiable {
         case .start:
             nextPage = .operatingSystem
         case .operatingSystem:
-            nextPage = .hardware
+            if operatingSystem == .Windows {
+                nextPage = .windowsBoot
+            } else {
+                nextPage = .hardware
+            }
         case .hardware:
             guard systemMemoryMib > 0 else {
                 alertMessage = AlertMessage(NSLocalizedString("Invalid RAM size specified.", comment: "VMWizardState"))
@@ -224,7 +234,7 @@ struct AlertMessage: Identifiable {
             case .Linux:
                 nextPage = .linuxBoot
             case .Windows:
-                nextPage = .windowsBoot
+                nextPage = .drives
             case .ClassicMacOS:
                 nextPage = .classicMacOSBoot
             }
@@ -232,6 +242,10 @@ struct AlertMessage: Identifiable {
             guard [.kernel, .none].contains(bootDevice) || bootImageURL != nil else {
                 alertMessage = AlertMessage(NSLocalizedString("Please select a boot image.", comment: "VMWizardState"))
                 return
+            }
+            if currentPage == .windowsBoot && !isWindowsExpressInstall {
+                nextPage = .hardware
+                break
             }
             if currentPage == .macOSBoot {
                 #if os(macOS) && arch(arm64)
@@ -308,6 +322,25 @@ struct AlertMessage: Identifiable {
             bootloader.hasSecureBoot = systemBootTpm
             config.system.boot = bootloader
             config.system.genericPlatform = UTMAppleConfigurationGenericPlatform()
+            let unattendPath = (NSTemporaryDirectory() as NSString).appendingPathComponent("Autounattend_\(UUID().uuidString).iso")
+            let unattendUser: String
+            if isWindowsExpressInstall {
+                let trimmedUser = windowsUnattendedUserName.trimmingCharacters(in: .whitespacesAndNewlines)
+                unattendUser = trimmedUser.isEmpty ? UTMVmConfig.defaultGuestUserName() : trimmedUser
+            } else {
+                unattendUser = "__CUSTOM_INTERACTIVE__"
+            }
+            if (try? UTMVmConfig.generateUnattendedIso(atPath: unattendPath,
+                                                       userName: unattendUser,
+                                                       password: windowsUnattendedPassword,
+                                                       locale: windowsDetectedLocale)) != nil {
+                let unattendURL = URL(fileURLWithPath: unattendPath)
+                config.drives.append(UTMAppleConfigurationDrive(existingURL: unattendURL, isExternal: true))
+            }
+            if isGuestToolsInstallRequested || isWindowsExpressInstall,
+               let guestToolsURL = Bundle.main.url(forResource: "GuestTools", withExtension: "iso") {
+                config.drives.append(UTMAppleConfigurationDrive(existingURL: guestToolsURL, isExternal: true))
+            }
         case .macOS:
             #if os(macOS) && arch(arm64)
             config.system.boot = try! UTMAppleConfigurationBoot(for: .macOS)

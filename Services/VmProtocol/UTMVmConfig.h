@@ -62,6 +62,24 @@ typedef NS_ENUM(NSInteger, UTMVmNetworkMode) {
 @property (nonatomic, assign) BOOL audioInputEnabled;
 @property (nonatomic, assign) CGSize initialDisplaySize;
 @property (nonatomic, assign) CGFloat initialScaleFactor;
+@property (nonatomic, assign) BOOL unattendedInstallEnabled;
+@property (nonatomic, copy, nullable) NSString *unattendedUserName;
+@property (nonatomic, copy, nullable) NSString *unattendedPassword;
+@property (nonatomic, copy, nullable) NSString *unattendedLocale;
+
++ (NSUInteger)recommendedCpuCount;
++ (NSUInteger)recommendedMemorySizeMib;
++ (NSUInteger)recommendedDiskSizeGib;
++ (NSString *)detectedHostWindowsLocale;
++ (NSString *)defaultGuestUserName;
++ (nullable NSString *)generateUnattendedIsoAtPath:(NSString *)isoOutputPath
+                                          userName:(NSString *)userName
+                                          password:(nullable NSString *)password
+                                            locale:(nullable NSString *)locale
+                                             error:(NSError * _Nullable * _Nullable)error;
++ (nullable NSString *)prepareBootIsoForPath:(NSString *)sourceIsoPath
+                             primaryDiskPath:(nullable NSString *)primaryDiskPath
+                             targetDirectory:(NSString *)targetDir;
 @end
 
 @interface UTMVmCoherenceWindowInfo : NSObject

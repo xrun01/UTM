@@ -311,7 +311,7 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
             } else {
                 try await _start(options: options, guestProvisioning: vzGuestProvisioning)
             }
-            if #available(macOS 15, *) {
+            if #available(macOS 15, *), await config.system.boot.operatingSystem != .windows {
                 try await attachExternalDrives()
             }
             Task { @MainActor in
@@ -740,6 +740,9 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
     @discardableResult @MainActor
     func takeScreenshot() async -> Bool {
         screenshot = screenshotDelegate?.screenshot
+        if let cgImage = screenshot?.image.cgImage(forProposedRect: nil, context: nil, hints: nil) {
+            UTMVmBridge.shared.updateDisplay(from: cgImage)
+        }
         return true
     }
 
@@ -982,6 +985,8 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
             if let url = drive.imageURL, drive.isExternal {
                 if url.startAccessingSecurityScopedResource() {
                     activeResourceUrls[drive.id] = url
+                } else if FileManager.default.isReadableFile(atPath: url.path) {
+                    // Bundle or temporary ISO already readable in process context
                 } else {
                     config.drives[i].imageURL = nil
                     throw UTMAppleVirtualMachineError.cannotAccessResource(url)

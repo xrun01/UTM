@@ -257,12 +257,12 @@ extension UTMAppleConfigurationError: LocalizedError {
                     return nil
                 }
                 if #available(macOS 13, *), drive.isExternal {
-                    if #available(macOS 15, *) {
+                    if #available(macOS 15, *), system.boot.operatingSystem != .windows {
                         return nil // we will handle removable drives in `UTMAppleVirtualMachine`
                     } else {
                         return VZUSBMassStorageDeviceConfiguration(attachment: attachment)
                     }
-                } else if #available(macOS 14, *), drive.isNvme, system.boot.operatingSystem == .linux {
+                } else if #available(macOS 14, *), drive.isNvme, (system.boot.operatingSystem == .linux || system.boot.operatingSystem == .windows) {
                     return VZNVMExpressControllerDeviceConfiguration(attachment: attachment)
                 } else {
                     let device = VZVirtioBlockDeviceConfiguration(attachment: attachment)

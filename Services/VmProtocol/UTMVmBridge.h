@@ -87,6 +87,7 @@ typedef NS_ENUM(uint32_t, UTMVmToolgateOpcode) {
 - (void)updateSharedFolders:(NSArray<UTMVmSharedFolderConfig *> *)folders;
 - (uint64_t)reclaimBalloonMemoryBytes:(uint64_t)targetBytes;
 - (BOOL)captureCurrentScreenPNGToPath:(NSString *)pngPath error:(NSError * _Nullable * _Nullable)error;
+- (void)updateDisplayFromCGImage:(CGImageRef)cgImage;
 
 - (void)syncHostClipboardString:(NSString *)text;
 - (BOOL)handleDragDropFileURLs:(NSArray<NSURL *> *)urls atGuestPoint:(CGPoint)point;

@@ -19,107 +19,78 @@ import SwiftUI
 struct VMWizardOSWindowsView: View {
     @ObservedObject var wizardState: VMWizardState
     @State private var isFileImporterPresented: Bool = false
-    
+
     var body: some View {
         VMWizardContent("Windows") {
             Section {
-                Toggle("Install Windows 10 or higher", isOn: $wizardState.isWindows10OrHigher)
-                    .onChange(of: wizardState.isWindows10OrHigher) { newValue in
-                        if newValue {
-                            wizardState.systemBootUefi = true
-                            wizardState.systemBootTpm = true
-                            wizardState.isGuestToolsInstallRequested = true
-                        } else {
-                            wizardState.systemBootUefi = false
-                            wizardState.systemBootTpm = false
-                            wizardState.isGuestToolsInstallRequested = false
-                        }
-                    }
-                    .disabled(wizardState.legacyHardware)
-
-                if wizardState.isWindows10OrHigher {
-                    #if os(macOS)
-                    Button {
-                        let downloadCrystalFetch = URL(string: "https://mac.getutm.app/crystalfetch/")!
-                        if let crystalFetch = NSWorkspace.shared.urlForApplication(withBundleIdentifier: "llc.turing.CrystalFetch") {
-                            NSWorkspace.shared.openApplication(at: crystalFetch, configuration: .init()) { _, error in
-                                if error != nil {
-                                    NSWorkspace.shared.open(downloadCrystalFetch)
-                                }
-                            }
-                        } else {
-                            NSWorkspace.shared.open(downloadCrystalFetch)
-                        }
-                    } label: {
-                        Label("Fetch latest Windows installer…", systemImage: "link")
-                    }.buttonStyle(.link)
-                    #endif
-                    Link(destination: URL(string: "https://docs.getutm.app/guides/windows/")!) {
-                        Label("Windows Install Guide", systemImage: "link")
-                    }.buttonStyle(.borderless)
+                Picker("安装模式", selection: $wizardState.isWindowsExpressInstall) {
+                    Text("一键安装 (全自动)").tag(true)
+                    Text("自定义配置 (逐步向导)").tag(false)
                 }
+                .pickerStyle(.segmented)
             } header: {
-                Text("Image File Type")
+                Text("安装方式")
             }
 
             Section {
-                if wizardState.legacyHardware {
-                    Picker("Boot Device", selection: $wizardState.bootDevice) {
-                        Text("CD/DVD Image").tag(VMBootDevice.cd)
-                        Text("Floppy Image").tag(VMBootDevice.floppy)
-                    }.pickerStyle(.inline)
-                    .onAppear {
-                        if !wizardState.legacyHardware && wizardState.bootDevice == .floppy {
-                            wizardState.bootDevice = .cd
-                        }
-                    }
-                }
-
                 FileBrowseField(url: $wizardState.bootImageURL, isFileImporterPresented: $isFileImporterPresented, hasClearButton: false)
-                
+
                 if wizardState.isBusy {
                     Spinner(size: .large)
                 }
             } header: {
-                if wizardState.bootDevice == .cd {
-                    Text("Boot ISO Image")
-                } else {
-                    Text("Boot IMG Image")
-                }
+                Text("Windows ARM64 ISO 镜像")
             }
-            
-            if !wizardState.isWindows10OrHigher && !wizardState.legacyHardware {
-                DetailedSection("", description: "Some older systems do not support UEFI boot, such as Windows 7 and below.") {
-                    Toggle("UEFI Boot", isOn: $wizardState.systemBootUefi)
-                        .onChange(of: wizardState.systemBootUefi) { newValue in
-                            if !newValue {
+
+            if wizardState.isWindowsExpressInstall {
+                Section {
+                    TextField("用户名", text: $wizardState.windowsUnattendedUserName)
+                    SecureField("密码 (留空则免密自动登录)", text: $wizardState.windowsUnattendedPassword)
+                    HStack {
+                        Text("系统语言")
+                        Spacer()
+                        Text("\(wizardState.windowsDetectedLocale) (跟随宿主系统)")
+                            .foregroundColor(.secondary)
+                    }
+                    HStack {
+                        Text("自动硬件配置")
+                        Spacer()
+                        Text("\(wizardState.systemCpuCount) 核 / \(wizardState.systemMemoryMib / 1024) GB 内存 / \(wizardState.storageSizeGib) GB NVMe")
+                            .foregroundColor(.secondary)
+                    }
+                } header: {
+                    Text("一键无人值守账户与自动配置")
+                }
+            } else {
+                Section {
+                    Toggle("Install Windows 10 or higher", isOn: $wizardState.isWindows10OrHigher)
+                        .onChange(of: wizardState.isWindows10OrHigher) { newValue in
+                            if newValue {
+                                wizardState.systemBootUefi = true
+                                wizardState.systemBootTpm = true
+                                wizardState.isGuestToolsInstallRequested = true
+                            } else {
+                                wizardState.systemBootUefi = false
                                 wizardState.systemBootTpm = false
+                                wizardState.isGuestToolsInstallRequested = false
                             }
                         }
-                    Toggle("Secure Boot with TPM 2.0", isOn: $wizardState.systemBootTpm)
-                        .disabled(!wizardState.systemBootUefi)
-                }
-            }
-            
-            // Disabled for non-Windows 10 installs due to autounattend version
-            if wizardState.isWindows10OrHigher {
-                DetailedSection("", description: "Mount the guest support package for Windows. This is required for dynamic resolution and clipboard sharing.") {
                     Toggle("Install Guest Tools", isOn: $wizardState.isGuestToolsInstallRequested)
+                } header: {
+                    Text("自定义安装选项")
                 }
             }
         }
         .fileImporter(isPresented: $isFileImporterPresented, allowedContentTypes: [.data], onCompletion: processImage)
         .onAppear {
             wizardState.bootDevice = .cd
-            if wizardState.legacyHardware {
-                wizardState.isWindows10OrHigher = false
-                wizardState.isGuestToolsInstallRequested = false
-                wizardState.systemBootUefi = false
-                wizardState.systemBootTpm = false
+            wizardState.windowsDetectedLocale = UTMVmConfig.detectedHostWindowsLocale()
+            if wizardState.windowsUnattendedUserName.isEmpty {
+                wizardState.windowsUnattendedUserName = UTMVmConfig.defaultGuestUserName()
             }
         }
     }
-    
+
     private func processImage(_ result: Result<URL, Error>) {
         wizardState.busyWorkAsync {
             let url = try result.get()
@@ -132,7 +103,7 @@ struct VMWizardOSWindowsView: View {
 
 struct VMWizardOSWindowsView_Previews: PreviewProvider {
     @StateObject static var wizardState = VMWizardState()
-    
+
     static var previews: some View {
         VMWizardOSWindowsView(wizardState: wizardState)
     }

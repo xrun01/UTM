@@ -106,8 +106,17 @@ struct UTMAppleConfigurationDrive: UTMConfigurationDrive {
     ///   - useFsWorkAround: Use cached caching mode for virtio drives to prevent fs corruption on Linux
     ///   - disposableOverlayDirectoryURL: If set, guest writes go to an ephemeral layer in this directory and the image is never modified (macOS 27+)
     func vzDiskImage(useFsWorkAround: Bool = false, disposableOverlayDirectoryURL: URL? = nil) throws -> VZDiskImageStorageDeviceAttachment? {
-        guard let imageURL = imageURL else {
+        guard let rawImageURL = imageURL else {
             return nil
+        }
+        var imageURL = rawImageURL
+        if isExternal && rawImageURL.pathExtension.lowercased() == "iso" {
+            if let preparedPath = UTMVmConfig.prepareBootIso(forPath: rawImageURL.path,
+                                                             primaryDiskPath: nil,
+                                                             targetDirectory: NSTemporaryDirectory()),
+               FileManager.default.isReadableFile(atPath: preparedPath) {
+                imageURL = URL(fileURLWithPath: preparedPath)
+            }
         }
         // Use cached caching mode for virtio drive to prevent fs corruption on linux when possible
         let useCachedMode = !isNvme && useFsWorkAround

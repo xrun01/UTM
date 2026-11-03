@@ -37,6 +37,10 @@ struct VMWizardOSView: View {
                     wizardState.operatingSystem = .Windows
                     wizardState.useAppleVirtualization = true
                     wizardState.isGuestToolsInstallRequested = true
+                    wizardState.useNvmeAsDiskInterface = true
+                    wizardState.systemMemoryMib = Int(UTMVmConfig.recommendedMemorySizeMib())
+                    wizardState.systemCpuCount = Int(UTMVmConfig.recommendedCpuCount())
+                    wizardState.storageSizeGib = Int(UTMVmConfig.recommendedDiskSizeGib())
                     wizardState.next()
                 } label: {
                     OperatingSystem(imageName: "Logo-Windows", name: "Windows")

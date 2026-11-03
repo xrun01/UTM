@@ -98,6 +98,26 @@ struct VMWizardView: View {
                     Button("Continue") {
                         wizardState.next()
                     }
+                } else if wizardState.currentPage == .windowsBoot && wizardState.isWindowsExpressInstall {
+                    Button("一键安装") {
+                        guard wizardState.bootImageURL != nil else {
+                            wizardState.alertMessage = AlertMessage(NSLocalizedString("Please select a boot image.", comment: "VMWizardState"))
+                            return
+                        }
+                        if wizardState.name == nil {
+                            wizardState.name = data.newDefaultVMName(base: "Windows")
+                        }
+                        presentationMode.wrappedValue.dismiss()
+                        data.busyWorkAsync {
+                            let config = try await wizardState.generateConfig()
+                            if let appleConfig = config as? UTMAppleConfiguration {
+                                let vm = try await data.create(config: appleConfig)
+                                await MainActor.run {
+                                    data.run(vm: vm)
+                                }
+                            }
+                        }
+                    }
                 } else if wizardState.currentPage == .summary {
                     Button("Save") {
                         presentationMode.wrappedValue.dismiss()

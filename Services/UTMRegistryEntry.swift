@@ -374,7 +374,7 @@ extension UTMRegistryEntry {
         
         init(url: URL, isReadOnly: Bool = false) throws {
             self.path = url.path
-            self.bookmark = try url.persistentBookmarkData(isReadyOnly: isReadOnly)
+            self.bookmark = (try? url.persistentBookmarkData(isReadyOnly: isReadOnly)) ?? Data()
             self.isReadOnly = isReadOnly
             self.url = url
             self.isValid = true

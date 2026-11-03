@@ -74,6 +74,11 @@ struct UTMAppleConfigurationBoot: Codable {
         }
         if let efiVariableStoragePath = try container.decodeIfPresent(String.self, forKey: .efiVariableStoragePath) {
             efiVariableStorageURL = dataURL.appendingPathComponent(efiVariableStoragePath)
+        } else if hasUefiBoot {
+            let defaultEfiURL = dataURL.appendingPathComponent(UTMPackageFileName.efiVariables.rawValue)
+            if FileManager.default.fileExists(atPath: defaultEfiURL.path) {
+                efiVariableStorageURL = defaultEfiURL
+            }
         }
         vmSavedStateURL = dataURL.appendingPathComponent(UTMPackageFileName.vmState.rawValue)
     }
@@ -98,7 +103,7 @@ struct UTMAppleConfigurationBoot: Codable {
         try container.encode(operatingSystem, forKey: .operatingSystem)
         try container.encode(hasUefiBoot, forKey: .hasUefiBoot)
         try container.encode(hasSecureBoot, forKey: .hasSecureBoot)
-        if operatingSystem == .linux {
+        if operatingSystem == .linux || operatingSystem == .windows {
             try container.encodeIfPresent(linuxKernelURL?.lastPathComponent, forKey: .linuxKernelPath)
             try container.encodeIfPresent(linuxCommandLine, forKey: .linuxCommandLine)
             try container.encodeIfPresent(linuxInitialRamdiskURL?.lastPathComponent, forKey: .linuxInitialRamdiskPath)

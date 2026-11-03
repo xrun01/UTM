@@ -111,6 +111,7 @@ jobs:
           zstd -d -c win-guest-tools.tar.zst | tar -C git/vm/engine/build/GuestTools/stage -xf -
           zstd -d -c mac-vm-sdk.tar.zst | tar -C git/UTM/lib -xf -
           chmod +x git/UTM/lib/vm-mcp git/UTM/lib/libMonitorArm.dylib
+          touch git/UTM/lib/libvmkit.a git/UTM/lib/vm-mcp git/UTM/lib/libMonitorArm.dylib git/UTM/lib/efia64.bin
           rm -f git/UTM/lib/GuestTools.iso git/vm/engine/build/GuestTools/GuestTools.iso
           bun git/vm/script/buildApp.js
           git/UTM/build/UTM.app/Contents/MacOS/vm-mcp --list-tools > /dev/null
