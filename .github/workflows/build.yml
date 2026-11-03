@@ -27,12 +27,17 @@ jobs:
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
       - name: Build Windows 11 ARM64 Guest Modules
-        run: bun git/vm/script/winGuestBuild.js
+        shell: bash
+        run: |
+          bun git/vm/script/winGuestBuild.js
+          which zstd || choco install zstd -y --no-progress
+          tar -C git/vm/engine/build/GuestTools/stage -cf - . | zstd -19 -T0 -o win-guest-tools.tar.zst
       - name: Upload Windows Guest Tools Artifact
         uses: actions/upload-artifact@v7
         with:
           name: win-guest-tools
-          path: git/vm/engine/build/GuestTools/stage
+          path: win-guest-tools.tar.zst
+          compression-level: 0
 
   build-mac-engine:
     name: Build macOS VM Engine
@@ -54,19 +59,20 @@ jobs:
           path: git/vm
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
-      - name: Ensure Ninja
-        run: which ninja || brew install ninja
+      - name: Ensure Ninja and Zstd
+        run: |
+          which ninja || brew install ninja
+          which zstd || brew install zstd
       - name: Build macOS VM SDK
-        run: bun git/vm/script/build.js
+        run: |
+          bun git/vm/script/build.js
+          tar -C git/UTM/lib -cf - libvmkit.a libMonitorArm.dylib efia64.bin vm-mcp | zstd -19 -T0 -o mac-vm-sdk.tar.zst
       - name: Upload macOS VM SDK Artifact
         uses: actions/upload-artifact@v7
         with:
           name: mac-vm-sdk
-          path: |
-            git/UTM/lib/libvmkit.a
-            git/UTM/lib/libMonitorArm.dylib
-            git/UTM/lib/efia64.bin
-            git/UTM/lib/vm-mcp
+          path: mac-vm-sdk.tar.zst
+          compression-level: 0
 
   package-utm-app:
     name: Package UTM.app
@@ -91,23 +97,26 @@ jobs:
         uses: actions/download-artifact@v8
         with:
           name: win-guest-tools
-          path: git/vm/engine/build/GuestTools/stage
       - name: Download macOS VM SDK
         uses: actions/download-artifact@v8
         with:
           name: mac-vm-sdk
-          path: git/UTM/lib
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
       - name: Build and Sign UTM.app
         run: |
+          which zstd || brew install zstd
+          mkdir -p git/vm/engine/build/GuestTools/stage git/UTM/lib
+          zstd -d -c win-guest-tools.tar.zst | tar -C git/vm/engine/build/GuestTools/stage -xf -
+          zstd -d -c mac-vm-sdk.tar.zst | tar -C git/UTM/lib -xf -
           chmod +x git/UTM/lib/vm-mcp git/UTM/lib/libMonitorArm.dylib
           rm -f git/UTM/lib/GuestTools.iso git/vm/engine/build/GuestTools/GuestTools.iso
           bun git/vm/script/buildApp.js
           git/UTM/build/UTM.app/Contents/MacOS/vm-mcp --list-tools > /dev/null
-          ditto -c -k --sequesterRsrc --keepParent git/UTM/build/UTM.app UTM.app.zip
+          tar -C git/UTM/build -cf - UTM.app | zstd -19 -T0 -o UTM.app.tar.zst
       - name: Upload UTM.app Artifact
         uses: actions/upload-artifact@v7
         with:
           name: UTM.app
-          path: UTM.app.zip
+          path: UTM.app.tar.zst
+          compression-level: 0
