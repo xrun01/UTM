@@ -743,6 +743,19 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
         if let cgImage = screenshot?.image.cgImage(forProposedRect: nil, context: nil, hints: nil) {
             UTMVmBridge.shared.updateDisplay(from: cgImage)
         }
+        let reclaimedBytes = UTMVmBridge.shared.reclaimedBalloonBytes
+        if reclaimedBytes > 0 {
+            let totalBytes = UInt64(config.system.memorySize) * 1024 * 1024
+            let targetBytes = totalBytes > reclaimedBytes ? max(1024 * 1024 * 1024, totalBytes - reclaimedBytes) : (totalBytes / 2)
+            vmQueue.async { [weak self] in
+                guard let balloon = self?.apple?.memoryBalloonDevices.first as? VZVirtioTraditionalMemoryBalloonDevice else {
+                    return
+                }
+                if balloon.targetVirtualMachineMemorySize != targetBytes {
+                    balloon.targetVirtualMachineMemorySize = targetBytes
+                }
+            }
+        }
         return true
     }
 
@@ -1016,6 +1029,7 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
 
 extension UTMAppleVirtualMachine: VZVirtualMachineDelegate {
     func guestDidStop(_ virtualMachine: VZVirtualMachine) {
+        UTMVmBridge.shared.dispatch(.stop(graceful: true))
         vmQueue.async { [self] in
             apple = nil
             snapshotUnsupportedError = nil

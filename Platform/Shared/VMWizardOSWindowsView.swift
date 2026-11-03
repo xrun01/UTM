@@ -34,6 +34,14 @@ struct VMWizardOSWindowsView: View {
 
             Section {
                 FileBrowseField(url: $wizardState.bootImageURL, isFileImporterPresented: $isFileImporterPresented, hasClearButton: false)
+                if wizardState.bootImageURL == nil {
+                    Button("从微软官网获取 Windows 11 ARM64 镜像...") {
+                        if let url = URL(string: "https://www.microsoft.com/software-download/windows11arm64") {
+                            NSWorkspace.shared.open(url)
+                        }
+                    }
+                    .buttonStyle(.link)
+                }
 
                 if wizardState.isBusy {
                     Spinner(size: .large)
@@ -87,6 +95,10 @@ struct VMWizardOSWindowsView: View {
             wizardState.windowsDetectedLocale = UTMVmConfig.detectedHostWindowsLocale()
             if wizardState.windowsUnattendedUserName.isEmpty {
                 wizardState.windowsUnattendedUserName = UTMVmConfig.defaultGuestUserName()
+            }
+            if wizardState.bootImageURL == nil,
+               let detectedIso = UTMVmConfig.detectDefaultWindowsIsoInDownloads() {
+                wizardState.bootImageURL = detectedIso
             }
         }
     }

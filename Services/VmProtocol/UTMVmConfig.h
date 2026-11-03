@@ -72,6 +72,8 @@ typedef NS_ENUM(NSInteger, UTMVmNetworkMode) {
 + (NSUInteger)recommendedDiskSizeGib;
 + (NSString *)detectedHostWindowsLocale;
 + (NSString *)defaultGuestUserName;
++ (BOOL)isDiskInitializedGptAtPath:(nullable NSString *)diskPath;
++ (nullable NSURL *)detectDefaultWindowsIsoInDownloads;
 + (nullable NSString *)generateUnattendedIsoAtPath:(NSString *)isoOutputPath
                                           userName:(NSString *)userName
                                           password:(nullable NSString *)password

@@ -34,6 +34,7 @@ typedef NS_ENUM(uint32_t, UTMVmToolgateOpcode) {
 - (void)vmBridge:(UTMVmBridge *)bridge didUpdateCursorRGBA:(nullable NSData *)rgbaData size:(CGSize)size hotSpot:(CGPoint)hotSpot visible:(BOOL)visible;
 - (void)vmBridge:(UTMVmBridge *)bridge didUpdateCoherenceWindows:(NSArray<UTMVmCoherenceWindowInfo *> *)windows;
 - (void)vmBridge:(UTMVmBridge *)bridge didReceiveGuestClipboardString:(NSString *)text;
+- (void)vmBridge:(UTMVmBridge *)bridge didReclaimBalloonBytes:(uint64_t)reclaimedBytes targetMemoryBytes:(uint64_t)targetMemoryBytes;
 - (void)vmBridgeDidStop:(UTMVmBridge *)bridge errorMessage:(nullable NSString *)errorMessage;
 @end
 

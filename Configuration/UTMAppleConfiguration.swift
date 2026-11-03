@@ -252,8 +252,9 @@ extension UTMAppleConfigurationError: LocalizedError {
             vzconfig.directorySharingDevices.append(fsConfig)
         }
         if !forValidation {
+            let primaryDiskPath = drives.first(where: { !$0.isExternal })?.imageURL?.path
             vzconfig.storageDevices = try drives.compactMap { drive in
-                guard let attachment = try drive.vzDiskImage(useFsWorkAround: system.boot.operatingSystem == .linux, disposableOverlayDirectoryURL: disposableOverlayDirectoryURL) else {
+                guard let attachment = try drive.vzDiskImage(useFsWorkAround: system.boot.operatingSystem == .linux, disposableOverlayDirectoryURL: disposableOverlayDirectoryURL, primaryDiskPath: primaryDiskPath) else {
                     return nil
                 }
                 if #available(macOS 13, *), drive.isExternal {
