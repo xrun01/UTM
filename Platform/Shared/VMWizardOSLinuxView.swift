@@ -38,14 +38,6 @@ struct VMWizardOSLinuxView: View {
 
     var body: some View {
         VMWizardContent("Linux") {
-#if os(macOS)
-            if wizardState.useVirtualization {
-                DetailedSection("Virtualization Engine", description: "Apple Virtualization is experimental and only for advanced use cases. Leave unchecked to use QEMU, which is recommended.") {
-                    Toggle("Use Apple Virtualization", isOn: $wizardState.useAppleVirtualization)
-                }
-            }
-#endif
-
             Picker("Boot Image Type", selection: $wizardState.bootDevice) {
                 Text("Boot from kernel image").tag(VMBootDevice.kernel)
                 if !wizardState.useAppleVirtualization || hasVenturaFeatures {

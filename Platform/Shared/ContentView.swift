@@ -16,19 +16,8 @@
 
 import SwiftUI
 import UniformTypeIdentifiers
-#if os(iOS)
-import IQKeyboardManagerSwift
-#endif
-import TipKit
 
-// on visionOS, there is no text to show more than UTM
-#if WITH_QEMU_TCI && !os(visionOS)
-let productName = "UTM SE"
-#elseif WITH_REMOTE && !os(visionOS)
-let productName = "UTM Remote"
-#else
 let productName = "UTM"
-#endif
 
 struct ContentView: View {
     @State private var editMode = false
@@ -36,20 +25,14 @@ struct ContentView: View {
     @StateObject private var releaseHelper = UTMReleaseHelper()
     @State private var openSheetPresented = false
     @Environment(\.openURL) var openURL
-    @AppStorage("ServerAutostart") private var isServerAutostart: Bool = false
 
     var body: some View {
         VMNavigationListView()
         .overlay(data.showSettingsModal ? AnyView(EmptyView()) : AnyView(BusyOverlay()))
-        #if os(macOS) || os(visionOS)
         .frame(minWidth: 800, idealWidth: 1200, minHeight: 600, idealHeight: 800)
-        #endif
         .disabled(data.busy && !data.showNewVMSheet && !data.showSettingsModal)
         .sheet(isPresented: $releaseHelper.isReleaseNotesShown, onDismiss: {
             releaseHelper.closeReleaseNotes()
-            if #available(iOS 17, macOS 14, *) {
-                UTMTipCreateVM.isVMListEmpty = data.virtualMachines.count == 0
-            }
         }, content: {
             VMReleaseNotesView(helper: releaseHelper).padding()
         })
@@ -65,7 +48,6 @@ struct ContentView: View {
         }.onReceive(NSNotification.OpenVirtualMachine) { _ in
             // VMNavigationListView also gets this notification and closes the wizard sheet
             openSheetPresented = false
-            // FIXME: SwiftUI bug on iOS requires this wait
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.02) {
                 openSheetPresented = true
             }
@@ -86,61 +68,9 @@ struct ContentView: View {
             Task {
                 await data.listRefresh()
                 await releaseHelper.fetchReleaseNotes()
-                if #available(iOS 17, macOS 14, *) {
-                    if !releaseHelper.isReleaseNotesShown {
-                        UTMTipCreateVM.isVMListEmpty = data.virtualMachines.count == 0
-                        UTMTipDonate.timesLaunched += 1
-                    }
-                }
-                #if os(macOS)
-                if isServerAutostart {
-                    await data.remoteServer.start()
-                }
-                #endif
             }
-            #if os(macOS)
             NSWindow.allowsAutomaticWindowTabbing = false
-            #else
-            data.triggeriOSNetworkAccessPrompt()
-            #if !os(visionOS)
-            IQKeyboardManager.shared.enable = true
-            #endif
-            #if WITH_JIT
-            if !Main.jitAvailable {
-                data.busyWorkAsync {
-                    let jitStreamerAttach = UserDefaults.standard.bool(forKey: "JitStreamerAttach")
-                    if jitStreamerAttach {
-                        try await data.jitStreamerAttach()
-                        return
-                    }
-
-                    #if canImport(AltKit)
-                    if await data.isAltServerCompatible {
-                        try await data.startAltJIT()
-                        return
-                    }
-                    #endif
-
-                    // ignore error when we are running on a HV only build
-                    if !UTMCapabilities.current.contains(.hasHypervisorSupport) {
-                        throw NSLocalizedString("Your version of iOS does not support running VMs while unmodified. You must either run UTM while jailbroken or with a remote debugger attached. See https://getutm.app/install/ for more details.", comment: "ContentView")
-                    }
-                }
-            }
-            #endif
-            #endif
         }
-        #if WITH_SERVER
-        .onChange(of: isServerAutostart) { newValue in
-            if newValue {
-                Task {
-                    if isServerAutostart && !data.remoteServer.state.isServerActive {
-                        await data.remoteServer.start()
-                    }
-                }
-            }
-        }
-        #endif
     }
     
     private func handleURL(url: URL) {

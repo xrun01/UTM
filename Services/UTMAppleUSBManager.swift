@@ -15,7 +15,9 @@
 //
 
 import Foundation
+#if canImport(AccessoryAccess)
 import AccessoryAccess
+#endif
 import Virtualization
 
 /// Discovers host USB devices for Apple Virtualization passthrough.
@@ -76,10 +78,12 @@ import Virtualization
             return
         }
         let registration = Task<Void, any Error> {
+            #if canImport(AccessoryAccess)
             let connected = try await AAUSBAccessoryManager.shared.registerListener(self, matchingCriteria: [])
             for accessory in connected {
                 deviceDidConnect(accessory)
             }
+            #endif
         }
         self.registration = registration
         do {
@@ -313,7 +317,11 @@ extension UTMAppleUSBManager: AAUSBAccessoryListener {
 @MainActor final class UTMAppleUSBPassthroughState {
     struct Connection {
         let device: UTMAppleUSBDevice
+        #if canImport(AccessoryAccess)
         let vzDevice: VZUSBPassthroughDevice
+        #else
+        let vzDevice: any VZUSBDevice
+        #endif
     }
 
     /// Devices attached to the guest, by registry ID
@@ -336,6 +344,7 @@ extension UTMAppleUSBManager: AAUSBAccessoryListener {
 ///
 /// `UTMAppleVirtualMachine` implements `NSObjectProtocol` by hand for `VZVirtualMachineDelegate`
 /// so this small object adopts the USB controller delegate instead.
+#if canImport(AccessoryAccess)
 @available(macOS 27, *)
 final class UTMAppleUSBControllerDelegate: NSObject, VZUSBController.Delegate {
     private weak var vm: UTMAppleVirtualMachine?
@@ -351,3 +360,13 @@ final class UTMAppleUSBControllerDelegate: NSObject, VZUSBController.Delegate {
         }
     }
 }
+#else
+@available(macOS 27, *)
+final class UTMAppleUSBControllerDelegate: NSObject {
+    private weak var vm: UTMAppleVirtualMachine?
+
+    init(vm: UTMAppleVirtualMachine) {
+        self.vm = vm
+    }
+}
+#endif

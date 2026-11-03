@@ -15,14 +15,13 @@
 //
 
 import SwiftUI
-import TipKit
 
 struct VMNavigationListView: View {
     @EnvironmentObject private var data: UTMData
     @State private var confirmAction: ConfirmAction?
 
     var body: some View {
-        if #available(iOS 16, macOS 13, *) {
+        if #available(macOS 13, *) {
             CompatibleNavigationSplitView {
                 List(selection: $data.selectedVM) {
                     listBody
@@ -32,11 +31,6 @@ struct VMNavigationListView: View {
                     VMDetailsView(vm: vm)
                 } else {
                     VMPlaceholderView()
-                    #if os(visionOS)
-                        .toolbar {
-                            UTMPreferenceButtonToolbarContent()
-                        }
-                    #endif
                 }
             }.navigationSplitViewStyle(.balanced)
         } else {
@@ -54,7 +48,7 @@ struct VMNavigationListView: View {
             if !vm.isLoaded {
                 UTMUnavailableVMView(vm: vm)
             } else {
-                if #available(iOS 16, macOS 13, visionOS 1, *) {
+                if #available(macOS 13, *) {
                     VMCardView(vm: vm)
                         .modifier(VMContextMenuModifier(vm: vm))
                         .tag(vm)
@@ -107,7 +101,7 @@ struct VMNavigationListView: View {
     }
 }
 
-@available(iOS 16, macOS 13, *)
+@available(macOS 13, *)
 private struct CompatibleNavigationSplitView<Sidebar, Detail> : View where Sidebar : View, Detail : View {
     @State private var columnVisibility: NavigationSplitViewVisibility = .doubleColumn
     
@@ -126,165 +120,24 @@ private struct CompatibleNavigationSplitView<Sidebar, Detail> : View where Sideb
 
 private struct VMListModifier: ViewModifier {
     @EnvironmentObject private var data: UTMData
-    @State private var settingsPresented = false
-    @State private var sheetPresented = false
-    @State private var donatePresented = false
-
-    private let _donateTip: Any?
-    private let _createTip: Any?
-
-    @available(iOS 17, macOS 14, *)
-    private var donateTip: UTMTipDonate {
-        _donateTip as! UTMTipDonate
-    }
-
-    @available(iOS 17, macOS 14, *)
-    private var createTip: UTMTipCreateVM {
-        _createTip as! UTMTipCreateVM
-    }
-
-    init() {
-        if #available(iOS 17, macOS 14, *) {
-            _donateTip = UTMTipDonate()
-            _createTip = UTMTipCreateVM()
-        } else {
-            _donateTip = nil
-            _createTip = nil
-        }
-    }
 
     func body(content: Content) -> some View {
         content
-        #if os(macOS)
         .frame(minWidth: 250, idealWidth: 350)
-        #endif
         .listStyle(.sidebar)
         .navigationTitle(productName)
-        #if os(macOS)
         .navigationSubtitle(data.selectedVM?.detailsTitleLabel ?? "")
-        #endif
         .toolbar {
-            #if os(macOS)
             ToolbarItem(placement: .navigation) {
                 newButton
             }
-            #else
-            #if !WITH_REMOTE // FIXME: implement remote feature
-            ToolbarItem(placement: .navigationBarLeading) {
-                if #available(iOS 17, visionOS 99, *) {
-                    Button {
-                        createTip.invalidate(reason: .actionPerformed)
-                        data.newVM()
-                    } label: {
-                        Image(systemName: "plus") // SwiftUI bug: tip won't show up if this is a label
-                    }.help("Create a new VM")
-                    .popoverTip(createTip, arrowEdge: .top)
-                } else {
-                    newButton
-                }
-            }
-            #endif
-            #if !WITH_REMOTE
-            #if os(iOS) // ToolbarSpacer is unavailable on visionOS
-            if #available(iOS 26, *) {
-                ToolbarSpacer(.fixed, placement: .navigationBarLeading)
-            }
-            #endif
-            ToolbarItem(placement: .navigationBarLeading) {
-                if #available(iOS 17, visionOS 99, *) {
-                    Button {
-                        donateTip.invalidate(reason: .actionPerformed)
-                        donatePresented.toggle()
-                    } label: {
-                        Image(systemName: "heart.fill") // SwiftUI bug: tip won't show up if this is a label
-                    }.popoverTip(donateTip, arrowEdge: .top) { action in
-                        donateTip.invalidate(reason: .actionPerformed)
-                        if action.id == "donate" {
-                            donatePresented.toggle()
-                        }
-                    }
-                } else {
-                    Button {
-                        donatePresented.toggle()
-                    } label: {
-                        Label("Donate", systemImage: "heart.fill")
-                    }
-                }
-            }
-            #endif
-            #if !os(visionOS) && !WITH_REMOTE
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    settingsPresented.toggle()
-                } label: {
-                    Label("Settings", systemImage: "gear")
-                }
-            }
-            #endif
-            ToolbarItem(placement: .navigationBarTrailing) {
-                EditButton()
-            }
-            #endif
         }
-        #if os(iOS)
-        // SwiftUI bug on iOS 14.4 and previous versions prevents multiple .sheet from working
-        .sheet(isPresented: $sheetPresented) {
-            if data.showNewVMSheet {
-                VMWizardView()
-            } else if settingsPresented {
-                #if !WITH_REMOTE
-                UTMSettingsView()
-                #endif
-            } else if donatePresented {
-                #if !os(macOS) && !WITH_REMOTE
-                UTMDonateView()
-                #endif
-            }
-        }
-        .onChange(of: data.showNewVMSheet) { newValue in
-            if newValue {
-                settingsPresented = false
-                donatePresented = false
-                sheetPresented = true
-            }
-        }
-        .onChange(of: settingsPresented) { newValue in
-            if newValue {
-                data.showNewVMSheet = false
-                donatePresented = false
-                sheetPresented = true
-            }
-        }
-        .onChange(of: donatePresented) { newValue in
-            if newValue {
-                data.showNewVMSheet = false
-                settingsPresented = false
-                sheetPresented = true
-            }
-        }
-        .onChange(of: sheetPresented) { newValue in
-            if !newValue {
-                settingsPresented = false
-                donatePresented = false
-                data.showNewVMSheet = false
-            }
-        }
-        .onReceive(NSNotification.OpenVirtualMachine) { _ in
-            sheetPresented = false
-        }
-        #else
         .sheet(isPresented: $data.showNewVMSheet) {
             VMWizardView()
         }
-        #if !os(macOS) && !WITH_REMOTE
-        .sheet(isPresented: $donatePresented) {
-            UTMDonateView()
-        }
-        #endif
         .onReceive(NSNotification.OpenVirtualMachine) { _ in
             data.showNewVMSheet = false
         }
-        #endif
     }
     
     private var newButton: some View {

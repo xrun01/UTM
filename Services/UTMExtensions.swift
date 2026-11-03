@@ -105,15 +105,15 @@ extension LocalizedStringKey {
     }
 }
 
-extension String: LocalizedError {
+extension String: @retroactive Error, @retroactive LocalizedError {
     public var errorDescription: String? { return self }
 }
 
-extension String: Identifiable {
+extension String: @retroactive Identifiable {
     public var id: String { return self }
 }
 
-extension IndexSet: Identifiable {
+extension IndexSet: @retroactive Identifiable {
     public var id: Int {
         self.hashValue
     }

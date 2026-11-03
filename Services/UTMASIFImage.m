@@ -18,7 +18,7 @@
 #import "UTMASIFImage.h"
 #import "UTMLogging.h"
 
-extern NSString *const kUTMErrorDomain;
+NSString *const kUTMErrorDomain = @"com.utmapp.utm";
 
 @interface UTMASIFImage ()
 

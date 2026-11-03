@@ -14,8 +14,8 @@
 // limitations under the License.
 //
 
+import AppKit
 import Foundation
-import QEMUKitInternal
 
 @MainActor
 @objc(UTMScriptingVirtualMachineImpl)
@@ -26,7 +26,6 @@ class UTMScriptingVirtualMachineImpl: NSObject, UTMScriptable {
         box.wrapped
     }
     
-    /// Installations started by `install`, kept after they finish so that the result can be queried
     @nonobjc private static var installations: [UUID: Installation] = [:]
     
     @nonobjc var isInstalling: Bool {
@@ -58,9 +57,7 @@ class UTMScriptingVirtualMachineImpl: NSObject, UTMScriptable {
     }
     
     @objc var backend: UTMScriptingBackend {
-        if vm is UTMQemuVirtualMachine {
-            return .qemu
-        } else if vm is UTMAppleVirtualMachine {
+        if vm is UTMAppleVirtualMachine {
             return .apple
         } else {
             return .unavailable
@@ -76,15 +73,13 @@ class UTMScriptingVirtualMachineImpl: NSObject, UTMScriptable {
         case .paused: return .paused
         case .resuming: return .resuming
         case .stopping: return .stopping
-        case .saving: return .pausing // FIXME: new entries
-        case .restoring: return .resuming // FIXME: new entries
+        case .saving: return .pausing
+        case .restoring: return .resuming
         }
     }
     
     @objc var serialPorts: [UTMScriptingSerialPortImpl] {
-        if let config = vm.config as? UTMQemuConfiguration {
-            return config.serials.indices.map({ UTMScriptingSerialPortImpl(qemuSerial: config.serials[$0], parent: self, index: $0) })
-        } else if let config = vm.config as? UTMAppleConfiguration {
+        if let config = vm.config as? UTMAppleConfiguration {
             return config.serials.indices.map({ UTMScriptingSerialPortImpl(appleSerial: config.serials[$0], parent: self, index: $0) })
         } else {
             return []
@@ -95,10 +90,6 @@ class UTMScriptingVirtualMachineImpl: NSObject, UTMScriptable {
         UTMSnapshotService.snapshots(for: vm).map { UTMScriptingSnapshotImpl(snapshot: $0, parent: self) }
     }
 
-    /// Resolve `snapshot id "..." of virtual machine ...`
-    ///
-    /// Without this a specifier for a snapshot cannot be evaluated and falls back to this virtual
-    /// machine, which would aim a command meant for one snapshot at the whole VM.
     @objc(valueInSnapshotsWithUniqueID:)
     func valueInSnapshots(withUniqueID id: Any) -> UTMScriptingSnapshotImpl? {
         guard let id = id as? String else {
@@ -107,22 +98,9 @@ class UTMScriptingVirtualMachineImpl: NSObject, UTMScriptable {
         return snapshots.first { $0.id == id }
     }
 
-    /// Resolve `snapshot "..." of virtual machine ...`
     @objc(valueInSnapshotsWithName:)
     func valueInSnapshots(withName name: String) -> UTMScriptingSnapshotImpl? {
         snapshots.first { $0.name == name }
-    }
-
-    var guestAgent: QEMUGuestAgent! {
-        get async {
-            await (vm as? UTMQemuVirtualMachine)?.guestAgent
-        }
-    }
-    
-    var qemuProcess: UTMQemuSystem? {
-        get async {
-            await (vm as? UTMQemuVirtualMachine)?.system
-        }
     }
     
     override var objectSpecifier: NSScriptObjectSpecifier? {
@@ -150,7 +128,6 @@ class UTMScriptingVirtualMachineImpl: NSObject, UTMScriptable {
             guard !isInstalling else {
                 throw ScriptingError.installInProgress
             }
-            // the first boot cannot be repeated so never fall back to a normal start
             guard provisioning != nil || !hasProvisioning else {
                 throw ScriptingError.invalidParameter
             }
@@ -184,7 +161,6 @@ class UTMScriptingVirtualMachineImpl: NSObject, UTMScriptable {
                                                                password: password,
                                                                logsInAutomatically: provisioning["automaticLogin"] as? Bool ?? false,
                                                                enablesRemoteLogin: provisioning["remoteLogin"] as? Bool ?? false)
-                // report mistakes before a window is opened
                 try await vm.validateGuestProvisioning(account, options: options)
                 guestProvisioning = account
             }
@@ -202,22 +178,14 @@ class UTMScriptingVirtualMachineImpl: NSObject, UTMScriptable {
         }
     }
     
-    /// Start installing macOS from the configured IPSW
-    ///
-    /// Unlike the GUI, this does not ask for confirmation because the caller already requested it.
-    /// The installation takes longer than the Apple Event timeout so it continues after this returns.
     @objc func install(_ command: NSScriptCommand) {
         withScriptCommand(command) { [self] in
-            guard #available(macOS 12, *) else {
-                throw ScriptingError.operationNotSupported
-            }
             guard let appleVM = vm as? UTMAppleVirtualMachine else {
                 throw ScriptingError.operationNotSupported
             }
             guard !isInstalling else {
                 throw ScriptingError.installInProgress
             }
-            // installVM() silently does nothing if the VM is not stopped
             guard appleVM.state == .stopped else {
                 throw ScriptingError.notStopped
             }
@@ -229,10 +197,8 @@ class UTMScriptingVirtualMachineImpl: NSObject, UTMScriptable {
             Task { @MainActor in
                 do {
                     try await appleVM.installVM(with: ipsw)
-                    // there is no window to do this in didCompleteInstallation
                     appleVM.config.system.boot.macRecoveryIpswURL = nil
                     appleVM.registryEntry.macRecoveryIpsw = nil
-                    // the VM stops by itself shortly after and cannot be started before then
                     for await state in box.$state.values where state == .stopped {
                         break
                     }
@@ -288,7 +254,6 @@ class UTMScriptingVirtualMachineImpl: NSObject, UTMScriptable {
         }
         withScriptCommand(command) { [self] in
             if isInstalling {
-                // like in the GUI, stopping cancels the installation once it is underway
                 guard let appleVM = vm as? UTMAppleVirtualMachine, appleVM.installProgress != nil || appleVM.state == .started else {
                     throw ScriptingError.installInProgress
                 }
@@ -386,121 +351,25 @@ class UTMScriptingVirtualMachineImpl: NSObject, UTMScriptable {
             try await data.export(vm: box, to: exportUrl!)
         }
     }
-}
-
-// MARK: - Guest agent suite
-@objc extension UTMScriptingVirtualMachineImpl {
-    @nonobjc private func withGuestAgent<Result>(_ block: (QEMUGuestAgent) async throws -> Result) async throws -> Result {
-        guard vm.state == .started else {
-            throw ScriptingError.notRunning
-        }
-        guard let vm = vm as? UTMQemuVirtualMachine else {
-            throw ScriptingError.operationNotSupported
-        }
-        guard let guestAgent = await vm.guestAgent else {
-            throw ScriptingError.guestAgentNotRunning
-        }
-        return try await block(guestAgent)
-    }
-    
-    @objc func valueInOpenFilesWithUniqueID(_ id: Int) -> UTMScriptingGuestFileImpl {
-        UTMScriptingGuestFileImpl(from: id, parent: self)
-    }
-    
-    @objc func openFile(_ command: NSScriptCommand) {
-        let path = command.evaluatedArguments?["path"] as? String
-        let mode = command.evaluatedArguments?["mode"] as? AEKeyword
-        let isUpdate = command.evaluatedArguments?["isUpdate"] as? Bool ?? false
-        withScriptCommand(command) { [self] in
-            guard let path = path else {
-                throw ScriptingError.invalidParameter
-            }
-            let modeValue: String
-            if let mode = mode {
-                switch UTMScriptingOpenMode(rawValue: mode) {
-                case .reading: modeValue = "r"
-                case .writing: modeValue = "w"
-                case .appending: modeValue = "a"
-                default: modeValue = "r"
-                }
-            } else {
-                modeValue = "r"
-            }
-            return try await withGuestAgent { guestAgent in
-                let handle = try await guestAgent.guestFileOpen(path, mode: modeValue + (isUpdate ? "+" : ""))
-                return UTMScriptingGuestFileImpl(from: handle, parent: self)
-            }
-        }
-    }
-    
-    @objc func valueInProcessesWithUniqueID(_ id: Int) -> UTMScriptingGuestProcessImpl {
-        UTMScriptingGuestProcessImpl(from: id, parent: self)
-    }
-    
-    @objc func execute(_ command: NSScriptCommand) {
-        let path = command.evaluatedArguments?["path"] as? String
-        let argv = command.evaluatedArguments?["argv"] as? [String]
-        let envp = command.evaluatedArguments?["envp"] as? [String]
-        let input = command.evaluatedArguments?["input"] as? String
-        let isBase64Encoded = command.evaluatedArguments?["isBase64Encoded"] as? Bool ?? false
-        let isCaptureOutput = command.evaluatedArguments?["isCaptureOutput"] as? Bool ?? false
-        let inputData = dataFromText(input, isBase64Encoded: isBase64Encoded)
-        withScriptCommand(command) { [self] in
-            guard let path = path else {
-                throw ScriptingError.invalidParameter
-            }
-            return try await withGuestAgent { guestAgent in
-                let pid = try await guestAgent.guestExec(path, argv: argv, envp: envp, input: inputData, captureOutput: isCaptureOutput)
-                return UTMScriptingGuestProcessImpl(from: pid, parent: self)
-            }
-        }
-    }
     
     @objc func queryIp(_ command: NSScriptCommand) {
         withScriptCommand(command) { [self] in
-            // Apple Virtualization backend: no guest agent available
-            if let appleVM = vm as? UTMAppleVirtualMachine {
-                guard appleVM.state == .started else {
-                    throw ScriptingError.notRunning
-                }
-
-                guard let network = appleVM.config.networks.first else {
-                    return []
-                }
-                let macAddress = network.macAddress.lowercased()
-                return Self.ipFromARP(macAddress: macAddress)
+            guard let appleVM = vm as? UTMAppleVirtualMachine else {
+                throw ScriptingError.operationNotSupported
             }
-
-            // Non-Apple backend (QEMU): use guest agent
-            return try await withGuestAgent { guestAgent in
-                let interfaces = try await guestAgent.guestNetworkGetInterfaces()
-                var ipv4: [String] = []
-                var ipv6: [String] = []
-                for interface in interfaces {
-                    for ip in interface.ipAddresses {
-                        if ip.isIpV6Address {
-                            if ip.ipAddress != "::1" && ip.ipAddress != "0:0:0:0:0:0:0:1" {
-                                ipv6.append(ip.ipAddress)
-                            }
-                        } else {
-                            if ip.ipAddress != "127.0.0.1" {
-                                ipv4.append(ip.ipAddress)
-                            }
-                        }
-                    }
-                }
-                return ipv4 + ipv6
+            guard appleVM.state == .started else {
+                throw ScriptingError.notRunning
             }
+            guard let network = appleVM.config.networks.first else {
+                return []
+            }
+            let macAddress = network.macAddress.lowercased()
+            return Self.ipFromARP(macAddress: macAddress)
         }
     }
 }
 
 extension UTMScriptingVirtualMachineImpl {
-
-    /// Normalizes a colon-separated MAC address by stripping leading zeros from each
-    /// octet so that `%x`-formatted bytes compare equal to stored representations.
-    ///
-    /// Example: `"ce:09:f1:ce:7f:f2"` → `"ce:9:f1:ce:7f:f2"`
     private static func normalizeMac(_ mac: String) -> String {
         mac.split(separator: ":").map { octet in
             let stripped = octet.drop(while: { $0 == "0" })
@@ -508,11 +377,6 @@ extension UTMScriptingVirtualMachineImpl {
         }.joined(separator: ":")
     }
 
-    /// Find the IP address for the given MAC by querying the kernel ARP cache via
-    /// `sysctl(CTL_NET, PF_ROUTE, …, NET_RT_FLAGS, RTF_LLINFO)`.
-    ///
-    /// - Parameter macAddress: Lowercase colon-separated MAC, e.g. `"ce:09:f1:ce:7f:f2"`.
-    /// - Returns: A single-element array with the IP, or empty if not found.
     static func ipFromARP(macAddress: String) -> [String] {
         var mib: [Int32] = [CTL_NET, PF_ROUTE, 0, AF_INET, NET_RT_FLAGS, RTF_LLINFO]
         var needed = 0
@@ -531,8 +395,6 @@ extension UTMScriptingVirtualMachineImpl {
             guard msglen > 0, offset + msglen <= needed else { break }
             defer { offset += msglen }
 
-            // Sockaddrs start immediately after rt_msghdr.
-            // First: sockaddr_in (destination IP). Layout: len(1) family(1) port(2) addr(4) …
             let sinStart = offset + MemoryLayout<rt_msghdr>.stride
             guard sinStart + 8 <= needed else { continue }
             let sinLen    = Int(buf[sinStart])
@@ -540,8 +402,6 @@ extension UTMScriptingVirtualMachineImpl {
             guard sinFamily == UInt8(AF_INET), sinLen >= 8 else { continue }
             let ipStr = buf[(sinStart + 4)..<(sinStart + 8)].map { String($0) }.joined(separator: ".")
 
-            // Second: sockaddr_dl (link-layer MAC). Padded to sizeof(long) = 8.
-            // Layout: len(1) family(1) index(2) type(1) nlen(1) alen(1) slen(1) data[nlen+alen…]
             let sdlStart = sinStart + ((sinLen + 7) & ~7)
             guard sdlStart + 8 <= needed else { continue }
             let sdlFamily = buf[sdlStart + 1]
@@ -559,7 +419,6 @@ extension UTMScriptingVirtualMachineImpl {
         return []
     }
 }
-
 
 // MARK: - Errors
 extension UTMScriptingVirtualMachineImpl {
@@ -580,7 +439,7 @@ extension UTMScriptingVirtualMachineImpl {
             case .operationNotSupported: return NSLocalizedString("Operation not supported by the backend.", comment: "UTMScriptingVirtualMachineImpl")
             case .notRunning: return NSLocalizedString("The virtual machine is not running.", comment: "UTMScriptingVirtualMachineImpl")
             case .notStopped: return NSLocalizedString("The virtual machine must be stopped before this operation can be performed.", comment: "UTMScriptingVirtualMachineImpl")
-            case .guestAgentNotRunning: return NSLocalizedString("The QEMU guest agent is not running or not installed on the guest.", comment: "UTMScriptingVirtualMachineImpl")
+            case .guestAgentNotRunning: return NSLocalizedString("The guest agent is not running or not installed on the guest.", comment: "UTMScriptingVirtualMachineImpl")
             case .invalidParameter: return NSLocalizedString("One or more required parameters are missing or invalid.", comment: "UTMScriptingVirtualMachineImpl")
             case .macRecoveryIpswNotConfigured: return NSLocalizedString("This virtual machine has no IPSW recovery image configured, so there is nothing to install from.", comment: "UTMScriptingVirtualMachineImpl")
             case .installInProgress: return NSLocalizedString("This operation cannot be performed while macOS is being installed.", comment: "UTMScriptingVirtualMachineImpl")

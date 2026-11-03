@@ -19,7 +19,7 @@ import Virtualization
 
 @available(iOS, unavailable, message: "Apple Virtualization not available on iOS")
 struct UTMAppleConfigurationNetwork: Codable, Identifiable {
-    enum NetworkMode: String, CaseIterable, QEMUConstant {
+    enum NetworkMode: String, CaseIterable, UTMConfigurationConstant {
         case shared = "Shared"
         case natNetwork = "NATNetwork"
         case host = "Host"
@@ -135,19 +135,5 @@ struct UTMAppleConfigurationNetwork: Codable, Identifiable {
             }
         }
         return config
-    }
-}
-
-// MARK: - Conversion of old config format
-
-@available(iOS, unavailable, message: "Apple Virtualization not available on iOS")
-extension UTMAppleConfigurationNetwork {
-    init(migrating oldNetwork: Network) {
-        switch oldNetwork.networkMode {
-        case .Bridged: mode = .bridged
-        case .Shared: mode = .shared
-        }
-        macAddress = oldNetwork.macAddress
-        bridgeInterface = oldNetwork.bridgeInterfaceIdentifier
     }
 }

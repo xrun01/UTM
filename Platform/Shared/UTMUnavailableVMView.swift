@@ -71,28 +71,6 @@ fileprivate struct WrappedVMDetailsView: View {
     }
 }
 
-#if WITH_REMOTE
-fileprivate struct UnsupportedVMDetailsView: View {
-    @ObservedObject var vm: VMData
-
-    var body: some View {
-        VStack(alignment: .center) {
-            if let remotevm = vm as? VMRemoteData, let reason = remotevm.unavailableReason {
-                Text(reason)
-                    .lineLimit(nil)
-            } else {
-                Text("This VM is unavailable.")
-            }
-        }
-        #if os(macOS)
-        .frame(width: 230)
-        #else
-        .padding()
-        #endif
-    }
-}
-#endif
-
 struct UTMUnavailableVMView_Previews: PreviewProvider {
     static var previews: some View {
         UTMUnavailableVMView(vm: VMData(from: UTMRegistryEntry.empty))

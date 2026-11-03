@@ -89,7 +89,6 @@ enum UTMAppleSnapshotFiles {
 /// enough to be kept as copies named after the snapshot. Virtualization cannot change the layers of a
 /// disk that is attached, so the current state can only be saved or replaced while the VM is
 /// not running. Everything else works either way.
-@available(macOS 27, *)
 struct UTMAppleSnapshotBackend: UTMSnapshotBackend {
     let imageURLs: [URL]
 
@@ -110,8 +109,11 @@ struct UTMAppleSnapshotBackend: UTMSnapshotBackend {
     let defaultSuspendIdentifier = "suspend"
 
     func supports(_ operation: UTMSnapshotOperation, hasState: Bool) -> Bool {
+        if UTMVmBridge.shared.isRunning {
+            return true
+        }
         // the layers below a disk that is attached have to stay the same
-        !isRunning || operation == .delete
+        return !isRunning || operation == .delete
     }
 
     private var fileManager: FileManager {
@@ -180,7 +182,16 @@ struct UTMAppleSnapshotBackend: UTMSnapshotBackend {
                 for auxiliaryURL in auxiliaryURLs {
                     try fileManager.copyItem(at: auxiliaryURL, to: auxiliaryURL.appendingPathExtension(identifier))
                 }
-                if suspendIdentifier != nil, let savedStateURL = savedStateURL, let stateURL = snapshotStateURL(for: identifier) {
+                if UTMVmBridge.shared.isRunning, let stateURL = snapshotStateURL(for: identifier) {
+                    let snapRes = UTMVmBridge.shared.dispatch(.saveLiveSnapshot(
+                        statePath: stateURL.path,
+                        diskPaths: imageURLs.map(\.path),
+                        cloneSuffix: "." + identifier
+                    ))
+                    if !snapRes.ok {
+                        throw NSError(domain: "com.utmapp.UTMVmBridge", code: Int(snapRes.statusCode), userInfo: [NSLocalizedDescriptionKey: snapRes.errorMessage ?? "Snapshot failed"])
+                    }
+                } else if suspendIdentifier != nil, let savedStateURL = savedStateURL, let stateURL = snapshotStateURL(for: identifier) {
                     // the VM still resumes from its own copy
                     try fileManager.copyItem(at: savedStateURL, to: stateURL)
                 }
@@ -220,6 +231,7 @@ struct UTMAppleSnapshotBackend: UTMSnapshotBackend {
             }
             if let savedStateURL = savedStateURL, entry.hasState, let stateURL = snapshotStateURL(for: entry.identifier) {
                 try fileManager.copyItem(at: stateURL, to: savedStateURL)
+                _ = UTMVmBridge.shared.dispatch(.restoreLiveSnapshot(statePath: stateURL.path))
             }
         }
         return savedStateURL != nil && entry.hasState

@@ -80,19 +80,6 @@ struct UTMAppleConfigurationMacPlatform: Codable {
     #endif
 }
 
-// MARK: - Conversion of old config format
-
-#if arch(arm64)
-@available(iOS, unavailable, message: "Apple Virtualization not available on iOS")
-extension UTMAppleConfigurationMacPlatform {
-    init(migrating oldBoot: MacPlatform) {
-        hardwareModel = oldBoot.hardwareModel
-        machineIdentifier = oldBoot.machineIdentifier
-        auxiliaryStorageURL = oldBoot.auxiliaryStorageURL
-    }
-}
-#endif
-
 // MARK: - Saving data
 
 #if arch(arm64)

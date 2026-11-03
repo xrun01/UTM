@@ -43,7 +43,38 @@ extension CodingUserInfoKey {
 enum UTMBackend: String, CaseIterable, Codable {
     case unknown = "Unknown"
     case apple = "Apple"
-    case qemu = "QEMU"
+}
+
+protocol UTMConfigurationConstant: RawRepresentable, CaseIterable, Codable, Hashable, Identifiable where RawValue == String {
+    var prettyValue: String { get }
+    var isHidden: Bool { get }
+}
+
+extension UTMConfigurationConstant {
+    var id: String { rawValue }
+    var prettyValue: String { rawValue }
+    var isHidden: Bool { false }
+}
+
+enum UTMPackageFileName: String {
+    case efiVariables = "efi_vars.fd"
+    case vmState = "vm_state.vzvmsave"
+}
+
+struct UTMTerminalTheme: RawRepresentable, Codable, Hashable, Identifiable {
+    var rawValue: String
+    var id: String { rawValue }
+    init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+}
+
+struct UTMTerminalFont: RawRepresentable, Codable, Hashable, Identifiable {
+    var rawValue: String
+    var id: String { rawValue }
+    init(rawValue: String) {
+        self.rawValue = rawValue
+    }
 }
 
 enum UTMConfigurationError: Error {
@@ -105,29 +136,7 @@ extension UTMConfiguration {
         let decoder = PropertyListDecoder()
         decoder.userInfo = [.dataURL: dataURL]
         let stub = try decoder.decode(UTMConfigurationStub.self, from: configData)
-        if stub.backend == .unknown {
-            #if os(macOS)
-            // we might be using a legacy configuration
-            do {
-                // is it a legacy apple config?
-                let legacy = try decoder.decode(UTMLegacyAppleConfiguration.self, from: configData)
-                return UTMAppleConfiguration(migrating: legacy, dataURL: dataURL)
-            } catch {
-                guard case UTMAppleConfigurationError.notAppleConfiguration = error else {
-                    throw error
-                }
-            }
-            #endif
-            // is it a legacy QEMU config?
-            let dict = try NSDictionary(contentsOf: configURL, error: ()) as! [AnyHashable : Any]
-            let name = ConcreteVirtualMachine.virtualMachineName(for: packageURL)
-            let legacy = UTMLegacyQemuConfiguration(dictionary: dict, name: name, path: packageURL)
-            return UTMQemuConfiguration(migrating: legacy)
-        } else if stub.backend == .qemu {
-            // QEMU configuration
-            return try decoder.decode(UTMQemuConfiguration.self, from: configData)
-        } else if stub.backend == .apple {
-            // Apple configuration
+        if stub.backend == .apple {
             #if os(macOS)
             return try decoder.decode(UTMAppleConfiguration.self, from: configData)
             #else
@@ -187,12 +196,25 @@ extension UTMConfiguration {
         if let customCopy = customCopy {
             return try await customCopy(sourceURL, destFolderURL)
         } else {
-            let newUrl = UTMData.newImage(from: sourceURL, to: destFolderURL)
+            let newUrl = uniqueDestinationURL(from: sourceURL, to: destFolderURL)
             try await Task.detached {
                 try FileManager.default.copyItem(at: sourceURL, to: newUrl)
             }.value
-            return destURL
+            return newUrl
         }
+    }
+
+    static func uniqueDestinationURL(from sourceUrl: URL, to destUrl: URL, withExtension: String? = nil) -> URL {
+        let name = sourceUrl.deletingPathExtension().lastPathComponent
+        let ext = withExtension ?? sourceUrl.pathExtension
+        for i in 1..<1000 {
+            let suffix = i == 1 ? "" : "-\(i)"
+            let attemptUrl = destUrl.appendingPathComponent("\(name)\(suffix)").appendingPathExtension(ext)
+            if !FileManager.default.fileExists(atPath: attemptUrl.path) {
+                return attemptUrl
+            }
+        }
+        return destUrl.appendingPathComponent(UUID().uuidString).appendingPathExtension(ext)
     }
     
     private static func cleanupAllFiles(at dataURL: URL, notIncluding urls: [URL]) async throws {

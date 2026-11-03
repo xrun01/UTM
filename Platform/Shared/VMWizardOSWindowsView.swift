@@ -22,7 +22,6 @@ struct VMWizardOSWindowsView: View {
     
     var body: some View {
         VMWizardContent("Windows") {
-            #if !WITH_QEMU_TCI
             Section {
                 Toggle("Install Windows 10 or higher", isOn: $wizardState.isWindows10OrHigher)
                     .onChange(of: wizardState.isWindows10OrHigher) { newValue in
@@ -62,7 +61,6 @@ struct VMWizardOSWindowsView: View {
             } header: {
                 Text("Image File Type")
             }
-            #endif
 
             Section {
                 if wizardState.legacyHardware {
@@ -105,17 +103,14 @@ struct VMWizardOSWindowsView: View {
             
             // Disabled for non-Windows 10 installs due to autounattend version
             if wizardState.isWindows10OrHigher {
-                DetailedSection("", description: "Download and mount the guest support package for Windows. This is required for some features including dynamic resolution and clipboard sharing.") {
-                    Toggle("Install drivers and SPICE tools", isOn: $wizardState.isGuestToolsInstallRequested)
+                DetailedSection("", description: "Mount the guest support package for Windows. This is required for dynamic resolution and clipboard sharing.") {
+                    Toggle("Install Guest Tools", isOn: $wizardState.isGuestToolsInstallRequested)
                 }
             }
         }
         .fileImporter(isPresented: $isFileImporterPresented, allowedContentTypes: [.data], onCompletion: processImage)
         .onAppear {
             wizardState.bootDevice = .cd
-            #if WITH_QEMU_TCI
-            wizardState.legacyHardware = true
-            #endif
             if wizardState.legacyHardware {
                 wizardState.isWindows10OrHigher = false
                 wizardState.isGuestToolsInstallRequested = false

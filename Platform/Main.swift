@@ -14,88 +14,14 @@
 // limitations under the License.
 //
 
-import Logging
-import TipKit
-
-let logger = Logger(label: "com.utmapp.UTM") { label in
-    var utmLogger = UTMLoggingSwift(label: label)
-    var stdOutLogger = StreamLogHandler.standardOutput(label: label)
-    #if DEBUG
-    utmLogger.logLevel = .debug
-    stdOutLogger.logLevel = .debug
-    #endif
-    return MultiplexLogHandler([
-        utmLogger,
-        stdOutLogger
-    ])
-}
+import Foundation
 
 @main
 class Main {
     static var jitAvailable = true
-    
+
     static func main() {
-        #if (os(iOS) || os(visionOS)) && WITH_JIT
-        // check if we have jailbreak
-        if jb_spawn_ptrace_child(CommandLine.argc, CommandLine.unsafeArgv) {
-            logger.info("JIT: ptrace() child spawn trick")
-        } else if jb_has_jit_entitlement() {
-            logger.info("JIT: found entitlement")
-        } else if jb_has_cs_disabled() {
-            logger.info("JIT: CS_KILL disabled")
-        } else if jb_enable_ptrace_hack() {
-            logger.info("JIT: ptrace() hack supported")
-        } else {
-            logger.info("JIT: ptrace() hack failed")
-            jitAvailable = false
-        }
-        // raise memlimits on jailbroken devices
-        if jb_increase_memlimit() {
-            logger.info("MEM: successfully removed memory limits")
-        }
-        #endif
-        // do patches
         UTMPatches.patchAll()
-        #if os(iOS) || os(visionOS)
-        // register defaults
-        registerDefaultsFromSettingsBundle()
-        // register tips
-        if #available(iOS 17, macOS 14, *) {
-            try? Tips.configure()
-        }
-        #endif
         UTMApp.main()
-    }
-    
-    // https://stackoverflow.com/a/44675628
-    static private func registerDefaultsFromSettingsBundle() {
-        let userDefaults = UserDefaults.standard
-
-        if let settingsURL = Bundle.main.url(forResource: "Root", withExtension: "plist", subdirectory: "Settings.bundle"),
-            let settings = NSDictionary(contentsOf: settingsURL),
-            let preferences = settings["PreferenceSpecifiers"] as? [NSDictionary] {
-
-            var defaultsToRegister = [String: AnyObject]()
-            for prefSpecification in preferences {
-                if let key = prefSpecification["Key"] as? String,
-                    let value = prefSpecification["DefaultValue"] {
-
-                    defaultsToRegister[key] = value as AnyObject
-                    logger.debug("registerDefaultsFromSettingsBundle: (\(key), \(value)) \(type(of: value))")
-                }
-            }
-            
-            // register version numbers
-            if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] {
-                userDefaults.set(version, forKey: "LastBootedVersion")
-            }
-            if let build = Bundle.main.infoDictionary?["CFBundleVersion"] {
-                userDefaults.set(build, forKey: "LastBootedBuild")
-            }
-
-            userDefaults.register(defaults: defaultsToRegister)
-        } else {
-            logger.debug("registerDefaultsFromSettingsBundle: Could not find Settings.bundle")
-        }
     }
 }

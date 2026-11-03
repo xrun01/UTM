@@ -137,11 +137,6 @@ import SwiftUI
     /// - Parameter config: Configuration to create new VM
     convenience init<Config: UTMConfiguration>(creatingFromConfig config: Config, destinationUrl: URL) throws {
         self.init()
-        #if !WITH_REMOTE
-        if let qemuConfig = config as? UTMQemuConfiguration {
-            wrapped = try UTMQemuVirtualMachine(newForConfiguration: qemuConfig, destinationUrl: destinationUrl)
-        }
-        #endif
         #if os(macOS)
         if let appleConfig = config as? UTMAppleConfiguration {
             wrapped = try UTMAppleVirtualMachine(newForConfiguration: appleConfig, destinationUrl: destinationUrl)
@@ -169,12 +164,7 @@ import SwiftUI
             return
         }
         var loaded: (any UTMVirtualMachine)?
-        let config = try UTMQemuConfiguration.load(from: url)
-        #if !WITH_REMOTE
-        if let qemuConfig = config as? UTMQemuConfiguration {
-            loaded = try UTMQemuVirtualMachine(packageUrl: url, configuration: qemuConfig, isShortcut: isShortcut(url))
-        }
-        #endif
+        let config = try UTMAppleConfiguration.load(from: url)
         #if os(macOS)
         if let appleConfig = config as? UTMAppleConfiguration {
             loaded = try UTMAppleVirtualMachine(packageUrl: url, configuration: appleConfig, isShortcut: isShortcut(url))
@@ -225,11 +215,6 @@ import SwiftUI
                     }
                 }
             }
-        }
-        if let qemuConfig = wrapped?.config as? UTMQemuConfiguration {
-            s.append(qemuConfig.objectWillChange.sink { [weak self] _ in
-                self?.objectWillChange.send()
-            })
         }
         #if os(macOS)
         if let appleConfig = wrapped?.config as? UTMAppleConfiguration {
@@ -363,9 +348,6 @@ extension VMData {
     
     /// Display VM target system for UI elements
     var detailsSystemTargetLabel: String {
-        if let qemuConfig = config as? UTMQemuConfiguration {
-            return qemuConfig.system.target.prettyValue
-        }
         #if os(macOS)
         if let appleConfig = config as? UTMAppleConfiguration {
             return appleConfig.system.boot.operatingSystem.rawValue
@@ -376,9 +358,6 @@ extension VMData {
     
     /// Display VM architecture for UI elements
     var detailsSystemArchitectureLabel: String {
-        if let qemuConfig = config as? UTMQemuConfiguration {
-            return qemuConfig.system.architecture.prettyValue
-        }
         #if os(macOS)
         if let appleConfig = config as? UTMAppleConfiguration {
             return appleConfig.system.architecture
@@ -390,9 +369,6 @@ extension VMData {
     /// Display RAM (formatted) for UI elements
     var detailsSystemMemoryLabel: String {
         let bytesInMib = Int64(1048576)
-        if let qemuConfig = config as? UTMQemuConfiguration {
-            return ByteCountFormatter.string(fromByteCount: Int64(qemuConfig.system.memorySize) * bytesInMib, countStyle: .binary)
-        }
         #if os(macOS)
         if let appleConfig = config as? UTMAppleConfiguration {
             return ByteCountFormatter.string(fromByteCount: Int64(appleConfig.system.memorySize) * bytesInMib, countStyle: .binary)
@@ -434,95 +410,3 @@ extension VMData {
         wrapped?.screenshot?.image
     }
 }
-
-#if WITH_REMOTE
-@MainActor
-class VMRemoteData: VMData {
-    private var backend: UTMBackend
-    private var _isShortcut: Bool
-    override var isShortcut: Bool {
-        _isShortcut
-    }
-    private var initialState: UTMVirtualMachineState
-    private var existingWrapped: UTMRemoteSpiceVirtualMachine?
-
-    /// Set by caller when VM is unavailable and there is a reason for it.
-    @Published var unavailableReason: String?
-
-    init(fromRemoteItem item: UTMRemoteMessageServer.VirtualMachineInformation, existingWrapped: UTMRemoteSpiceVirtualMachine? = nil) {
-        self.backend = item.backend
-        self._isShortcut = item.isShortcut
-        self.initialState = item.state
-        self.existingWrapped = existingWrapped
-        super.init()
-        self.isTakeoverAllowed = item.isTakeoverAllowed
-        self.registryEntryWrapped = UTMRegistry.shared.entry(uuid: item.id, name: item.name, path: item.path)
-        self.registryEntryWrapped!.isSuspended = item.isSuspended
-        self.registryEntryWrapped!.externalDrives = item.mountedDrives.mapValues({ UTMRegistryEntry.File(dummyFromPath: $0) })
-    }
-
-    override func load() throws {
-        throw VMRemoteDataError.notImplemented
-    }
-
-    func load(withRemoteServer server: UTMRemoteClient.Remote) async throws {
-        guard backend == .qemu else {
-            throw VMRemoteDataError.backendNotSupported
-        }
-        let entry = registryEntryWrapped!
-        let config = try await server.getQEMUConfiguration(for: entry.uuid)
-        await loadCustomIcon(withRemoteServer: server, id: entry.uuid, config: config)
-        let vm: UTMRemoteSpiceVirtualMachine
-        if let existingWrapped = existingWrapped {
-            vm = existingWrapped
-            wrapped = vm
-            self.existingWrapped = nil
-            await reloadConfiguration(withRemoteServer: server, config: config)
-            vm.updateRegistry(entry)
-        } else {
-            vm = UTMRemoteSpiceVirtualMachine(forRemoteServer: server, remotePath: entry.package.path, entry: entry, config: config)
-            wrapped = vm
-        }
-        vm.updateConfigFromRegistry()
-        subscribeToChildren()
-        await vm.updateRemoteState(initialState)
-    }
-
-    func reloadConfiguration(withRemoteServer server: UTMRemoteClient.Remote, config: UTMQemuConfiguration) async {
-        let spiceVM = wrapped as! UTMRemoteSpiceVirtualMachine
-        await loadCustomIcon(withRemoteServer: server, id: spiceVM.id, config: config)
-        spiceVM.reload(usingConfiguration: config)
-    }
-
-    private func loadCustomIcon(withRemoteServer server: UTMRemoteClient.Remote, id: UUID, config: UTMQemuConfiguration) async {
-        if config.information.isIconCustom, let iconUrl = config.information.iconURL {
-            if let iconUrl = try? await server.getPackageFile(for: id, relativePathComponents: [UTMQemuConfiguration.dataDirectoryName, iconUrl.lastPathComponent]) {
-                config.information.iconURL = iconUrl
-            }
-        }
-    }
-
-    func updateMountedDrives(_ mountedDrives: [String: String]) {
-        guard let registryEntry = registryEntry else {
-            return
-        }
-        registryEntry.externalDrives = mountedDrives.mapValues({ UTMRegistryEntry.File(dummyFromPath: $0) })
-    }
-}
-
-enum VMRemoteDataError: Error {
-    case notImplemented
-    case backendNotSupported
-}
-
-extension VMRemoteDataError: LocalizedError {
-    var errorDescription: String? {
-        switch self {
-        case .notImplemented:
-            return NSLocalizedString("This function is not implemented.", comment: "VMData")
-        case .backendNotSupported:
-            return NSLocalizedString("This VM is not available or is configured for a backend that does not support remote clients.", comment: "VMData")
-        }
-    }
-}
-#endif

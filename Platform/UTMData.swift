@@ -15,26 +15,12 @@
 //
 
 import Foundation
+import Darwin
 import SwiftUI
-#if os(macOS)
 import AppKit
-#else
-import UIKit
-#endif
-#if canImport(AltKit) && WITH_JIT
-import AltKit
-#endif
-#if WITH_SERVER
-import Combine
-#endif
-import SwiftCopyfile
+import Virtualization
 
-#if WITH_REMOTE
-import CocoaSpiceNoUsb
-typealias ConcreteVirtualMachine = UTMRemoteSpiceVirtualMachine
-#else
-typealias ConcreteVirtualMachine = UTMQemuVirtualMachine
-#endif
+typealias ConcreteVirtualMachine = UTMAppleVirtualMachine
 
 enum AlertItem: Identifiable {
     case message(String)
@@ -109,17 +95,6 @@ enum AlertItem: Identifiable {
         UTMData.defaultStorageUrl
     }
 
-    #if WITH_SERVER
-    /// Remote access server
-    private(set) var remoteServer: UTMRemoteServer!
-
-    /// Listeners for remote access
-    private var remoteChangeListeners: [VMData: Set<AnyCancellable>] = [:]
-
-    /// Listener for list changes
-    private var listChangedListener: AnyCancellable?
-    #endif
-
     /// Queue to run `busyWork` tasks
     private var busyQueue: DispatchQueue
     
@@ -131,10 +106,6 @@ enum AlertItem: Identifiable {
         self.virtualMachines = []
         self.pendingVMs = []
         self.selectedVM = nil
-        #if WITH_SERVER
-        self.remoteServer = UTMRemoteServer(data: self)
-        beginObservingChanges()
-        #endif
         listLoadFromDefaults()
     }
     
@@ -434,13 +405,6 @@ enum AlertItem: Identifiable {
     func save(vm: VMData) async throws {
         do {
             try await vm.save()
-            #if WITH_SERVER
-            if let qemuConfig = vm.config as? UTMQemuConfiguration {
-                await remoteServer.broadcast { remote in
-                    try await remote.qemuConfigurationHasChanged(id: vm.id, configuration: qemuConfig)
-                }
-            }
-            #endif
         } catch {
             // refresh the VM object as it is now stale
             let origError = error
@@ -524,9 +488,9 @@ enum AlertItem: Identifiable {
         }
         newVM.wrapped!.changeUuid(to: UUID(), name: newName, copyingEntry: nil)
         if isRegenerateMACOnClone {
-            if let config = newVM.wrapped!.config as? UTMQemuConfiguration {
+            if let config = newVM.wrapped!.config as? UTMAppleConfiguration {
                 for i in config.networks.indices {
-                    config.networks[i].macAddress = UTMQemuConfigurationNetwork.randomMacAddress()
+                    config.networks[i].macAddress = VZMACAddress.randomLocallyAdministered().string
                 }
             }
         }
@@ -582,14 +546,8 @@ enum AlertItem: Identifiable {
     /// Copy configuration but not data from existing VM to a new VM
     /// - Parameter vm: Existing VM to copy configuration from
     func template(vm: VMData) async throws {
-        let copy = try UTMQemuConfiguration.load(from: vm.pathUrl)
-        if let copy = copy as? UTMQemuConfiguration {
-            copy.information.name = self.newDefaultVMName(base: copy.information.name)
-            copy.information.uuid = UUID()
-            copy.drives = []
-            _ = try await create(config: copy)
-        }
         #if os(macOS)
+        let copy = try UTMAppleConfiguration.load(from: vm.pathUrl)
         if let copy = copy as? UTMAppleConfiguration {
             copy.information.name = self.newDefaultVMName(base: copy.information.name)
             copy.information.uuid = UUID()
@@ -707,10 +665,6 @@ enum AlertItem: Identifiable {
         }
         listAdd(vm: vm)
         listSelect(vm: vm)
-        // warn user if imported .utm has custom arguments
-        if let qemuConfig = vm.wrapped?.config as? UTMQemuConfiguration, !qemuConfig.qemu.additionalArguments.isEmpty {
-            showLocalizedErrorAlert("This virtual machine uses custom QEMU arguments which is potentially dangerous and can cause damage to your machine. You should only run this virtual machine if you trust it.")
-        }
     }
     
     /// Handles UTM file URLs similar to importUTM, with few differences
@@ -765,26 +719,15 @@ enum AlertItem: Identifiable {
     }
 
     private func copyItemWithCopyfile(at srcURL: URL, to dstURL: URL) async throws {
-        let totalSize = computeSize(recursiveFor: srcURL)
-        var lastUpdate = Date()
-        var lastProgress: CopyManager.Progress?
-        var copiedSize: Int64 = 0
         defer {
             busyProgress = nil
         }
-        for try await progress in CopyManager.default.copyItemProgress(at: srcURL, to: dstURL, flags: [.all, .recursive, .clone, .dataSparse]) {
-            if let _lastProgress = lastProgress, _lastProgress.srcPath != _lastProgress.srcPath {
-                copiedSize += _lastProgress.bytesCopied
-                lastProgress = progress
-            } else {
-                lastProgress = progress
+        try await Task.detached {
+            let flags = copyfile_flags_t(COPYFILE_ALL | COPYFILE_RECURSIVE | COPYFILE_CLONE | COPYFILE_DATA_SPARSE)
+            if copyfile(srcURL.path, dstURL.path, nil, flags) != 0 {
+                try FileManager.default.copyItem(at: srcURL, to: dstURL)
             }
-            if totalSize > 0 && lastUpdate.timeIntervalSinceNow < -1 {
-                lastUpdate = Date()
-                let completed = Float(copiedSize + progress.bytesCopied) / Float(totalSize)
-                busyProgress = completed > 1.0 ? 1.0 : completed
-            }
-        }
+        }.value
     }
 
     private func isDirectoryEmpty(_ pathURL: URL) -> Bool {
@@ -847,23 +790,6 @@ enum AlertItem: Identifiable {
         }
     }
 
-    private func mountWindowsSupportTools(for vm: any UTMSpiceVirtualMachine) async throws {
-        let task = UTMDownloadSupportToolsTask(for: vm)
-        if await task.hasExistingSupportTools {
-            _ = try await task.mountTools()
-        } else {
-            listAdd(pendingVM: task.pendingVM)
-            Task {
-                do {
-                    _ = try await task.download()
-                } catch {
-                    showErrorAlert(message: error.localizedDescription)
-                }
-                listRemove(pendingVM: task.pendingVM)
-            }
-        }
-    }
-
     #if os(macOS)
     @available(macOS 15, *)
     private func mountMacSupportTools(for vm: UTMAppleVirtualMachine) async throws {
@@ -885,9 +811,6 @@ enum AlertItem: Identifiable {
     #endif
 
     func mountSupportTools(for vm: any UTMVirtualMachine) async throws {
-        if let vm = vm as? any UTMSpiceVirtualMachine {
-            return try await mountWindowsSupportTools(for: vm)
-        }
         #if os(macOS)
         if #available(macOS 15, *), let vm = vm as? UTMAppleVirtualMachine, vm.config.system.boot.operatingSystem == .macOS {
             return try await mountMacSupportTools(for: vm)
@@ -903,47 +826,6 @@ enum AlertItem: Identifiable {
     }
     
     // MARK: - Reclaim space
-    
-    #if !WITH_REMOTE
-    /// Reclaim empty space in a file by (re)-converting it to QCOW2
-    ///
-    /// This will overwrite driveUrl with the converted file on success!
-    /// - Parameter driveUrl: Original drive to convert
-    /// - Parameter isCompressed: Compress existing data
-    func reclaimSpace(for driveUrl: URL, withCompression isCompressed: Bool = false) async throws {
-        // converting leaves the snapshots in the image behind, and a suspended state is one of them
-        guard try await UTMQemuImage.snapshots(image: driveUrl).isEmpty else {
-            throw UTMDataError.driveHasSnapshots
-        }
-        let baseUrl = driveUrl.deletingLastPathComponent()
-        let dstUrl = Self.newImage(from: driveUrl, to: baseUrl, withExtension: "qcow2")
-        defer {
-            busyProgress = nil
-        }
-        try await UTMQemuImage.convert(from: driveUrl, toQcow2: dstUrl, withCompression: isCompressed) { progress in
-            Task { @MainActor in
-                self.busyProgress = progress / 100
-            }
-        }
-        busyProgress = nil
-        do {
-            try fileManager.replaceItem(at: driveUrl, withItemAt: dstUrl, backupItemName: nil, resultingItemURL: nil)
-        } catch {
-            // on failure delete the converted file
-            try? fileManager.removeItem(at: dstUrl)
-            throw error
-        }
-    }
-    
-    func qcow2DriveSize(for driveUrl: URL) async -> Int64 {
-        return (try? await UTMQemuImage.size(image: driveUrl)) ?? 0
-    }
-
-    func resizeQcow2Drive(for driveUrl: URL, sizeInMib: Int) async throws {
-        let bytesinMib = 1048576
-        try await UTMQemuImage.resize(image: driveUrl, size: UInt64(sizeInMib * bytesinMib))
-    }
-    #endif
 
     #if os(macOS)
     @available(macOS 14, *)
@@ -987,54 +869,12 @@ enum AlertItem: Identifiable {
     // MARK: - Change listener
 
     private func beginObservingChanges() {
-        #if WITH_SERVER
-        listChangedListener = $virtualMachines.sink { vms in
-            Task {
-                await self.remoteServer.broadcast { remote in
-                    try await remote.listHasChanged(ids: vms.map({ $0.id }))
-                }
-            }
-        }
-        #endif
     }
 
     private func beginObservingChanges(for vm: VMData) {
-        #if WITH_SERVER
-        var observers = Set<AnyCancellable>()
-        let registryEntry = vm.registryEntry
-        observers.insert(vm.objectWillChange.sink { [self] _ in
-            // reset observers when registry changes
-            if vm.registryEntry != registryEntry {
-                endObservingChanges(for: vm)
-                beginObservingChanges(for: vm)
-            }
-        })
-        observers.insert(vm.$state.sink { state in
-            Task {
-                let isTakeoverAllowed = self.vmWindows[vm] is VMRemoteSessionState && (state == .started || state == .paused)
-                await self.remoteServer.broadcast { remote in
-                    try await remote.virtualMachine(id: vm.id, didTransitionToState: state, isTakeoverAllowed: isTakeoverAllowed)
-                }
-            }
-        })
-        if let registryEntry = registryEntry {
-            observers.insert(registryEntry.externalDrivePublisher.sink { drives in
-                let mountedDrives = drives.mapValues({ $0.path })
-                Task {
-                    await self.remoteServer.broadcast { remote in
-                        try await remote.mountedDrivesHasChanged(id: vm.id, mountedDrives: mountedDrives)
-                    }
-                }
-            })
-        }
-        remoteChangeListeners[vm] = observers
-        #endif
     }
 
     private func endObservingChanges(for vm: VMData) {
-        #if WITH_SERVER
-        remoteChangeListeners.removeValue(forKey: vm)
-        #endif
     }
 
     // MARK: - Other utility functions
@@ -1278,194 +1118,3 @@ struct UTMCapabilities: OptionSet, Codable {
         return current
     }()
 }
-
-#if WITH_REMOTE
-private let kReconnectTimeoutSeconds: UInt64 = 5
-
-@MainActor
-class UTMRemoteData: UTMData {
-    /// Remote access client
-    private(set) var remoteClient: UTMRemoteClient!
-
-    override init() {
-        super.init()
-        self.remoteClient = UTMRemoteClient(data: self)
-    }
-
-    override func listLoadFromDefaults() {
-        // do nothing since we do not load from VMList
-    }
-
-    override func listRefresh() async {
-        busyWorkAsync {
-            try await self.listRefreshFromRemote()
-        }
-    }
-
-    func reconnect(to server: UTMRemoteClient.State.SavedServer) async throws {
-        var reconnectTask: Task<UTMRemoteClient.Remote, any Error>?
-        let timeoutTask = Task {
-            try await Task.sleep(nanoseconds: kReconnectTimeoutSeconds * NSEC_PER_SEC)
-            reconnectTask?.cancel()
-        }
-        reconnectTask = busyWorkAsync { [self] in
-            do {
-                try await remoteClient.connect(server)
-            } catch is CancellationError {
-                throw UTMDataError.reconnectFailed
-            }
-            timeoutTask.cancel()
-            try await listRefreshFromRemote()
-            return await remoteClient.server
-        }
-        // make all active sessions wait on the reconnect
-        for session in VMSessionState.allActiveSessions.values {
-            let vm = session.vm as! UTMRemoteSpiceVirtualMachine
-            Task {
-                do {
-                    try await vm.reconnectServer {
-                        try await reconnectTask!.value
-                    }
-                } catch {
-                    session.stop()
-                }
-            }
-        }
-        _ = try await reconnectTask!.value
-    }
-
-    private func listRefreshFromRemote() async throws {
-        if let capabilities = await self.remoteClient.server.capabilities {
-            UTMCapabilities.current = capabilities
-        }
-        let ids = try await remoteClient.server.listVirtualMachines()
-        let items = try await remoteClient.server.getVirtualMachineInformation(for: ids)
-        let openSessionVms = VMSessionState.allActiveSessions.values.map({ $0.vm })
-        let vms = items.map { item in
-            let wrapped = openSessionVms.first(where: { $0.id == item.id }) as? UTMRemoteSpiceVirtualMachine
-            return VMRemoteData(fromRemoteItem: item, existingWrapped: wrapped)
-        }
-        await loadVirtualMachines(vms)
-    }
-
-    private func loadVirtualMachines(_ vms: [VMData]) async {
-        listReplace(with: vms)
-        for vm in vms {
-            let remoteVM = vm as! VMRemoteData
-            if remoteVM.isLoaded {
-                continue
-            }
-            do {
-                try await remoteVM.load(withRemoteServer: remoteClient.server)
-            } catch {
-                remoteVM.unavailableReason = error.localizedDescription
-            }
-            await Task.yield()
-        }
-    }
-
-    func remoteListHasChanged(ids: [UUID]) async {
-        var existing = virtualMachines.reduce(into: [:]) { partialResult, vm in
-            partialResult[vm.id] = vm
-        }
-        let new = ids.compactMap { id in
-            if existing[id] == nil {
-                return id
-            } else {
-                return nil
-            }
-        }
-        if !new.isEmpty, let newItems = try? await remoteClient.server.getVirtualMachineInformation(for: new) {
-            newItems.map({ VMRemoteData(fromRemoteItem: $0) }).forEach { vm in
-                existing[vm.id] = vm
-            }
-        }
-        let vms = ids.compactMap({ existing[$0] })
-        await loadVirtualMachines(vms)
-    }
-
-    func remoteQemuConfigurationHasChanged(id: UUID, configuration: UTMQemuConfiguration) async {
-        guard let vm = virtualMachines.first(where: { $0.id == id }) as? VMRemoteData else {
-            return
-        }
-        await vm.reloadConfiguration(withRemoteServer: remoteClient.server, config: configuration)
-    }
-
-    func remoteMountedDrivesHasChanged(id: UUID, mountedDrives: [String: String]) async {
-        guard let vm = virtualMachines.first(where: { $0.id == id }) as? VMRemoteData else {
-            return
-        }
-        vm.updateMountedDrives(mountedDrives)
-    }
-
-    func remoteVirtualMachineDidTransition(id: UUID, state: UTMVirtualMachineState, isTakeoverAllowed: Bool) async {
-        guard let vm = virtualMachines.first(where: { $0.id == id }) else {
-            return
-        }
-        let remoteVM = vm as! VMRemoteData
-        let wrapped = remoteVM.wrapped as! UTMRemoteSpiceVirtualMachine
-        remoteVM.isTakeoverAllowed = isTakeoverAllowed
-        await wrapped.updateRemoteState(state)
-    }
-
-    func remoteVirtualMachineDidError(id: UUID, message: String) async {
-        if let session = VMSessionState.allActiveSessions.values.first(where: { $0.vm.id == id }) {
-            session.nonfatalError = message
-        }
-    }
-
-    override func listMove(fromOffsets: IndexSet, toOffset: Int) {
-        let ids = fromOffsets.map({ virtualMachines[$0].id })
-        Task {
-            try await remoteClient.server.reorderVirtualMachines(fromIds: ids, toOffset: toOffset)
-        }
-        super.listMove(fromOffsets: fromOffsets, toOffset: toOffset)
-    }
-
-    override func save(vm: VMData) async throws {
-        throw UTMDataError.notImplemented
-    }
-
-    override func discardChanges(for vm: VMData) throws {
-        throw UTMDataError.notImplemented
-    }
-
-    override func create<Config: UTMConfiguration>(config: Config) async throws -> VMData {
-        throw UTMDataError.notImplemented
-    }
-
-    @discardableResult
-    override func delete(vm: VMData, alsoRegistry: Bool) async throws -> Int? {
-        throw UTMDataError.notImplemented
-    }
-
-    @discardableResult
-    override func clone(vm: VMData) async throws -> VMData {
-        throw UTMDataError.notImplemented
-    }
-
-    override func export(vm: VMData, to url: URL) async throws {
-        throw UTMDataError.notImplemented
-    }
-
-    override func move(vm: VMData, to url: URL) async throws {
-        throw UTMDataError.notImplemented
-    }
-
-    override func template(vm: VMData) async throws {
-        throw UTMDataError.notImplemented
-    }
-
-    override func computeSize(for vm: VMData) async -> Int64 {
-        (try? await remoteClient.server.getPackageSize(for: vm.id)) ?? 0
-    }
-
-    override func importUTM(from url: URL, asShortcut: Bool) async throws {
-        throw UTMDataError.notImplemented
-    }
-
-    override func mountSupportTools(for vm: any UTMVirtualMachine) async throws {
-        try await remoteClient.server.mountGuestToolsOnVirtualMachine(id: vm.id)
-    }
-}
-#endif

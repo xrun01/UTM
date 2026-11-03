@@ -66,37 +66,28 @@ extension UTMConfigurationDrive {
         }
         let fileManager = FileManager.default
         if let imageURL = imageURL {
-            #if WITH_REMOTE
-            let newURL = try await UTMQemuConfiguration.copyItemIfChanged(from: imageURL, to: dataURL)
-            #else
-            let customCopy = isRawImage || !UTMQemuImage.isSupported ? nil : convertQcow2Image
-            let newURL = try await UTMQemuConfiguration.copyItemIfChanged(from: imageURL, to: dataURL, customCopy: customCopy)
-            #endif
+            let newURL = try await UTMAppleConfiguration.copyItemIfChanged(from: imageURL, to: dataURL)
             self.imageName = newURL.lastPathComponent
             self.imageURL = newURL
             return [newURL]
         } else if imageName == nil {
-            let newName = "\(id).\(isRawImage ? "img" : "qcow2")"
+            let newName = "\(id).img"
             let newURL = dataURL.appendingPathComponent(newName)
             guard !fileManager.fileExists(atPath: newURL.path) else {
                 throw UTMConfigurationError.driveAlreadyExists(newURL)
             }
-            if isRawImage {
-                #if os(macOS)
-                if let appleDrive = self as? UTMAppleConfigurationDrive, appleDrive.isASIF {
-                    guard #available(macOS 13, *) else {
-                        throw UTMAppleConfigurationError.featureNotSupported
-                    }
-                    try await createAsifImage(at: newURL, size: sizeMib)
-                } else {
-                    try await createRawImage(at: newURL, size: sizeMib)
+            #if os(macOS)
+            if let appleDrive = self as? UTMAppleConfigurationDrive, appleDrive.isASIF {
+                guard #available(macOS 13, *) else {
+                    throw UTMAppleConfigurationError.featureNotSupported
                 }
-                #else
-                try await createRawImage(at: newURL, size: sizeMib)
-                #endif
+                try await createAsifImage(at: newURL, size: sizeMib)
             } else {
-                try await createQcow2Image(at: newURL, size: sizeMib)
+                try await createRawImage(at: newURL, size: sizeMib)
             }
+            #else
+            try await createRawImage(at: newURL, size: sizeMib)
+            #endif
             self.imageName = newName
             self.imageURL = newURL
             return [newURL]
@@ -118,34 +109,12 @@ extension UTMConfigurationDrive {
         }.value
     }
 
-    private func createQcow2Image(at newURL: URL, size sizeMib: Int) async throws {
-        #if WITH_REMOTE
-        fatalError("Not implemented")
-        #else
-        try await Task.detached {
-            if !QEMUGenerateDefaultQcow2File(newURL as CFURL, sizeMib) {
-                throw UTMConfigurationError.cannotCreateDiskImage
-            }
-        }.value
-        #endif
-    }
-
     #if os(macOS)
     @available(macOS 13, *)
     private func createAsifImage(at newURL: URL, size sizeMib: Int) async throws {
         try await Task.detached {
             try UTMAppleDiskImage.createASIF(at: newURL, sizeMib: sizeMib)
         }.value
-    }
-    #endif
-
-    #if !WITH_REMOTE
-    private func convertQcow2Image(at sourceURL: URL, to destFolderURL: URL) async throws -> URL {
-        let destQcow2 = UTMData.newImage(from: sourceURL,
-                                         to: destFolderURL,
-                                         withExtension: "qcow2")
-        try await UTMQemuImage.convert(from: sourceURL, toQcow2: destQcow2)
-        return destQcow2
     }
     #endif
 }

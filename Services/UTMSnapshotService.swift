@@ -40,12 +40,8 @@ enum UTMSnapshotService {
 
     /// Snapshots can be managed for this VM, whether it is running or not
     static func isSupported(for vm: any UTMVirtualMachine) -> Bool {
-        if vm is UTMQemuVirtualMachine {
-            // qemu-img is needed for a VM that is not running
-            return UTMQemuImage.isSupported
-        }
         #if os(macOS)
-        if #available(macOS 27, *), vm is UTMAppleVirtualMachine {
+        if vm is UTMAppleVirtualMachine {
             return true
         }
         #endif
@@ -365,15 +361,8 @@ enum UTMSnapshotService {
         guard isSupported(for: vm) else {
             throw UTMSnapshotError.notSupported
         }
-        if let qemu = vm as? UTMQemuVirtualMachine {
-            switch vm.state {
-            case .started, .paused: return UTMQemuLiveSnapshotBackend(vm: qemu, imageURLs: qemu.snapshotImageURLs)
-            case .stopped: return UTMQemuFrozenSnapshotBackend(imageURLs: qemu.snapshotImageURLs, vm: qemu)
-            default: throw UTMSnapshotError.invalidVmState
-            }
-        }
         #if os(macOS)
-        if #available(macOS 27, *), let apple = vm as? UTMAppleVirtualMachine {
+        if let apple = vm as? UTMAppleVirtualMachine {
             guard [.started, .paused, .stopped].contains(vm.state) else {
                 throw UTMSnapshotError.invalidVmState
             }

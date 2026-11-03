@@ -14,6 +14,7 @@
 // limitations under the License.
 //
 
+import AppKit
 import Combine
 
 enum UTMQuitPolicy: Int {

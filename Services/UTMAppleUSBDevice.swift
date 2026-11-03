@@ -16,7 +16,18 @@
 
 import Foundation
 import IOKit
+#if canImport(AccessoryAccess)
 import AccessoryAccess
+#else
+struct AAUSBAccessory: Sendable {
+    var registryID: UInt64 = 0
+    var deviceDescriptorData: Data = Data()
+}
+protocol AAUSBAccessoryListener: AnyObject {
+    func usbAccessoryDidConnect(_ usbAccessory: AAUSBAccessory)
+    func usbAccessoryDidDisconnect(_ usbAccessory: AAUSBAccessory)
+}
+#endif
 
 /// A host USB device that can be passed through to an Apple Virtualization guest.
 ///

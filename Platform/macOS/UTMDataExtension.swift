@@ -17,6 +17,34 @@
 import Foundation
 import Carbon.HIToolbox
 
+class VMHeadlessSessionState: NSObject, UTMVirtualMachineDelegate {
+    private let vm: any UTMVirtualMachine
+    private let onStop: (() -> Void)?
+
+    init(for vm: any UTMVirtualMachine, onStop: (() -> Void)?) {
+        self.vm = vm
+        self.onStop = onStop
+        super.init()
+        self.vm.delegate = self
+    }
+
+    func virtualMachine(_ vm: any UTMVirtualMachine, didTransitionToState state: UTMVirtualMachineState) {
+        if state == .stopped {
+            DispatchQueue.main.async {
+                self.onStop?()
+            }
+        }
+    }
+
+    func virtualMachine(_ vm: any UTMVirtualMachine, didErrorWithMessage message: String) {
+        logger.error("Headless VM error: \(message)")
+    }
+
+    func virtualMachine(_ vm: any UTMVirtualMachine, didCompleteInstallation success: Bool) {}
+
+    func virtualMachine(_ vm: any UTMVirtualMachine, didUpdateInstallationProgress progress: Double) {}
+}
+
 extension UTMData {
     func run(vm: VMData, options: UTMVirtualMachineStartOptions = [], startImmediately: Bool = true) {
         var window: Any? = vmWindows[vm]
@@ -32,19 +60,14 @@ extension UTMData {
                         window = VMDisplayAppleTerminalWindowController(primaryForIndex: primarySerialIndex, vm: avm, onClose: close)
                     }
                     if !avm.config.displays.isEmpty {
-                        window = VMDisplayAppleDisplayWindowController(vm: avm, onClose: close)
+                        if avm.config.system.boot.operatingSystem == .macOS {
+                            window = VMDisplayAppleDisplayWindowController(vm: avm, onClose: close)
+                        } else {
+                            window = VMDisplayVmMetalWindowController(vm: avm, onClose: close)
+                        }
                     } else if avm.config.displays.isEmpty && window == nil {
                         window = VMHeadlessSessionState(for: avm, onStop: close)
                     }
-                }
-            }
-            if let qvm = vm.wrapped as? UTMQemuVirtualMachine {
-                if !qvm.config.displays.isEmpty {
-                    window = VMDisplayQemuMetalWindowController(vm: qvm, onClose: close)
-                } else if !qvm.config.serials.filter({ $0.mode == .builtin }).isEmpty {
-                    window = VMDisplayQemuTerminalWindowController(vm: qvm, onClose: close)
-                } else {
-                    window = VMHeadlessSessionState(for: qvm, onStop: close)
                 }
             }
             if window == nil {
@@ -75,37 +98,6 @@ extension UTMData {
         }
     }
     
-    /// Start a remote session and return SPICE server port.
-    /// - Parameters:
-    ///   - vm: VM to start
-    ///   - options: Start options
-    ///   - server: Remote server
-    /// - Returns: Port number to SPICE server
-    func startRemote(vm: VMData, options: UTMVirtualMachineStartOptions, forClient client: UTMRemoteServer.Remote) async throws -> UTMRemoteMessageServer.StartVirtualMachine.ServerInformation {
-        guard let wrapped = vm.wrapped as? UTMQemuVirtualMachine, type(of: wrapped).capabilities.supportsRemoteSession else {
-            throw UTMDataError.unsupportedBackend
-        }
-        if let existingSession = vmWindows[vm] as? VMRemoteSessionState, let spiceServerInfo = wrapped.spiceServerInfo {
-            if wrapped.state == .paused {
-                try await wrapped.resume()
-            }
-            existingSession.client = client
-            return spiceServerInfo
-        }
-        guard vmWindows[vm] == nil else {
-            throw UTMDataError.virtualMachineUnavailable
-        }
-        let session = VMRemoteSessionState(for: wrapped, client: client) {
-            self.vmWindows.removeValue(forKey: vm)
-        }
-        try await wrapped.start(options: options.union(.remoteSession))
-        vmWindows[vm] = session
-        guard let spiceServerInfo = wrapped.spiceServerInfo else {
-            throw UTMDataError.unsupportedBackend
-        }
-        return spiceServerInfo
-    }
-
     func stop(vm: VMData) {
         guard let wrapped = vm.wrapped else {
             return

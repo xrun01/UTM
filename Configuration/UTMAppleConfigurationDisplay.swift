@@ -82,16 +82,3 @@ struct UTMAppleConfigurationDisplay: Codable, Identifiable {
                                              heightInPixels: heightInPixels)
     }
 }
-
-// MARK: - Conversion of old config format
-
-#if arch(arm64)
-@available(iOS, unavailable, message: "Apple Virtualization not available on iOS")
-extension UTMAppleConfigurationDisplay {
-    init(migrating oldDisplay: Display) {
-        widthInPixels = oldDisplay.widthInPixels
-        heightInPixels = oldDisplay.heightInPixels
-        pixelsPerInch = oldDisplay.pixelsPerInch
-    }
-}
-#endif

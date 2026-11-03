@@ -82,57 +82,13 @@ struct UTMConfigurationInfo: Codable {
     }
 }
 
-// MARK: - Conversion of old config format
-
-extension UTMConfigurationInfo {
-    init(migrating oldConfig: UTMLegacyQemuConfiguration) {
-        self.init()
-        name = oldConfig.name
-        notes = oldConfig.notes
-        if let uuidString = oldConfig.systemUUID, let uuid = UUID(uuidString: uuidString) {
-            self.uuid = uuid
-        }
-        isIconCustom = oldConfig.iconCustom
-        if isIconCustom {
-            if let name = oldConfig.icon, let dataURL = oldConfig.existingPath {
-                iconURL = dataURL.appendingPathComponent(name)
-            } else {
-                isIconCustom = false
-            }
-        }
-        if !isIconCustom, let name = oldConfig.icon {
-            iconURL = Self.builtinIcon(named: name)
-        }
-    }
-    
-    #if os(macOS)
-    init(migrating oldConfig: UTMLegacyAppleConfiguration, dataURL: URL) {
-        self.init()
-        name = oldConfig.name
-        notes = oldConfig.notes
-        uuid = UUID()
-        isIconCustom = oldConfig.iconCustom
-        if isIconCustom {
-            if let name = oldConfig.icon {
-                iconURL = dataURL.appendingPathComponent(name)
-            } else {
-                isIconCustom = false
-            }
-        }
-        if let name = oldConfig.icon {
-            iconURL = Self.builtinIcon(named: name)
-        }
-    }
-    #endif
-}
-
 // MARK: - Saving data
 
 extension UTMConfigurationInfo {
     @MainActor mutating func saveData(to dataURL: URL) async throws -> [URL] {
         // save new icon
         if isIconCustom, let iconURL = iconURL {
-            let newIconURL = try await UTMQemuConfiguration.copyItemIfChanged(from: iconURL, to: dataURL)
+            let newIconURL = try await UTMAppleConfiguration.copyItemIfChanged(from: iconURL, to: dataURL)
             self.iconURL = newIconURL
             return [newIconURL]
         }

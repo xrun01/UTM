@@ -21,7 +21,7 @@ private let kDelayNs: UInt64 = 20000000
 @available(iOS 16, macOS 13, tvOS 16, watchOS 9, *)
 struct UTMSendScanCodeIntent: AppIntent, UTMIntent {
     static let title: LocalizedStringResource = "Send Scan Code"
-    static let description = IntentDescription("Send a sequence of raw keyboard scan codes to the virtual machine. Only supported on QEMU backend.")
+    static let description = IntentDescription("Send a sequence of raw keyboard scan codes to the virtual machine.")
     static var parameterSummary: some ParameterSummary {
         Summary("Send scan code to \(\.$vmEntity)") {
             \.$scanCodes
@@ -39,21 +39,19 @@ struct UTMSendScanCodeIntent: AppIntent, UTMIntent {
 
     @MainActor
     func perform(with vm: any UTMVirtualMachine, boxed: VMData) async throws -> some IntentResult {
-        guard let vm = vm as? any UTMSpiceVirtualMachine else {
-            throw UTMIntentError.unsupportedBackend
-        }
-        guard let input = vm.ioService?.primaryInput else {
+        guard vm.state == .started else {
             throw UTMIntentError.inputHandlerNotAvailable
         }
+        let bridge = UTMVmBridge.shared
         for scanCode in scanCodes {
-            var _scanCode = scanCode
-            if (_scanCode & 0xFF00) == 0xE000 {
-                _scanCode = 0x100 | (_scanCode & 0xFF)
+            var code = scanCode
+            if (code & 0xFF00) == 0xE000 {
+                code = 0x100 | (code & 0xFF)
             }
-            if (_scanCode & 0x80) == 0x80 {
-                input.send(.release, code: Int32(_scanCode & 0x17F))
+            if (code & 0x80) == 0x80 {
+                bridge.sendKeyCode(UInt16(code & 0x17F), isKeyDown: false, modifiers: 0)
             } else {
-                input.send(.press, code: Int32(_scanCode))
+                bridge.sendKeyCode(UInt16(code & 0x1FF), isKeyDown: true, modifiers: 0)
             }
             try await Task.sleep(nanoseconds: kDelayNs)
         }
@@ -64,7 +62,7 @@ struct UTMSendScanCodeIntent: AppIntent, UTMIntent {
 @available(iOS 16, macOS 13, tvOS 16, watchOS 9, *)
 struct UTMSendKeystrokesIntent: AppIntent, UTMIntent {
     static let title: LocalizedStringResource = "Send Keystrokes"
-    static let description = IntentDescription("Send text as a sequence of keystrokes to the virtual machine. Only supported on QEMU backend.")
+    static let description = IntentDescription("Send text as a sequence of keystrokes to the virtual machine.")
     static var parameterSummary: some ParameterSummary {
         Summary("Send \(\.$keystrokes) to \(\.$vmEntity)") {
             \.$modifiers
@@ -93,7 +91,7 @@ struct UTMSendKeystrokesIntent: AppIntent, UTMIntent {
             .escape: DisplayRepresentation(title: "Escape (⎋)"),
         ]
 
-        func toSpiceKeyCode() -> Int32 {
+        func toScanCode() -> UInt16 {
             switch self {
             case .capsLock: return 0x3a
             case .shift: return 0x2a
@@ -119,43 +117,41 @@ struct UTMSendKeystrokesIntent: AppIntent, UTMIntent {
 
     @MainActor
     func perform(with vm: any UTMVirtualMachine, boxed: VMData) async throws -> some IntentResult {
-        guard let vm = vm as? any UTMSpiceVirtualMachine else {
-            throw UTMIntentError.unsupportedBackend
-        }
-        guard let input = vm.ioService?.primaryInput else {
+        guard vm.state == .started else {
             throw UTMIntentError.inputHandlerNotAvailable
         }
+        let bridge = UTMVmBridge.shared
         for modifier in modifiers {
-            input.send(.press, code: modifier.toSpiceKeyCode())
+            bridge.sendKeyCode(modifier.toScanCode(), isKeyDown: true, modifiers: 0)
             try await Task.sleep(nanoseconds: kDelayNs)
         }
         let keyboardMap = VMKeyboardMap()
         await keyboardMap.mapText(keystrokes) { scanCode in
-            input.send(.release, code: scanCodeToSpice(scanCode))
+            bridge.sendKeyCode(normalizeScanCode(scanCode), isKeyDown: false, modifiers: 0)
         } keyDown: { scanCode in
-            input.send(.press, code: scanCodeToSpice(scanCode))
+            bridge.sendKeyCode(normalizeScanCode(scanCode), isKeyDown: true, modifiers: 0)
         }
         try await Task.sleep(nanoseconds: kDelayNs)
         for modifier in modifiers {
-            input.send(.release, code: modifier.toSpiceKeyCode())
+            bridge.sendKeyCode(modifier.toScanCode(), isKeyDown: false, modifiers: 0)
             try await Task.sleep(nanoseconds: kDelayNs)
         }
         return .result()
     }
 
-    private func scanCodeToSpice(_ scanCode: Int) -> Int32 {
+    private func normalizeScanCode(_ scanCode: Int) -> UInt16 {
         var keyCode = scanCode
         if (keyCode & 0xFF00) == 0xE000 {
             keyCode = (keyCode & 0xFF) | 0x100
         }
-        return Int32(keyCode)
+        return UInt16(keyCode & 0xFFFF)
     }
 }
 
 @available(iOS 16, macOS 13, tvOS 16, watchOS 9, *)
 struct UTMMouseClickIntent: AppIntent, UTMIntent {
     static let title: LocalizedStringResource = "Send Mouse Click"
-    static let description = IntentDescription("Send a mouse position and click to the virtual machine. Only supported on QEMU backend.")
+    static let description = IntentDescription("Send a mouse position and click to the virtual machine.")
     static var parameterSummary: some ParameterSummary {
         Summary("Send mouse click at (\(\.$xPosition), \(\.$yPosition)) to \(\.$vmEntity)") {
             \.$mouseButton
@@ -179,11 +175,11 @@ struct UTMMouseClickIntent: AppIntent, UTMIntent {
             .middle: DisplayRepresentation(title: "Middle"),
         ]
 
-        func toSpiceButton() -> CSInputButton {
+        func buttonMask() -> UInt32 {
             switch self {
-            case .left: return .left
-            case .right: return .right
-            case .middle: return .middle
+            case .left: return 1
+            case .right: return 2
+            case .middle: return 4
             }
         }
     }
@@ -208,18 +204,17 @@ struct UTMMouseClickIntent: AppIntent, UTMIntent {
 
     @MainActor
     func perform(with vm: any UTMVirtualMachine, boxed: VMData) async throws -> some IntentResult {
-        guard let vm = vm as? UTMQemuVirtualMachine else {
-            throw UTMIntentError.unsupportedBackend
-        }
-        guard let input = vm.ioService?.primaryInput else {
+        guard vm.state == .started else {
             throw UTMIntentError.inputHandlerNotAvailable
         }
-        try await vm.changeInputTablet(true)
-        input.sendMousePosition(mouseButton.toSpiceButton(), absolutePoint: CGPoint(x: xPosition, y: yPosition), forMonitorID: monitorNumber-1)
+        let bridge = UTMVmBridge.shared
+        let point = CGPoint(x: xPosition, y: yPosition)
+        let mask = mouseButton.buttonMask()
+        bridge.sendMouseMoveAbsolute(point, buttons: 0)
         try await Task.sleep(nanoseconds: kDelayNs)
-        input.sendMouseButton(mouseButton.toSpiceButton(), mask: [], pressed: true)
+        bridge.sendMouseMoveAbsolute(point, buttons: mask)
         try await Task.sleep(nanoseconds: kDelayNs)
-        input.sendMouseButton(mouseButton.toSpiceButton(), mask: [], pressed: false)
+        bridge.sendMouseMoveAbsolute(point, buttons: 0)
         return .result()
     }
 }

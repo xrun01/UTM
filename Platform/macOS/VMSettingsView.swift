@@ -26,10 +26,8 @@ struct VMSettingsView<Config: UTMConfiguration>: View {
     var body: some View {
         NavigationView {
             List {
-                if config is UTMQemuConfiguration {
-                    VMQEMUSettingsView(config: config as! UTMQemuConfiguration)
-                } else if config is UTMAppleConfiguration {
-                    VMAppleSettingsView(config: config as! UTMAppleConfiguration)
+                if let appleConfig = config as? UTMAppleConfiguration {
+                    VMAppleSettingsView(config: appleConfig)
                 }
             }.listStyle(.sidebar)
             Text("")
@@ -159,14 +157,10 @@ extension View {
 }
 
 struct VMSettingsView_Previews: PreviewProvider {
-    @State static private var qemuConfig = UTMQemuConfiguration()
     @State static private var appleConfig = UTMAppleConfiguration()
     @State static private var data = UTMData()
     
     static var previews: some View {
-        VMSettingsView(vm: VMData(from: .empty), config: qemuConfig)
-            .environmentObject(data)
-            .previewDisplayName("QEMU VM Settings")
         VMSettingsView(vm: VMData(from: .empty), config: appleConfig)
             .environmentObject(data)
             .previewDisplayName("Apple VM Settings")

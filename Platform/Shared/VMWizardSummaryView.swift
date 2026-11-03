@@ -112,19 +112,12 @@ struct VMWizardSummaryView: View {
     
     var system: some View {
         Group {
-            TextField("Engine", text: .constant(NSLocalizedString(wizardState.useAppleVirtualization ? "Apple Virtualization" : "QEMU", comment: "VMWizardSummaryView")))
+            TextField("Engine", text: .constant(NSLocalizedString("Apple Virtualization", comment: "VMWizardSummaryView")))
             Toggle("Use Virtualization", isOn: $wizardState.useVirtualization)
-            Toggle("Legacy Hardware", isOn: $wizardState.legacyHardware)
-            if !wizardState.useAppleVirtualization {
-                TextField("Architecture", text: .constant(wizardState.systemArchitecture.prettyValue))
-                TextField("System", text: .constant(wizardState.systemTarget.prettyValue))
-            }
+            TextField("Architecture", text: .constant("ARM64"))
             TextField("RAM", text: .constant(ByteCountFormatter.string(fromByteCount: Int64(wizardState.systemMemoryMib * wizardState.bytesInMib), countStyle: .binary)))
             TextField("CPU", text: .constant(coreDescription))
             TextField("Storage", text: .constant(storageDescription))
-            if !wizardState.useAppleVirtualization && wizardState.operatingSystem == .Linux {
-                Toggle("Hardware OpenGL Acceleration", isOn: $wizardState.isGLEnabled)
-            }
         }
     }
     

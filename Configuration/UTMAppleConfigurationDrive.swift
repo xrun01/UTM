@@ -142,16 +142,3 @@ struct UTMAppleConfigurationDrive: UTMConfigurationDrive {
         return cloned
     }
 }
-
-// MARK: - Conversion of old config format
-
-@available(iOS, unavailable, message: "Apple Virtualization not available on iOS")
-extension UTMAppleConfigurationDrive {
-    init(migrating oldDrive: DiskImage) {
-        sizeMib = oldDrive.sizeMib
-        isReadOnly = oldDrive.isReadOnly
-        isExternal = oldDrive.isExternal
-        isNvme = false
-        imageURL = oldDrive.imageURL
-    }
-}

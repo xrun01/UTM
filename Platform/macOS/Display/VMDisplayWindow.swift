@@ -240,9 +240,11 @@ class VMDisplayWindow: NSWindow {
         let options: NSApplication.PresentationOptions?
         if !isMenuBarRevealAllowed && isKeyWindow {
             var forcedOptions: NSApplication.PresentationOptions = [.fullScreen, .hideMenuBar, .hideDock]
+            #if canImport(AccessoryAccess)
             if #available(macOS 27, *) {
                 forcedOptions.formUnion(revealableOptions.intersection(.disableScreenCornerInteractions))
             }
+            #endif
             options = forcedOptions
             isPresentationOptionsForced = true
         } else if isPresentationOptionsForced {

@@ -88,10 +88,6 @@ struct VMDetailsView: View {
             .modifier(VMOptionalNavigationTitleModifier(vm: vm))
             .modifier(VMToolbarModifier(vm: vm, bottom: !regularScreenSizeClass))
             .sheet(isPresented: $data.showSettingsModal) {
-                if let qemuConfig = vm.config as? UTMQemuConfiguration {
-                    VMSettingsView(vm: vm, config: qemuConfig)
-                        .environmentObject(data)
-                }
                 #if os(macOS)
                 if let appleConfig = vm.config as? UTMAppleConfiguration {
                     VMSettingsView(vm: vm, config: appleConfig)
@@ -101,16 +97,6 @@ struct VMDetailsView: View {
             }
             .taskOnAppear(id: vm.id) {
                 size = await data.computeSize(for: vm)
-                #if WITH_REMOTE
-                if let vm = vm.wrapped as? UTMRemoteSpiceVirtualMachine {
-                    await vm.loadScreenshotFromServer()
-                }
-                #else
-                while !Task.isCancelled {
-                    await updateGuestIPs()
-                    try? await Task.sleep(nanoseconds: updateIpIntervalNs)
-                }
-                #endif
             }
         }
     }
@@ -175,14 +161,7 @@ struct VMDetailsView: View {
                 if let appleVM = vm.wrapped as? UTMAppleVirtualMachine {
                     VMAppleRemovableDrivesView(vm: vm, config: appleVM.config, registryEntry: appleVM.registryEntry)
                         .padding([.leading, .trailing, .bottom])
-                } else if let qemuVM = vm.wrapped as? UTMQemuVirtualMachine {
-                    VMRemovableDrivesView(vm: vm, config: qemuVM.config)
-                        .padding([.leading, .trailing, .bottom])
                 }
-                #else
-                let qemuConfig = vm.config as! UTMQemuConfiguration
-                VMRemovableDrivesView(vm: vm, config: qemuConfig)
-                    .padding([.leading, .trailing, .bottom])
                 #endif
             } else {
                 VStack {
@@ -195,59 +174,12 @@ struct VMDetailsView: View {
                     #if os(macOS)
                     if let appleVM = vm.wrapped as? UTMAppleVirtualMachine {
                         VMAppleRemovableDrivesView(vm: vm, config: appleVM.config, registryEntry: appleVM.registryEntry)
-                    } else if let qemuVM = vm.wrapped as? UTMQemuVirtualMachine {
-                        VMRemovableDrivesView(vm: vm, config: qemuVM.config)
                     }
-                    #else
-                    let qemuConfig = vm.config as! UTMQemuConfiguration
-                    VMRemovableDrivesView(vm: vm, config: qemuConfig)
                     #endif
                 }.padding([.leading, .trailing, .bottom])
             }
         }.labelStyle(DetailsLabelStyle())
     }
-
-    #if !WITH_REMOTE
-    private func clearGuestIPs() {
-        guard let qemuVM = vm.wrapped as? UTMQemuVirtualMachine else {
-            return
-        }
-        for i in qemuVM.config.networks.indices {
-            qemuVM.config.networks[i].currentIpAddresses = []
-        }
-    }
-
-    private func updateGuestIPs() async {
-        guard let qemuVM = vm.wrapped as? UTMQemuVirtualMachine else {
-            clearGuestIPs()
-            return
-        }
-        guard let guestAgent = await qemuVM.guestAgent, qemuVM.state == .started else {
-            clearGuestIPs()
-            return
-        }
-        guard let interfaces = try? await guestAgent.guestNetworkGetInterfaces() else {
-            clearGuestIPs()
-            logger.error("Failed to get guest IP addresses")
-            return
-        }
-        for i in qemuVM.config.networks.indices {
-            let macAddress = qemuVM.config.networks[i].macAddress
-            if let interface = interfaces.first(where: { $0.hardwareAddress?.caseInsensitiveCompare(macAddress) == .orderedSame }) {
-                let ipAddresses = interface.ipAddresses.compactMap {
-                    if !$0.isIpV6Address && !$0.ipAddress.hasPrefix("127.") {
-                        return $0.ipAddress
-                    } else if $0.isIpV6Address && $0.ipAddress != "::1" && $0.ipAddress != "0:0:0:0:0:0:0:1" {
-                        return $0.ipAddress
-                    } else {
-                        return nil
-                    }
-                }
-                qemuVM.config.networks[i].currentIpAddresses = ipAddresses
-            }
-        }
-    }
-    #endif
 }
 
 private extension View {
@@ -369,12 +301,6 @@ struct Details: View {
     let sizeLabel: String
     @EnvironmentObject private var data: UTMData
     
-    private func formatPortForward(_ forward: UTMQemuConfigurationPortForward) -> String {
-        let hostAddr = forward.hostAddress ?? "*"
-        let guestAddr = forward.guestAddress ?? "*"
-        return "\(forward.protocol.rawValue) \(hostAddr):\(forward.hostPort) : \(guestAddr):\(forward.guestPort)"
-    }
-    
     var body: some View {
         VStack {
             if vm.isShortcut {
@@ -433,50 +359,6 @@ struct Details: View {
                         }
                     }
                 }
-            }
-            #endif
-            if let qemuConfig = vm.config as? UTMQemuConfiguration {
-                ForEach(qemuConfig.networks) { network in
-                    HStack {
-                        plainLabel("Network", systemImage: "network")
-                        Spacer()
-                        Text("\(network.mode.prettyValue) (\(network.hardware.prettyValue))")
-                            .foregroundColor(.secondary)
-                    }
-                    HStack {
-                        plainLabel("MAC Address", systemImage: "number")
-                        Spacer()
-                        OptionalSelectableText(network.macAddress)
-                    }
-                    ForEach(network.currentIpAddresses) { guestIP in
-                        HStack {
-                            plainLabel("Guest IP", systemImage: "network.badge.shield.half.filled")
-                            Spacer()
-                            OptionalSelectableText(guestIP)
-                        }
-                    }
-                    if network.mode == .bridged, let interface = network.bridgeInterface {
-                        HStack {
-                            plainLabel("Bridge Interface", systemImage: "arrow.triangle.branch")
-                            Spacer()
-                            Text(interface)
-                                .foregroundColor(.secondary)
-                        }
-                    }
-                    if network.mode == .emulated && !network.portForward.isEmpty {
-                        ForEach(network.portForward) { forward in
-                            HStack {
-                                plainLabel("Port Forward", systemImage: "arrow.triangle.2.circlepath")
-                                Spacer()
-                                Text(formatPortForward(forward))
-                                    .foregroundColor(.secondary)
-                            }
-                        }
-                    }
-                }
-            }
-            #if os(macOS)
-            if let appleConfig = vm.config as? UTMAppleConfiguration {
                 ForEach(appleConfig.serials) { serial in
                     if serial.mode == .ptty {
                         HStack {
@@ -488,34 +370,6 @@ struct Details: View {
                 }
             }
             #endif
-            if let qemuConfig = vm.config as? UTMQemuConfiguration {
-                ForEach(qemuConfig.serials) { serial in
-                    if serial.mode == .tcpClient {
-                        HStack {
-                            plainLabel("Serial (Client)", systemImage: "network")
-                            Spacer()
-                            let address = "\(serial.tcpHostAddress ?? "example.com"):\(serial.tcpPort ?? 1234)"
-                            OptionalSelectableText(vm.state == .started ? address : nil)
-                        }
-                    } else if serial.mode == .tcpServer {
-                        HStack {
-                            plainLabel("Serial (Server)", systemImage: "network")
-                            Spacer()
-                            let address = "\(serial.tcpPort ?? 1234)"
-                            OptionalSelectableText(vm.state == .started ? address : nil)
-                        }
-                    }
-                    #if os(macOS)
-                    if serial.mode == .ptty {
-                        HStack {
-                            plainLabel("Serial (TTY)", systemImage: "phone.connection")
-                            Spacer()
-                            OptionalSelectableText(serial.pttyDevice?.path)
-                        }
-                    }
-                    #endif
-                }
-            }
         }.lineLimit(1)
         .truncationMode(.tail)
     }
@@ -561,20 +415,7 @@ private struct OptionalSelectableText: View {
 }
 
 struct VMDetailsView_Previews: PreviewProvider {
-    @State static private var config = UTMQemuConfiguration()
-    
     static var previews: some View {
         VMDetailsView(vm: VMData(from: .empty))
-        .onAppear {
-            config.sharing.directoryShareMode = .webdav
-            var drive = UTMQemuConfigurationDrive()
-            drive.imageType = .disk
-            drive.interface = .ide
-            config.drives.append(drive)
-            drive.interface = .scsi
-            config.drives.append(drive)
-            drive.imageType = .cd
-            config.drives.append(drive)
-        }
     }
 }

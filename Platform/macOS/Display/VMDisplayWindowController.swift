@@ -92,8 +92,25 @@ class VMDisplayWindowController: NSWindowController, UTMVirtualMachineDelegate {
     @objc dynamic func updateUsbMenu(_ menu: NSMenu) {}
     @objc dynamic func updateDrivesMenu(_ menu: NSMenu) {}
     @objc dynamic func updateSharedFolderMenu(_ menu: NSMenu) {}
-    @objc dynamic func updateWindowsMenu(_ menu: NSMenu) {}
+    @objc dynamic func updateWindowsMenu(_ menu: NSMenu) {
+        let coherenceItem = NSMenuItem(
+            title: NSLocalizedString("Coherence Mode", comment: "VMDisplayWindowController"),
+            action: #selector(coherenceMenuItemPressed(_:)),
+            keyEquivalent: ""
+        )
+        coherenceItem.target = self
+        coherenceItem.state = UTMVmBridge.shared.isCoherenceMode ? .on : .off
+        menu.addItem(coherenceItem)
+    }
     @objc dynamic func updateKeyboardShortcutMenu(_ menu: NSMenu) {}
+
+    @objc private func coherenceMenuItemPressed(_ sender: Any) {
+        if let vmMetalCtrl = self as? VMDisplayVmMetalWindowController {
+            vmMetalCtrl.toggleCoherenceMode()
+        } else {
+            UTMVmBridge.shared.dispatch(.setCoherence(enabled: !UTMVmBridge.shared.isCoherenceMode))
+        }
+    }
 
     convenience init(vm: any UTMVirtualMachine, onClose: (() -> Void)?) {
         self.init(window: nil)
@@ -424,10 +441,11 @@ class VMDisplayWindowController: NSWindowController, UTMVirtualMachineDelegate {
 extension VMDisplayWindowController: NSWindowDelegate {
     func window(_ window: NSWindow, willUseFullScreenPresentationOptions proposedOptions: NSApplication.PresentationOptions = []) -> NSApplication.PresentationOptions {
         var options = proposedOptions.union([.autoHideToolbar])
+        #if canImport(AccessoryAccess)
         if #available(macOS 27, *) {
-            // the guest owns the whole screen, so its corners should not trigger Hot Corners on the host
             options.insert(.disableScreenCornerInteractions)
         }
+        #endif
         return options
     }
     

@@ -15,42 +15,29 @@
 //
 
 import Foundation
-import CocoaSpice
 
 private let kDelayNs: UInt64 = 20000000
 
 @objc extension UTMScriptingVirtualMachineImpl {
-    @nonobjc private var primaryInput: CSInput {
-        get throws {
-            guard vm.state == .started else {
-                throw ScriptingError.notRunning
-            }
-            guard let ioService = (vm as? any UTMSpiceVirtualMachine)?.ioService else {
-                throw ScriptingError.operationNotSupported
-            }
-            guard let input = ioService.primaryInput else {
-                throw ScriptingError.operationNotAvailable
-            }
-            return input
-        }
-    }
-
     @objc func sendScanCode(_ command: NSScriptCommand) {
         let scanCodes = command.evaluatedArguments?["codes"] as? [Int]
         withScriptCommand(command) { [self] in
+            guard vm.state == .started else {
+                throw ScriptingError.notRunning
+            }
             guard let scanCodes = scanCodes else {
                 throw ScriptingError.invalidParameter
             }
-            let input = try self.primaryInput
+            let bridge = UTMVmBridge.shared
             for scanCode in scanCodes {
-                var _scanCode = scanCode
-                if (_scanCode & 0xFF00) == 0xE000 {
-                    _scanCode = 0x100 | (_scanCode & 0xFF)
+                var code = scanCode
+                if (code & 0xFF00) == 0xE000 {
+                    code = 0x100 | (code & 0xFF)
                 }
-                if (_scanCode & 0x80) == 0x80 {
-                    input.send(.release, code: Int32(_scanCode & 0x17F))
+                if (code & 0x80) == 0x80 {
+                    bridge.sendKeyCode(UInt16(code & 0x17F), isKeyDown: false, modifiers: 0)
                 } else {
-                    input.send(.press, code: Int32(_scanCode))
+                    bridge.sendKeyCode(UInt16(code & 0x1FF), isKeyDown: true, modifiers: 0)
                 }
                 try await Task.sleep(nanoseconds: kDelayNs)
             }
@@ -62,31 +49,34 @@ private let kDelayNs: UInt64 = 20000000
         let _modifiers = command.evaluatedArguments?["modifiers"] as? [AEKeyword] ?? []
         let modifiers = _modifiers.compactMap({ UTMScriptingModifierKey(rawValue: $0) })
         withScriptCommand(command) { [self] in
-            func scanCodeToSpice(_ scanCode: Int) -> Int32 {
+            func normalizeScanCode(_ scanCode: Int) -> UInt16 {
                 var keyCode = scanCode
                 if (keyCode & 0xFF00) == 0xE000 {
                     keyCode = (keyCode & 0xFF) | 0x100
                 }
-                return Int32(keyCode)
+                return UInt16(keyCode & 0xFFFF)
             }
 
+            guard vm.state == .started else {
+                throw ScriptingError.notRunning
+            }
             guard let keystrokes = keystrokes else {
                 throw ScriptingError.invalidParameter
             }
-            let input = try self.primaryInput
+            let bridge = UTMVmBridge.shared
             for modifier in modifiers {
-                input.send(.press, code: modifier.toSpiceKeyCode())
+                bridge.sendKeyCode(modifier.toScanCode(), isKeyDown: true, modifiers: 0)
                 try await Task.sleep(nanoseconds: kDelayNs)
             }
             let keyboardMap = VMKeyboardMap()
             await keyboardMap.mapText(keystrokes) { scanCode in
-                input.send(.release, code: scanCodeToSpice(scanCode))
+                bridge.sendKeyCode(normalizeScanCode(scanCode), isKeyDown: false, modifiers: 0)
             } keyDown: { scanCode in
-                input.send(.press, code: scanCodeToSpice(scanCode))
+                bridge.sendKeyCode(normalizeScanCode(scanCode), isKeyDown: true, modifiers: 0)
             }
             try await Task.sleep(nanoseconds: kDelayNs)
             for modifier in modifiers {
-                input.send(.release, code: modifier.toSpiceKeyCode())
+                bridge.sendKeyCode(modifier.toScanCode(), isKeyDown: false, modifiers: 0)
                 try await Task.sleep(nanoseconds: kDelayNs)
             }
         }
@@ -96,26 +86,27 @@ private let kDelayNs: UInt64 = 20000000
         let coordinate = command.evaluatedArguments?["coordinate"] as? [Int]
         let _mouseButton = command.evaluatedArguments?["button"] as? AEKeyword ?? UTMScriptingMouseButton.left.rawValue
         let mouseButton = UTMScriptingMouseButton(rawValue: _mouseButton) ?? .left
-        let monitorNumber = command.evaluatedArguments?["monitor"] as? Int ?? 1
         withScriptCommand(command) { [self] in
+            guard vm.state == .started else {
+                throw ScriptingError.notRunning
+            }
             guard let coordinate = coordinate, coordinate.count == 2 else {
                 throw ScriptingError.invalidParameter
             }
-            let xPosition = coordinate[0]
-            let yPosition = coordinate[1]
-            let input = try self.primaryInput
-            try await (vm as! UTMQemuVirtualMachine).changeInputTablet(true)
-            input.sendMousePosition(mouseButton.toSpiceButton(), absolutePoint: CGPoint(x: xPosition, y: yPosition), forMonitorID: monitorNumber-1)
+            let point = CGPoint(x: coordinate[0], y: coordinate[1])
+            let mask = mouseButton.buttonMask()
+            let bridge = UTMVmBridge.shared
+            bridge.sendMouseMoveAbsolute(point, buttons: 0)
             try await Task.sleep(nanoseconds: kDelayNs)
-            input.sendMouseButton(mouseButton.toSpiceButton(), mask: [], pressed: true)
+            bridge.sendMouseMoveAbsolute(point, buttons: mask)
             try await Task.sleep(nanoseconds: kDelayNs)
-            input.sendMouseButton(mouseButton.toSpiceButton(), mask: [], pressed: false)
+            bridge.sendMouseMoveAbsolute(point, buttons: 0)
         }
     }
 }
 
 private extension UTMScriptingModifierKey {
-    func toSpiceKeyCode() -> Int32 {
+    func toScanCode() -> UInt16 {
         switch self {
         case .capsLock: return 0x3a
         case .shift: return 0x2a
@@ -128,11 +119,11 @@ private extension UTMScriptingModifierKey {
 }
 
 private extension UTMScriptingMouseButton {
-    func toSpiceButton() -> CSInputButton {
+    func buttonMask() -> UInt32 {
         switch self {
-        case .left: return .left
-        case .right: return .right
-        case .middle: return .middle
+        case .left: return 1
+        case .right: return 2
+        case .middle: return 4
         }
     }
 }

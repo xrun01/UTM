@@ -88,13 +88,3 @@ struct UTMAppleConfigurationSharedDirectory: Codable, Hashable, Identifiable {
         return VZMultipleDirectoryShare(directories: directories)
     }
 }
-
-// MARK: - Conversion of old config format
-
-@available(iOS, unavailable, message: "Apple Virtualization not available on iOS")
-extension UTMAppleConfigurationSharedDirectory {
-    init(migrating oldShare: SharedDirectory) {
-        directoryURL = oldShare.directoryURL
-        isReadOnly = oldShare.isReadOnly
-    }
-}

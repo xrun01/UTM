@@ -20,11 +20,9 @@ struct SettingsView: View {
     private enum Selection: CaseIterable, Identifiable {
         case application
         case display
-        case sound
         case input
         case network
         case file
-        case server
 
         var id: Self {
             return self
@@ -36,16 +34,12 @@ struct SettingsView: View {
                 return "Application"
             case .display:
                 return "Display"
-            case .sound:
-                return "Sound"
             case .input:
                 return "Input"
             case .network:
                 return "Network"
             case .file:
                 return "File"
-            case .server:
-                return "Server"
             }
         }
 
@@ -55,16 +49,12 @@ struct SettingsView: View {
                 return "app.badge"
             case .display:
                 return "rectangle.on.rectangle"
-            case .sound:
-                return "speaker.wave.2"
             case .input:
                 return "keyboard"
             case .network:
                 return "network"
             case .file:
                 return "folder"
-            case .server:
-                return "server.rack"
             }
         }
 
@@ -75,16 +65,12 @@ struct SettingsView: View {
                 ApplicationSettingsView()
             case .display:
                 DisplaySettingsView()
-            case .sound:
-                SoundSettingsView()
             case .input:
                 InputSettingsView()
             case .network:
                 NetworkSettingsView()
             case .file:
                 FileSettingsView()
-            case .server:
-                ServerSettingsView()
             }
         }
     }
@@ -177,20 +163,6 @@ struct ApplicationSettingsView: View {
             Toggle(isOn: $isNoQuitConfirmation, label: {
                 Text("Do not show confirmation when closing a running VM")
             }).help("Closing a VM without properly shutting it down could result in data loss.")
-
-            Section(header: Text("QEMU USB")) {
-                Toggle(isOn: $isNoUsbPrompt, label: {
-                    Text("Do not show prompt when USB device is plugged in")
-                })
-                Button("Reset auto connect devices…") {
-                    isConfirmResetAutoConnect.toggle()
-                }.help("Clears all saved USB devices.")
-                .alert(isPresented: $isConfirmResetAutoConnect) {
-                    Alert(title: Text("Do you wish to reset all saved USB devices?"), primaryButton: .cancel(), secondaryButton: .destructive(Text("Reset")) {
-                        UTMUSBManager.shared.usbDevices.removeAll()
-                    })
-                }
-            }
         }
     }
 }
@@ -199,31 +171,6 @@ struct DisplaySettingsView: View {
     @AppStorage("NoScreenshot") var isNoScreenshot = false
     @AppStorage("NoSaveScreenshot") var isNoSaveScreenshot = false
     @AppStorage("FullScreenUseCameraHousingArea") var isFullScreenUseCameraHousingArea = false
-    @AppStorage("QEMURendererBackend") var qemuRendererBackend: UTMQEMURendererBackend = .qemuRendererBackendDefault
-    @AppStorage("QEMUVulkanDriver") var qemuVulkanDriver: UTMQEMUVulkanDriver = .qemuVulkanDriverDefault
-    @AppStorage("QEMUDirectXDriver") var qemuDirectXDriver: UTMQEMUDirectXDriver = .qemuDirectXDriverDefault
-    @AppStorage("QEMURendererFPSLimit") var qemuRendererFpsLimit: Int = 0
-
-    private var isVulkanSupported: Bool {
-        qemuRendererBackend == .qemuRendererBackendDefault || qemuRendererBackend == .qemuRendererBackendAngleMetal
-    }
-
-    private static var hasD3DMetal: Bool = {
-        let d3dMetalFramework = Bundle.main.bundleURL.appendingPathComponent("Contents/Frameworks/D3DMetal.framework")
-        return FileManager.default.fileExists(atPath: d3dMetalFramework.path)
-    }()
-
-    private var isD3DMetalAvailable: Bool {
-        if qemuDirectXDriver == .qemuDirectXDriverD3DMetal {
-            return true // always show option if already selected
-        } else {
-            if #available(macOS 14, *) {
-                return Self.hasD3DMetal && UTMQemuVirtualMachine.canRunD3DMetal
-            } else {
-                return false
-            }
-        }
-    }
 
     var body: some View {
         Form {
@@ -242,109 +189,14 @@ struct DisplaySettingsView: View {
                     Text("Fill the area beside the camera housing in full screen")
                 }.help("If enabled, a full screen VM display will use the entire screen including the area beside the built-in camera. The menu bar will cover this area while it is revealed.")
             }
-            
-            Section(header: Text("QEMU Graphics Acceleration")) {
-                Picker("Renderer Backend", selection: $qemuRendererBackend) {
-                    Text("Default").tag(UTMQEMURendererBackend.qemuRendererBackendDefault)
-                    Text("ANGLE (OpenGL)").tag(UTMQEMURendererBackend.qemuRendererBackendAngleGL)
-                    Text("ANGLE (Metal)").tag(UTMQEMURendererBackend.qemuRendererBackendAngleMetal)
-                    Text("Apple Core OpenGL").tag(UTMQEMURendererBackend.qemuRendererBackendCGL)
-                }.help("By default, the best renderer for this device will be used. You can override this with to always use a specific renderer. This only applies to QEMU VMs with GPU accelerated graphics.")
-                Picker("Vulkan Driver", selection: $qemuVulkanDriver) {
-                    Text("Default").tag(UTMQEMUVulkanDriver.qemuVulkanDriverDefault)
-                    Text("Disabled").tag(UTMQEMUVulkanDriver.qemuVulkanDriverDisabled)
-                    Text("MoltenVK").tag(UTMQEMUVulkanDriver.qemuVulkanDriverMoltenVK)
-                    if #available(macOS 26, *) {
-                        Text("KosmicKrisp").tag(UTMQEMUVulkanDriver.qemuVulkanDriverKosmicKrisp)
-                    }
-                }.help("Select the Vulkan driver to use for host passthrough rendering. Vulkan requires guest drivers to be installed.")
-                .disabled(!isVulkanSupported)
-                .onChange(of: qemuRendererBackend) { _ in
-                    if !isVulkanSupported {
-                        qemuVulkanDriver = .qemuVulkanDriverDefault
-                    }
-                }
-                Picker("DirectX Driver", selection: $qemuDirectXDriver) {
-                    Text("Default").tag(UTMQEMUDirectXDriver.qemuDirectXDriverDefault)
-                    Text("Disabled").tag(UTMQEMUDirectXDriver.qemuDirectXDriverDisabled)
-                    Text("DXMT").tag(UTMQEMUDirectXDriver.qemuDirectXDriverDXMT)
-                    if isD3DMetalAvailable {
-                        Text("D3DMetal").tag(UTMQEMUDirectXDriver.qemuDirectXDriverD3DMetal)
-                    }
-                }.help("Select the DirectX driver to use for host passthrough rendering. DirectX requires guest drivers to be installed.")
-                .disabled(!isVulkanSupported)
-                .onChange(of: qemuRendererBackend) { _ in
-                    if !isVulkanSupported {
-                        qemuDirectXDriver = .qemuDirectXDriverDefault
-                    }
-                }
-                if !isVulkanSupported {
-                    Text("The selected renderer backend does not support Vulkan.")
-                }
-                HStack {
-                    Stepper("FPS Limit", value: $qemuRendererFpsLimit, in: 0...240, step: 15)
-                    NumberTextField("", number: $qemuRendererFpsLimit, prompt: "None")
-                        .frame(width: 80)
-                        .multilineTextAlignment(.trailing)
-                        .help("If set, a frame limit can improve smoothness in rendering by preventing stutters when set to the lowest value your device can handle.")
-                }
-            }
-        }
-    }
-}
-
-struct SoundSettingsView: View {
-    @AppStorage("QEMUSoundBackend") var qemuSoundBackend: UTMQEMUSoundBackend = .qemuSoundBackendDefault
-    
-    var body: some View {
-        Form {
-            Section(header: Text("QEMU Sound")) {
-                Picker("Sound Backend", selection: $qemuSoundBackend) {
-                    Text("Default").tag(UTMQEMUSoundBackend.qemuSoundBackendDefault)
-                    Text("SPICE with GStreamer (Input & Output)").tag(UTMQEMUSoundBackend.qemuSoundBackendSPICE)
-                    Text("CoreAudio (Output Only)").tag(UTMQEMUSoundBackend.qemuSoundBackendCoreAudio)
-                }.help("By default, the best backend for the target will be used. If the selected backend is not available for any reason, an alternative will automatically be selected.")
-            }
         }
     }
 }
 
 struct InputSettingsView: View {
-    private enum ModifierKeyMapping: Hashable {
-        case none
-        case ctrlCmd
-        case cmdOpt
-    }
-
     @AppStorage("FullScreenAutoCapture") var isFullScreenAutoCapture = false
     @AppStorage("WindowFocusAutoCapture") var isWindowFocusAutoCapture = false
     @AppStorage("OptionAsMetaKey") var isOptionAsMetaKey = false
-    @AppStorage("CtrlRightClick") var isCtrlRightClick = false
-    @AppStorage("AlternativeCaptureKey") var isAlternativeCaptureKey = false
-    @AppStorage("IsCapsLockKey") var isCapsLockKey = false
-    @AppStorage("IsNumLockForced") var isNumLockForced = false
-    @AppStorage("IsCtrlCmdSwapped") var isCtrlCmdSwapped = false
-    @AppStorage("IsCmdOptSwapped") var isCmdOptSwapped = false
-    @AppStorage("InvertScroll") var isInvertScroll = false
-    @AppStorage("HandleInitialClick") var isHandleInitialClick = false
-    @AppStorage("IsISOKeySwapped") var isISOKeySwapped = false
-
-    @State private var isKeyboardShortcutsShown = false
-
-    private var modifierKeyMappingBinding: Binding<ModifierKeyMapping> {
-        Binding(get: {
-            if isCtrlCmdSwapped {
-                return .ctrlCmd
-            } else if isCmdOptSwapped {
-                return .cmdOpt
-            } else {
-                return .none
-            }
-        }, set: { mapping in
-            isCtrlCmdSwapped = mapping == .ctrlCmd
-            isCmdOptSwapped = mapping == .cmdOpt
-        })
-    }
     
     var body: some View {
         Form {
@@ -361,45 +213,6 @@ struct InputSettingsView: View {
                 Toggle(isOn: $isOptionAsMetaKey, label: {
                     Text("Option (⌥) is Meta key")
                 }).help("If enabled, Option will be mapped to the Meta key which can be useful for emacs. Otherwise, option will work as the system intended (such as for entering international text).")
-            }
-            
-            Section(header: Text("QEMU Pointer")) {
-                Toggle(isOn: $isCtrlRightClick, label: {
-                    Text("Hold Control (⌃) for right click")
-                })
-                Toggle(isOn: $isInvertScroll, label: {
-                    Text("Invert scrolling")
-                }).help("If enabled, scroll wheel input will be inverted.")
-                Toggle(isOn: $isHandleInitialClick) {
-                    Text("Handle input on initial click")
-                }.help("If enabled, when the VM is out of focus, the first click will be handled by the VM. Otherwise, the first click will only bring the window into focus.")
-            }
-            
-            Section(header: Text("QEMU Keyboard")) {
-                Button("Keyboard Shortcuts…") {
-                    isKeyboardShortcutsShown.toggle()
-                }.help("Set up custom keyboard shortcuts that can be triggered from the keyboard menu.")
-                Toggle(isOn: $isAlternativeCaptureKey, label: {
-                    Text("Use Command+Option (⌘+⌥) for input capture/release")
-                }).help("If disabled, the default combination Control+Option (⌃+⌥) will be used.")
-                Toggle(isOn: $isCapsLockKey, label: {
-                    Text("Caps Lock (⇪) is treated as a key")
-                }).help("If enabled, caps lock will be handled like other keys. If disabled, it is treated as a toggle that is synchronized with the host.")
-                Toggle(isOn: $isNumLockForced, label: {
-                    Text("Num Lock is forced on")
-                }).help("If enabled, num lock will always be on to the guest. Note this may make your keyboard's num lock indicator out of sync.")
-                Picker("Control, Option, and Command keys", selection: modifierKeyMappingBinding) {
-                    Text("Default").tag(ModifierKeyMapping.none)
-                    Text("Swap Control (⌃) and Command (⌘)").tag(ModifierKeyMapping.ctrlCmd)
-                    Text("Swap Command (⌘) and Option (⌥)").tag(ModifierKeyMapping.cmdOpt)
-                }.help("This does not apply to key binding outside the guest.")
-                Toggle(isOn: $isISOKeySwapped) {
-                    Text("Swap the leftmost key on the number row and the key next to left shift on ISO keyboards")
-                }.help("This only applies to ISO layout keyboards.")
-            }
-            .sheet(isPresented: $isKeyboardShortcutsShown) {
-                VMKeyboardShortcutsView().padding()
-                    .frame(idealWidth: 400)
             }
         }
     }
@@ -450,7 +263,7 @@ struct NetworkSettingsView: View {
                         .foregroundStyle(UUID(uuidString: network.uuid) == nil ? .red : .primary)
                     }
                     .width(min: 160)
-                }.help("QEMU machines in 'Host' network mode can be placed in the same network to communicate with each other.")
+                }.help("Virtual machines in 'Host' network mode can be placed in the same network to communicate with each other.")
                 HStack {
                     Button("Import from VMware Fusion") {
                         isImporterPresented.toggle()
@@ -491,72 +304,10 @@ struct FileSettingsView: View {
 
     var body: some View {
         Form {
-            Section(header: Text("QEMU Backend")) {
+            Section(header: Text("Backend")) {
                 Toggle(isOn: $isUseFileLock) {
                     Text("Lock drive images when in use")
                 }.help("If enabled, all writable drive images will be locked when the VM is running. Read-only drive images will not be locked.")
-            }
-        }
-    }
-}
-
-struct ServerSettingsView: View {
-    private let defaultPort = 21589
-
-    @AppStorage("ServerAutostart") var isServerAutostart: Bool = false
-    @AppStorage("ServerExternal") var isServerExternal: Bool = false
-    @AppStorage("ServerAutoblock") var isServerAutoblock: Bool = false
-    @AppStorage("ServerPort") var serverPort: Int = 0
-    @AppStorage("ServerPasswordRequired") var isServerPasswordRequired: Bool = false
-    @AppStorage("ServerPassword") var serverPassword: String = ""
-
-    // note it is okay to store the server password in plaintext in the settings plist because if the attacker is able to see the password,
-    // they can gain execution in UTM application context... which is the context needed to read the password.
-
-    var body: some View {
-        Form {
-            Section(header: Text("Startup")) {
-                Toggle("Automatically start UTM server", isOn: $isServerAutostart)
-            }
-            Section(header: Text("Network")) {
-                Toggle("Reject unknown connections by default", isOn: $isServerAutoblock)
-                    .help("If checked, you will not be prompted about any unknown connection and they will be rejected.")
-                Toggle("Allow access from external clients", isOn: $isServerExternal)
-                    .help("By default, the server is only available on LAN but setting this will use UPnP/NAT-PMP to port forward to WAN.")
-                    .onChange(of: isServerExternal) { newValue in
-                        if newValue {
-                            if serverPort == 0 {
-                                serverPort = defaultPort
-                            }
-                            if !isServerPasswordRequired {
-                                isServerPasswordRequired = true
-                            }
-                        }
-                    }
-                NumberTextField("", number: $serverPort, prompt: "Any")
-                    .frame(width: 80)
-                    .multilineTextAlignment(.trailing)
-                    .help("Specify a port number to listen on. This is required if external clients are permitted.")
-                    .onChange(of: serverPort) { newValue in
-                        if newValue == 0 {
-                            isServerExternal = false
-                        }
-                        if newValue < 0 || newValue >= UInt16.max {
-                            serverPort = defaultPort
-                        }
-                    }
-            }
-            Section(header: Text("Authentication")) {
-                Toggle("Require Password", isOn: $isServerPasswordRequired)
-                    .disabled(isServerExternal)
-                    .help("If enabled, clients must enter a password. This is required if you want to access the server externally.")
-                    .onChange(of: isServerPasswordRequired) { newValue in
-                        if newValue && serverPassword.count == 0 {
-                            serverPassword = .random(length: 32)
-                        }
-                    }
-                TextField("Password", text: $serverPassword)
-                    .disabled(!isServerPasswordRequired)
             }
         }
     }
@@ -579,8 +330,6 @@ extension UserDefaults {
     @objc dynamic var IsNumLockForced: Bool { false }
     @objc dynamic var NoSaveScreenshot: Bool { false }
     @objc dynamic var InvertScroll: Bool { false }
-    @objc dynamic var QEMURendererBackend: Int { 0 }
-    @objc dynamic var QEMURendererFPSLimit: Int { 0 }
 }
 
 struct SettingsView_Previews: PreviewProvider {

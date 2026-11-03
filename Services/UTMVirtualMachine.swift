@@ -16,16 +16,11 @@
 
 import Foundation
 import Combine
-#if canImport(AppKit)
 import AppKit
-#elseif canImport(UIKit)
-import UIKit
-#endif
 
 private let kUTMBundleExtension = "utm"
 private let kScreenshotPeriodSeconds = 60.0
 let kUTMBundleScreenshotFilename = "screenshot.png"
-private let kUTMBundleViewFilename = "view.plist"
 
 /// UTM virtual machine backend
 protocol UTMVirtualMachine: AnyObject, Identifiable {
@@ -439,11 +434,7 @@ extension UTMVirtualMachine {
 
 @MainActor extension UTMVirtualMachine {
     nonisolated func loadRegistry() -> UTMRegistryEntry {
-        let registryEntry = UTMRegistry.shared.entry(for: self)
-        // migrate legacy view state
-        let viewStateUrl = pathUrl.appendingPathComponent(kUTMBundleViewFilename)
-        registryEntry.migrateUnsafe(viewStateURL: viewStateUrl)
-        return registryEntry
+        return UTMRegistry.shared.entry(for: self)
     }
     
     /// Default implementation

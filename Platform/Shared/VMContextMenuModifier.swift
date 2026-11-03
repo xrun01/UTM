@@ -88,16 +88,6 @@ struct VMContextMenuModifier: ViewModifier {
                     }.help("Run the VM in the foreground, without saving data changes to disk.")
                 }
                 
-                #if os(iOS) || os(visionOS)
-                if let qemuConfig = vm.config as? UTMQemuConfiguration {
-                    Button {
-                        NotificationCenter.default.post(name: NSNotification.InstallGuestTools, object: vm.wrapped!)
-                    } label: {
-                        Label("Install Windows Guest Tools…", systemImage: "wrench.and.screwdriver")
-                    }.help("Download and mount the guest tools for Windows.")
-                }
-                #endif
-                
                 Divider()
             }
             #if !WITH_REMOTE // FIXME: implement remote feature

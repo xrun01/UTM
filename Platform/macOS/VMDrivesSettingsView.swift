@@ -88,10 +88,7 @@ struct VMDrivesSettingsView<Drive: UTMConfigurationDrive>: View {
         })
         .popover(isPresented: $newDrivePopover, arrowEdge: .top) {
             VStack {
-                // Ugly hack to coerce generic type to one of two binding types
-                if newDrive is UTMQemuConfigurationDrive {
-                    VMConfigDriveCreateView(config: $newDrive as Any as! Binding<UTMQemuConfigurationDrive>)
-                } else if newDrive is UTMAppleConfigurationDrive {
+                if newDrive is UTMAppleConfigurationDrive {
                     VMConfigAppleDriveCreateView(config: $newDrive as Any as! Binding<UTMAppleConfigurationDrive>)
                 } else {
                     fatalError("Unsupported drive type")
@@ -114,13 +111,7 @@ struct VMDrivesSettingsView<Drive: UTMConfigurationDrive>: View {
     }
     
     private func label(for drive: Drive) -> String {
-        if let qemuDrive = drive as? UTMQemuConfigurationDrive {
-            if qemuDrive.interface == .none && qemuDrive.imageName == QEMUPackageFileName.efiVariables.rawValue {
-                return NSLocalizedString("EFI Variables", comment: "VMDrivesSettingsView")
-            } else {
-                return String.localizedStringWithFormat(NSLocalizedString("%@ Drive", comment: "VMDrivesSettingsView"), qemuDrive.interface.prettyValue)
-            }
-        } else if let appleDrive = drive as? UTMAppleConfigurationDrive {
+        if let appleDrive = drive as? UTMAppleConfigurationDrive {
             return String.localizedStringWithFormat(NSLocalizedString("%@ Image", comment: "VMDrivesSettingsView"), appleDrive.sizeString)
         } else {
             fatalError("Unsupported drive type.")
@@ -144,7 +135,7 @@ struct VMDrivesSettingsView<Drive: UTMConfigurationDrive>: View {
     }
 
     private func addNewDrive(_ newDrive: Drive) {
-        newDrivePopover = false // hide popover
+        newDrivePopover = false
         data.busyWorkAsync {
             DispatchQueue.main.async {
                 drives.append(newDrive)
@@ -157,9 +148,7 @@ private struct DriveDetailsView<Drive: UTMConfigurationDrive>: View {
     @Binding var config: Drive
     
     var body: some View {
-        if config is UTMQemuConfigurationDrive {
-            VMConfigDriveDetailsView(config: $config as Any as! Binding<UTMQemuConfigurationDrive>)
-        } else if config is UTMAppleConfigurationDrive {
+        if config is UTMAppleConfigurationDrive {
             VMConfigAppleDriveDetailsView(config: $config as Any as! Binding<UTMAppleConfigurationDrive>)
         } else {
             fatalError("Unsupported drive type.")

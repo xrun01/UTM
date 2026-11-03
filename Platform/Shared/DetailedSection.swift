@@ -56,3 +56,23 @@ struct DetailedSection_Previews: PreviewProvider {
         .frame(width: 200)
     }
 }
+
+struct VMConfigConstantPicker<SelectionValue: UTMConfigurationConstant>: View {
+    private let titleKey: LocalizedStringKey
+    @Binding private var selection: SelectionValue
+
+    init(_ titleKey: LocalizedStringKey = "", selection: Binding<SelectionValue>) {
+        self.titleKey = titleKey
+        self._selection = selection
+    }
+
+    var body: some View {
+        Picker(titleKey, selection: $selection) {
+            ForEach(Array(SelectionValue.allCases), id: \.id) { item in
+                if !item.isHidden {
+                    Text(item.prettyValue).tag(item)
+                }
+            }
+        }
+    }
+}

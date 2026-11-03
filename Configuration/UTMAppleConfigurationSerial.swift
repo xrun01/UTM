@@ -19,7 +19,7 @@ import Virtualization
 
 @available(iOS, unavailable, message: "Apple Virtualization not available on iOS")
 struct UTMAppleConfigurationSerial: Codable, Identifiable {
-    enum SerialMode: String, CaseIterable, QEMUConstant {
+    enum SerialMode: String, CaseIterable, UTMConfigurationConstant {
         case builtin = "Terminal"
         case ptty = "Ptty"
         

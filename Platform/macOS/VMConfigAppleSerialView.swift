@@ -32,7 +32,10 @@ struct VMConfigAppleSerialView: View {
                 }
                 
                 if config.mode == .builtin {
-                    VMConfigDisplayConsoleView(config: $config.terminal.bound)
+                    Section(header: Text("Style")) {
+                        NumberTextField("Font Size", number: $config.terminal.bound.fontSize)
+                        Toggle("Blinking cursor?", isOn: $config.terminal.bound.hasCursorBlink)
+                    }
                 }
             }
         }.disableAutocorrection(true)

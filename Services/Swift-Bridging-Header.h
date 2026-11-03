@@ -14,43 +14,15 @@
 // limitations under the License.
 //
 
+#import <AppKit/AppKit.h>
 #include <os/proc.h>
 #include "TargetConditionals.h"
-#include "UTMLegacyQemuConfiguration.h"
-#include "UTMLegacyQemuConfiguration+Constants.h"
-#include "UTMLegacyQemuConfiguration+Display.h"
-#include "UTMLegacyQemuConfiguration+Drives.h"
-#include "UTMLegacyQemuConfiguration+Miscellaneous.h"
-#include "UTMLegacyQemuConfiguration+Networking.h"
-#include "UTMLegacyQemuConfiguration+Sharing.h"
-#include "UTMLegacyQemuConfiguration+System.h"
-#include "UTMLegacyQemuConfigurationPortForward.h"
 #include "UTMLogging.h"
 #include "UTMASIFImage.h"
 #include "VMKeyboardMap.h"
-#if !defined(WITH_REMOTE)
-#include "UTMProcess.h"
-#include "UTMQemuSystem.h"
-#include "QEMUHelperProtocol.h"
-#include "UTMJailbreak.h"
-#else
-#include "UTMQemuSystemBackends.h"
-#endif
-#include "UTMLegacyViewState.h"
-#include "UTMSpiceIO.h"
-#include "GenerateKey.h"
-#if TARGET_OS_IPHONE
-#if defined(WITH_LOCATION_BACKGROUND)
-#include "UTMLocationManager.h"
-#endif
-#include "VMDisplayViewController.h"
-//#if !defined(TARGET_OS_VISION) || !TARGET_OS_VISION
-#include "VMDisplayMetalViewController.h"
-#include "VMDisplayMetalViewController+Keyboard.h"
-#include "VMDisplayMetalViewController+Touch.h"
-//#endif
-#include "VMKeyboardView.h"
-#elif TARGET_OS_OSX
+#include "VmProtocol/UTMVmBridge.h"
+
+#if TARGET_OS_OSX
 typedef uint32_t CGSConnectionID;
 typedef CF_ENUM(uint32_t, CGSGlobalHotKeyOperatingMode) {
     kCGSGlobalHotKeyOperatingModeEnable = 0,

@@ -56,7 +56,7 @@ struct VMWizardView: View {
                 VMWizardOSWindowsView(wizardState: wizardState)
                     .transition(wizardState.slide)
             case .classicMacOSBoot:
-                VMWizardOSClassicMacView(wizardState: wizardState)
+                VMWizardOSOtherView(wizardState: wizardState)
                     .transition(wizardState.slide)
             case .hardware:
                 VMWizardHardwareView(wizardState: wizardState)
@@ -109,14 +109,7 @@ struct VMWizardView: View {
                                 return
                             }
                             #endif
-                            if let qemuConfig = config as? UTMQemuConfiguration {
-                                let vm = try await data.create(config: qemuConfig)
-                                await MainActor.run {
-                                    if wizardState.isGuestToolsInstallRequested {
-                                        NotificationCenter.default.post(name: NSNotification.InstallGuestTools, object: vm.wrapped!)
-                                    }
-                                }
-                            } else if let appleConfig = config as? UTMAppleConfiguration {
+                            if let appleConfig = config as? UTMAppleConfiguration {
                                 _ = try await data.create(config: appleConfig)
                             }
                             if await wizardState.isOpenSettingsAfterCreation {

@@ -86,29 +86,6 @@ struct UTMAppleConfigurationSystem: Codable {
     }
 }
 
-// MARK: - Conversion of old config format
-
-@available(iOS, unavailable, message: "Apple Virtualization not available on iOS")
-extension UTMAppleConfigurationSystem {
-    init(migrating oldConfig: UTMLegacyAppleConfiguration) {
-        self.init()
-        cpuCount = oldConfig.cpuCount
-        memorySize = Int(oldConfig.memorySize / bytesInMib)
-        if let oldBoot = oldConfig.bootLoader {
-            boot = UTMAppleConfigurationBoot(migrating: oldBoot)
-        }
-        #if arch(arm64)
-        if let oldPlatform = oldConfig.macPlatform {
-            macPlatform = UTMAppleConfigurationMacPlatform(migrating: oldPlatform)
-        }
-        boot.macRecoveryIpswURL = oldConfig.macRecoveryIpswURL
-        #endif
-        if boot.operatingSystem == .linux {
-            genericPlatform = UTMAppleConfigurationGenericPlatform()
-        }
-    }
-}
-
 // MARK: - Creating Apple config
 
 @available(iOS, unavailable, message: "Apple Virtualization not available on iOS")

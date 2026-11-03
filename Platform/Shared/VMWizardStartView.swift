@@ -43,6 +43,7 @@ struct VMWizardStartView: View {
             Section {
                 let virtButton = Button {
                     wizardState.useVirtualization = true
+                    wizardState.useAppleVirtualization = true
                     wizardState.next()
                 } label: {
                     HStack {
@@ -51,7 +52,7 @@ struct VMWizardStartView: View {
                         VStack(alignment: .leading, spacing: 10) {
                             Text("Virtualize")
                                 .font(.title)
-                            Text("Faster, but can only run the native CPU architecture.")
+                            Text("Faster, runs native ARM64 operating systems.")
                                 .font(.caption)
                         }
                         Spacer()
@@ -61,35 +62,11 @@ struct VMWizardStartView: View {
                 .buttonStyle(.inList)
                 .disabled(!isVirtualizationSupported)
                 virtButton
-
-                Button {
-                    wizardState.useVirtualization = false
-                    wizardState.next()
-                } label: {
-                    HStack {
-                        Image(systemName: "tortoise")
-                            .font(.title)
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text("Emulate")
-                                .font(.title)
-                            Text("Slower, but can run other CPU architectures.")
-                                .font(.caption)
-                        }
-                        Spacer()
-                    }
-                    .padding()
-                }
-                .buttonStyle(.inList)
-                
             } header: {
-                Text("Custom")
+                Text("Create")
             } footer: {
-                if !isEmulationSupported && !isVirtualizationSupported {
-                    Text("Your version of iOS does not support running VMs while unmodified. You must either run UTM while jailbroken or with a remote debugger attached. See https://getutm.app/install/ for more details.")
-                } else if !isVirtualizationSupported {
+                if !isVirtualizationSupported {
                     Text("Virtualization is not supported on your system.")
-                } else if !isEmulationSupported {
-                    Text("This build does not emulation.")
                 }
             }
             Section {

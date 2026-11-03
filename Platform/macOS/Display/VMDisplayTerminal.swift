@@ -14,13 +14,99 @@
 // limitations under the License.
 //
 
+import AppKit
 import Combine
-import SwiftTerm
 import SwiftUI
+
+struct TerminalDimensions: Equatable {
+    var cols: Int
+    var rows: Int
+}
+
+enum TerminalCursorStyle {
+    case blinkBlock
+    case steadyBlock
+}
+
+@MainActor
+protocol TerminalViewDelegate: AnyObject {
+    func sizeChanged(source: TerminalView, newCols: Int, newRows: Int)
+    func setTerminalTitle(source: TerminalView, title: String)
+    func hostCurrentDirectoryUpdate(source: TerminalView, directory: String?)
+    func requestOpenLink(source: TerminalView, link: String, params: [String : String])
+    func send(source: TerminalView, data: ArraySlice<UInt8>)
+    func scrolled(source: TerminalView, position: Double)
+    func clipboardCopy(source: TerminalView, content: Data)
+    func rangeChanged(source: TerminalView, startY: Int, endY: Int)
+}
+
+@MainActor
+class TerminalView: NSView {
+    weak var terminalDelegate: (any TerminalViewDelegate)?
+    var allowMouseReporting: Bool = false
+    var optionAsMetaKey: Bool = false
+    var font: NSFont = NSFont.monospacedSystemFont(ofSize: 12, weight: .regular)
+    var nativeForegroundColor: NSColor = .textColor
+    var nativeBackgroundColor: NSColor = .textBackgroundColor
+    private(set) var terminalDimensions = TerminalDimensions(cols: 80, rows: 24)
+    private let scrollView = NSScrollView()
+    private let textView = NSTextView()
+
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        setupSubviews()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupSubviews()
+    }
+
+    private func setupSubviews() {
+        scrollView.frame = bounds
+        scrollView.autoresizingMask = [.width, .height]
+        scrollView.hasVerticalScroller = true
+        textView.isEditable = false
+        textView.isSelectable = true
+        textView.font = font
+        scrollView.documentView = textView
+        addSubview(scrollView)
+    }
+
+    func updateUiClosed() -> Bool {
+        true
+    }
+
+    func resize(cols: Int, rows: Int) {
+        terminalDimensions = TerminalDimensions(cols: cols, rows: rows)
+        terminalDelegate?.sizeChanged(source: self, newCols: cols, newRows: rows)
+    }
+
+    func setCursorStyle(_ style: TerminalCursorStyle) {}
+
+    func getOptimalFrameSize() -> CGRect {
+        CGRect(x: 0, y: 0, width: max(480, terminalDimensions.cols * 8), height: max(320, terminalDimensions.rows * 16))
+    }
+
+    func setUseMetal(_ useMetal: Bool) throws {}
+
+    func feed(byteArray: ArraySlice<UInt8>) {
+        if let str = String(bytes: byteArray, encoding: .utf8) {
+            textView.string += str
+            textView.scrollToEndOfDocument(nil)
+        }
+    }
+
+    override func keyDown(with event: NSEvent) {
+        if let chars = event.characters, let data = chars.data(using: .utf8) {
+            let bytes = [UInt8](data)
+            terminalDelegate?.send(source: self, data: bytes[...])
+        }
+    }
+}
 
 private let kVMDefaultResizeCmd = "stty cols $COLS rows $ROWS\\n"
 
-/// Releases the terminal's renderer, retrying while GPU work is still in flight
 @MainActor private func closeWhenIdle(_ terminalView: TerminalView) {
     guard !terminalView.updateUiClosed() else {
         return
@@ -34,7 +120,7 @@ protocol VMDisplayTerminal {
     var vm: (any UTMVirtualMachine)! { get }
     var isOptionAsMetaKey: Bool { get }
     @MainActor func setupTerminal(_ terminalView: TerminalView, using config: UTMConfigurationTerminal, id: Int, for window: NSWindow)
-    func resizeCommand(for terminal: TerminalView, using config: UTMConfigurationTerminal) -> String
+    @MainActor func resizeCommand(for terminal: TerminalView, using config: UTMConfigurationTerminal) -> String
     func sizeChanged(id: Int, newCols: Int, newRows: Int)
     func sendString(_ string: String)
     @MainActor func enableMetalRenderer(for terminalView: TerminalView)
@@ -73,7 +159,7 @@ extension VMDisplayTerminal {
         terminalView.optionAsMetaKey = isOptionAsMetaKey
     }
     
-    func resizeCommand(for terminalView: TerminalView, using config: UTMConfigurationTerminal) -> String {
+    @MainActor func resizeCommand(for terminalView: TerminalView, using config: UTMConfigurationTerminal) -> String {
         let cols = terminalView.terminalDimensions.cols
         let rows = terminalView.terminalDimensions.rows
         let template = config.resizeCommand ?? kVMDefaultResizeCmd
@@ -85,18 +171,13 @@ extension VMDisplayTerminal {
     }
     
     @MainActor func enableMetalRenderer(for terminalView: TerminalView) {
-        do {
-            try terminalView.setUseMetal(true)
-        } catch {
-            logger.debug("Metal terminal renderer unavailable, using CoreGraphics: \(error)")
-        }
+        try? terminalView.setUseMetal(true)
     }
     
     @MainActor func closeTerminal(_ terminalView: TerminalView) {
         closeWhenIdle(terminalView)
     }
     
-    /// Only web links are opened so that guest output cannot open host files or apps
     @MainActor func openLink(_ link: String) {
         guard let url = URL(string: link), let scheme = url.scheme?.lowercased(), ["http", "https"].contains(scheme) else {
             return

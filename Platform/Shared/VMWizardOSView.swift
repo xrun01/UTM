@@ -33,19 +33,9 @@ struct VMWizardOSView: View {
                     }
                 }
                 #endif
-                if !wizardState.useVirtualization {
-                    Button {
-                        wizardState.operatingSystem = .ClassicMacOS
-                        wizardState.useAppleVirtualization = false
-                        wizardState.isGuestToolsInstallRequested = false
-                        wizardState.next()
-                    } label: {
-                        OperatingSystem(imageName: "Logo-macOS", name: "Classic Mac OS")
-                    }
-                }
                 Button {
                     wizardState.operatingSystem = .Windows
-                    wizardState.useAppleVirtualization = false
+                    wizardState.useAppleVirtualization = true
                     wizardState.isGuestToolsInstallRequested = true
                     wizardState.next()
                 } label: {
@@ -53,6 +43,7 @@ struct VMWizardOSView: View {
                 }
                 Button {
                     wizardState.operatingSystem = .Linux
+                    wizardState.useAppleVirtualization = true
                     wizardState.isGuestToolsInstallRequested = false
                     wizardState.next()
                 } label: {
@@ -64,7 +55,7 @@ struct VMWizardOSView: View {
             Section {
                 Button {
                     wizardState.operatingSystem = .Other
-                    wizardState.useAppleVirtualization = false
+                    wizardState.useAppleVirtualization = true
                     wizardState.isGuestToolsInstallRequested = false
                     wizardState.next()
                 } label: {

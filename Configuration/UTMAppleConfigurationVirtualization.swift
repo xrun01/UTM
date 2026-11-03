@@ -20,7 +20,7 @@ import Virtualization
 /// Device settings.
 @available(iOS, unavailable, message: "Apple Virtualization not available on iOS")
 struct UTMAppleConfigurationVirtualization: Codable {
-    enum PointerDevice: String, CaseIterable, QEMUConstant {
+    enum PointerDevice: String, CaseIterable, UTMConfigurationConstant {
         case disabled = "Disabled"
         case mouse = "Mouse"
         case trackpad = "Trackpad"
@@ -34,7 +34,7 @@ struct UTMAppleConfigurationVirtualization: Codable {
         }
     }
     
-    enum KeyboardDevice: String, CaseIterable, QEMUConstant {
+    enum KeyboardDevice: String, CaseIterable, UTMConfigurationConstant {
         case disabled = "Disabled"
         case generic = "Generic"
         case mac = "Mac"
@@ -48,7 +48,7 @@ struct UTMAppleConfigurationVirtualization: Codable {
         }
     }
     
-    enum AudioDevice: String, CaseIterable, QEMUConstant {
+    enum AudioDevice: String, CaseIterable, UTMConfigurationConstant {
         case disabled = "Disabled"
         case inputOnly = "InputOnly"
         case outputOnly = "OutputOnly"
@@ -150,21 +150,6 @@ extension UTMAppleConfigurationVirtualization {
             hasAudioInput = newValue == .inputOnly || newValue == .inputOutput
             hasAudio = newValue == .outputOnly || newValue == .inputOutput
         }
-    }
-}
-
-// MARK: - Conversion of old config format
-
-@available(iOS, unavailable, message: "Apple Virtualization not available on iOS")
-extension UTMAppleConfigurationVirtualization {
-    init(migrating oldConfig: UTMLegacyAppleConfiguration) {
-        self.init()
-        hasBalloon = oldConfig.isBalloonEnabled
-        hasEntropy = oldConfig.isEntropyEnabled
-        hasAudio = oldConfig.isAudioEnabled
-        hasAudioInput = oldConfig.isAudioEnabled
-        keyboard = oldConfig.isKeyboardEnabled ? .generic : .disabled
-        pointer = oldConfig.isPointingEnabled ? .mouse : .disabled
     }
 }
 

@@ -14,8 +14,8 @@
 // limitations under the License.
 //
 
+import AppKit
 import Foundation
-import SwiftTerm
 
 class VMDisplayAppleTerminalWindowController: VMDisplayAppleWindowController, VMDisplayTerminal {
     var terminalView: TerminalView! {
@@ -81,7 +81,6 @@ class VMDisplayAppleTerminalWindowController: VMDisplayAppleWindowController, VM
     override func resizeConsoleButtonPressed(_ sender: Any) {
         let cmd = resizeCommand(for: terminalView, using: serialConfig!.terminal!)
         serialPort.write(data: cmd.data(using: .ascii)!)
-        
     }
     
     override func captureMouseButtonPressed(_ sender: Any) {
@@ -130,13 +129,15 @@ extension VMDisplayAppleTerminalWindowController: TerminalViewDelegate, UTMSeria
     func scrolled(source: TerminalView, position: Double) {
     }
     
-    func serialPort(_ serialPort: UTMSerialPort, didRecieveData data: Data) {
-        if let terminalView = terminalView {
-            terminalView.feed(byteArray: [UInt8](data)[...])
+    nonisolated func serialPort(_ serialPort: UTMSerialPort, didRecieveData data: Data) {
+        Task { @MainActor in
+            if let terminalView = self.terminalView {
+                terminalView.feed(byteArray: [UInt8](data)[...])
+            }
         }
     }
     
-    func clipboardCopy(source: SwiftTerm.TerminalView, content: Data) {
+    func clipboardCopy(source: TerminalView, content: Data) {
         if let str = String(bytes: content, encoding: .utf8) {
             let pasteBoard = NSPasteboard.general
             pasteBoard.clearContents()
@@ -144,6 +145,6 @@ extension VMDisplayAppleTerminalWindowController: TerminalViewDelegate, UTMSeria
         }
     }
     
-    func rangeChanged(source: SwiftTerm.TerminalView, startY: Int, endY: Int) {
+    func rangeChanged(source: TerminalView, startY: Int, endY: Int) {
     }
 }

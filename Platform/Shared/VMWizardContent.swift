@@ -26,30 +26,14 @@ struct VMWizardContent<Content>: View where Content: View {
     }
     
     var body: some View {
-        #if os(macOS)
         Text(titleKey)
             .font(.largeTitle)
-        #endif
         List {
-            #if os(macOS)
             if #available(macOS 13, *) {
                 content.listRowSeparator(.hidden)
             } else {
                 content
             }
-            #else
-            content
-            #endif
         }
-        #if os(iOS) || os(visionOS)
-        .navigationTitle(Text(titleKey))
-        #endif
-    }
-}
-
-#Preview {
-    VMWizardContent("Test") {
-        Text("Test 1")
-        Text("Test 2")
     }
 }

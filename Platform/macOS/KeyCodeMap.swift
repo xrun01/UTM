@@ -15,6 +15,7 @@
 //
 
 import Foundation
+import AppKit
 import Carbon.HIToolbox
 
 /// Based on https://stackoverflow.com/a/64344453/4236245

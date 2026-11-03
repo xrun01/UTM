@@ -19,7 +19,7 @@ import Foundation
 /// Console mode settings.
 struct UTMConfigurationTerminal: Codable, Identifiable {
     /// Terminal color scheme. Mutually exclusive with foreground/background colors.
-    var theme: QEMUTerminalTheme?
+    var theme: UTMTerminalTheme?
     
     /// Terminal foreground color if a theme is not used.
     var foregroundColor: String? = "#ffffff"
@@ -28,7 +28,7 @@ struct UTMConfigurationTerminal: Codable, Identifiable {
     var backgroundColor: String? = "#000000"
     
     /// Terminal text font.
-    var font: QEMUTerminalFont = .init(rawValue: "Menlo")
+    var font: UTMTerminalFont = .init(rawValue: "Menlo")
     
     /// Terminal text font size.
     var fontSize: Int = 12
@@ -56,10 +56,10 @@ struct UTMConfigurationTerminal: Codable, Identifiable {
     
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        theme = try values.decodeIfPresent(QEMUTerminalTheme.self, forKey: .theme)
+        theme = try values.decodeIfPresent(UTMTerminalTheme.self, forKey: .theme)
         foregroundColor = try values.decodeIfPresent(String.self, forKey: .foregroundColor)
         backgroundColor = try values.decodeIfPresent(String.self, forKey: .backgroundColor)
-        font = try values.decode(QEMUTerminalFont.self, forKey: .font)
+        font = try values.decode(UTMTerminalFont.self, forKey: .font)
         fontSize = try values.decode(Int.self, forKey: .fontSize)
         resizeCommand = try values.decodeIfPresent(String.self, forKey: .resizeCommand)
         hasCursorBlink = try values.decodeIfPresent(Bool.self, forKey: .hasCursorBlink) ?? true
@@ -78,40 +78,6 @@ struct UTMConfigurationTerminal: Codable, Identifiable {
         try container.encodeIfPresent(resizeCommand, forKey: .resizeCommand)
         try container.encode(hasCursorBlink, forKey: .hasCursorBlink)
     }
-}
-
-// MARK: - Conversion of old config format
-
-extension UTMConfigurationTerminal {
-    init(migrating oldConfig: UTMLegacyQemuConfiguration) {
-        self.init()
-        foregroundColor = oldConfig.consoleTextColor
-        backgroundColor = oldConfig.consoleBackgroundColor
-        if let fontStr = oldConfig.consoleFont {
-            font = QEMUTerminalFont(rawValue: fontStr)
-        }
-        if let fontSizeNum = oldConfig.consoleFontSize {
-            fontSize = fontSizeNum.intValue
-        }
-        resizeCommand = oldConfig.consoleResizeCommand
-        hasCursorBlink = oldConfig.consoleCursorBlink
-    }
-    
-    #if os(macOS)
-    init(migrating oldConfig: UTMLegacyAppleConfiguration) {
-        self.init()
-        foregroundColor = oldConfig.consoleTextColor
-        backgroundColor = oldConfig.consoleBackgroundColor
-        if let fontStr = oldConfig.consoleFont {
-            font = QEMUTerminalFont(rawValue: fontStr)
-        }
-        if let fontSizeNum = oldConfig.consoleFontSize {
-            fontSize = fontSizeNum.intValue
-        }
-        resizeCommand = oldConfig.consoleResizeCommand
-        hasCursorBlink = oldConfig.consoleCursorBlink
-    }
-    #endif
 }
 
 // MARK: - For VMConfigDisplayConsoleView

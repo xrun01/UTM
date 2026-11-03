@@ -14,6 +14,8 @@
 // limitations under the License.
 //
 
+import AppKit
+import MetalKit
 import Carbon.HIToolbox
 
 class VMMetalView: MTKView {
@@ -24,6 +26,8 @@ class VMMetalView: MTKView {
     private(set) var isMouseCaptured = false
     private(set) var isFirstResponder = false
     private(set) var isMouseInWindow = false
+    private var guestHardwareCursor: NSCursor?
+    private var isGuestCursorVisible: Bool = true
     @Setting("HandleInitialClick") private var isHandleInitialClick: Bool = false
     @Setting("IsCtrlCmdSwapped") private var isCtrlCmdSwapped = false
     @Setting("IsCmdOptSwapped") private var isCmdOptSwapped = false
@@ -77,11 +81,58 @@ class VMMetalView: MTKView {
     }
     
     override var acceptsFirstResponder: Bool { true }
+
+    override func viewDidMoveToWindow() {
+        super.viewDidMoveToWindow()
+        registerForDraggedTypes([.fileURL, .string, .tiff, .png])
+    }
+
+    func updateGuestCursor(rgbaData: Data?, size: CGSize, hotSpot: CGPoint, visible: Bool) {
+        isGuestCursorVisible = visible
+        if let rgbaData = rgbaData, size.width > 0, size.height > 0 {
+            let width = Int(size.width)
+            let height = Int(size.height)
+            if let rep = NSBitmapImageRep(
+                bitmapDataPlanes: nil,
+                pixelsWide: width,
+                pixelsHigh: height,
+                bitsPerSample: 8,
+                samplesPerPixel: 4,
+                hasAlpha: true,
+                isPlanar: false,
+                colorSpaceName: .deviceRGB,
+                bytesPerRow: width * 4,
+                bitsPerPixel: 32
+            ), let dst = rep.bitmapData {
+                rgbaData.copyBytes(to: dst, count: min(rgbaData.count, width * height * 4))
+                let image = NSImage(size: size)
+                image.addRepresentation(rep)
+                guestHardwareCursor = NSCursor(image: image, hotSpot: hotSpot)
+            }
+        } else {
+            guestHardwareCursor = nil
+        }
+        applyCurrentCursorState()
+    }
+
+    private func applyCurrentCursorState() {
+        guard isMouseInWindow && isFirstResponder && !isMouseCaptured else {
+            return
+        }
+        if !isGuestCursorVisible {
+            NSCursor.tryHide()
+        } else if let cursor = guestHardwareCursor {
+            NSCursor.tryUnhide()
+            cursor.set()
+        } else {
+            NSCursor.tryHide()
+        }
+    }
     
     override func becomeFirstResponder() -> Bool {
         isFirstResponder = true
         if isMouseInWindow {
-            NSCursor.tryHide()
+            applyCurrentCursorState()
         }
         return super.becomeFirstResponder()
     }
@@ -116,7 +167,7 @@ class VMMetalView: MTKView {
         logger.debug("mouse entered (first responder: \(isFirstResponder))")
         isMouseInWindow = true
         if isFirstResponder {
-            NSCursor.tryHide()
+            applyCurrentCursorState()
         }
     }
     
@@ -306,10 +357,33 @@ class VMMetalView: MTKView {
     }
     
     override func scrollWheel(with event: NSEvent) {
-        guard event.deltaY != 0 else { return }
-        logger.trace("scroll: \(event.deltaY)")
-        inputDelegate?.mouseScroll(dy: event.deltaY,
-                                   buttonMask: NSEvent.pressedMouseButtons.inputButtons())
+        let dx = event.scrollingDeltaX
+        let dy = event.scrollingDeltaY
+        guard dx != 0 || dy != 0 else { return }
+        logger.trace("scroll: dx=\(dx), dy=\(dy), precise=\(event.hasPreciseScrollingDeltas)")
+        let mask = NSEvent.pressedMouseButtons.inputButtons()
+        UTMVmBridge.shared.dispatch(.sendMouseScroll(deltaX: dx, deltaY: dy, isPrecise: event.hasPreciseScrollingDeltas, phase: UInt32(event.phase.rawValue)))
+        inputDelegate?.mouseScrollPrecise(dx: dx, dy: dy, isPrecise: event.hasPreciseScrollingDeltas, phase: event.phase, buttonMask: mask)
+    }
+
+    override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
+        return .copy
+    }
+
+    override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
+        let pasteboard = sender.draggingPasteboard
+        let dropPoint = convert(sender.draggingLocation, from: nil)
+        if let urls = pasteboard.readObjects(forClasses: [NSURL.self], options: [.urlReadingFileURLsOnly: true]) as? [URL], !urls.isEmpty {
+            if let handled = inputDelegate?.handleDragDropURLs(urls, at: dropPoint), handled {
+                return true
+            }
+            return UTMVmBridge.shared.dispatch(.dragDropFiles(filePaths: urls.map(\.path), guestPoint: dropPoint)).ok
+        }
+        if let text = pasteboard.string(forType: .string), !text.isEmpty {
+            UTMVmBridge.shared.dispatch(.syncClipboard(text: text))
+            return true
+        }
+        return false
     }
 
     override func acceptsFirstMouse(for event: NSEvent?) -> Bool {

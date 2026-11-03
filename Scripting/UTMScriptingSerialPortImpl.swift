@@ -25,32 +25,6 @@ class UTMScriptingSerialPortImpl: NSObject {
     @objc private(set) var address: String
     @objc private(set) var port: Int
     
-    init(qemuSerial: UTMQemuConfigurationSerial, parent: UTMScriptingVirtualMachineImpl, index: Int) {
-        self.id = index
-        self.parent = parent
-        switch qemuSerial.mode {
-        case .ptty:
-            if let path = qemuSerial.pttyDevice?.path {
-                self.interface = .ptty
-                self.address = path
-                self.port = 0
-                return
-            }
-        case .tcpServer:
-            if let port = qemuSerial.tcpPort {
-                self.interface = .tcp
-                self.address = qemuSerial.tcpHostAddress ?? "127.0.0.1"
-                self.port = port
-                return
-            }
-        default:
-            break
-        }
-        self.interface = .unavailable
-        self.address = ""
-        self.port = 0
-    }
-    
     init(appleSerial: UTMAppleConfigurationSerial, parent: UTMScriptingVirtualMachineImpl, index: Int) {
         self.id = index
         self.parent = parent

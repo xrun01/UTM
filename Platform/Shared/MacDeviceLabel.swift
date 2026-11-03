@@ -105,7 +105,3 @@ struct MacDevice {
         return "display"
     }
 }
-
-#Preview {
-    MacDeviceLabel("MacBook", device: MacDevice(model: "Mac14,6"))
-}

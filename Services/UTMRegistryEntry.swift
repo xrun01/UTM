@@ -317,58 +317,6 @@ extension UTMRegistryEntry: UTMRegistryEntryDecodable {}
 // MARK: - Migration from UTMViewState
 
 extension UTMRegistryEntry {
-    /// Migrate from a view state
-    /// - Parameter viewState: View state to migrate
-    private func migrate(viewState: UTMLegacyViewState) {
-        var primaryWindow = Window()
-        if viewState.displayScale != .zero {
-            primaryWindow.scale = viewState.displayScale
-        }
-        if viewState.displayOriginX != .zero || viewState.displayOriginY != .zero {
-            primaryWindow.origin = CGPoint(x: viewState.displayOriginX,
-                                           y: viewState.displayOriginY)
-        }
-        primaryWindow.isKeyboardVisible = viewState.isKeyboardShown
-        primaryWindow.isToolbarVisible = viewState.isToolbarShown
-        if primaryWindow != Window() {
-            _windowSettings[0] = primaryWindow
-        }
-        _isSuspended = viewState.hasSaveState
-        if let sharedDirectoryBookmark = viewState.sharedDirectory, let sharedDirectoryPath = viewState.sharedDirectoryPath {
-            if let file = try? File(path: sharedDirectoryPath,
-                                    bookmark: sharedDirectoryBookmark) {
-                _sharedDirectories = [file]
-            } else {
-                logger.error("Failed to migrate shared directory \(sharedDirectoryPath) because bookmark is invalid.")
-            }
-        }
-        if let shortcutBookmark = viewState.shortcutBookmark {
-            _package.remoteBookmark = shortcutBookmark
-        }
-        for drive in viewState.allDrives() {
-            if let bookmark = viewState.bookmark(forRemovableDrive: drive), let path = viewState.path(forRemovableDrive: drive) {
-                let file = File(dummyFromPath: path, remoteBookmark: bookmark)
-                _externalDrives[drive] = file
-            }
-        }
-    }
-    
-    /// Try to migrate from a view.plist or does nothing if it does not exist.
-    /// - Parameter viewStateURL: URL to view.plist
-    @objc func migrateUnsafe(viewStateURL: URL) {
-        let fileManager = FileManager.default
-        guard fileManager.fileExists(atPath: viewStateURL.path) else {
-            return
-        }
-        guard let dict = try? NSDictionary(contentsOf: viewStateURL, error: ()) as? [AnyHashable : Any] else {
-            logger.error("Failed to parse legacy \(viewStateURL)")
-            return
-        }
-        let viewState = UTMLegacyViewState(dictionary: dict)
-        migrate(viewState: viewState)
-        try? fileManager.removeItem(at: viewStateURL) // delete view.plist
-    }
-    
     #if os(macOS)
     /// Try to migrate bookmarks from an Apple VM config.
     /// - Parameter config: Apple config to migrate

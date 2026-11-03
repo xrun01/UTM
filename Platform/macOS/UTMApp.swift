@@ -36,11 +36,6 @@ struct UTMApp: App {
                 appDelegate.data = data
                 NSApp.scriptingDelegate = appDelegate
             }
-            .onReceive(.vmSessionError) { notification in
-                if let message = notification.userInfo?["Message"] as? String {
-                    data.showErrorAlert(message: message)
-                }
-            }  
     }
     
     @SceneBuilder
@@ -68,9 +63,6 @@ struct UTMApp: App {
             SettingsView()
         }
         UTMMenuBarExtraScene(data: data)
-        Window("UTM Server", id: "server") {
-            UTMServerView().environmentObject(data.remoteServer.state)
-        }
     }
     
     // HACK: SwiftUI doesn't provide if-statement support in SceneBuilder

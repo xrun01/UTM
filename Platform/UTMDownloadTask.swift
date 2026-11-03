@@ -15,7 +15,6 @@
 //
 
 import Foundation
-import Logging
 
 /// Downloads a file and creates a pending VM placeholder.
 class UTMDownloadTask: NSObject, URLSessionDelegate, URLSessionDownloadDelegate {

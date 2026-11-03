@@ -217,32 +217,6 @@ extension UTMAppleConfigurationError: LocalizedError {
     }
 }
 
-// MARK: - Conversion of old config format
-
-extension UTMAppleConfiguration {
-    convenience init(migrating oldConfig: UTMLegacyAppleConfiguration, dataURL: URL) {
-        self.init()
-        _information = .init(migrating: oldConfig, dataURL: dataURL)
-        _system = .init(migrating: oldConfig)
-        _virtualization = .init(migrating: oldConfig)
-        _sharedDirectories = oldConfig.sharedDirectories.map { .init(migrating: $0) }
-        #if arch(arm64)
-        _displays = oldConfig.displays.map { .init(migrating: $0) }
-        #endif
-        _drives = oldConfig.diskImages.map { .init(migrating: $0) }
-        _networks = oldConfig.networkDevices.map { .init(migrating: $0) }
-        if oldConfig.isConsoleDisplay {
-            var serial = UTMAppleConfigurationSerial()
-            serial.terminal = .init(migrating: oldConfig)
-            _serials = [serial]
-        } else if oldConfig.isSerialEnabled {
-            var serial = UTMAppleConfigurationSerial()
-            serial.mode = .ptty
-            _serials = [serial]
-        }
-    }
-}
-
 // MARK: - Creating Apple config
 
 @available(iOS, unavailable, message: "Apple Virtualization not available on iOS")
@@ -328,10 +302,12 @@ extension UTMAppleConfiguration {
         if #available(macOS 15, *) {
             vzconfig.usbControllers = [VZXHCIControllerConfiguration()]
         }
+        #if canImport(AccessoryAccess)
         if #available(macOS 27, *) {
             // names the virtual machine in system prompts such as USB device access
             vzconfig.label = information.name.vzLabel
         }
+        #endif
         return vzconfig
     }
 

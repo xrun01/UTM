@@ -1,6 +1,0 @@
-/* QEMUHelper */
-"Cannot find QEMU support libraries." = "Die QEMU Unterstützungs-Dateien konnten nicht gefunden weren.";
-
-/* QEMUHelper */
-"Error starting QEMU." = "Fehler beim Start von QEMU.";
-

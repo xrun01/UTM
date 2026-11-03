@@ -16,17 +16,19 @@
 
 import Combine
 import Virtualization
+#if canImport(AccessoryAccess)
 import AccessoryAccess
+#endif
 
 @available(iOS, unavailable, message: "Apple Virtualization not available on iOS")
-final class UTMAppleVirtualMachine: UTMVirtualMachine {
+final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
     struct Capabilities: UTMVirtualMachineCapabilities {
         var supportsProcessKill: Bool {
             false
         }
         
         var supportsSnapshots: Bool {
-            false
+            true
         }
         
         var supportsScreenshots: Bool {
@@ -160,6 +162,55 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine {
         }
     }
     
+    @MainActor func buildVmBridgeConfig() -> UTMVmConfig {
+        let vmCfg = UTMVmConfig()
+        vmCfg.vmUUID = config.information.uuid.uuidString
+        vmCfg.vmName = config.information.name
+        vmCfg.cpuCount = UInt(max(1, config.system.cpuCount))
+        let memBytes = UInt64(config.system.memorySize) * 1024 * 1024
+        vmCfg.memorySizeBytes = memBytes
+        vmCfg.hostMemQuotaMinBytes = max(1024 * 1024 * 1024, memBytes / 2)
+        vmCfg.hostMemQuotaMaxBytes = memBytes
+        vmCfg.adaptiveBalloonEnabled = config.virtualization.hasBalloon
+        vmCfg.useGenericVirtualization = config.system.boot.operatingSystem != .macOS
+        vmCfg.audioOutputEnabled = config.virtualization.hasAudio
+        vmCfg.audioInputEnabled = config.virtualization.hasAudioInput
+        if let firstDisplay = config.displays.first {
+            vmCfg.initialDisplaySize = CGSize(width: firstDisplay.widthInPixels, height: firstDisplay.heightInPixels)
+            vmCfg.initialScaleFactor = firstDisplay.pixelsPerInch >= 192 ? 2.0 : 1.0
+        }
+        if let firstNet = config.networks.first {
+            switch firstNet.mode {
+            case .shared, .natNetwork:
+                vmCfg.networkMode = .shared
+            case .host:
+                vmCfg.networkMode = .hostOnly
+            case .bridged:
+                vmCfg.networkMode = .bridged
+                vmCfg.bridgedInterfaceIdentifier = firstNet.bridgeInterface
+            }
+        }
+        vmCfg.disks = config.drives.compactMap { (drive) -> UTMVmDiskConfig? in
+            guard let imgURL = drive.imageURL else { return nil }
+            let d = UTMVmDiskConfig()
+            d.identifier = drive.id
+            d.imagePath = imgURL.path
+            d.isReadOnly = drive.isReadOnly
+            d.isOptical = drive.isExternal
+            d.sizeBytes = UInt64(max(0, drive.sizeMib)) * 1024 * 1024
+            return d
+        }
+        vmCfg.sharedFolders = config.sharedDirectories.compactMap { (share) -> UTMVmSharedFolderConfig? in
+            guard let dirURL = share.directoryURL else { return nil }
+            let s = UTMVmSharedFolderConfig()
+            s.shareName = dirURL.lastPathComponent
+            s.hostPath = dirURL.path
+            s.isReadOnly = share.isReadOnly
+            return s
+        }
+        return vmCfg
+    }
+
     @MainActor func reload(from packageUrl: URL?) throws {
         let packageUrl = packageUrl ?? pathUrl
         guard let newConfig = try UTMAppleConfiguration.load(from: packageUrl) as? UTMAppleConfiguration else {
@@ -183,6 +234,7 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine {
                 if #available(macOS 13, *), boot.operatingSystem == .macOS {
                     let vzoptions = VZMacOSVirtualMachineStartOptions()
                     vzoptions.startUpFromMacOSRecovery = options.contains(.bootRecovery)
+                    #if canImport(AccessoryAccess)
                     if #available(macOS 27, *), let guestProvisioning = guestProvisioning as? VZMacGuestProvisioningOptions {
                         do {
                             try vzoptions.setGuestProvisioning(guestProvisioning)
@@ -191,6 +243,7 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine {
                             return
                         }
                     }
+                    #endif
                     apple.start(options: vzoptions) { result in
                         if let result = result {
                             continuation.resume(with: .failure(result))
@@ -247,6 +300,11 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine {
                 try createDisposableOverlayDirectory()
             }
             try await beginAccessingResources()
+            let bridgeCfg = await buildVmBridgeConfig()
+            let startRes = UTMVmBridge.shared.dispatch(.start(config: bridgeCfg))
+            if !startRes.ok {
+                throw NSError(domain: "com.utmapp.UTMVmBridge", code: Int(startRes.statusCode), userInfo: [NSLocalizedDescriptionKey: startRes.errorMessage ?? "Failed to start VM"])
+            }
             try await createAppleVM(isRestoring: isRestoring)
             if isRestoring {
                 try await restoreSnapshot()
@@ -333,7 +391,7 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine {
     /// - Returns: `VZMacGuestProvisioningOptions` to pass to `_start`
     @discardableResult
     func validateGuestProvisioning(_ guestProvisioning: UTMAppleGuestProvisioningOptions, options: UTMVirtualMachineStartOptions) async throws -> Any {
-        #if os(macOS) && arch(arm64)
+        #if os(macOS) && arch(arm64) && canImport(AccessoryAccess)
         let boot = await config.system.boot
         guard #available(macOS 27, *), boot.operatingSystem == .macOS else {
             throw UTMAppleVirtualMachineError.guestProvisioningNotSupported
@@ -567,14 +625,14 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine {
 
     /// Keep the VM from starting while the files of its snapshots change, which it would otherwise
     /// attach halfway through
-    @available(macOS 27, *)
     func changingFiles(as state: UTMVirtualMachineState, _ body: () async throws -> Void) async throws {
-        guard self.state == .stopped else {
+        let previousState = self.state
+        guard previousState == .stopped || UTMVmBridge.shared.isRunning else {
             throw UTMAppleVirtualMachineError.operationNotAvailable
         }
         self.state = state
         defer {
-            self.state = .stopped
+            self.state = previousState
         }
         try await body()
     }
@@ -710,9 +768,11 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine {
         vmQueue.async { [self] in
             apple = VZVirtualMachine(configuration: vzConfig, queue: vmQueue)
             apple!.delegate = self
+            #if canImport(AccessoryAccess)
             if #available(macOS 27, *), let usbControllerDelegate = usbControllerDelegate as? UTMAppleUSBControllerDelegate {
                 apple!.usbControllers.first?.delegate = usbControllerDelegate
             }
+            #endif
             snapshotUnsupportedError = UTMAppleVirtualMachineError.operationNotAvailable
             #if arch(arm64)
             if #available(macOS 14, *) {
@@ -765,6 +825,15 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine {
     }
     
     private func updateSharedDirectories(with newShares: [UTMAppleConfigurationSharedDirectory], tag: String) {
+        let folderConfigs: [UTMVmSharedFolderConfig] = newShares.compactMap { share in
+            guard let dirURL = share.directoryURL else { return nil }
+            let s = UTMVmSharedFolderConfig()
+            s.shareName = dirURL.lastPathComponent
+            s.hostPath = dirURL.path
+            s.isReadOnly = share.isReadOnly
+            return s
+        }
+        UTMVmBridge.shared.dispatch(.updateSharedFolders(folders: folderConfigs))
         guard let fsConfig = apple?.directorySharingDevices.first(where: { device in
             if let device = device as? VZVirtioFileSystemDevice {
                 return device.tag == tag
@@ -1299,6 +1368,7 @@ extension UTMAppleVirtualMachine {
     }
 
     private func attachUsbDevice(_ device: UTMAppleUSBDevice) async throws {
+        #if canImport(AccessoryAccess)
         let manager = UTMAppleUSBManager.shared
         manager.setOwner(self, of: device)
         do {
@@ -1330,6 +1400,9 @@ extension UTMAppleVirtualMachine {
             }
             throw error
         }
+        #else
+        throw UTMAppleVirtualMachineError.operationNotAvailable
+        #endif
     }
 
     private func detachUsbDevice(_ device: UTMAppleUSBDevice) async throws {
@@ -1388,6 +1461,7 @@ extension UTMAppleVirtualMachine {
     ///
     /// This picks up devices restored from a saved state and drops devices the system detached.
     private func synchronizeUsbDevices() async {
+        #if canImport(AccessoryAccess)
         let vzDevices: [any VZUSBDevice] = await withCheckedContinuation { continuation in
             vmQueue.async {
                 continuation.resume(returning: self.apple?.usbControllers.first?.usbDevices ?? [])
@@ -1407,6 +1481,7 @@ extension UTMAppleVirtualMachine {
             usbState.connections.removeValue(forKey: registryID)
             manager.setOwner(nil, of: connection.device)
         }
+        #endif
     }
 
     // MARK: Saved state
@@ -1417,6 +1492,7 @@ extension UTMAppleVirtualMachine {
     /// guest sees it as unplugged.
     /// - Parameter vzConfig: Configuration of the virtual machine to restore
     private func restoreUsbDevices(to vzConfig: VZVirtualMachineConfiguration) async {
+        #if canImport(AccessoryAccess)
         let saved = registryEntry.connectedUsbDevices.filter { $0.uuid != nil }
         guard !saved.isEmpty, let controller = vzConfig.usbControllers.first else {
             return
@@ -1441,6 +1517,7 @@ extension UTMAppleVirtualMachine {
             usbState.pendingRestore[uuid] = device
         }
         controller.usbDevices = configurations
+        #endif
     }
 
     /// Record the connected devices with their UUID so they can be part of the restored state

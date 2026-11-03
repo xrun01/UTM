@@ -14,6 +14,7 @@
 // limitations under the License.
 //
 
+import AppKit
 import Foundation
 
 /// Handles Obj-C patches to fix AppKit issues
