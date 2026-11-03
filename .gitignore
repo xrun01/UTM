@@ -76,5 +76,14 @@ node_modules/
 bun.lock
 .venv/
 uv.lock
+*.img
+*.iso
+*.qcow2
+*.vhdx
+*.vmdk
+*.state
+*.snap*
+*.pvm/
+*.utm/
 
 /HANDOFF.md
