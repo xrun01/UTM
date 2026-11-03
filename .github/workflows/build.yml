@@ -16,7 +16,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Checkout vm repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: xrun01/vm
           token: ${{ secrets.GH_TOKEN }}
@@ -30,21 +30,21 @@ jobs:
       - name: Build Windows 11 ARM64 Guest Modules
         run: bun git/vm/script/winGuestBuild.js
       - name: Upload Windows Guest Tools Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: win-guest-tools
           path: git/vm/engine/build/GuestTools/stage
 
   build-mac-engine:
     name: Build macOS VM Engine
-    runs-on: macos-15
+    runs-on: macos-latest
     steps:
       - name: Checkout UTM repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           path: git/UTM
       - name: Checkout vm repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: xrun01/vm
           token: ${{ secrets.GH_TOKEN }}
@@ -56,7 +56,7 @@ jobs:
       - name: Build macOS VM SDK
         run: bun git/vm/script/build.js
       - name: Upload macOS VM SDK Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: mac-vm-sdk
           path: |
@@ -67,26 +67,26 @@ jobs:
 
   package-utm-app:
     name: Package UTM.app
-    runs-on: macos-15
+    runs-on: macos-latest
     needs: [build-win-guest, build-mac-engine]
     steps:
       - name: Checkout UTM repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           path: git/UTM
       - name: Checkout vm repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           repository: xrun01/vm
           token: ${{ secrets.GH_TOKEN }}
           path: git/vm
       - name: Download Windows Guest Tools
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: win-guest-tools
           path: git/vm/engine/build/GuestTools/stage
       - name: Download macOS VM SDK
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: mac-vm-sdk
           path: git/UTM/lib
@@ -100,7 +100,7 @@ jobs:
           git/UTM/build/UTM.app/Contents/MacOS/vm-mcp --list-tools > /dev/null
           ditto -c -k --sequesterRsrc --keepParent git/UTM/build/UTM.app UTM.app.zip
       - name: Upload UTM.app Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: UTM.app
           path: UTM.app.zip
