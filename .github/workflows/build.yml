@@ -21,7 +21,7 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
           path: git/vm
       - name: Setup latest MSVC ARM64 toolchain
-        uses: ilammy/msvc-dev-cmd@v1
+        uses: TheMrMilchmann/setup-msvc-dev@v4
         with:
           arch: x64_arm64
       - name: Setup Bun
