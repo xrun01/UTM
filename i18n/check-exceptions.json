@@ -14,27 +14,6 @@
   },
   {
     "table": "Localizable",
-    "key": "Nintendo",
-    "lang": "zh-Hans",
-    "rule": "keep-source",
-    "reason": "任天堂 是 Nintendo 的官方中文名"
-  },
-  {
-    "table": "Localizable",
-    "key": "Nintendo",
-    "lang": "zh-Hant",
-    "rule": "keep-source",
-    "reason": "任天堂 是 Nintendo 的官方中文名"
-  },
-  {
-    "table": "Localizable",
-    "key": "Nintendo",
-    "lang": "zh-HK",
-    "rule": "keep-source",
-    "reason": "任天堂 是 Nintendo 的官方中文名"
-  },
-  {
-    "table": "Localizable",
     "key": "Windows 9x",
     "lang": "ja",
     "rule": "keep-source",
@@ -53,5 +32,12 @@
     "lang": "ko",
     "rule": "keep-source",
     "reason": "elementary OS 的官方写法是小写"
+  },
+  {
+    "table": "Localizable",
+    "key": "HiDPI (Retina)",
+    "lang": "ko",
+    "rule": "term:Retina",
+    "reason": "已审校的人工译文「레티나」，是否改成 Retina 由审校决定"
   }
 ]
