@@ -154,6 +154,38 @@ const reviewDemoted = (prev, next) =>
     }),
   );
 
+// 图标标题（ICON_TITLE_MAP）是系统和产品名，界面上保持英文，所以 sync 把它们标为不翻译
+// 表必须是文件顶层的字典字面量，从 `ICON_TITLE_MAP … = [` 到行首的 `]`；被注释掉的行不算
+// 找不到这张表时报错：表改名或移动后，必须更新这里，否则会漏标或误标，而标记只加不撤
+export const ICON_TITLES_PATH = "Platform/Shared/VMConfigInfoView.swift";
+export const iconTitlesOf = (root) => {
+  const src = readFileSync(join(root, ICON_TITLES_PATH), "utf8"),
+    start = src.search(/\bICON_TITLE_MAP\b[^=\n]*=\s*\[/),
+    end = start < 0 ? -1 : src.indexOf("\n]", start),
+    lost = () => new Error(ICON_TITLES_PATH + " 中找不到顶层的 ICON_TITLE_MAP。表改名或移动后，更新 lib/sync.js 的 iconTitlesOf");
+  if (end < 0) throw lost();
+  const body = src
+      .slice(start, end)
+      .split("\n")
+      .filter((line) => !line.trim().startsWith("//"))
+      .join("\n"),
+    titles = [...body.matchAll(/"(?:[^"\\]|\\.)*"\s*:\s*"((?:[^"\\]|\\.)*)"/g)].map((m) => {
+      // Swift 的 \" \\ \n 与 JSON 相同；\u{…} 等写法 JSON 不认，直接报错，不猜
+      try {
+        return JSON.parse('"' + m[1] + '"');
+      } catch {
+        throw new Error(ICON_TITLES_PATH + " 的图标标题含无法解析的转义：" + m[1]);
+      }
+    });
+  if (!titles.length) throw lost();
+  return titles;
+};
+
+// 把指定的键标为不翻译；不在 catalog 中的键忽略
+export const markKeepSource = (catalog, keys) => {
+  for (const key of keys) if (catalog.strings[key]) catalog.strings[key].shouldTranslate = false;
+};
+
 // 没有字母的键（例如 "%@"、" "）没有可翻译的文字。只加标记，不撤销：开发者可能有意标了不翻译
 export const markUntranslatable = (catalog) => {
   for (const [key, entry] of Object.entries(catalog.strings)) {
@@ -189,6 +221,7 @@ export const syncAll = ({ root, build_dir, write, today = new Date().toISOString
     removed_path = join(root, REMOVED_PATH),
     removed = readRemoved(removed_path),
     result = {},
+    icon_titles = iconTitlesOf(root),
     tmp = mkdtempSync(join(tmpdir(), "utm-i18n-sync-"));
   let removed_written = false;
   try {
@@ -214,6 +247,7 @@ export const syncAll = ({ root, build_dir, write, today = new Date().toISOString
       }
       stats.removed = pruneStale(catalog, table, removed, today);
       markUntranslatable(catalog);
+      if (table === "Localizable") markKeepSource(catalog, icon_titles);
       result[table] = { path, before, after: serializeCatalog(catalog), stats };
     }
     if (write) {

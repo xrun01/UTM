@@ -1,5 +1,8 @@
 import { describe, expect, test } from "bun:test";
-import { catalogIssuesOf, exceptionMatcherOf, exceptionProblemsOf, lengthIssueOf, sourceTextAt, unitIssuesOf } from "../lib/checks.js";
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { EXCEPTIONS_PATH, catalogIssuesOf, exceptionMatcherOf, exceptionProblemsOf, lengthIssueOf, readExceptions, sourceTextAt, unitIssuesOf } from "../lib/checks.js";
 import { termIssuesOf } from "../lib/terms.js";
 
 const rulesOf = (lang, src, value) => unitIssuesOf(lang, src, value).map((i) => i.rule);
@@ -155,18 +158,24 @@ describe("catalogIssuesOf", () => {
     expect(got.map((i) => [i.lang, i.rule])).toEqual([["ru", "plural"]]);
   });
 
-  test("标为不翻译的条目：不算缺译，但已有译文照样检查；英文有文字时警告", () => {
+  test("标为不翻译的条目：不算缺译，但已有译文照样检查；英文有文字的名称写了译文时报错，例外清单可以放行", () => {
     const catalog = {
       strings: {
         "%@ (%@)": { shouldTranslate: false, localizations: { de: unit("%1$@（%2$@）") } },
         UTM: { shouldTranslate: false },
+        "Red Hat": { shouldTranslate: false, localizations: { de: unit("Red Hat"), ja: unit("レッドハット") } },
+        Nintendo: { shouldTranslate: false, localizations: { ja: unit("任天堂") } },
       },
     };
-    const got = catalogIssuesOf("T", catalog, { langs: ["de"], known }).map((i) => [i.key, i.rule]);
+    const got = catalogIssuesOf("T", catalog, { langs: ["de", "ja"], known }).map((i) => [i.key, i.lang, i.rule]);
     expect(got).toEqual([
-      ["%@ (%@)", "fullwidth"],
-      ["UTM", "should-translate"],
+      ["%@ (%@)", "de", "fullwidth"],
+      ["Red Hat", "de", "keep-source"],
+      ["Red Hat", "ja", "keep-source"],
+      ["Nintendo", "ja", "keep-source"],
     ]);
+    const exceptions = exceptionMatcherOf([{ table: "T", key: "Nintendo", lang: "ja", rule: "keep-source", reason: "官方日文名" }]);
+    expect(catalogIssuesOf("T", catalog, { langs: ["ja"], known, exceptions }).map((i) => i.key)).toEqual(["Red Hat"]);
   });
 
   test("substitutions 暂不支持，报错", () => {
@@ -269,4 +278,18 @@ test("复数 zero：CLDR 没有 zero 的语言里，zero 可以省略数字（Ap
     de = { variations: { plural: { zero: unit("Keine Kerne"), one: unit("%lld Kern"), other: unit("%lld Kerne") } } };
   const got = catalogIssuesOf("T", { strings: { "%lld cores": { localizations: { en, de } } } }, { langs: ["de"], known: new Set(["de"]) });
   expect(got).toEqual([]);
+});
+
+test("readExceptions：文件不存在时为空；JSON 不合法或格式错误时报错", () => {
+  const root = mkdtempSync(join(tmpdir(), "i18n-exc-"));
+  expect(readExceptions(root)).toEqual([]);
+  mkdirSync(join(root, "i18n"));
+  writeFileSync(join(root, EXCEPTIONS_PATH), "{");
+  expect(() => readExceptions(root)).toThrow("不是合法的 JSON");
+  writeFileSync(join(root, EXCEPTIONS_PATH), JSON.stringify([{ table: "T", key: "K", rule: "nope", reason: "r" }]));
+  expect(() => readExceptions(root)).toThrow("格式错误");
+  const ok = [{ table: "T", key: "K", rule: "length", reason: "r" }];
+  writeFileSync(join(root, EXCEPTIONS_PATH), JSON.stringify(ok));
+  expect(readExceptions(root)).toEqual(ok);
+  rmSync(root, { recursive: true, force: true });
 });

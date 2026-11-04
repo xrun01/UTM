@@ -24,6 +24,7 @@ export const KEEP_TERMS = [
   "ARM64",
   "App Store",
   "AppleScript",
+  "Retina",
 ];
 
 const STEMS = { Rosetta: "Rosett" };

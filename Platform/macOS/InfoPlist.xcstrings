@@ -5,6 +5,12 @@
       "comment" : "Privacy - Microphone Usage Description",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "مطلوب إذن لأي جهاز افتراضي للتسجيل من الميكروفون."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -29,6 +35,12 @@
             "value" : "UTM vaatii luvan mikrofonin käyttöön."
           }
         },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Une autorisation est requise pour que toute machine virtuelle puisse enregistrer à partir du microphone."
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -45,6 +57,18 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "가상 머신에서 마이크를 통해 소리를 녹음하려면 권한이 부여되어야 합니다."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Aby każda maszyna wirtualna mogła nagrywać z mikrofonu, wymagane jest zezwolenie."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Для любой виртуальной машины требуется разрешение для записи с микрофона."
           }
         },
         "zh-HK" : {
@@ -71,6 +95,12 @@
       "comment" : "Document type name",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "الجهاز الظاهري UTM"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",

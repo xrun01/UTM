@@ -5,9 +5,11 @@
   "scripts": {
     "sync": "bun sync.js",
     "check": "bun check.js",
-    "test": "bun test"
+    "test": "bun test",
+    "translate": "bun translate.js"
   },
   "dependencies": {
+    "@3-/lang": "0.2.15",
     "opencc-js": "1.4.2"
   }
 }

@@ -629,6 +629,12 @@
       "comment" : "Class = \"NSToolbarItem\"; toolTip = \"Capture input devices\"; ObjectID = \"FN7-zs-mWC\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "التقاط أجهزة الإدخال"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -911,6 +917,12 @@
       "comment" : "Class = \"NSSegmentedCell\"; Pwr-Ct-cel.ibShadowedToolTips[0] = \"Shuts down and stops the VM\"; ObjectID = \"Pwr-Ct-cel\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "إيقاف وإيقاف VM"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -995,6 +1007,12 @@
       "comment" : "Class = \"NSSegmentedCell\"; Pwr-Ct-cel.ibShadowedToolTips[1] = \"Start/pause the VM\"; ObjectID = \"Pwr-Ct-cel\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "بدء/إيقاف مؤقت لجهاز VM"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1079,6 +1097,12 @@
       "comment" : "Class = \"NSSegmentedCell\"; Pwr-Ct-cel.ibShadowedToolTips[2] = \"Restarts the VM\"; ObjectID = \"Pwr-Ct-cel\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "إعادة تشغيل VM"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1211,85 +1235,14 @@
       "comment" : "Class = \"NSWindow\"; title = \"UTM\"; ObjectID = \"QvC-M9-y7g\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "UTM"
-          }
-        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "UTM"
           }
-        },
-        "es-419" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "UTM"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "UTM"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "UTM"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "UTM"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "UTM"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "UTM"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "UTM"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "UTM"
-          }
-        },
-        "zh-HK" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "UTM"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "UTM"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "UTM"
-          }
         }
-      }
+      },
+      "shouldTranslate" : false
     },
     "Ulf-oT-4cP.label" : {
       "comment" : "Class = \"NSToolbarItem\"; label = \"Resize Console\"; ObjectID = \"Ulf-oT-4cP\";",
@@ -1463,6 +1416,12 @@
       "comment" : "Class = \"NSToolbarItem\"; toolTip = \"Send console resize command\"; ObjectID = \"Ulf-oT-4cP\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "إرسال أمر تغيير حجم وحدة التحكم"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1547,6 +1506,12 @@
       "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Starts/resumes the VM\"; ObjectID = \"ZTi-Hs-ge6\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "يبدأ/يستأنف الجهاز الظاهري"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1799,6 +1764,12 @@
       "comment" : "Class = \"NSToolbarItem\"; toolTip = \"Drive image options\"; ObjectID = \"bKL-Th-FFw\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "خيارات صورة محرك الأقراص"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",

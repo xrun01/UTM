@@ -1,6 +1,8 @@
 // 译文的机械检查规则。每个问题是 { level, rule, table, key, lang, msg }
 // level：error 会让检查失败；warn 只提示；missing 表示缺译，汇总后作为警告输出
 
+import { existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 import * as OpenCC from "opencc-js";
 import { SOURCE_LANG, isTranslatable, sourceLocOf, unitAt, unitsOf } from "./catalog.js";
 import { specMismatchOf, specsOf } from "./format.js";
@@ -149,12 +151,12 @@ const pluralSourceOf = (lang, key, entry, path, value) => {
 export const unitSourceOf = (lang, key, entry, path, value) =>
   path[0] === "plural" ? pluralSourceOf(lang, key, entry, path, value) : sourceTextAt(key, entry, path);
 
-// 可以写例外的规则：报错规则，以及 3 条警告（审过的警告可以消掉，避免每次检查都被同样的警告淹没）
+// 可以写例外的规则：报错规则，以及 2 条警告（审过的警告可以消掉，避免每次检查都被同样的警告淹没）
 // 源码字面量的例外按文件和文字匹配
 export const EXCEPTION_RULES = new Set([
   "length",
   "plural",
-  "should-translate",
+  "keep-source",
   "format",
   "empty",
   "newline",
@@ -168,6 +170,22 @@ export const EXCEPTION_RULES = new Set([
   "digits",
   "source-cjk-literal",
 ]);
+
+// 读取 <root>/i18n/check-exceptions.json：文件不存在时返回空数组；不是合法的 JSON 或格式不对时抛错
+export const EXCEPTIONS_PATH = "i18n/check-exceptions.json";
+export const readExceptions = (root) => {
+  const path = join(root, EXCEPTIONS_PATH);
+  if (!existsSync(path)) return [];
+  let list;
+  try {
+    list = JSON.parse(readFileSync(path, "utf8"));
+  } catch (err) {
+    throw new Error(EXCEPTIONS_PATH + " 不是合法的 JSON：" + err.message);
+  }
+  const problems = exceptionProblemsOf(list);
+  if (problems.length) throw new Error(EXCEPTIONS_PATH + " 格式错误：\n" + problems.join("\n"));
+  return list;
+};
 
 // 校验例外清单；返回问题描述列表
 export const exceptionProblemsOf = (exceptions) => {
@@ -215,10 +233,9 @@ export const catalogIssuesOf = (table, catalog, { langs, known, exceptions = exc
     for (const [, path] of unitsOf(sourceLocOf(key, entry))) {
       if (CJK_RE.test(sourceTextAt(key, entry, path))) add("error", "source-cjk", key, SOURCE_LANG, "英文原文含中日韩文字");
     }
-    const translatable = isTranslatable(entry);
-    if (!translatable && /\p{L}/u.test(sourceTextAt(key, entry, []))) {
-      add("warn", "should-translate", key, null, "标为不翻译，但英文有文字；确认是否需要翻译");
-    }
+    // 标为不翻译、英文有文字的键是名称（例如系统名），界面上保持英文
+    const translatable = isTranslatable(entry),
+      keep_source = !translatable && /\p{L}/u.test(sourceTextAt(key, entry, []));
     for (const [lang, loc] of Object.entries(entry.localizations ?? {})) {
       if (lang !== SOURCE_LANG && !known.has(lang)) add("error", "unknown-lang", key, lang, "语言不在 i18n/languages.json 中");
       // substitutions（多参数复数）的变体不在 unitsOf 的遍历范围内，检查和翻译脚本都无法覆盖
@@ -233,6 +250,7 @@ export const catalogIssuesOf = (table, catalog, { langs, known, exceptions = exc
         if (translatable) add("missing", "missing", key, lang, "缺译");
         continue;
       }
+      if (keep_source) add("error", "keep-source", key, lang, "标为不翻译的名称不要写译文，界面上显示英文；有官方本地化写法时写进例外清单");
       for (const [unit, path] of units) {
         const src = unitSourceOf(lang, key, entry, path, unit.value);
         // 空串会编译进 app，界面上显示空白，而不是英文
