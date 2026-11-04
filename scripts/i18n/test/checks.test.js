@@ -155,18 +155,24 @@ describe("catalogIssuesOf", () => {
     expect(got.map((i) => [i.lang, i.rule])).toEqual([["ru", "plural"]]);
   });
 
-  test("标为不翻译的条目：不算缺译，但已有译文照样检查；英文有文字时警告", () => {
+  test("标为不翻译的条目：不算缺译，但已有译文照样检查；英文有文字的名称写了译文时报错，例外清单可以放行", () => {
     const catalog = {
       strings: {
         "%@ (%@)": { shouldTranslate: false, localizations: { de: unit("%1$@（%2$@）") } },
         UTM: { shouldTranslate: false },
+        "Red Hat": { shouldTranslate: false, localizations: { de: unit("Red Hat"), ja: unit("レッドハット") } },
+        Nintendo: { shouldTranslate: false, localizations: { ja: unit("任天堂") } },
       },
     };
-    const got = catalogIssuesOf("T", catalog, { langs: ["de"], known }).map((i) => [i.key, i.rule]);
+    const got = catalogIssuesOf("T", catalog, { langs: ["de", "ja"], known }).map((i) => [i.key, i.lang, i.rule]);
     expect(got).toEqual([
-      ["%@ (%@)", "fullwidth"],
-      ["UTM", "should-translate"],
+      ["%@ (%@)", "de", "fullwidth"],
+      ["Red Hat", "de", "keep-source"],
+      ["Red Hat", "ja", "keep-source"],
+      ["Nintendo", "ja", "keep-source"],
     ]);
+    const exceptions = exceptionMatcherOf([{ table: "T", key: "Nintendo", lang: "ja", rule: "keep-source", reason: "官方日文名" }]);
+    expect(catalogIssuesOf("T", catalog, { langs: ["ja"], known, exceptions }).map((i) => i.key)).toEqual(["Red Hat"]);
   });
 
   test("substitutions 暂不支持，报错", () => {

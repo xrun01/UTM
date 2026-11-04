@@ -154,6 +154,23 @@ const reviewDemoted = (prev, next) =>
     }),
   );
 
+// 图标标题（ICON_TITLE_MAP）是系统和产品名，界面上保持英文，所以 sync 把它们标为不翻译
+// 找不到这张表时报错：表改名或移动后，必须更新这里，否则新图标会被机翻成别的词
+export const ICON_TITLES_PATH = "Platform/Shared/VMConfigInfoView.swift";
+export const iconTitlesOf = (root) => {
+  const src = readFileSync(join(root, ICON_TITLES_PATH), "utf8"),
+    start = src.search(/\bICON_TITLE_MAP\b[^=\n]*=\s*\[/),
+    body = start < 0 ? "" : src.slice(start, src.indexOf("\n]", start)),
+    titles = [...body.matchAll(/"(?:[^"\\]|\\.)*"\s*:\s*"((?:[^"\\]|\\.)*)"/g)].map((m) => m[1]);
+  if (!titles.length) throw new Error(ICON_TITLES_PATH + " 中找不到 ICON_TITLE_MAP 的条目。表改名或移动后，更新 lib/sync.js 的 iconTitlesOf");
+  return titles;
+};
+
+// 把指定的键标为不翻译；不在 catalog 中的键忽略
+export const markKeepSource = (catalog, keys) => {
+  for (const key of keys) if (catalog.strings[key]) catalog.strings[key].shouldTranslate = false;
+};
+
 // 没有字母的键（例如 "%@"、" "）没有可翻译的文字。只加标记，不撤销：开发者可能有意标了不翻译
 export const markUntranslatable = (catalog) => {
   for (const [key, entry] of Object.entries(catalog.strings)) {
@@ -189,6 +206,7 @@ export const syncAll = ({ root, build_dir, write, today = new Date().toISOString
     removed_path = join(root, REMOVED_PATH),
     removed = readRemoved(removed_path),
     result = {},
+    icon_titles = iconTitlesOf(root),
     tmp = mkdtempSync(join(tmpdir(), "utm-i18n-sync-"));
   let removed_written = false;
   try {
@@ -214,6 +232,7 @@ export const syncAll = ({ root, build_dir, write, today = new Date().toISOString
       }
       stats.removed = pruneStale(catalog, table, removed, today);
       markUntranslatable(catalog);
+      if (table === "Localizable") markKeepSource(catalog, icon_titles);
       result[table] = { path, before, after: serializeCatalog(catalog), stats };
     }
     if (write) {

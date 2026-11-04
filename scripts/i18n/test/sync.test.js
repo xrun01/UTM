@@ -5,7 +5,7 @@ import { join } from "node:path";
 import { CATALOG_PATHS, emptyCatalog, readCatalog, writeCatalog } from "../lib/catalog.js";
 import { INFO_PLIST_PATH, XIB_PATH, infoPlistEntriesOf, xibEntriesOf } from "../lib/extract.js";
 import { xcrun } from "../lib/run.js";
-import { REMOVED_PATH, markUntranslatable, pruneStale, stringsdataOf, syncAll, syncEntries } from "../lib/sync.js";
+import { ICON_TITLES_PATH, REMOVED_PATH, iconTitlesOf, markUntranslatable, pruneStale, stringsdataOf, syncAll, syncEntries } from "../lib/sync.js";
 
 const REPO = join(import.meta.dirname, "../../.."),
   unit = (value, state = "translated") => ({ stringUnit: { state, value } }),
@@ -111,6 +111,26 @@ test("markUntranslatable：没有字母的键标为不翻译", () => {
   expect(Object.keys(cat.strings).filter((k) => cat.strings[k].shouldTranslate === false)).toEqual(["", " ", "%@", "%1$@ (%2$@)"]);
 });
 
+describe("iconTitlesOf", () => {
+  test("读出 ICON_TITLE_MAP 的全部标题，不含表外的 Custom", () => {
+    const titles = iconTitlesOf(REPO);
+    expect(titles).toContain("Red Hat");
+    expect(titles).toContain("Windows 7");
+    expect(titles).not.toContain("Custom");
+    expect(titles.length).toBeGreaterThan(60);
+  });
+
+  test("找不到表时报错，不会悄悄失效", () => {
+    const root = mkdtempSync(join(tmpdir(), "i18n-icons-"));
+    mkdirSync(join(root, ICON_TITLES_PATH, ".."), { recursive: true });
+    writeFileSync(join(root, ICON_TITLES_PATH), 'private let RENAMED: [String: LocalizedStringKey] = [\n    "a": "A",\n]\n');
+    expect(() => iconTitlesOf(root)).toThrow("ICON_TITLE_MAP");
+    writeFileSync(join(root, ICON_TITLES_PATH), 'private let ICON_TITLE_MAP: [String: LocalizedStringKey] = [\n    "a": "A",\n    "b": "B \\"x\\"",\n]\n');
+    expect(iconTitlesOf(root)).toEqual(["A", 'B \\"x\\"']);
+    rmSync(root, { recursive: true, force: true });
+  });
+});
+
 describe("stringsdataOf", () => {
   let root, build;
   beforeEach(() => {
@@ -198,7 +218,7 @@ describe("syncAll", () => {
 
   beforeEach(() => {
     root = mkdtempSync(join(tmpdir(), "i18n-sync-"));
-    for (const rel of [INFO_PLIST_PATH, XIB_PATH]) {
+    for (const rel of [INFO_PLIST_PATH, XIB_PATH, ICON_TITLES_PATH]) {
       mkdirSync(join(root, rel, ".."), { recursive: true });
       copyFileSync(join(REPO, rel), join(root, rel));
     }
@@ -256,6 +276,20 @@ describe("syncAll", () => {
     extract('import Foundation\nlet a = String(localized: "Keep")\n');
     writeFileSync(join(root, CATALOG_PATHS.Localizable), '{"sourceLanguage":"en","strings":{"\\ud800":{}},"version":"1.0"}');
     expect(() => syncAll({ root, build_dir: build(), write: false })).toThrow("没有同步");
+  });
+
+  slowTest("图标标题自动标为不翻译；手工标的不翻译和已有译文在同步后保留", () => {
+    extract('import Foundation\nlet a = String(localized: "Red Hat")\nlet b = String(localized: "RAW")\nlet c = String(localized: "Keep")\n');
+    syncAll({ root, build_dir: build(), write: true });
+    const path = join(root, CATALOG_PATHS.Localizable),
+      cat = readCatalog(path);
+    expect(cat.strings["Red Hat"].shouldTranslate).toBe(false);
+    expect(cat.strings.Keep.shouldTranslate).toBeUndefined();
+    cat.strings.RAW.shouldTranslate = false;
+    cat.strings["Red Hat"].localizations = { ja: unit("レッドハット") };
+    writeCatalog(path, cat);
+    const again = syncAll({ root, build_dir: build(), write: false });
+    expect(again.tables.Localizable.after).toBe(again.tables.Localizable.before);
   });
 
   slowTest("write 为 false 时不修改任何文件", () => {
