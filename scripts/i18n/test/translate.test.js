@@ -3,7 +3,7 @@ import { FatalError, langIdOf, transportOf } from "../lib/api.js";
 import { emptyCatalog } from "../lib/catalog.js";
 import { exceptionMatcherOf } from "../lib/checks.js";
 import { maskOf, unmaskOf } from "../lib/mask.js";
-import { deriveLang, integerSampleOf, parseYaml, pendingOf, polishOf, translateLang, yamlOf } from "../lib/translate.js";
+import { deriveLang, integerSampleOf, isShortLabel, parseYaml, pendingOf, polishOf, translateLang, yamlOf } from "../lib/translate.js";
 
 describe("maskOf / unmaskOf", () => {
   const roundTrip = (source, translated) => unmaskOf(maskOf(source), translated);
@@ -120,14 +120,14 @@ describe("translateLang", () => {
   test("只翻译缺译条目，已有译文不动，写入的状态是 needs_review", async () => {
     const catalogs = catalogsOf({
       Hello: { localizations: { de: { stringUnit: { state: "translated", value: "Hallo (geprüft)" } } } },
-      World: {},
+      "Welcome to UTM": {},
       "%@": { shouldTranslate: false },
     });
     const log = [],
-      report = await translateLang({ catalogs, lang: "de", api_lang: "de", transport: fakeTransport({ World: "Welt" }, log) });
+      report = await translateLang({ catalogs, lang: "de", api_lang: "de", transport: fakeTransport({ "Welcome to UTM": "Willkommen bei UTM" }, log) });
     expect(report.written).toBe(1);
     expect(catalogs.Localizable.strings.Hello.localizations.de.stringUnit).toEqual({ state: "translated", value: "Hallo (geprüft)" });
-    expect(catalogs.Localizable.strings.World.localizations.de.stringUnit).toEqual({ state: "needs_review", value: "Welt" });
+    expect(catalogs.Localizable.strings["Welcome to UTM"].localizations.de.stringUnit).toEqual({ state: "needs_review", value: "Willkommen bei UTM" });
     expect(log.join("")).not.toContain("Hello");
   });
 
@@ -145,39 +145,39 @@ describe("translateLang", () => {
   });
 
   test("不合格的译文不写入：音译了专有名词", async () => {
-    const catalogs = catalogsOf({ "Install Linux": {} });
-    const report = await translateLang({ catalogs, lang: "ar", api_lang: "ar", transport: fakeTransport({ "Install Linux": "تثبيت لينكس" }) });
+    const catalogs = catalogsOf({ "Install Linux now": {} });
+    const report = await translateLang({ catalogs, lang: "ar", api_lang: "ar", transport: fakeTransport({ "Install Linux now": "تثبيت لينكس الآن" }) });
     expect(report.written).toBe(0);
     expect(report.failed[0].reason).toContain("缺少专有名词 Linux");
-    expect(catalogs.Localizable.strings["Install Linux"].localizations).toBeUndefined();
+    expect(catalogs.Localizable.strings["Install Linux now"].localizations).toBeUndefined();
   });
 
   test("不同表中的相同原文只发送 1 行", async () => {
     const catalogs = {
-        Localizable: { ...emptyCatalog(), strings: { Hello: {} } },
-        InfoPlist: { ...emptyCatalog(), strings: { K: { localizations: { en: { stringUnit: { state: "new", value: "Hello" } } } } } },
+        Localizable: { ...emptyCatalog(), strings: { "Hello there friend": {} } },
+        InfoPlist: { ...emptyCatalog(), strings: { K: { localizations: { en: { stringUnit: { state: "new", value: "Hello there friend" } } } } } },
       },
       log = [];
-    const report = await translateLang({ catalogs, lang: "de", api_lang: "de", transport: fakeTransport({ Hello: "Hallo" }, log) });
+    const report = await translateLang({ catalogs, lang: "de", api_lang: "de", transport: fakeTransport({ "Hello there friend": "Hallo Freund" }, log) });
     expect(report.written).toBe(2);
     expect(log).toHaveLength(1);
     expect(log[0].trim().split("\n")).toHaveLength(1);
   });
 
   test("接口漏掉的条目单独重试 1 次", async () => {
-    const catalogs = catalogsOf({ A: {}, B: {} }),
+    const catalogs = catalogsOf({ "Alpha beta gamma": {}, "Delta epsilon zeta": {} }),
       sent = [];
-    // 第 1 次请求时接口漏掉 B 的译文
+    // 第 1 次请求时接口漏掉第 2 条的译文
     const transport = async (...args) => {
       sent.push(args[3]);
-      const out = await fakeTransport({ A: "a", B: "b" })(...args);
-      return sent.length === 1 ? out.split("\n").filter((l) => !l.includes('"b"')).join("\n") : out;
+      const out = await fakeTransport({ "Alpha beta gamma": "Alfa Beta Gamma", "Delta epsilon zeta": "Delta Epsilon Zeta" })(...args);
+      return sent.length === 1 ? out.split("\n").filter((l) => !l.includes('"Delta Epsilon Zeta"')).join("\n") : out;
     };
     const report = await translateLang({ catalogs, lang: "de", api_lang: "de", transport });
     expect(report.written).toBe(2);
     expect(sent).toHaveLength(2);
-    expect(sent[1]).toContain('"B"');
-    expect(sent[1]).not.toContain('"A"');
+    expect(sent[1]).toContain('"Delta epsilon zeta"');
+    expect(sent[1]).not.toContain('"Alpha beta gamma"');
   });
 
   test("复数：按目标语言的每个类别用示例数字翻译；没有整数示例的类别复制 many", async () => {
@@ -282,8 +282,8 @@ describe("评审修复", () => {
   });
 
   test("--limit：没处理到的复数键不复制，也不报失败", async () => {
-    const catalogs = catalogsOf({ A: {}, "%lld Cores": { localizations: { en: enPlural() } } });
-    const report = await translateLang({ catalogs, lang: "ru", api_lang: "ru", transport: fakeTransport({ A: "А" }), limit: 1 });
+    const catalogs = catalogsOf({ "Alpha beta gamma": {}, "%lld Cores": { localizations: { en: enPlural() } } });
+    const report = await translateLang({ catalogs, lang: "ru", api_lang: "ru", transport: fakeTransport({ "Alpha beta gamma": "Альфа бета гамма" }), limit: 1 });
     expect(report.written).toBe(1);
     expect(report.failed).toEqual([]);
   });
@@ -302,38 +302,38 @@ describe("评审修复", () => {
       calls++;
       throw new FatalError("翻译接口返回 403");
     };
-    await expect(translateLang({ catalogs: catalogsOf({ A: {}, B: {} }), lang: "de", api_lang: "de", transport })).rejects.toThrow("403");
+    await expect(translateLang({ catalogs: catalogsOf({ "Alpha beta gamma": {}, "Delta epsilon zeta": {} }), lang: "de", api_lang: "de", transport })).rejects.toThrow("403");
     expect(calls).toBe(1);
   });
 
   test("部分批次失败：失败的那批不逐条重发，其余批次照常写入", async () => {
-    const strings = Object.fromEntries(Array.from({ length: 151 }, (_, i) => ["Text " + i, {}]));
+    const strings = Object.fromEntries(Array.from({ length: 151 }, (_, i) => ["Sample text " + i + " here", {}]));
     let calls = 0;
     const transport = async (f, to, p, yaml) => {
       calls++;
-      if (yaml.includes('"Text 150"')) throw new Error("网络断开");
+      if (yaml.includes('"Sample text 150 here"')) throw new Error("网络断开");
       return yaml;
     };
     const report = await translateLang({ catalogs: catalogsOf(strings), lang: "de", api_lang: "de", transport });
     expect(calls).toBe(2);
     expect(report.written).toBe(150);
-    expect(report.failed).toEqual([{ table: "Localizable", key: "Text 150", reason: "请求失败: 网络断开" }]);
+    expect(report.failed).toEqual([{ table: "Localizable", key: "Sample text 150 here", reason: "请求失败: 网络断开" }]);
   });
 
   test("所有批次都失败时中止整次运行", async () => {
     const transport = async () => {
       throw new Error("网络断开");
     };
-    await expect(translateLang({ catalogs: catalogsOf({ A: {}, B: {} }), lang: "de", api_lang: "de", transport })).rejects.toThrow("所有请求都失败");
+    await expect(translateLang({ catalogs: catalogsOf({ "Alpha beta gamma": {}, "Delta epsilon zeta": {} }), lang: "de", api_lang: "de", transport })).rejects.toThrow("所有请求都失败");
   });
 
   test("重试换一个键，绕开服务端的按行缓存；两次都不合格时保留第 1 次的原因", async () => {
     const sent = [];
     const transport = async (...args) => {
       sent.push(args[3]);
-      return fakeTransport({ "Install Linux": "تثبيت لينكس" })(...args);
+      return fakeTransport({ "Install Linux now": "تثبيت لينكس الآن" })(...args);
     };
-    const report = await translateLang({ catalogs: catalogsOf({ "Install Linux": {} }), lang: "ar", api_lang: "ar", transport });
+    const report = await translateLang({ catalogs: catalogsOf({ "Install Linux now": {} }), lang: "ar", api_lang: "ar", transport });
     expect(sent).toHaveLength(2);
     expect(sent[0].split(":")[0]).not.toBe(sent[1].split(":")[0]);
     expect(report.failed[0].reason).toContain("第 1 次");
@@ -374,7 +374,7 @@ describe("第 2 轮评审修复", () => {
       calls++;
       return "<html>Gateway</html>";
     };
-    await expect(translateLang({ catalogs: catalogsOf({ A: {}, B: {}, C: {} }), lang: "de", api_lang: "de", transport })).rejects.toThrow(
+    await expect(translateLang({ catalogs: catalogsOf({ "Alpha beta gamma": {}, "Delta epsilon zeta": {}, "Eta theta iota": {} }), lang: "de", api_lang: "de", transport })).rejects.toThrow(
       "接口返回的内容无法解析为译文",
     );
     expect(calls).toBe(1);
@@ -397,12 +397,12 @@ describe("第 2 轮评审修复", () => {
   });
 
   test("空译文的失败原因是「译文为空」", async () => {
-    const report = await translateLang({ catalogs: catalogsOf({ Hello: {} }), lang: "de", api_lang: "de", transport: async (f, t, p, y) => y.replace(/: .*/g, ': ""') });
+    const report = await translateLang({ catalogs: catalogsOf({ "Hello there friend": {} }), lang: "de", api_lang: "de", transport: async (f, t, p, y) => y.replace(/: .*/g, ': ""') });
     expect(report.failed[0].reason).toContain("译文为空");
   });
 
   test("长度异常的机翻不写入", async () => {
-    const report = await translateLang({ catalogs: catalogsOf({ Hello: {} }), lang: "de", api_lang: "de", transport: fakeTransport({ Hello: "x".repeat(500) }) });
+    const report = await translateLang({ catalogs: catalogsOf({ "Hello there friend": {} }), lang: "de", api_lang: "de", transport: fakeTransport({ "Hello there friend": "x".repeat(500) }) });
     expect(report.written).toBe(0);
     expect(report.failed[0].reason).toContain("译文长度异常");
   });
@@ -420,10 +420,10 @@ describe("第 2 轮评审修复", () => {
     const keysOf = async () => {
       const sent = [];
       await translateLang({
-        catalogs: catalogsOf({ "Install Linux": {} }),
+        catalogs: catalogsOf({ "Install Linux now": {} }),
         lang: "ar",
         api_lang: "ar",
-        transport: async (...args) => (sent.push(args[3]), fakeTransport({ "Install Linux": "تثبيت لينكس" })(...args)),
+        transport: async (...args) => (sent.push(args[3]), fakeTransport({ "Install Linux now": "تثبيت لينكس الآن" })(...args)),
       });
       return sent.map((s) => s.split(":")[0]);
     };
@@ -513,20 +513,20 @@ describe("第 3 轮评审修复", () => {
   test("例外清单与 check.js 一致：命中的规则不拒绝，只放行对应的表、键和语言", async () => {
     const exceptions = () =>
       exceptionMatcherOf([
-        { table: "Localizable", key: "Windows", rule: "term:Windows", reason: "窗口列表" },
-        { table: "Localizable", key: "Open settings", rule: "length", lang: "de", reason: "德语习惯写法" },
+        { table: "Localizable", key: "Show all Windows", rule: "term:Windows", reason: "窗口列表" },
+        { table: "Localizable", key: "Open the settings", rule: "length", lang: "de", reason: "德语习惯写法" },
       ]);
-    const catalogs = catalogsOf({ Windows: {}, "Install Windows": {}, "Open settings": {} }),
-      transport = fakeTransport({ Windows: "Fenster", "Install Windows": "Fenster installieren", "Open settings": "Die Einstellungen der Anwendung jetzt öffnen" }),
+    const catalogs = catalogsOf({ "Show all Windows": {}, "Install Windows now": {}, "Open the settings": {} }),
+      transport = fakeTransport({ "Show all Windows": "Alle Fenster anzeigen", "Install Windows now": "Fenster jetzt installieren", "Open the settings": "Die Einstellungen der Anwendung jetzt öffnen" }),
       report = await translateLang({ catalogs, lang: "de", api_lang: "de", transport, exceptions: exceptions() });
-    expect(catalogs.Localizable.strings.Windows.localizations.de.stringUnit.value).toBe("Fenster");
-    expect(catalogs.Localizable.strings["Open settings"].localizations.de.stringUnit.value).toBe("Die Einstellungen der Anwendung jetzt öffnen");
-    expect(report.failed.map((f) => f.key)).toEqual(["Install Windows"]);
+    expect(catalogs.Localizable.strings["Show all Windows"].localizations.de.stringUnit.value).toBe("Alle Fenster anzeigen");
+    expect(catalogs.Localizable.strings["Open the settings"].localizations.de.stringUnit.value).toBe("Die Einstellungen der Anwendung jetzt öffnen");
+    expect(report.failed.map((f) => f.key)).toEqual(["Install Windows now"]);
     // 例外只放行 check.js 的长度范围，明显失控的长度照样拒绝
-    const runaway = await translateLang({ catalogs: catalogsOf({ "Open settings": {} }), lang: "de", api_lang: "de", transport: fakeTransport({ "Open settings": "x".repeat(500) }), exceptions: exceptions() });
+    const runaway = await translateLang({ catalogs: catalogsOf({ "Open the settings": {} }), lang: "de", api_lang: "de", transport: fakeTransport({ "Open the settings": "x".repeat(500) }), exceptions: exceptions() });
     expect(runaway.failed[0].reason).toContain("译文长度异常");
     // 其他语言不受 lang: "de" 的例外影响
-    const ja = await translateLang({ catalogs: catalogsOf({ "Open settings": {} }), lang: "ja", api_lang: "ja", transport: fakeTransport({ "Open settings": "アプリケーションの設定画面を今すぐ開いてください" }), exceptions: exceptions() });
+    const ja = await translateLang({ catalogs: catalogsOf({ "Open the settings": {} }), lang: "ja", api_lang: "ja", transport: fakeTransport({ "Open the settings": "アプリケーションの設定画面を今すぐここで開いてください" }), exceptions: exceptions() });
     expect(ja.failed[0].reason).toContain("译文长度异常");
   });
 
@@ -555,6 +555,33 @@ describe("第 3 轮评审修复", () => {
     expect(polishOf("fr", "From “%@”", 'De "%@')).toBe('De "%@');
   });
 
+  test("polishOf：引号换成这种语言的写法；原文同时有直引号时不改", () => {
+    expect(polishOf("zh-Hant", "From “%@”", "來自“%@”")).toBe("來自「%@」");
+    expect(polishOf("ja", "From “%@”", '"%@"から')).toBe("「%@」から");
+    expect(polishOf("de", "From “%@”", 'Von "%@"')).toBe("Von „%@“");
+    expect(polishOf("fr", "From “%@”", 'De "%@"')).toBe("De «\u00a0%@\u00a0»");
+    expect(polishOf("zh-Hans", "From “%@”", "来自“%@”")).toBe("来自“%@”");
+    expect(polishOf("de", 'Say "yes" to “%@”', 'Sag "ja" zu "%@"')).toBe('Sag "ja" zu "%@"');
+  });
+
+  test("引号数量和英文不同的译文不写入：解析时被吞掉 1 对引号", async () => {
+    const catalogs = catalogsOf({ "“%@” and “%@”": {} }),
+      transport = async (from, to, path, yaml) => yaml.replace(/"“\{1\}” and “\{2\}”"/, '"{1}" und "{2}"'),
+      report = await translateLang({ catalogs, lang: "de", api_lang: "de", transport });
+    expect(report.written).toBe(0);
+    expect(report.failed[0].reason).toContain("引号数量和英文不同");
+  });
+
+  test("复制的复数类别命中例外时照样写入", async () => {
+    const en = { variations: { plural: { one: unit("%lld Window", "new"), other: unit("%lld Windows", "new") } } },
+      catalogs = catalogsOf({ "%lld Windows": { localizations: { en } } }),
+      exceptions = exceptionMatcherOf([{ table: "Localizable", key: "%lld Windows", rule: "term:Windows", reason: "窗口" }]),
+      transport = fakeTransport({ "1 Window": "1 okno", "21 Windows": "21 okno", "2 Windows": "2 okna", "5 Windows": "5 okien" }),
+      report = await translateLang({ catalogs, lang: "pl", api_lang: "pl", transport, exceptions });
+    expect(report.failed).toEqual([]);
+    expect(Object.keys(catalogs.Localizable.strings["%lld Windows"].localizations.pl.variations.plural).sort()).toEqual(["few", "many", "one", "other"]);
+  });
+
   test("接口返回没转义的引号时照样写入，并还原弯引号", async () => {
     const catalogs = catalogsOf({ "From “%@”": {} }),
       transport = async (from, to, path, yaml) => yaml.replace(/"From “\{1\}”"/, '""{1}"에서"'),
@@ -564,3 +591,24 @@ describe("第 3 轮评审修复", () => {
   });
 });
 
+describe("短标签", () => {
+  test("isShortLabel：最多 2 个词、不含占位符；只数字母和数字串", () => {
+    for (const s of ["Killing", "Send Key", "Escape (⎋)", "Caps Lock (⇪)", "Clone…", "HiDPI (Retina)", "macOS 12+", "50%% done"]) expect(isShortLabel(s)).toBe(true);
+    for (const s of ["Open the settings", "Delete %@", "%lld Cores", "Use NVMe Interface", "50%% done now"]) expect(isShortLabel(s)).toBe(false);
+  });
+
+  test("pendingOf 跳过短标签并标记 short；复数和长句照常翻译", () => {
+    const skipped = [],
+      { units } = pendingOf(catalogsOf({ Killing: {}, "Open the settings": {}, "%lld Cores": {} }), "de", skipped);
+    expect(units.map((u) => u.key)).toEqual(["Open the settings", "%lld Cores"]);
+    expect(skipped).toEqual([{ table: "Localizable", key: "Killing", short: true, reason: "短标签缺少上下文，留给 utm-i18n skill 补译" }]);
+  });
+
+  test("translateLang 不发送短标签，报告中计入 skipped", async () => {
+    const log = [],
+      report = await translateLang({ catalogs: catalogsOf({ Force: {}, "Open the settings": {} }), lang: "de", api_lang: "de", transport: fakeTransport({ "Open the settings": "Einstellungen öffnen" }, log) });
+    expect(report.written).toBe(1);
+    expect(report.skipped.map((s) => s.key)).toEqual(["Force"]);
+    expect(log.join("")).not.toContain("Force");
+  });
+});

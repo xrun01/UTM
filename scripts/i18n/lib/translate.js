@@ -44,6 +44,11 @@ export const integerSampleOf = (lang, category) => {
 // 没有整数示例的类别从哪个类别复制：被复制的是 many 时用 other，其他情况用 many
 const copySourceOf = (category) => (category === "many" ? "other" : "many");
 
+// 原文用弯引号时，译文换成这种语言的引号。fr 的书名号内侧是不换行空格
+const QUOTES = { ja: ["「", "」"], "zh-Hant": ["「", "」"], "zh-HK": ["「", "」"], de: ["„", "“"], fr: ["«\u00a0", "\u00a0»"] },
+  QUOTE_MARK_RE = /["“”„«»「」『』]/g,
+  quoteCountOf = (s) => s.match(QUOTE_MARK_RE)?.length ?? 0;
+
 // 把接口的输出修正成符合 check.js 规则的写法；修不了的问题留给校验步骤拒绝
 export const polishOf = (lang, source, value) => {
   let v = value;
@@ -52,11 +57,13 @@ export const polishOf = (lang, source, value) => {
     v = v.replace(re, (c) => (source.includes(c) ? c : ""));
   };
   if (source.includes("…")) v = v.replaceAll("...", "…");
-  // 原文用弯引号、译文只有成对的直引号时（接口把 “” 换成了 ""），按出现顺序还原成 “”
-  const straight = v.match(/"/g)?.length ?? 0;
-  if (/[“”]/.test(source) && !/[“”„«»「」『』]/.test(v) && straight && straight % 2 === 0) {
-    let open = true;
-    v = v.replace(/"/g, () => ((open = !open) ? "”" : "“"));
+  // 原文只用弯引号时，接口常把 “” 换成 ""，或照搬英文的 “”。成对时按出现顺序换成这种语言的引号
+  // 译文已经用了 „ « 「 等本语言写法时不动
+  const marks = v.match(/["“”]/g)?.length ?? 0;
+  if (/[“”]/.test(source) && !source.includes('"') && !/[„«»「」『』]/.test(v) && marks && marks % 2 === 0) {
+    const [open, close] = QUOTES[lang] ?? ["“", "”"];
+    let i = 0;
+    v = v.replace(/["“”]/g, () => (i++ % 2 ? close : open));
   }
   strip(/[\ufeff\u202a-\u202e\ufe00-\ufe0f]|\udb40[\udd00-\uddef]/g);
   // 从右到左的语言用 Bidi 隔离符包住从左到右的占位符，这是推荐写法
@@ -236,13 +243,24 @@ export const pendingOf = (catalogs, lang, skipped = []) => {
         continue;
       }
       if (has) continue;
-      const unit = plainUnitOf(lang, sourceTextAt(key, entry, []));
+      const text = sourceTextAt(key, entry, []);
+      if (isShortLabel(text)) {
+        skipped.push({ table, key, short: true, reason: "短标签缺少上下文，留给 utm-i18n skill 补译" });
+        continue;
+      }
+      const unit = plainUnitOf(lang, text);
       if (unit) units.push({ table, key, entry, path: [], fresh: false, ...unit });
       else skipped.push({ table, key, reason: "文案含 stringsdict 变量、带 * 的占位符或字面量 {数字}，暂不支持" });
     }
   }
   return { units, copies };
 };
+
+// 短标签：不含占位符、最多 SHORT_LABEL_WORDS 个词（只数字母和数字串，「Escape (⎋)」算 1 个词）
+// 接口拿不到上下文，短标签常选错义项（Killing 译成「杀人」，Force 译成「力量」），而回译查不出这类错误
+// 所以短标签不机翻，留给 utm-i18n skill 按源码上下文补译
+const SHORT_LABEL_WORDS = 2;
+export const isShortLabel = (text) => !specsOf(text).length && (text.match(/[\p{L}\p{N}]+/gu) ?? []).length <= SHORT_LABEL_WORDS;
 
 // 按键截取：最多 limit 个单元，但不把一个复数键截在类别中间
 const limitByKey = (units, limit) => {
@@ -275,6 +293,8 @@ const verdictOf = (lang, u, value, { check_length = true, exceptions }) => {
   const source = unitSourceOf(lang, u.key, u.entry, u.path, value),
     issues = unitIssuesOf(lang, source, value).filter((i) => !exceptions.skip(u.table, u.key, lang, i.rule));
   if (issues.length) return { reason: issues.map((i) => i.msg).join("；") };
+  // 引号数量必须和英文相同：接口不加引号、译文又首尾带引号时，解析会吞掉 1 对引号（例如 k: "{1}" und "{2}"）
+  if (/[“”]/.test(source) && quoteCountOf(value) !== quoteCountOf(source)) return { reason: "引号数量和英文不同" };
   // 机翻偶尔会输出整段无关文字；长度异常在 check.js 中只是警告，这里直接拒绝。例外清单只放行 check.js 的长度范围，不放行明显失控的长度
   const length_ok = !lengthIssueOf(lang, source, value) || exceptions.skip(u.table, u.key, lang, "length");
   if (check_length && (!length_ok || value.length > source.length * 4 + 20)) return { reason: "译文长度异常" };

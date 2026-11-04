@@ -6,7 +6,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { parseArgs } from "node:util";
 import { CATALOG_PATHS, readCatalog } from "./lib/catalog.js";
-import { catalogIssuesOf, exceptionMatcherOf, exceptionProblemsOf } from "./lib/checks.js";
+import { catalogIssuesOf, exceptionMatcherOf, readExceptions } from "./lib/checks.js";
 import { run } from "./lib/run.js";
 import { CJK_RE, stringLiteralsOf } from "./lib/scan.js";
 import { syncAll } from "./lib/sync.js";
@@ -29,29 +29,21 @@ try {
 
 const root = resolve(opt.root),
   known = JSON.parse(readFileSync(join(root, "i18n/languages.json"), "utf8")).languages.map((l) => l.code),
-  langs = opt.lang === undefined ? known : opt.lang.split(",").map((s) => s.trim()),
-  exceptions_path = join(root, "i18n/check-exceptions.json"),
-  exception_li = (() => {
-    if (!existsSync(exceptions_path)) return [];
-    try {
-      return JSON.parse(readFileSync(exceptions_path, "utf8"));
-    } catch (err) {
-      console.error("i18n/check-exceptions.json 不是合法的 JSON：" + err.message);
-      process.exit(2);
-    }
-  })(),
-  exceptions = exceptionMatcherOf(exception_li);
+  langs = opt.lang === undefined ? known : opt.lang.split(",").map((s) => s.trim());
 
 const bad_lang = langs.filter((l) => !known.includes(l));
 if (bad_lang.length || langs.length === 0) {
   console.error("未知语言: " + (bad_lang.join(", ") || "（空）") + "。可选: " + known.join(", "));
   process.exit(2);
 }
-const exception_problems = exceptionProblemsOf(exception_li);
-if (exception_problems.length) {
-  console.error("i18n/check-exceptions.json 格式错误：\n" + exception_problems.join("\n"));
+let exception_li;
+try {
+  exception_li = readExceptions(root);
+} catch (err) {
+  console.error(err.message);
   process.exit(2);
 }
+const exceptions = exceptionMatcherOf(exception_li);
 
 const errors = [],
   warns = [],

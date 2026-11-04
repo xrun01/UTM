@@ -3,12 +3,12 @@
 // 用法：bun scripts/i18n/translate.js [--lang ja,zh-HK] [--dry-run] [--limit 20] [--verbose]
 // token：环境变量 WEBC_TOKEN，或 ~/.config/webc.site.yml
 
-import { existsSync, readFileSync, statSync } from "node:fs";
+import { readFileSync, statSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { parseArgs } from "node:util";
 import { CATALOG_PATHS, readCatalog, writeCatalog } from "./lib/catalog.js";
 import { langIdOf, tokenOf, transportOf } from "./lib/api.js";
-import { exceptionMatcherOf, exceptionProblemsOf } from "./lib/checks.js";
+import { exceptionMatcherOf, readExceptions } from "./lib/checks.js";
 import { derivableCountOf, deriveLang, pendingOf, translateLang } from "./lib/translate.js";
 
 let opt;
@@ -56,20 +56,13 @@ if (unknown.length || !(Number.isInteger(limit) || limit === Infinity) || limit 
   process.exit(2);
 }
 // 例外清单与 check.js 共用：check.js 放行的译文，这里也不拒绝
-const exceptions_path = join(root, "i18n/check-exceptions.json");
-let exception_li = [];
+let exceptions;
 try {
-  if (existsSync(exceptions_path)) exception_li = JSON.parse(readFileSync(exceptions_path, "utf8"));
+  exceptions = exceptionMatcherOf(readExceptions(root));
 } catch (err) {
-  console.error("i18n/check-exceptions.json 不是合法的 JSON：" + err.message);
+  console.error(err.message);
   process.exit(2);
 }
-const exception_problems = exceptionProblemsOf(exception_li);
-if (exception_problems.length) {
-  console.error("i18n/check-exceptions.json 格式错误：\n" + exception_problems.join("\n"));
-  process.exit(2);
-}
-const exceptions = exceptionMatcherOf(exception_li);
 
 // 先翻译接口支持的语言，再生成派生语言（zh-HK 依赖 zh-Hant 的结果）
 const targets = config.filter((l) => wanted.includes(l.code)).sort((a, b) => Number(!!a.derive) - Number(!!b.derive)),
@@ -87,6 +80,13 @@ const targets = config.filter((l) => wanted.includes(l.code)).sort((a, b) => Num
     }
   };
 
+// 跳过的条目分 2 类：短标签留给 skill 补译；其余是脚本不支持的写法
+const skippedText = (skipped) => {
+  const short = skipped.filter((s) => s.short).length,
+    other = skipped.length - short;
+  return (short ? "，短标签留给 skill " + short + " 条" : "") + (other ? "，不支持 " + other + " 条" : "");
+};
+
 if (opt["dry-run"]) {
   for (const l of targets) {
     if (l.derive) {
@@ -95,7 +95,7 @@ if (opt["dry-run"]) {
     }
     const skipped = [],
       { units, copies } = pendingOf(catalogs, l.code, skipped);
-    console.log(l.code + "：待翻译 " + units.length + " 条" + (copies.length ? "，复制复数类别 " + copies.length + " 条" : "") + (skipped.length ? "，不支持 " + skipped.length + " 条" : ""));
+    console.log(l.code + "：待翻译 " + units.length + " 条" + (copies.length ? "，复制复数类别 " + copies.length + " 条" : "") + skippedText(skipped));
   }
   process.exit(0);
 }
@@ -123,9 +123,10 @@ for (const l of targets) {
   }
   failed_n += report.failed.length;
   console.log(
-    l.code + "：写入 " + report.written + " 条" + (report.failed.length ? "，失败 " + report.failed.length + " 条" : "") + (report.skipped.length ? "，不支持 " + report.skipped.length + " 条" : ""),
+    l.code + "：写入 " + report.written + " 条" + (report.failed.length ? "，失败 " + report.failed.length + " 条" : "") + skippedText(report.skipped),
   );
-  const shown = opt.verbose ? [...report.failed, ...report.skipped] : report.failed.slice(0, 10);
+  // 短标签数量多、原因相同，只计数不逐条列出
+  const shown = opt.verbose ? [...report.failed, ...report.skipped.filter((s) => !s.short)] : report.failed.slice(0, 10);
   for (const f of shown) console.log("  " + (f.table ? f.table + " " + JSON.stringify(f.key) + "：" : "") + f.reason);
   if (!opt.verbose && report.failed.length > shown.length) console.log("  ……另有 " + (report.failed.length - shown.length) + " 条，加 --verbose 查看");
 }

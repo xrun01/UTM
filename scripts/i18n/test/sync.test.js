@@ -125,8 +125,17 @@ describe("iconTitlesOf", () => {
     mkdirSync(join(root, ICON_TITLES_PATH, ".."), { recursive: true });
     writeFileSync(join(root, ICON_TITLES_PATH), 'private let RENAMED: [String: LocalizedStringKey] = [\n    "a": "A",\n]\n');
     expect(() => iconTitlesOf(root)).toThrow("ICON_TITLE_MAP");
-    writeFileSync(join(root, ICON_TITLES_PATH), 'private let ICON_TITLE_MAP: [String: LocalizedStringKey] = [\n    "a": "A",\n    "b": "B \\"x\\"",\n]\n');
-    expect(iconTitlesOf(root)).toEqual(["A", 'B \\"x\\"']);
+    // 表放进类型里、] 有缩进时找不到表尾：报错，不读到文件末尾
+    writeFileSync(join(root, ICON_TITLES_PATH), 'struct S {\n    let ICON_TITLE_MAP: [String: String] = [\n        "a": "A",\n    ]\n}\nlet other = ["x": "Not A Name"]\n');
+    expect(() => iconTitlesOf(root)).toThrow("ICON_TITLE_MAP");
+    // 注释掉的条目不算；转义按 Swift 解码
+    writeFileSync(
+      join(root, ICON_TITLES_PATH),
+      'private let ICON_TITLE_MAP: [String: LocalizedStringKey] = [\n    "a": "A",\n    // "old": "Old",\n    "b": "B \\"x\\"",\n]\nlet other = ["x": "Not A Name"]\n',
+    );
+    expect(iconTitlesOf(root)).toEqual(["A", 'B "x"']);
+    writeFileSync(join(root, ICON_TITLES_PATH), 'private let ICON_TITLE_MAP: [String: String] = [\n    "a": "\\u{41}",\n]\n');
+    expect(() => iconTitlesOf(root)).toThrow("无法解析的转义");
     rmSync(root, { recursive: true, force: true });
   });
 });

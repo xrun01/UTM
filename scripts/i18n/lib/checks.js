@@ -1,6 +1,8 @@
 // 译文的机械检查规则。每个问题是 { level, rule, table, key, lang, msg }
 // level：error 会让检查失败；warn 只提示；missing 表示缺译，汇总后作为警告输出
 
+import { existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 import * as OpenCC from "opencc-js";
 import { SOURCE_LANG, isTranslatable, sourceLocOf, unitAt, unitsOf } from "./catalog.js";
 import { specMismatchOf, specsOf } from "./format.js";
@@ -168,6 +170,22 @@ export const EXCEPTION_RULES = new Set([
   "digits",
   "source-cjk-literal",
 ]);
+
+// 读取 <root>/i18n/check-exceptions.json：文件不存在时返回空数组；不是合法的 JSON 或格式不对时抛错
+export const EXCEPTIONS_PATH = "i18n/check-exceptions.json";
+export const readExceptions = (root) => {
+  const path = join(root, EXCEPTIONS_PATH);
+  if (!existsSync(path)) return [];
+  let list;
+  try {
+    list = JSON.parse(readFileSync(path, "utf8"));
+  } catch (err) {
+    throw new Error(EXCEPTIONS_PATH + " 不是合法的 JSON：" + err.message);
+  }
+  const problems = exceptionProblemsOf(list);
+  if (problems.length) throw new Error(EXCEPTIONS_PATH + " 格式错误：\n" + problems.join("\n"));
+  return list;
+};
 
 // 校验例外清单；返回问题描述列表
 export const exceptionProblemsOf = (exceptions) => {
