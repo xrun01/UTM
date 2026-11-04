@@ -1,0 +1,18 @@
+{
+  "source": "en",
+  "languages": [
+    { "code": "zh-Hans", "api": "zh" },
+    { "code": "zh-Hant", "api": "zh-TW" },
+    { "code": "zh-HK", "derive": { "from": "zh-Hant", "opencc": "tw-hk" } },
+    { "code": "ja", "api": "ja" },
+    { "code": "ko", "api": "ko" },
+    { "code": "fr", "api": "fr" },
+    { "code": "fi", "api": "fi" },
+    { "code": "es-419", "api": "es" },
+    { "code": "de", "api": "de" },
+    { "code": "pl", "api": "pl" },
+    { "code": "ru", "api": "ru" },
+    { "code": "it", "api": "it" },
+    { "code": "ar", "api": "ar" }
+  ]
+}

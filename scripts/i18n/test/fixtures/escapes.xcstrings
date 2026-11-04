@@ -1,0 +1,43 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "%@ of %@ (%lld%%)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ of %2$@ (%3$lld%%)"
+          }
+        }
+      }
+    },
+    "Emoji 🚀 and 中文 and Ünïcödé" : {
+
+    },
+    "Path a/b and 50% done" : {
+
+    },
+    "Quote \" and backslash \\ end" : {
+
+    },
+    "Tab\there, newline\nthere" : {
+
+    },
+    "display.noun" : {
+      "comment" : "Menu \"title\"",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Display"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

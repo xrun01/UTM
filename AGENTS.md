@@ -48,6 +48,14 @@ must apply unprompted — they override default behavior and are easy to violate
 - **Scope:** one feature/fix per PR; don't touch, refactor, or reformat unrelated
   files; route new logging through `UTMLogging`/`logging` at `debug` level.
 
+## Localization
+
+UI text is written in English and translated through String Catalogs
+(`Platform/**/*.xcstrings`); never hard-code another language in a string
+literal — `scripts/i18n/check.js` fails CI on it. After changing UI text, rebuild,
+then run `bun scripts/i18n/sync.js` and `bun scripts/i18n/check.js`. Workflow and
+rules: `Documentation/i18n.md`.
+
 ## Contribution workflows
 
 Before opening or updating a PR, run **`/utm-review`** then **`/utm-submit`** —
