@@ -9,6 +9,7 @@ import {
   CJK_LANGS,
   RTL_LANGS,
   ZWSP_LANGS,
+  exceptionMatcherOf,
   lengthIssueOf,
   pluralCategoriesOf,
   singleIntegerOf,
@@ -250,21 +251,22 @@ const setUnit = (catalog, key, lang, path, value) => {
   variants[path[1]] = { stringUnit: { state: "needs_review", value } };
 };
 
-// 校验 1 条候选译文：规则与 check.js 相同，另外拒绝空串和长度异常；返回 { value } 或 { reason }
+// 校验 1 条候选译文：规则与例外清单都与 check.js 相同，另外拒绝空串和长度异常；返回 { value } 或 { reason }
 // 派生语言（OpenCC 只换字形、不改长度）不检查长度：zh-Hant 的长度在 check.js 中只是警告
-const verdictOf = (lang, u, value, { check_length = true } = {}) => {
+const verdictOf = (lang, u, value, { check_length = true, exceptions }) => {
   if (value === null) return { reason: "占位符或示例数字无法还原" };
   if (!value.trim()) return { reason: "译文为空" };
   const source = unitSourceOf(lang, u.key, u.entry, u.path, value),
-    issues = unitIssuesOf(lang, source, value);
+    issues = unitIssuesOf(lang, source, value).filter((i) => !exceptions.skip(u.table, u.key, lang, i.rule));
   if (issues.length) return { reason: issues.map((i) => i.msg).join("；") };
-  // 机翻偶尔会输出整段无关文字；长度异常在 check.js 中只是警告，这里直接拒绝
-  if (check_length && (lengthIssueOf(lang, source, value) || value.length > source.length * 4 + 20)) return { reason: "译文长度异常" };
+  // 机翻偶尔会输出整段无关文字；长度异常在 check.js 中只是警告，这里直接拒绝。例外清单只放行 check.js 的长度范围，不放行明显失控的长度
+  const length_ok = !lengthIssueOf(lang, source, value) || exceptions.skip(u.table, u.key, lang, "length");
+  if (check_length && (!length_ok || value.length > source.length * 4 + 20)) return { reason: "译文长度异常" };
   return { value };
 };
 
 // 翻译一种语言；transport(from, to, path, yaml) 返回译文 YAML。遇到 FatalError（例如 token 无效）时抛出，中止整次运行
-export const translateLang = async ({ catalogs, lang, api_lang, transport, limit = Infinity, salt = randomUUID() }) => {
+export const translateLang = async ({ catalogs, lang, api_lang, transport, limit = Infinity, salt = randomUUID(), exceptions = exceptionMatcherOf([]) }) => {
   const report = { lang, written: 0, failed: [], skipped: [] },
     pending = pendingOf(catalogs, lang, report.skipped),
     units = limitByKey(pending.units, limit),
@@ -292,7 +294,7 @@ export const translateLang = async ({ catalogs, lang, api_lang, transport, limit
   const judge = (u, answers, errors) => {
     if (errors.has(u.text)) return { reason: "请求失败: " + errors.get(u.text) };
     const raw = answers.get(u.text);
-    return raw === undefined ? { reason: "接口没有返回这条译文" } : verdictOf(lang, u, u.finish(raw));
+    return raw === undefined ? { reason: "接口没有返回这条译文" } : verdictOf(lang, u, u.finish(raw), { exceptions });
   };
 
   // 第 1 轮用稳定的键（可以命中服务端缓存）；不合格或漏返回的条目，第 2 轮换本次运行专用的键分批重试
@@ -334,7 +336,7 @@ export const translateLang = async ({ catalogs, lang, api_lang, transport, limit
       const existing = c.entry.localizations?.[lang]?.variations?.plural ?? {},
         from_path = ["plural", copySourceOf(c.path[1])],
         from = plan.find((p) => p.x.path.join() === from_path.join() && p.value !== undefined)?.value ?? existing[from_path[1]]?.stringUnit?.value;
-      plan.push({ x: c, ...(from ? verdictOf(lang, c, from) : { reason: "复数类别 " + c.path[1] + " 的来源 " + from_path[1] + " 没有译文" }) });
+      plan.push({ x: c, ...(from ? verdictOf(lang, c, from, { exceptions }) : { reason: "复数类别 " + c.path[1] + " 的来源 " + from_path[1] + " 没有译文" }) });
     }
     const fresh = plan.some((p) => p.x.fresh),
       any_failed = plan.some((p) => p.value === undefined);
@@ -378,12 +380,12 @@ const derivableOf = (catalogs, lang, derive) => {
 export const derivableCountOf = (catalogs, lang, derive) => derivableOf(catalogs, lang, derive).length;
 
 // 由另一种语言转换得到的语言（zh-HK 由 zh-Hant 转换）：只补缺失的单元
-export const deriveLang = ({ catalogs, lang, derive }) => {
+export const deriveLang = ({ catalogs, lang, derive, exceptions = exceptionMatcherOf([]) }) => {
   const [from, to] = derive.opencc.split("-"),
     convert = OpenCC.Converter({ from, to }),
     report = { lang, written: 0, failed: [], skipped: [] };
   for (const u of derivableOf(catalogs, lang, derive)) {
-    const verdict = verdictOf(lang, u, convert(u.value), { check_length: false });
+    const verdict = verdictOf(lang, u, convert(u.value), { check_length: false, exceptions });
     if (verdict.value === undefined) {
       report.failed.push({ table: u.table, key: u.key, reason: "转换结果不合格: " + verdict.reason });
       continue;

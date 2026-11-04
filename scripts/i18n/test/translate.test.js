@@ -1,6 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { FatalError, langIdOf, transportOf } from "../lib/api.js";
 import { emptyCatalog } from "../lib/catalog.js";
+import { exceptionMatcherOf } from "../lib/checks.js";
 import { maskOf, unmaskOf } from "../lib/mask.js";
 import { deriveLang, integerSampleOf, parseYaml, pendingOf, polishOf, translateLang, yamlOf } from "../lib/translate.js";
 
@@ -508,5 +509,32 @@ describe("第 3 轮评审修复", () => {
     const catalogs = catalogsOf({ "Dynamic Resolution": { localizations: { "zh-Hant": unit("動態") } } });
     expect(deriveLang({ catalogs, lang: "zh-HK", derive: { from: "zh-Hant", opencc: "tw-hk" } }).written).toBe(1);
   });
-});
 
+  test("例外清单与 check.js 一致：命中的规则不拒绝，只放行对应的表、键和语言", async () => {
+    const exceptions = () =>
+      exceptionMatcherOf([
+        { table: "Localizable", key: "Windows", rule: "term:Windows", reason: "窗口列表" },
+        { table: "Localizable", key: "Open settings", rule: "length", lang: "de", reason: "德语习惯写法" },
+      ]);
+    const catalogs = catalogsOf({ Windows: {}, "Install Windows": {}, "Open settings": {} }),
+      transport = fakeTransport({ Windows: "Fenster", "Install Windows": "Fenster installieren", "Open settings": "Die Einstellungen der Anwendung jetzt öffnen" }),
+      report = await translateLang({ catalogs, lang: "de", api_lang: "de", transport, exceptions: exceptions() });
+    expect(catalogs.Localizable.strings.Windows.localizations.de.stringUnit.value).toBe("Fenster");
+    expect(catalogs.Localizable.strings["Open settings"].localizations.de.stringUnit.value).toBe("Die Einstellungen der Anwendung jetzt öffnen");
+    expect(report.failed.map((f) => f.key)).toEqual(["Install Windows"]);
+    // 例外只放行 check.js 的长度范围，明显失控的长度照样拒绝
+    const runaway = await translateLang({ catalogs: catalogsOf({ "Open settings": {} }), lang: "de", api_lang: "de", transport: fakeTransport({ "Open settings": "x".repeat(500) }), exceptions: exceptions() });
+    expect(runaway.failed[0].reason).toContain("译文长度异常");
+    // 其他语言不受 lang: "de" 的例外影响
+    const ja = await translateLang({ catalogs: catalogsOf({ "Open settings": {} }), lang: "ja", api_lang: "ja", transport: fakeTransport({ "Open settings": "アプリケーションの設定画面を今すぐ開いてください" }), exceptions: exceptions() });
+    expect(ja.failed[0].reason).toContain("译文长度异常");
+  });
+
+  test("deriveLang 也遵守例外清单", () => {
+    const catalogs = catalogsOf({ Windows: { localizations: { "zh-Hant": unit("視窗") } } }),
+      derive = { from: "zh-Hant", opencc: "tw-hk" };
+    expect(deriveLang({ catalogs, lang: "zh-HK", derive }).failed[0].reason).toContain("Windows");
+    const exceptions = exceptionMatcherOf([{ table: "Localizable", key: "Windows", rule: "term:Windows", reason: "窗口列表" }]);
+    expect(deriveLang({ catalogs, lang: "zh-HK", derive, exceptions }).written).toBe(1);
+  });
+});

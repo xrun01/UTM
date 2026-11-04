@@ -3,11 +3,12 @@
 // 用法：bun scripts/i18n/translate.js [--lang ja,zh-HK] [--dry-run] [--limit 20] [--verbose]
 // token：环境变量 WEBC_TOKEN，或 ~/.config/webc.site.yml
 
-import { readFileSync, statSync } from "node:fs";
+import { existsSync, readFileSync, statSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { parseArgs } from "node:util";
 import { CATALOG_PATHS, readCatalog, writeCatalog } from "./lib/catalog.js";
 import { langIdOf, tokenOf, transportOf } from "./lib/api.js";
+import { exceptionMatcherOf, exceptionProblemsOf } from "./lib/checks.js";
 import { derivableCountOf, deriveLang, pendingOf, translateLang } from "./lib/translate.js";
 
 let opt;
@@ -54,6 +55,21 @@ if (unknown.length || !(Number.isInteger(limit) || limit === Infinity) || limit 
   console.error(unknown.length ? "未知语言: " + unknown.join(", ") : "--limit 必须是正整数");
   process.exit(2);
 }
+// 例外清单与 check.js 共用：check.js 放行的译文，这里也不拒绝
+const exceptions_path = join(root, "i18n/check-exceptions.json");
+let exception_li = [];
+try {
+  if (existsSync(exceptions_path)) exception_li = JSON.parse(readFileSync(exceptions_path, "utf8"));
+} catch (err) {
+  console.error("i18n/check-exceptions.json 不是合法的 JSON：" + err.message);
+  process.exit(2);
+}
+const exception_problems = exceptionProblemsOf(exception_li);
+if (exception_problems.length) {
+  console.error("i18n/check-exceptions.json 格式错误：\n" + exception_problems.join("\n"));
+  process.exit(2);
+}
+const exceptions = exceptionMatcherOf(exception_li);
 
 // 先翻译接口支持的语言，再生成派生语言（zh-HK 依赖 zh-Hant 的结果）
 const targets = config.filter((l) => wanted.includes(l.code)).sort((a, b) => Number(!!a.derive) - Number(!!b.derive)),
@@ -97,8 +113,8 @@ for (const l of targets) {
   let report;
   try {
     report = l.derive
-      ? deriveLang({ catalogs, lang: l.code, derive: l.derive })
-      : await translateLang({ catalogs, lang: l.code, api_lang: l.api, transport, limit });
+      ? deriveLang({ catalogs, lang: l.code, derive: l.derive, exceptions })
+      : await translateLang({ catalogs, lang: l.code, api_lang: l.api, transport, limit, exceptions });
     save();
   } catch (err) {
     // 致命错误（例如 token 无效）或 catalog 被并发修改：已完成的语言已经写回
