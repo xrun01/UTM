@@ -3,7 +3,7 @@ import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync,
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { CATALOG_PATHS, emptyCatalog, readCatalog, writeCatalog } from "../lib/catalog.js";
-import { INFO_PLIST_PATH, XIB_PATH } from "../lib/extract.js";
+import { INFO_PLIST_PATH, XIB_PATH, infoPlistEntriesOf, xibEntriesOf } from "../lib/extract.js";
 import { xcrun } from "../lib/run.js";
 import { REMOVED_PATH, markUntranslatable, pruneStale, stringsdataOf, syncAll, syncEntries } from "../lib/sync.js";
 
@@ -44,7 +44,7 @@ describe("syncEntries", () => {
     expect(cat.strings.K.localizations.de.stringUnit.state).toBe("needs_review");
   });
 
-  test("开发者改过的英文（translated 或复数）保留不动，键改为手动维护", () => {
+  test("开发者改过的英文（translated 或复数）保留不动，并去掉 extractionState", () => {
     const cat = emptyCatalog(),
       plural = { variations: { plural: { one: unit("%lld file", "new"), other: unit("%lld files", "new") } } };
     cat.strings.A = { extractionState: "extracted_with_value", localizations: { en: unit("Custom", "translated") } };
@@ -171,8 +171,8 @@ describe("stringsdataOf", () => {
   });
 });
 
-// 集成测试：用真实的 swiftc、xcstringstool、ibtool 走一遍完整流程
-describe("syncAll", () => {
+// 集成测试：用真实的 swiftc、xcstringstool、ibtool 走一遍完整流程；冷启动的工具链较慢，超时放宽到 60 秒
+describe("syncAll", { timeout: 60_000 }, () => {
   let root;
   const build = () => join(root, "build/i18n"),
     // 模拟 vm/script/lib/sdkBuild.js 的提取步骤
@@ -212,9 +212,9 @@ describe("syncAll", () => {
   test("新增文案 → 加译文 → 删除文案：键被删除，译文记入 removed.json", () => {
     extract('import Foundation\nlet a = String(localized: "Keep")\nlet b = NSLocalizedString("Drop me", comment: "x")\n');
     const first = syncAll({ root, build_dir: build(), write: true, today: "2026-11-04" });
-    expect(first.Localizable.stats.added).toBe(2);
-    expect(first.InfoPlist.stats.added).toBe(2);
-    expect(first.VMDisplayWindow.stats.added).toBe(30);
+    expect(first.tables.Localizable.stats.added).toBe(2);
+    expect(first.tables.InfoPlist.stats.added).toBe(infoPlistEntriesOf(root).size);
+    expect(first.tables.VMDisplayWindow.stats.added).toBe(xibEntriesOf(root).size);
 
     const path = join(root, CATALOG_PATHS.Localizable),
       cat = readCatalog(path);
@@ -223,11 +223,11 @@ describe("syncAll", () => {
 
     // 同步结果是不动点：再同步 1 次没有变化
     const again = syncAll({ root, build_dir: build(), write: false });
-    expect(Object.values(again).every((r) => r.before === r.after)).toBe(true);
+    expect(Object.values(again.tables).every((r) => r.before === r.after)).toBe(true);
 
     extract('import Foundation\nlet a = String(localized: "Keep")\n');
     const second = syncAll({ root, build_dir: build(), write: true, today: "2026-11-05" });
-    expect(second.Localizable.stats.removed).toBe(1);
+    expect(second.tables.Localizable.stats.removed).toBe(1);
     expect(Object.keys(readCatalog(path).strings)).toEqual(["Keep"]);
     expect(JSON.parse(readFileSync(join(root, REMOVED_PATH), "utf8"))).toEqual([
       { table: "Localizable", key: "Drop me", source: "Drop me", translations: { de: unit("Weg") }, removedOn: "2026-11-05" },
@@ -260,7 +260,7 @@ describe("syncAll", () => {
     extract('import Foundation\nlet a = String(localized: "Keep")\n');
     const before = readFileSync(join(root, CATALOG_PATHS.Localizable), "utf8"),
       result = syncAll({ root, build_dir: build(), write: false });
-    expect(result.Localizable.after).not.toBe(before);
+    expect(result.tables.Localizable.after).not.toBe(before);
     expect(readFileSync(join(root, CATALOG_PATHS.Localizable), "utf8")).toBe(before);
   });
 });

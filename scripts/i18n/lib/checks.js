@@ -5,7 +5,7 @@ import * as OpenCC from "opencc-js";
 import { SOURCE_LANG, isTranslatable, sourceLocOf, unitAt, unitsOf } from "./catalog.js";
 import { specMismatchOf, specsOf } from "./format.js";
 import { CJK_RE } from "./scan.js";
-import { termIssuesOf } from "./terms.js";
+import { KEEP_TERMS, termIssuesOf } from "./terms.js";
 
 export const CJK_LANGS = new Set(["zh-Hans", "zh-Hant", "zh-HK", "ja", "ko"]);
 
@@ -23,16 +23,15 @@ const FULLWIDTH_RE = /[，。：；！？（）]/,
 
 // 繁体中文也是标准写法、但 OpenCC 会逐字转换的字：繁简通用字（平台、批准、公里、干擾、皇后）与异体字
 const TRADITIONAL_OK = new Set([..."台游准里裏裡干后云范斗占征余峰峯衆眾着"]),
-  toTraditional = {
-    "zh-Hant": OpenCC.Converter({ from: "cn", to: "tw" }),
-    "zh-HK": OpenCC.Converter({ from: "cn", to: "hk" }),
-  };
+  cnTo = (to) => OpenCC.Converter({ from: "cn", to }),
+  // 地区写法各有异体字（zh-HK 的「說」「戶」、zh-Hant 的「啓」「爲」），只改其中一种转换结果的字不算简体字
+  toTraditional = { "zh-Hant": [cnTo("tw"), cnTo("t")], "zh-HK": [cnTo("hk"), cnTo("tw"), cnTo("t")] };
 
-// 逐字检查，返回混入的简体字
+// 逐字检查，返回混入的简体字：这种语言的每个转换器都会改写这个字
 const simplifiedCharsOf = (lang, value) => {
-  const conv = toTraditional[lang];
-  if (!conv) return [];
-  return [...new Set([...value].filter((ch) => !TRADITIONAL_OK.has(ch) && conv(ch) !== ch))];
+  const convs = toTraditional[lang];
+  if (!convs) return [];
+  return [...new Set([...value].filter((ch) => !TRADITIONAL_OK.has(ch) && convs.every((conv) => conv(ch) !== ch)))];
 };
 
 const edgesOf = (s) => {
@@ -122,6 +121,28 @@ export const lengthIssueOf = (lang, source, value) => {
 // 复数类别：按 CLDR 规则，这种语言需要的类别都要有，缺少时运行时会退回 other
 const pluralCategoriesOf = (lang) => new Intl.PluralRules(lang).resolvedOptions().pluralCategories;
 
+// 这个复数类别在这种语言里是否只对应 1 个整数（ar 的 zero、one、two，de 的 one）；这时译文可以省略数字
+const singleIntegerOf = (lang, category) => {
+  const rules = new Intl.PluralRules(lang);
+  let n = 0;
+  for (let i = 0; i <= 200 && n < 2; i++) if (rules.select(i) === category) n++;
+  return n === 1;
+};
+
+// 复数变体对照的英文：统一用英文的 other，因为英文的 one 可能写成「One core」；
+// 只对应 1 个整数的类别省略了计数占位符时，对照去掉占位符的英文
+const pluralSourceOf = (lang, key, entry, path, value) => {
+  const src = sourceTextAt(key, entry, [...path.slice(0, -1), "other"]),
+    specs = specsOf(src);
+  if (specs.length === 1 && specsOf(value).length === 0 && singleIntegerOf(lang, path.at(-1))) {
+    // 去掉占位符后合并多出的空格，首尾空白保持英文原样
+    const [lead, trail] = edgesOf(src),
+      rest = (src.slice(0, specs[0].start) + src.slice(specs[0].end)).replace(/ {2,}/g, " ").trim();
+    return lead + rest + trail;
+  }
+  return src;
+};
+
 // 可以写例外的规则：报错规则，以及 3 条警告（审过的警告可以消掉，避免每次检查都被同样的警告淹没）
 // 源码字面量的例外按文件和文字匹配
 export const EXCEPTION_RULES = new Set([
@@ -129,6 +150,7 @@ export const EXCEPTION_RULES = new Set([
   "plural",
   "should-translate",
   "format",
+  "empty",
   "newline",
   "edge-space",
   "ellipsis",
@@ -149,7 +171,8 @@ export const exceptionProblemsOf = (exceptions) => {
     const where = "第 " + (i + 1) + " 条：";
     if (!e || typeof e !== "object") return out.push(where + "必须是对象");
     if (typeof e.reason !== "string" || !e.reason.trim()) out.push(where + "缺少 reason");
-    if (!EXCEPTION_RULES.has(e.rule) && !/^term:\S+$/.test(e.rule ?? "")) out.push(where + "rule 不是可以写例外的规则: " + e.rule);
+    const term_ok = typeof e.rule === "string" && e.rule.startsWith("term:") && KEEP_TERMS.includes(e.rule.slice(5));
+    if (!EXCEPTION_RULES.has(e.rule) && !term_ok) out.push(where + "rule 不是可以写例外的规则: " + e.rule);
     if (e.rule === "source-cjk-literal") {
       if (typeof e.file !== "string" || typeof e.text !== "string") out.push(where + "source-cjk-literal 必须写 file 和 text");
     } else if (typeof e.table !== "string" || typeof e.key !== "string") out.push(where + "必须写 table 和 key");
@@ -198,19 +221,25 @@ export const catalogIssuesOf = (table, catalog, { langs, known, exceptions = exc
 
     for (const lang of langs) {
       const loc = entry.localizations?.[lang],
-        units = unitsOf(loc).filter(([u]) => u.value !== undefined && u.value !== "");
+        units = unitsOf(loc).filter(([u]) => u.value !== undefined);
       if (units.length === 0) {
         // 标为不翻译的条目不算缺译；它已有的译文仍会编译进 app，所以下面照样检查
         if (translatable) add("missing", "missing", key, lang, "缺译");
         continue;
       }
       for (const [unit, path] of units) {
-        const src = sourceTextAt(key, entry, path);
+        const is_plural = path[0] === "plural",
+          src = is_plural ? pluralSourceOf(lang, key, entry, path, unit.value) : sourceTextAt(key, entry, path);
+        // 空串会编译进 app，界面上显示空白，而不是英文
+        if (unit.value === "") {
+          if (src !== "") add("error", "empty", key, lang, "译文是空串，app 中会显示空白；补上译文，或删除这条译文");
+          continue;
+        }
         for (const { rule, msg } of unitIssuesOf(lang, src, unit.value)) add("error", rule, key, lang, msg);
         const length_msg = lengthIssueOf(lang, src, unit.value);
         if (length_msg) add("warn", "length", key, lang, length_msg);
       }
-      const cats = pluralCategoriesOf(lang).filter((c) => c !== "zero"),
+      const cats = pluralCategoriesOf(lang),
         plural = loc?.variations?.plural;
       if (plural) {
         const lack = cats.filter((c) => !plural[c]);

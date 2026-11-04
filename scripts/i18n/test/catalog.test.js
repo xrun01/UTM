@@ -2,7 +2,7 @@ import { describe, expect, test } from "bun:test";
 import { mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { emptyCatalog, hasTranslation, readCatalog, serializeCatalog, sourceLocOf, unitAt, unitsOf, writeCatalog } from "../lib/catalog.js";
+import { emptyCatalog, readCatalog, serializeCatalog, sourceLocOf, unitAt, unitsOf, writeCatalog } from "../lib/catalog.js";
 
 const fixture = (name) => readFileSync(join(import.meta.dirname, "fixtures", name), "utf8");
 
@@ -54,11 +54,6 @@ describe("遍历 stringUnit", () => {
     expect(unitAt({ stringUnit: { value: "x" } }, []).value).toBe("x");
   });
 
-  test("hasTranslation 忽略空值", () => {
-    expect(hasTranslation({ localizations: { ja: { stringUnit: { value: "" } } } }, "ja")).toBe(false);
-    expect(hasTranslation({ localizations: { ja: loc } }, "ja")).toBe(true);
-    expect(hasTranslation({}, "ja")).toBe(false);
-  });
 
   test("sourceLocOf：有 en 值时用 en 值，否则用键", () => {
     expect(sourceLocOf("%@ (%@)", { localizations: { en: { stringUnit: { value: "%1$@ (%2$@)" } } } }).stringUnit.value).toBe(

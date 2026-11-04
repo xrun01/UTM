@@ -8621,8 +8621,8 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "动态"
+            "state" : "needs_review",
+            "value" : "动态分辨率"
           }
         }
       }

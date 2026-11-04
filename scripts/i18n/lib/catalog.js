@@ -50,14 +50,15 @@ export const readCatalog = (path) => {
   }
 };
 
-// 先写临时文件再改名：进程中途被杀时不会留下截断的 catalog
-export const writeCatalog = (path, catalog) => {
+// 先写临时文件再改名：进程中途被杀时不会留下截断的文件
+export const writeFileAtomic = (path, text) => {
   const tmp = path + ".tmp-" + process.pid;
-  writeFileSync(tmp, serializeCatalog(catalog));
+  writeFileSync(tmp, text);
   renameSync(tmp, path);
 };
 
-export const catalogPathOf = (root, table) => join(root, CATALOG_PATHS[table]);
+export const writeCatalog = (path, catalog) => writeFileAtomic(path, serializeCatalog(catalog));
+
 
 // 遍历一种语言下的全部 stringUnit，包括复数等 variations；回调参数是 (unit, 变体路径数组)
 export const unitsOf = (loc, path = []) => {
@@ -77,7 +78,6 @@ export const unitAt = (loc, path) => {
   return cur?.stringUnit;
 };
 
-export const hasTranslation = (entry, lang) => unitsOf(entry.localizations?.[lang]).some(([u]) => u.value !== undefined && u.value !== "");
 
 // 英文原文：优先取 en 的值（xcstringstool 会把多参数格式改写成带序号的形式），没有时就是键本身
 export const sourceLocOf = (key, entry) =>

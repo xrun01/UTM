@@ -14,7 +14,7 @@ import {
 } from "node:fs";
 import { tmpdir } from "node:os";
 import { basename, dirname, join } from "node:path";
-import { CATALOG_PATHS, SOURCE_LANG, readCatalog, serializeCatalog, sourceLocOf, unitsOf } from "./catalog.js";
+import { CATALOG_PATHS, SOURCE_LANG, readCatalog, serializeCatalog, sourceLocOf, unitsOf, writeFileAtomic } from "./catalog.js";
 import { infoPlistEntriesOf, xibEntriesOf } from "./extract.js";
 import { runFull } from "./run.js";
 
@@ -71,9 +71,10 @@ export const stringsdataOf = (root, build_dir) => {
 
 // 按 xcstringstool 对「带默认值的提取键」的规则同步：
 // - 新键加入；源码注释为空时保留旧注释
-// - 开发者在 catalog 中改过英文（状态是 translated，或有复数变体）时保留英文，键改为手动维护
+// - 开发者在 catalog 中改过英文（状态是 translated，或有复数变体）时保留英文，并去掉 extractionState；
+//   键离开源码后照样标为 stale
 // - 英文变化时更新英文，并把这个键的全部已有译文改为 needs_review
-// - 源码中消失的键标为 stale（手动维护的键除外）
+// - 源码中消失的键标为 stale（extractionState 是 manual 的键除外）
 export const syncEntries = (catalog, entries) => {
   const stats = { added: 0, changed: 0 };
   for (const [key, { value, comment }] of entries) {
@@ -181,7 +182,7 @@ const xcstringsSync = (path, stringsdata) => {
   if (/Skipping sync|could not be read/i.test(output)) throw new Error("xcstringstool sync 没有同步 " + path + "：\n" + output);
 };
 
-// 同步全部 catalog，返回每张表同步后的内容与统计
+// 同步全部 catalog。返回 { tables, removed_written }：tables 是每张表同步后的内容与统计
 // write 为 true 时写回：先算完全部 3 张表，再先写 removed.json、后写 catalog，中途出错时不会丢失删除记录
 export const syncAll = ({ root, build_dir, write, today = new Date().toISOString().slice(0, 10) }) => {
   const stringsdata = stringsdataOf(root, build_dir),
@@ -189,6 +190,7 @@ export const syncAll = ({ root, build_dir, write, today = new Date().toISOString
     removed = readRemoved(removed_path),
     result = {},
     tmp = mkdtempSync(join(tmpdir(), "utm-i18n-sync-"));
+  let removed_written = false;
   try {
     for (const [table, rel] of Object.entries(CATALOG_PATHS)) {
       const path = join(root, rel),
@@ -217,11 +219,12 @@ export const syncAll = ({ root, build_dir, write, today = new Date().toISOString
     if (write) {
       const removed_text = serializeRemoved(removed);
       if (removed.size && removed_text !== (existsSync(removed_path) ? readFileSync(removed_path, "utf8") : "")) {
-        writeFileSync(removed_path, removed_text);
+        writeFileAtomic(removed_path, removed_text);
+        removed_written = true;
       }
-      for (const { path, before, after } of Object.values(result)) if (after !== before) writeFileSync(path, after);
+      for (const { path, before, after } of Object.values(result)) if (after !== before) writeFileAtomic(path, after);
     }
-    return result;
+    return { tables: result, removed_written };
   } finally {
     rmSync(tmp, { recursive: true, force: true });
   }

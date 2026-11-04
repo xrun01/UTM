@@ -31,7 +31,15 @@ const root = resolve(opt.root),
   known = JSON.parse(readFileSync(join(root, "i18n/languages.json"), "utf8")).languages.map((l) => l.code),
   langs = opt.lang === undefined ? known : opt.lang.split(",").map((s) => s.trim()),
   exceptions_path = join(root, "i18n/check-exceptions.json"),
-  exception_li = existsSync(exceptions_path) ? JSON.parse(readFileSync(exceptions_path, "utf8")) : [],
+  exception_li = (() => {
+    if (!existsSync(exceptions_path)) return [];
+    try {
+      return JSON.parse(readFileSync(exceptions_path, "utf8"));
+    } catch (err) {
+      console.error("i18n/check-exceptions.json 不是合法的 JSON：" + err.message);
+      process.exit(2);
+    }
+  })(),
   exceptions = exceptionMatcherOf(exception_li);
 
 const bad_lang = langs.filter((l) => !known.includes(l));
@@ -90,8 +98,8 @@ if (opt.lang === undefined) {
 // 3. CI：提取结果必须已经同步进 catalog
 if (opt.ci) {
   try {
-    const result = syncAll({ root, build_dir: opt["build-dir"] ?? join(root, "build/i18n"), write: false });
-    for (const { path, before, after } of Object.values(result)) {
+    const { tables } = syncAll({ root, build_dir: opt["build-dir"] ?? join(root, "build/i18n"), write: false });
+    for (const { path, before, after } of Object.values(tables)) {
       if (before !== after) error(path.slice(root.length + 1), "和源码不同步，运行 bun scripts/i18n/sync.js 后提交");
     }
   } catch (err) {

@@ -91,5 +91,7 @@ describe("check.js 命令行", () => {
     const bad = runCheck(root);
     expect(bad.code).toBe(2);
     expect(bad.out).toContain("rule 不是可以写例外的规则");
+    writeFileSync(join(root, "i18n/check-exceptions.json"), "[ not json");
+    expect(runCheck(root).code).toBe(2);
   });
 });

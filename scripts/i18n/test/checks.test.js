@@ -218,3 +218,48 @@ test("警告也可以写例外：审过的长度警告不再出现", () => {
   expect(exceptions.unused()).toEqual([]);
 });
 
+describe("第 2 轮评审修复", () => {
+  const unit = (value, state = "translated") => ({ stringUnit: { state, value } }),
+    known = new Set(["de", "ru", "ar", "fr", "zh-Hant", "zh-HK"]),
+    issuesOf = (strings, langs) => catalogIssuesOf("T", { strings }, { langs, known });
+
+  test("空译文报错：app 中会显示空白", () => {
+    const got = issuesOf({ Hello: { localizations: { de: unit("") } } }, ["de"]);
+    expect(got.map((i) => [i.level, i.rule])).toEqual([["error", "empty"]]);
+  });
+
+  test("复数：只对应 1 个整数的类别可以省略数字；对应多个整数的类别不行", () => {
+    const en = { variations: { plural: { one: unit("%lld Core", "new"), other: unit("%lld Cores", "new") } } };
+    const de = { variations: { plural: { one: unit("Ein Kern"), other: unit("%lld Kerne") } } },
+      fr = { variations: { plural: { one: unit("Un cœur"), many: unit("%lld de cœurs"), other: unit("%lld cœurs") } } };
+    const got = issuesOf({ "%lld Cores": { localizations: { en, de, fr } } }, ["de", "fr"]);
+    expect(got.filter((i) => i.level === "error").map((i) => [i.lang, i.rule])).toEqual([["fr", "format"]]);
+  });
+
+  test("复数：英文 one 写成「One core」时，译文的 one 带数字也合格", () => {
+    const en = { variations: { plural: { one: unit("One core", "new"), other: unit("%lld cores", "new") } } },
+      ru = { variations: { plural: { one: unit("%lld ядро"), few: unit("%lld ядра"), many: unit("%lld ядер"), other: unit("%lld ядра") } } };
+    expect(issuesOf({ "%lld cores": { localizations: { en, ru } } }, ["ru"])).toEqual([]);
+  });
+
+  test("ar 缺少 zero 时给警告", () => {
+    const ar = { variations: { plural: { one: unit("نواة"), two: unit("نواتان"), few: unit("%lld نوى"), many: unit("%lld نواة"), other: unit("%lld نواة") } } };
+    const got = issuesOf({ "%lld Cores": { localizations: { ar } } }, ["ar"]);
+    expect(got.map((i) => [i.rule, i.msg.includes("zero")])).toEqual([["plural", true]]);
+  });
+
+  test("简体字：地区异体字不算，真正的简体字仍然报", () => {
+    for (const v of ["說明", "戶口", "溫度", "閱讀"]) expect(rulesOf("zh-HK", "x", v)).not.toContain("simplified");
+    for (const v of ["啓動", "爲何", "祕密"]) expect(rulesOf("zh-Hant", "x", v)).not.toContain("simplified");
+    for (const v of ["说明", "设置", "虚拟机"]) expect(rulesOf("zh-HK", "x", v)).toContain("simplified");
+    for (const v of ["户口", "温度"]) expect(rulesOf("zh-Hant", "x", v)).toContain("simplified");
+  });
+
+  test("带空格的专有名词可以写例外；拼错的名词不行", () => {
+    expect(exceptionProblemsOf([{ table: "T", key: "K", rule: "term:App Store", reason: "x" }])).toEqual([]);
+    expect(exceptionProblemsOf([{ table: "T", key: "K", rule: "term:AppStore", reason: "x" }])).toEqual([
+      "第 1 条：rule 不是可以写例外的规则: term:AppStore",
+    ]);
+  });
+});
+

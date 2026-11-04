@@ -15,13 +15,14 @@ const { values: opt } = parseArgs({
 
 try {
   const root = resolve(opt.root),
-    result = syncAll({ root, build_dir: opt["build-dir"] ?? join(root, "build/i18n"), write: true });
-  for (const { path, before, after, stats } of Object.values(result)) {
+    { tables, removed_written } = syncAll({ root, build_dir: opt["build-dir"] ?? join(root, "build/i18n"), write: true });
+  for (const { path, before, after, stats } of Object.values(tables)) {
     console.log(
       relative(root, path) +
-        (before === after ? "：没有变化" : "：新增 " + stats.added + "，删除 " + stats.removed + "，改为 needs_review " + (stats.changed ?? 0)),
+        (before === after ? "：没有变化" : "：新增 " + stats.added + "，删除 " + stats.removed + "，改为 needs_review " + stats.changed),
     );
   }
+  if (removed_written) console.log("i18n/removed.json：记录了被删除键的译文，和 catalog 一起提交");
 } catch (err) {
   console.error(err.message);
   process.exit(1);
