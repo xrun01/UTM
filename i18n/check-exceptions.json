@@ -4,5 +4,54 @@
     "key": "MQ2-L1-yl7.toolTip",
     "rule": "term:Windows",
     "reason": "这里的 Windows 指窗口列表，不是操作系统"
+  },
+  {
+    "table": "Localizable",
+    "key": "Nintendo",
+    "lang": "ja",
+    "rule": "keep-source",
+    "reason": "任天堂 是 Nintendo 的官方日文名"
+  },
+  {
+    "table": "Localizable",
+    "key": "Nintendo",
+    "lang": "zh-Hans",
+    "rule": "keep-source",
+    "reason": "任天堂 是 Nintendo 的官方中文名"
+  },
+  {
+    "table": "Localizable",
+    "key": "Nintendo",
+    "lang": "zh-Hant",
+    "rule": "keep-source",
+    "reason": "任天堂 是 Nintendo 的官方中文名"
+  },
+  {
+    "table": "Localizable",
+    "key": "Nintendo",
+    "lang": "zh-HK",
+    "rule": "keep-source",
+    "reason": "任天堂 是 Nintendo 的官方中文名"
+  },
+  {
+    "table": "Localizable",
+    "key": "Windows 9x",
+    "lang": "ja",
+    "rule": "keep-source",
+    "reason": "日文习惯写法「Windows 9x系」"
+  },
+  {
+    "table": "Localizable",
+    "key": "Elementary OS",
+    "lang": "ja",
+    "rule": "keep-source",
+    "reason": "elementary OS 的官方写法是小写"
+  },
+  {
+    "table": "Localizable",
+    "key": "Elementary OS",
+    "lang": "ko",
+    "rule": "keep-source",
+    "reason": "elementary OS 的官方写法是小写"
   }
 ]
