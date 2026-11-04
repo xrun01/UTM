@@ -78,6 +78,7 @@ bun.lock
 uv.lock
 *.img
 *.iso
+/iso/
 *.qcow2
 *.vhdx
 *.vmdk

@@ -316,10 +316,44 @@ enum UTMQuitPolicy: Int {
         }
     }
     
+    /// 自动化测试静默模式：由环境变量 UTM_HEADLESS_TEST=1 启用，窗口照常注册到窗口服务器但移出可见桌面
+    private static let isHeadlessTest = ProcessInfo.processInfo.environment["UTM_HEADLESS_TEST"] == "1"
+    private static let headlessWindowOrigin = NSPoint(x: -30000, y: -30000)
+    private var headlessWindowObserver: NSObjectProtocol?
+
+    /// 将窗口设为全透明、不响应鼠标并移至屏幕外，保留窗口注册以供自动化校验
+    private static func concealForHeadlessTest(_ window: NSWindow) {
+        guard window.alphaValue != 0 else {
+            return
+        }
+        window.alphaValue = 0
+        window.ignoresMouseEvents = true
+        window.hasShadow = false
+        window.collectionBehavior.formUnion([.transient, .ignoresCycle])
+        window.setFrameOrigin(headlessWindowOrigin)
+    }
+
+    func applicationWillFinishLaunching(_ notification: Notification) {
+        guard Self.isHeadlessTest else {
+            return
+        }
+        NSApp.setActivationPolicy(.accessory)
+        headlessWindowObserver = NotificationCenter.default.addObserver(forName: NSWindow.didUpdateNotification, object: nil, queue: .main) { notification in
+            guard let window = notification.object as? NSWindow else {
+                return
+            }
+            MainActor.assumeIsolated {
+                Self.concealForHeadlessTest(window)
+            }
+        }
+    }
+
     func applicationDidFinishLaunching(_ notification: Notification) {
         CapsLockRemapper.shared.recoverAtLaunch()
         UTMAppleVirtualMachine.removeStaleDisposableOverlayDirectories()
-        if isDockIconHidden {
+        if Self.isHeadlessTest {
+            NSApp.windows.forEach(Self.concealForHeadlessTest)
+        } else if isDockIconHidden {
             NSApp.setActivationPolicy(.accessory)
         }
     }

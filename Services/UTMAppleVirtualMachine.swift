@@ -172,7 +172,7 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
         vmCfg.hostMemQuotaMinBytes = max(1024 * 1024 * 1024, memBytes / 2)
         vmCfg.hostMemQuotaMaxBytes = memBytes
         vmCfg.adaptiveBalloonEnabled = config.virtualization.hasBalloon
-        vmCfg.useGenericVirtualization = config.system.boot.operatingSystem != .macOS
+        vmCfg.useGenericVirtualization = false
         vmCfg.audioOutputEnabled = config.virtualization.hasAudio
         vmCfg.audioInputEnabled = config.virtualization.hasAudioInput
         if let firstDisplay = config.displays.first {
