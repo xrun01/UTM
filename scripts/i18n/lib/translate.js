@@ -52,6 +52,12 @@ export const polishOf = (lang, source, value) => {
     v = v.replace(re, (c) => (source.includes(c) ? c : ""));
   };
   if (source.includes("…")) v = v.replaceAll("...", "…");
+  // 原文用弯引号、译文只有成对的直引号时（接口把 “” 换成了 ""），按出现顺序还原成 “”
+  const straight = v.match(/"/g)?.length ?? 0;
+  if (/[“”]/.test(source) && !/[“”„«»「」『』]/.test(v) && straight && straight % 2 === 0) {
+    let open = true;
+    v = v.replace(/"/g, () => ((open = !open) ? "”" : "“"));
+  }
   strip(/[\ufeff\u202a-\u202e\ufe00-\ufe0f]|\udb40[\udd00-\uddef]/g);
   // 从右到左的语言用 Bidi 隔离符包住从左到右的占位符，这是推荐写法
   if (!RTL_LANGS.has(lang)) strip(/[\u2066-\u2069]/g);
@@ -83,6 +89,18 @@ export const yamlOf = (items) => items.map((it) => it.id + ": " + JSON.stringify
 // - 接口有时不给值加引号，「{1} …」会被解析成映射，所以先给单行的普通值加上引号
 // - 多行的普通值（下一个非空行不是条目行）交给 YAML 解析，不补引号，否则会被截成第 1 行
 // - 整体解析失败时，只逐行取单行的双引号值；其余条目按缺失处理，不会把半截或语法写进 catalog
+// - 接口常把原文的 “{1}” 换成没转义的 "{1}"（例如 k: "从 "{1}""），整行不是合法的 YAML。这时转义中间的引号再解析
+const quotedValueOf = (raw) => {
+  for (const s of [raw, raw.length >= 2 && raw.endsWith('"') ? '"' + raw.slice(1, -1).replace(/(?<!\\)"/g, '\\"') + '"' : null]) {
+    if (!s) continue;
+    try {
+      const v = JSON.parse(s);
+      if (typeof v === "string") return v;
+    } catch {}
+  }
+  return undefined;
+};
+
 export const parseYaml = (text) => {
   const lines = text.split(/\r?\n/);
   if (!lines.some((line) => ID_LINE_RE.test(line))) return null;
@@ -108,10 +126,8 @@ export const parseYaml = (text) => {
   quoted.forEach((line, i) => {
     const m = line.match(ID_LINE_RE);
     if (!m?.[2].startsWith('"') || continued(i)) return;
-    try {
-      const v = JSON.parse(m[2]);
-      if (typeof v === "string") out[m[1]] = v;
-    } catch {}
+    const v = quotedValueOf(m[2]);
+    if (v !== undefined) out[m[1]] = v;
   });
   return out;
 };

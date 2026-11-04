@@ -537,4 +537,30 @@ describe("第 3 轮评审修复", () => {
     const exceptions = exceptionMatcherOf([{ table: "Localizable", key: "Windows", rule: "term:Windows", reason: "窗口列表" }]);
     expect(deriveLang({ catalogs, lang: "zh-HK", derive, exceptions }).written).toBe(1);
   });
+
+  test("parseYaml：接口把弯引号换成没转义的直引号时，修复后照样取值；已转义的引号不受影响", () => {
+    const [a, b, c] = ["k0123456789ab", "k0123456789ac", "k0123456789ad"],
+      out = parseYaml(a + ': ""{1}"에서"\n' + b + ': "Avaa asetukset"\n' + c + ': "a \\"b\\" "{1}" c"\n');
+    expect(out).toEqual({ [a]: '"{1}"에서', [b]: "Avaa asetukset", [c]: 'a "b" "{1}" c' });
+    // 末尾不是引号的行无法确定边界，按缺失处理
+    expect(parseYaml(a + ': "x "y" z\n' + b + ': "ok"\n')).toEqual({ [b]: "ok" });
+  });
+
+  test("polishOf：原文用弯引号、译文只有成对的直引号时还原成弯引号", () => {
+    expect(polishOf("ko", "From “%@”", '"%@"에서')).toBe("“%@”에서");
+    expect(polishOf("ar", "Delete “%@” and “%@”?", 'حذف "%@" و "%@"؟')).toBe("حذف “%@” و “%@”؟");
+    // 译文已有本语言的引号、原文没有弯引号、直引号不成对时不改
+    expect(polishOf("de", "From “%@”", "Von „%@“")).toBe("Von „%@“");
+    expect(polishOf("fi", "Download '%@'?", 'Ladata "%@"?')).toBe('Ladata "%@"?');
+    expect(polishOf("fr", "From “%@”", 'De "%@')).toBe('De "%@');
+  });
+
+  test("接口返回没转义的引号时照样写入，并还原弯引号", async () => {
+    const catalogs = catalogsOf({ "From “%@”": {} }),
+      transport = async (from, to, path, yaml) => yaml.replace(/"From “\{1\}”"/, '""{1}"에서"'),
+      report = await translateLang({ catalogs, lang: "ko", api_lang: "ko", transport });
+    expect(report.written).toBe(1);
+    expect(catalogs.Localizable.strings["From “%@”"].localizations.ko.stringUnit.value).toBe("“%@”에서");
+  });
 });
+
