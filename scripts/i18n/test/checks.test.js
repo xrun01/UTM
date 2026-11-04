@@ -197,17 +197,24 @@ test("exceptionProblemsOf：校验 rule、reason 和必填字段", () => {
   expect(exceptionProblemsOf([{ table: "T", key: "K", rule: "term:Windows", reason: "窗口" }])).toEqual([]);
   expect(exceptionProblemsOf([{ file: "a.swift", text: "中", rule: "source-cjk-literal", reason: "语言名" }])).toEqual([]);
   const got = exceptionProblemsOf([
-    { table: "T", key: "K", rule: "length", reason: "x" },
+    { table: "T", key: "K", rule: "stale", reason: "x" },
     { table: "T", key: "K", rule: "format", reason: " " },
     { rule: "format", reason: "x" },
     { file: "a.swift", rule: "source-cjk-literal", reason: "x" },
   ]);
   expect(got).toEqual([
-    "第 1 条：rule 不是可以写例外的规则: length",
+    "第 1 条：rule 不是可以写例外的规则: stale",
     "第 2 条：缺少 reason",
     "第 3 条：必须写 table 和 key",
     "第 4 条：source-cjk-literal 必须写 file 和 text",
   ]);
   expect(exceptionProblemsOf({})).toEqual(["例外清单必须是数组"]);
+});
+
+test("警告也可以写例外：审过的长度警告不再出现", () => {
+  const catalog = { strings: { "Dynamic Resolution": { localizations: { "zh-Hans": { stringUnit: { state: "translated", value: "动态" } } } } } },
+    exceptions = exceptionMatcherOf([{ table: "T", key: "Dynamic Resolution", lang: "zh-Hans", rule: "length", reason: "界面空间小" }]);
+  expect(catalogIssuesOf("T", catalog, { langs: ["zh-Hans"], known: new Set(["zh-Hans"]), exceptions })).toEqual([]);
+  expect(exceptions.unused()).toEqual([]);
 });
 

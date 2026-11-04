@@ -87,7 +87,7 @@ describe("check.js 命令行", () => {
     expect(runCheck(root, "--lang", "xx").code).toBe(2);
     expect(runCheck(root, "--lang=").code).toBe(2);
     expect(runCheck(root, "--nope").code).toBe(2);
-    writeExceptions([{ table: "Localizable", key: "Windows", rule: "length", reason: "x" }]);
+    writeExceptions([{ table: "Localizable", key: "Windows", rule: "stale", reason: "x" }]);
     const bad = runCheck(root);
     expect(bad.code).toBe(2);
     expect(bad.out).toContain("rule 不是可以写例外的规则");

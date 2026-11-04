@@ -90,7 +90,7 @@ describe("pruneStale", () => {
     expect(pruneStale(cat, "Localizable", removed, "2026-11-04")).toBe(2);
     expect(Object.keys(cat.strings)).toEqual(["Live"]);
     expect([...removed.values()]).toEqual([
-      { table: "Localizable", key: "Old text", source: "Old text", translations: { de: "Alter Text" }, removedOn: "2026-11-04" },
+      { table: "Localizable", key: "Old text", source: "Old text", translations: { de: unit("Alter Text") }, removedOn: "2026-11-04" },
     ]);
   });
 
@@ -230,7 +230,7 @@ describe("syncAll", () => {
     expect(second.Localizable.stats.removed).toBe(1);
     expect(Object.keys(readCatalog(path).strings)).toEqual(["Keep"]);
     expect(JSON.parse(readFileSync(join(root, REMOVED_PATH), "utf8"))).toEqual([
-      { table: "Localizable", key: "Drop me", source: "Drop me", translations: { de: "Weg" }, removedOn: "2026-11-05" },
+      { table: "Localizable", key: "Drop me", source: "Drop me", translations: { de: unit("Weg") }, removedOn: "2026-11-05" },
     ]);
   });
 

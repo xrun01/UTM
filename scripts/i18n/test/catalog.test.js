@@ -1,7 +1,8 @@
 import { describe, expect, test } from "bun:test";
-import { readFileSync } from "node:fs";
+import { mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { hasTranslation, serializeCatalog, sourceLocOf, unitAt, unitsOf } from "../lib/catalog.js";
+import { emptyCatalog, hasTranslation, readCatalog, serializeCatalog, sourceLocOf, unitAt, unitsOf, writeCatalog } from "../lib/catalog.js";
 
 const fixture = (name) => readFileSync(join(import.meta.dirname, "fixtures", name), "utf8");
 
@@ -66,3 +67,25 @@ describe("遍历 stringUnit", () => {
     expect(sourceLocOf("Hello", {}).stringUnit.value).toBe("Hello");
   });
 });
+
+describe("读写文件", () => {
+  test("readCatalog：有合并冲突标记时报出文件路径和原因", () => {
+    const dir = mkdtempSync(join(tmpdir(), "i18n-cat-")),
+      path = join(dir, "Localizable.xcstrings");
+    writeFileSync(path, '{\n<<<<<<< HEAD\n  "a" : 1\n=======\n  "a" : 2\n>>>>>>> x\n}');
+    expect(() => readCatalog(path)).toThrow(path + " 无法解析：文件中有合并冲突标记，先解决冲突");
+    writeFileSync(path, "{ bad");
+    expect(() => readCatalog(path)).toThrow("文件不是合法的 JSON");
+    rmSync(dir, { recursive: true, force: true });
+  });
+
+  test("writeCatalog：写完后目录中没有残留的临时文件", () => {
+    const dir = mkdtempSync(join(tmpdir(), "i18n-cat-")),
+      path = join(dir, "Localizable.xcstrings");
+    writeCatalog(path, emptyCatalog());
+    expect(readdirSync(dir)).toEqual(["Localizable.xcstrings"]);
+    expect(readCatalog(path)).toEqual(emptyCatalog());
+    rmSync(dir, { recursive: true, force: true });
+  });
+});
+

@@ -1,7 +1,7 @@
 // String Catalog（.xcstrings）的读写与遍历
 // 写出格式与 xcstringstool 逐字节一致，否则 sync 和 Xcode 每次都会产生无意义的 diff
 
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, renameSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 // 表名 → catalog 相对仓库根目录的路径；表名决定编译出的 <表名>.strings
@@ -38,9 +38,24 @@ const serializeValue = (value, indent) => {
 
 export const serializeCatalog = (catalog) => serializeValue(catalog, "");
 
-export const readCatalog = (path) => (existsSync(path) ? JSON.parse(readFileSync(path, "utf8")) : emptyCatalog());
+// 解析失败时报出文件路径：catalog 文件大，合并冲突很常见
+export const readCatalog = (path) => {
+  if (!existsSync(path)) return emptyCatalog();
+  const text = readFileSync(path, "utf8");
+  try {
+    return JSON.parse(text);
+  } catch (err) {
+    const hint = /^(<{7}|={7}|>{7})/m.test(text) ? "文件中有合并冲突标记，先解决冲突" : "文件不是合法的 JSON";
+    throw new Error(path + " 无法解析：" + hint + "（" + err.message + "）");
+  }
+};
 
-export const writeCatalog = (path, catalog) => writeFileSync(path, serializeCatalog(catalog));
+// 先写临时文件再改名：进程中途被杀时不会留下截断的 catalog
+export const writeCatalog = (path, catalog) => {
+  const tmp = path + ".tmp-" + process.pid;
+  writeFileSync(tmp, serializeCatalog(catalog));
+  renameSync(tmp, path);
+};
 
 export const catalogPathOf = (root, table) => join(root, CATALOG_PATHS[table]);
 

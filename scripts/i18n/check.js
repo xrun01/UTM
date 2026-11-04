@@ -48,8 +48,10 @@ if (exception_problems.length) {
 const errors = [],
   warns = [],
   missing = {};
-const error = (where, msg) => errors.push("错误 " + where + " " + msg),
-  warn = (where, msg) => warns.push("警告 " + where + " " + msg);
+// 多行信息的后续行缩进，避免看起来像另一条输出
+const lineOf = (tag, where, msg) => tag + " " + where + " " + msg.replaceAll("\n", "\n    "),
+  error = (where, msg) => errors.push(lineOf("错误", where, msg)),
+  warn = (where, msg) => warns.push(lineOf("警告", where, msg));
 
 // 1. catalog 中的译文
 for (const [table, rel] of Object.entries(CATALOG_PATHS)) {

@@ -20,7 +20,7 @@ import { runFull } from "./run.js";
 
 export const REMOVED_PATH = "i18n/removed.json";
 
-const REBUILD_HINT = "先运行 bun vm/script/buildApp.js 重新构建，再运行 sync";
+const REBUILD_HINT = "在 UTM 与 vm 的上级目录运行 bun vm/script/buildApp.js 重新构建，再运行 sync";
 
 // 检查构建输出的 stringsdata 覆盖了工作区的全部源文件，并且没有过期；返回全部 stringsdata 路径
 // 构建不完整时 xcstringstool sync 会把正常的键标为 stale，进而被删除，所以这里必须严格
@@ -118,16 +118,14 @@ export const syncEntries = (catalog, entries) => {
 // removed 的键：表名与键用 NUL 分隔，因为键本身可以含任何可见字符
 const removedIdOf = (table, key) => table + "\x00" + key;
 
-// 删除 stale 键；有译文的键追加到 removed，供审校参考
+// 删除 stale 键；有译文的键追加到 removed，供审校参考。译文按原样记录，包括状态和复数变体
 export const pruneStale = (catalog, table, removed, today) => {
   let n = 0;
   for (const [key, entry] of Object.entries(catalog.strings)) {
     if (entry.extractionState !== "stale") continue;
     const translations = {};
     for (const [lang, loc] of Object.entries(entry.localizations ?? {})) {
-      if (lang === SOURCE_LANG) continue;
-      const units = unitsOf(loc).filter(([u]) => u.value);
-      if (units.length) translations[lang] = units.length === 1 && units[0][1].length === 0 ? units[0][0].value : loc;
+      if (lang !== SOURCE_LANG && unitsOf(loc).some(([u]) => u.value)) translations[lang] = loc;
     }
     if (Object.keys(translations).length) {
       const source = unitsOf(sourceLocOf(key, entry)).map(([u]) => u.value);

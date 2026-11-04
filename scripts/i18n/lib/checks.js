@@ -122,8 +122,12 @@ export const lengthIssueOf = (lang, source, value) => {
 // 复数类别：按 CLDR 规则，这种语言需要的类别都要有，缺少时运行时会退回 other
 const pluralCategoriesOf = (lang) => new Intl.PluralRules(lang).resolvedOptions().pluralCategories;
 
-// 只有 error 级别的规则可以写例外；源码字面量的例外按文件和文字匹配
+// 可以写例外的规则：报错规则，以及 3 条警告（审过的警告可以消掉，避免每次检查都被同样的警告淹没）
+// 源码字面量的例外按文件和文字匹配
 export const EXCEPTION_RULES = new Set([
+  "length",
+  "plural",
+  "should-translate",
   "format",
   "newline",
   "edge-space",
@@ -174,7 +178,7 @@ export const exceptionMatcherOf = (exceptions) => {
 export const catalogIssuesOf = (table, catalog, { langs, known, exceptions = exceptionMatcherOf([]) }) => {
   const out = [],
     add = (level, rule, key, lang, msg) => {
-      if (level !== "error" || !exceptions.skip(table, key, lang, rule)) out.push({ level, rule, table, key, lang, msg });
+      if (level === "missing" || !exceptions.skip(table, key, lang, rule)) out.push({ level, rule, table, key, lang, msg });
     };
 
   for (const [key, entry] of Object.entries(catalog.strings)) {
