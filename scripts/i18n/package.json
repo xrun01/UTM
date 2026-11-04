@@ -1,0 +1,13 @@
+{
+  "name": "utm-i18n",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync": "bun sync.js",
+    "check": "bun check.js",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "opencc-js": "1.4.2"
+  }
+}

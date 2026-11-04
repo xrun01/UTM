@@ -69,6 +69,7 @@ iOSInjectionProject/
 
 build*/
 lib/
+!scripts/i18n/lib/
 sysroot*/
 .DS_Store
 CodeSigning.xcconfig

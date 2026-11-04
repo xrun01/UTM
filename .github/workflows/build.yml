@@ -116,6 +116,12 @@ jobs:
           bun git/vm/script/buildApp.js
           git/UTM/build/UTM.app/Contents/MacOS/vm-mcp --list-tools > /dev/null
           tar -C git/UTM/build -cf - UTM.app | zstd -19 -T0 -o UTM.app.tar.zst
+      - name: Test and Check Localizations
+        working-directory: git/UTM/scripts/i18n
+        run: |
+          bun install
+          bun test
+          bun check.js --ci
       - name: Upload UTM.app Artifact
         uses: actions/upload-artifact@v7
         with:
