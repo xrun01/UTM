@@ -630,4 +630,3 @@ test("deriveLang：转换结果也校验引号数量", () => {
     catalogs = catalogsOf({ "Delete “%@” and “%@”?": { localizations: { "zh-Hant": u("刪除「%1$@」和 %2$@？") } } });
   expect(deriveLang({ catalogs, lang: "zh-HK", derive: { from: "zh-Hant", opencc: "tw-hk" } }).failed[0].reason).toContain("引号数量");
 });
-
