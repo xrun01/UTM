@@ -1683,7 +1683,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "إضافة..."
+            "value" : "إضافة…"
           }
         },
         "de" : {
@@ -1725,7 +1725,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Dodaj..."
+            "value" : "Dodaj…"
           }
         },
         "ru" : {
@@ -1792,7 +1792,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "AltJIT خطأ：%@"
+            "value" : "AltJIT خطأ: %@"
           }
         },
         "de" : {
@@ -3615,7 +3615,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "تصفح..."
+            "value" : "تصفح…"
           }
         },
         "de" : {
@@ -3627,7 +3627,7 @@
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Buscar..."
+            "value" : "Buscar…"
           }
         },
         "fi" : {
@@ -3645,7 +3645,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Scegli..."
+            "value" : "Scegli…"
           }
         },
         "ja" : {
@@ -3663,7 +3663,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Przeglądaj..."
+            "value" : "Przeglądaj…"
           }
         },
         "ru" : {
@@ -3780,7 +3780,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "مشغول..."
+            "value" : "مشغول…"
           }
         },
         "fr" : {
@@ -3804,7 +3804,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zajęta..."
+            "value" : "Zajęta…"
           }
         },
         "zh-HK" : {
@@ -4821,7 +4821,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zmień..."
+            "value" : "Zmień…"
           }
         },
         "ru" : {
@@ -5142,13 +5142,13 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "استنساخ..."
+            "value" : "استنساخ…"
           }
         },
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Clonar..."
+            "value" : "Clonar…"
           }
         },
         "fi" : {
@@ -5166,7 +5166,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Clona..."
+            "value" : "Clona…"
           }
         },
         "ja" : {
@@ -5184,7 +5184,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Klonuj..."
+            "value" : "Klonuj…"
           }
         },
         "ru" : {
@@ -8230,7 +8230,7 @@
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Descargar una VM lista para usar desde la librería de UTM..."
+            "value" : "Descargar una VM lista para usar desde la librería de UTM…"
           }
         },
         "fi" : {
@@ -8248,7 +8248,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Scarica una VM pronta da usare da UTM Gallery..."
+            "value" : "Scarica una VM pronta da usare da UTM Gallery…"
           }
         },
         "ja" : {
@@ -8266,7 +8266,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Pobierz gotowca z Galerii UTM..."
+            "value" : "Pobierz gotowca z Galerii UTM…"
           }
         },
         "ru" : {
@@ -9586,7 +9586,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Rozpakowywanie..."
+            "value" : "Rozpakowywanie…"
           }
         },
         "ru" : {
@@ -9704,13 +9704,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fehler beim Start von JitStreamer: %@"
+            "value" : "Fehler beim Start von JitStreamer:\n%@"
           }
         },
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "No se pudo adjuntar a JitStreamer: %@"
+            "value" : "No se pudo adjuntar a JitStreamer:\n%@"
           }
         },
         "fr" : {
@@ -9722,7 +9722,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Errore di collegamento a JitStreamer: %@"
+            "value" : "Errore di collegamento a JitStreamer:\n%@"
           }
         },
         "ja" : {
@@ -9752,13 +9752,13 @@
         "zh-HK" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "無法附加至 JitStreamer：%@"
+            "value" : "無法附加至 JitStreamer：\n%@"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "无法附加到 JitStreamer：%@"
+            "value" : "无法附加到 JitStreamer：\n%@"
           }
         },
         "zh-Hant" : {
@@ -9957,8 +9957,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Die neueste macOS-Version konnte nicht abgerufen werden."
+            "state" : "needs_review",
+            "value" : "Die neueste macOS-Version konnte nicht von Apple abgerufen werden."
           }
         },
         "es-419" : {
@@ -10841,7 +10841,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "从微软官网获取 Windows 11 ARM64 镜像…"
+            "value" : "从 Microsoft 官网获取 Windows 11 ARM64 镜像…"
           }
         }
       }
@@ -11760,7 +11760,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Si coché, un partage virtiofs tagué 'rosetta' sera disponible pour l’invité Linux pour installer Roserra pour émuler le x86_64 sur ARM64."
+            "value" : "Si coché, un partage virtiofs tagué 'rosetta' sera disponible pour l’invité Linux pour installer Rosetta pour émuler le x86_64 sur ARM64."
           }
         },
         "it" : {
@@ -11802,7 +11802,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "若启用，标为“rosetta”的 virtiofs 共享将在 Linux 客户机上可用，用于安装 Rosetta，并在 arm64 上模拟 x86_64。"
+            "value" : "若启用，标为“rosetta”的 virtiofs 共享将在 Linux 客户机上可用，用于安装 Rosetta，并在 ARM64 上模拟 x86_64。"
           }
         },
         "zh-Hant" : {
@@ -11818,7 +11818,7 @@
         "zh-HK" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "如啟󠄁用，執行虛擬機时，所有可寫的磁碟映像檔都將會被鎖定。唯讀磁碟映像檔不會被被鎖定。"
+            "value" : "如啟用，執行虛擬機時，所有可寫的磁碟映像檔都將會被鎖定。唯讀磁碟映像檔不會被鎖定。"
           }
         },
         "zh-Hans" : {
@@ -12124,13 +12124,13 @@
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Importar..."
+            "value" : "Importar…"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Tuo..."
+            "value" : "Tuo…"
           }
         },
         "fr" : {
@@ -12142,7 +12142,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Importa..."
+            "value" : "Importa…"
           }
         },
         "ja" : {
@@ -12160,7 +12160,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Importuj..."
+            "value" : "Importuj…"
           }
         },
         "ru" : {
@@ -13001,13 +13001,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "JitStreamer-Attach-URL ist ungültig: %@"
+            "value" : "JitStreamer-Attach-URL ist ungültig:\n%@"
           }
         },
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "URL adjunto de JitStramer no válida: %@"
+            "value" : "URL adjunto de JitStramer no válida:\n%@"
           }
         },
         "fr" : {
@@ -13019,7 +13019,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Attach URL di JitStramer non valido: %@"
+            "value" : "Attach URL di JitStramer non valido:\n%@"
           }
         },
         "ja" : {
@@ -13049,13 +13049,13 @@
         "zh-HK" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "無效的 JitStreamer 附加 URL：%@"
+            "value" : "無效的 JitStreamer 附加 URL：\n%@"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "无效的 JitStreamer 附加 URL：%@"
+            "value" : "无效的 JitStreamer 附加 URL：\n%@"
           }
         },
         "zh-Hant" : {
@@ -13698,7 +13698,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "لينكس"
+            "value" : "Linux"
           }
         },
         "de" : {
@@ -13796,7 +13796,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "صورة نظام الملفات الجذرية لنظام لينكس (اختياري)"
+            "value" : "صورة نظام الملفات الجذرية لنظام Linux (اختياري)"
           }
         },
         "de" : {
@@ -13872,7 +13872,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "إعدادات لينكس"
+            "value" : "إعدادات Linux"
           }
         },
         "de" : {
@@ -13948,7 +13948,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "الذاكرة المؤقتة الأولية لنظام لينكس (اختياري)"
+            "value" : "الذاكرة المؤقتة الأولية لنظام Linux (اختياري)"
           }
         },
         "de" : {
@@ -14030,7 +14030,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "نواة لينكس (مطلوب)"
+            "value" : "نواة Linux (مطلوب)"
           }
         },
         "de" : {
@@ -14227,7 +14227,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "لوحة مفاتيح ماك (macOS 14+)"
+            "value" : "لوحة مفاتيح Mac (macOS 14+)"
           }
         },
         "ja" : {
@@ -14244,8 +14244,8 @@
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Klawiatura (macOS 14+)"
+            "state" : "needs_review",
+            "value" : "Klawiatura Mac (macOS 14+)"
           }
         },
         "zh-HK" : {
@@ -14270,8 +14270,8 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "لوحة تتبع ماك (macOS 14+)"
+            "state" : "needs_review",
+            "value" : "لوحة تتبع Mac (macOS 13+)"
           }
         },
         "ja" : {
@@ -14288,8 +14288,8 @@
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gładzik (macOS 13+)"
+            "state" : "needs_review",
+            "value" : "Gładzik Mac (macOS 13+)"
           }
         },
         "zh-HK" : {
@@ -15233,7 +15233,7 @@
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mover..."
+            "value" : "Mover…"
           }
         },
         "fr" : {
@@ -15245,7 +15245,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sposta..."
+            "value" : "Sposta…"
           }
         },
         "ja" : {
@@ -15263,7 +15263,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Przenieś..."
+            "value" : "Przenieś…"
           }
         },
         "ru" : {
@@ -15703,7 +15703,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nowy współdzielony katalog..."
+            "value" : "Nowy współdzielony katalog…"
           }
         },
         "zh-HK" : {
@@ -15813,7 +15813,7 @@
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nuevo desde plantilla..."
+            "value" : "Nuevo desde plantilla…"
           }
         },
         "fr" : {
@@ -15825,7 +15825,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nuovo da template..."
+            "value" : "Nuovo da template…"
           }
         },
         "ja" : {
@@ -15889,7 +15889,7 @@
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nuevo..."
+            "value" : "Nuevo…"
           }
         },
         "fi" : {
@@ -15907,7 +15907,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Crea..."
+            "value" : "Crea…"
           }
         },
         "ja" : {
@@ -15925,7 +15925,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nowy..."
+            "value" : "Nowy…"
           }
         },
         "ru" : {
@@ -17004,7 +17004,7 @@
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Abrir..."
+            "value" : "Abrir…"
           }
         },
         "fi" : {
@@ -17022,7 +17022,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Apri..."
+            "value" : "Apri…"
           }
         },
         "ja" : {
@@ -17040,7 +17040,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Otwórz..."
+            "value" : "Otwórz…"
           }
         },
         "ru" : {
@@ -18213,8 +18213,8 @@
         },
         "zh-HK" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "請選擇一個 IPSW 還原檔。"
+            "state" : "needs_review",
+            "value" : "請選擇一個 macOS IPSW 還原檔。"
           }
         },
         "zh-Hans" : {
@@ -18236,7 +18236,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "يرجى اختيار صورة نواة لينكس غير مضغوطة."
+            "value" : "يرجى اختيار صورة نواة Linux غير مضغوطة."
           }
         },
         "de" : {
@@ -18510,7 +18510,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Przygotowywanie..."
+            "value" : "Przygotowywanie…"
           }
         },
         "ru" : {
@@ -19803,7 +19803,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Usuń..."
+            "value" : "Usuń…"
           }
         },
         "ru" : {
@@ -20051,7 +20051,7 @@
         "zh-HK" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "需要重新啟󠄁動 UTM 以生效。"
+            "value" : "需要重新啟動 UTM 以生效。"
           }
         },
         "zh-Hans" : {
@@ -20249,7 +20249,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zmień rozmiar..."
+            "value" : "Zmień rozmiar…"
           }
         },
         "ru" : {
@@ -22005,8 +22005,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Speicherort der VM auswählen:"
+            "state" : "needs_review",
+            "value" : "Speicherort der virtuellen UTM-Maschine auswählen:"
           }
         },
         "es-419" : {
@@ -23234,7 +23234,7 @@
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Compartir..."
+            "value" : "Compartir…"
           }
         },
         "fr" : {
@@ -23246,7 +23246,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Condividi..."
+            "value" : "Condividi…"
           }
         },
         "ja" : {
@@ -23264,7 +23264,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Udostępnij..."
+            "value" : "Udostępnij…"
           }
         },
         "ru" : {
@@ -27617,8 +27617,8 @@
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Cette machine virtuelle doit être à nouveau ajoutée en l’ouvrant via le Finder. Vous pourrez la trouver à cet emplacement : %@"
+            "state" : "needs_review",
+            "value" : "Cette machine virtuelle doit être à nouveau ajoutée à UTM en l’ouvrant via le Finder. Vous pourrez la trouver à cet emplacement : %@"
           }
         },
         "ja" : {
@@ -28678,7 +28678,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ذاكرة مؤقتة أولية لنظام لينكس غير مضغوطة (اختياري)"
+            "value" : "ذاكرة مؤقتة أولية لنظام Linux غير مضغوطة (اختياري)"
           }
         },
         "es-419" : {
@@ -28748,7 +28748,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "نواة لينكس غير مضغوطة (مطلوب)"
+            "value" : "نواة Linux غير مضغوطة (مطلوب)"
           }
         },
         "es-419" : {
