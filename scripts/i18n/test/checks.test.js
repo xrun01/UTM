@@ -292,6 +292,7 @@ test("readExceptions：文件不存在时为空；JSON 不合法或格式错误�
   writeFileSync(join(root, EXCEPTIONS_PATH), JSON.stringify(ok));
   expect(readExceptions(root)).toEqual(ok);
   rmSync(root, { recursive: true, force: true });
+});
 
 test("missingPathsOf：与 check.js 的缺译和复数规则一致", () => {
   const u = (value) => ({ stringUnit: { state: "translated", value } }),
