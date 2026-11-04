@@ -11,7 +11,8 @@ import { maskOf, unmaskOf } from "./mask.js";
 const BATCH_SIZE = 150,
   PARALLEL = 4,
   ZWSP_LANGS = new Set(["km", "lo", "th", "my"]),
-  FULLWIDTH = { "，": ", ", "。": ". ", "：": ": ", "；": "; ", "！": "! ", "？": "? " };
+  RTL_LANGS = new Set(["ar", "fa", "he", "iw", "ur", "sd"]),
+  FULLWIDTH = { "，": ", ", "。": ". ", "：": ": ", "；": "; ", "！": "! ", "？": "? ", "（": " (", "）": ")" };
 
 const pluralRulesOf = (lang) => new Intl.PluralRules(lang),
   pluralCategoriesOf = (lang) => pluralRulesOf(lang).resolvedOptions().pluralCategories;
@@ -23,13 +24,24 @@ const integerSampleOf = (lang, category) => {
   return null;
 };
 
-// 把接口的输出修正成符合规则的写法；返回 null 表示无法修正
+// 把接口的输出修正成符合 check.js 规则的写法；修不了的问题留给校验步骤拒绝
 export const polishOf = (lang, source, value) => {
   let v = value;
+  // 只删除英文中没有的不可见字符（英文中的 emoji 变体选择符要保留）
+  const strip = (re) => {
+    v = v.replace(re, (c) => (source.includes(c) ? c : ""));
+  };
   if (source.includes("…")) v = v.replaceAll("...", "…");
-  v = v.replace(/[\ufeff\u202a-\u202e\u2066-\u2069\ufe00-\ufe0f]|\udb40[\udd00-\uddef]/g, "");
-  if (!ZWSP_LANGS.has(lang)) v = v.replaceAll("\u200b", "");
-  if (!CJK_LANGS.has(lang)) v = v.replace(/[，。：；！？]/g, (c) => FULLWIDTH[c]).replace(/ +$/gm, "");
+  strip(/[\ufeff\u202a-\u202e\ufe00-\ufe0f]|\udb40[\udd00-\uddef]/g);
+  // 从右到左的语言用 Bidi 隔离符包住从左到右的占位符，这是推荐写法
+  if (!RTL_LANGS.has(lang)) strip(/[\u2066-\u2069]/g);
+  if (!ZWSP_LANGS.has(lang)) strip(/\u200b/g);
+  if (!CJK_LANGS.has(lang)) {
+    v = v
+      .replace(/[，。：；！？（）]/g, (c) => (source.includes(c) ? c : FULLWIDTH[c]))
+      .replace(/ {2,}/g, (s) => (source.includes(s) ? s : " "))
+      .replace(/ +$/gm, "");
+  }
   const lead = source.match(/^\s*/)[0],
     trail = source.match(/\s*$/)[0];
   return lead + v.trim() + trail;

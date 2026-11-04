@@ -1,7 +1,7 @@
 // 发送翻译前遮盖占位符，收到译文后还原
 // 接口会保留 {n}，但会调换它们的顺序，所以还原时按需改写成带序号的 %n$ 形式
 
-import { specsOf } from "./format.js";
+import { isFormatText, specsOf } from "./format.js";
 
 const TOKEN_RE = /\{(\d+)\}/g;
 
@@ -17,7 +17,7 @@ export const maskOf = (source) => {
     last = s.end;
   }
   text += source.slice(last).replaceAll("%%", "%");
-  return { text, specs, is_format: specs.length > 0 || source.includes("%%") };
+  return { text, specs, is_format: isFormatText(source) };
 };
 
 // 去掉占位符中的序号：%2$@ → %@

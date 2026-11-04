@@ -51,9 +51,18 @@ describe("polishOf", () => {
     expect(polishOf("th", "a", "a\u200bb")).toBe("a\u200bb");
   });
 
-  test("非中日韩语言的全角标点换成半角", () => {
+  test("非中日韩语言的全角标点和括号换成半角", () => {
     expect(polishOf("ar", "Error: %@", "خطأ：%@")).toBe("خطأ: %@");
     expect(polishOf("ja", "Error: %@", "エラー：%@")).toBe("エラー：%@");
+    expect(polishOf("pl", "%@ (%@)", "%1$@（%2$@）")).toBe("%1$@ (%2$@)");
+    expect(polishOf("pl", "A (B)", "A （B）")).toBe("A (B)");
+  });
+
+  test("保留英文中也有的变体选择符；从右到左的语言保留 Bidi 隔离符", () => {
+    expect(polishOf("de", "Warning \u26a0\ufe0f", "Warnung \u26a0\ufe0f")).toBe("Warnung \u26a0\ufe0f");
+    expect(polishOf("de", "Warning", "Warnung\ufe0f")).toBe("Warnung");
+    expect(polishOf("ar", "Copy %@", "نسخ \u2068%@\u2069")).toBe("نسخ \u2068%@\u2069");
+    expect(polishOf("de", "Copy %@", "\u2068%@\u2069 kopieren")).toBe("%@ kopieren");
   });
 });
 
