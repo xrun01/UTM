@@ -1,8 +1,8 @@
 # ar 定下的译法。规则见 i18n/glossary/terms.yml。
-virtual-machine: جهاز ظاهري؛ الجمع أجهزة ظاهرية  # https://support.microsoft.com/ar-sa/windows/enable-virtualization-on-windows-c5578302-6e43-4b4b-a449-8ced115f58e1
+virtual-machine: آلة افتراضية؛ الآلة الافتراضية؛ الجمع الآلات الافتراضية  # app 已审校译文统一用 افتراضي（translated 中 69 条），与官网（Microsoft 写法 جهاز ظاهري）不同
 guest: الضيف؛ نظام الضيف، أدوات الضيف
 emulate: يحاكي؛ المحاكاة
-virtualize: الظاهرية  # https://support.microsoft.com/ar-sa/windows/enable-virtualization-on-windows-c5578302-6e43-4b4b-a449-8ced115f58e1
+virtualize: الافتراضية（Virtualization = الافتراضية、Use Virtualization = استخدام الافتراضية）  # app 已审校译文统一用 افتراضي，与官网（Microsoft 写法 الظاهرية）不同；不用 المحاكاة الافتراضية，因为 المحاكاة 是 emulate 的译法
 native: السرعة الأصلية
 architecture: بنية؛ الجمع بنيات
 backend: الواجهة الخلفية؛ واجهة QEMU الخلفية، واجهة Apple الخلفية
@@ -11,7 +11,7 @@ intel-mac: جهاز Mac مزود بمعالج Intel  # https://support.apple.com
 snapshot: لقطة؛ الجمع لقطات
 disposable-mode: وضع الاستخدام لمرة واحدة
 shut-down: إيقاف التشغيل
-new-vm-wizard: معالج إنشاء الأجهزة الظاهرية
+new-vm-wizard: معالج إنشاء الآلات الافتراضية  # app 已审校译文统一用 افتراضي，与官网（Microsoft 写法 الأجهزة الظاهرية）不同
 installer-image: صورة التثبيت
 license: ترخيص
 secure-boot: التمهيد الآمن  # https://support.microsoft.com/ar-sa/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
@@ -39,3 +39,11 @@ toolbar: شريط الأدوات
 settings: الإعدادات
 or-later: أو إصدار أحدث؛作宾语时用宾格 أو إصدارًا أحدث
 classic-systems: الأنظمة الكلاسيكية
+
+# 不在 terms.yml 中、缺译批次中出现 3 次以上的界面术语
+drive: قرص؛ الجمع أقراص（Drives = الأقراص、Drive Image = صورة قرص、Disks Only = الأقراص فقط）  # 目录已有 Drives = الأقراص
+image: صورة（Drive Image = صورة قرص、Floppy Image = صورة قرص مرن、ISO 镜像 = صورة ISO）；不是图片
+display: شاشة عرض؛ الجمع شاشات العرض（窗口菜单和工具栏的 Displays）  # macOS 系统设置（ar）DisplaysExt：Displays = شاشات العرض
+key: مفتاح؛ الجمع مفاتيح（Send Key = إرسال مفتاح、Modifier Key = مفتاح التعديل、keystrokes = ضغطات المفاتيح）；键名保留拉丁字母  # https://support.apple.com/ar-ae/102650
+device: جهاز؛ الجمع أجهزة（USB Devices = أجهزة USB、Boot Device = جهاز التمهيد）
+power: الطاقة（显示窗口工具栏和菜单的 Power）  # macOS 本地化资源（ar）：Power = الطاقة

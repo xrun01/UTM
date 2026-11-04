@@ -34,8 +34,11 @@ hardware-reset: Hardware-Reset
 mount: mounten
 shared-library: gemeinsam genutzte Bibliothek
 capture-mouse: Maus erfassen
-keys: Control-Taste、Wahltaste  # https://support.apple.com/de-de/102650
+keys: Control-Taste、Wahltaste；Command = Befehlstaste、Shift = Umschalttaste、Caps Lock = Feststelltaste、Escape = Esc；modifier keys = Sondertasten  # https://support.apple.com/de-de/102650
 toolbar: Symbolleiste
 settings: Einstellungen
 classic-systems: klassische Systeme
 or-later: oder neuer  # Apple 德语页面写系统要求用「oder neuer」，例如 https://support.apple.com/de-de/102552（「macOS Ventura oder neuer」）
+image: Image（Installationsimage、Laufwerksimage、Boot-Image、Kernel-Image；不用 Abbild）
+boot: Boot（Boot-Gerät、Boot-Argumente、UEFI-Boot；Secure Boot 例外，按 secure-boot 写 sicherer Start）
+drive: Laufwerk（Externes Laufwerk、Laufwerksimage）

@@ -35,7 +35,11 @@ hardware-reset: réinitialisation matérielle
 mount: monter
 shared-library: bibliothèque partagée
 capture-mouse: capturer la souris；捕获鼠标按钮 = bouton Capturer la souris
-keys: touche Contrôle、touche Option  # https://support.apple.com/fr-fr/102650
+keys: touche Contrôle、touche Option；按键名 Contrôle、Option、Maj、Commande、Verrouillage majuscule、Échap  # https://support.apple.com/fr-fr/102650
 toolbar: barre d'outils
 settings: réglages  # Apple 法语写 Réglages Système：https://support.apple.com/fr-fr/guide/mac-help/mchlp1225/mac
 classic-systems: systèmes classiques
+# 下面 3 个是界面术语，terms.yml 中还没有
+display: affichage；窗口菜单和工具栏的 Displays = Affichages（和已有的 Display = Affichage 一致）
+power: alimentation；工具栏和菜单的 Power = Alimentation
+scan-code: code de balayage（不用 code de numérisation）

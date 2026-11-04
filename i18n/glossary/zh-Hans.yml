@@ -14,7 +14,7 @@ shut-down: 关机
 new-vm-wizard: 新建向导
 installer-image: 安装镜像
 license: 许可证
-secure-boot: Secure Boot
+secure-boot: 安全启动  # https://support.microsoft.com/zh-cn/windows/windows-11-和安全启动-a8ff1202-c0d9-42f5-940f-843abef64fad
 or-later: 或更高版本
 experimental: 实验功能
 auto-resolution: 自动调整分辨率
@@ -41,3 +41,5 @@ settings: 设置
 rosetta: Rosetta
 cpu: CPU
 classic-systems: 经典系统
+# 以下是补译批次中出现 3 次以上、terms.yml 还没有的界面术语
+key: 按键；keystrokes = 击键；modifier key = 修饰键；Caps Lock = 大写锁定键  # https://support.apple.com/zh-cn/102650

@@ -39,3 +39,9 @@ keys: Control 鍵、Option 鍵  # https://support.apple.com/zh-tw/102650
 toolbar: 工具列
 settings: 設定
 classic-systems: 經典系統
+rosetta: Rosetta  # https://support.apple.com/zh-tw/102527
+cpu: CPU  # https://www.apple.com/tw/macbook-air/specs/（「8 核心 CPU」）
+# 以下是补译批次中出现 3 次以上、terms.yml 还没有的界面术语
+mouse: 滑鼠
+key: 按鍵；keystrokes = 按鍵輸入；modifier key = 修飾鍵；keyboard shortcuts = 鍵盤快速鍵  # https://support.apple.com/zh-tw/102650
+power: 電源

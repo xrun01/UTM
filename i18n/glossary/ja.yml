@@ -19,7 +19,7 @@ experimental: 実験的な機能
 auto-resolution: 解像度の自動調整
 or-later: 以降  # https://www.apple.com/jp/final-cut-pro/specs/（「macOS 15.6以降」）
 shared-clipboard: 共有クリップボード；复制和粘贴 = コピー＆ペースト，粘贴 = ペースト  # https://support.apple.com/ja-jp/guide/mac-help/mchl70368996/mac
-shared-folder: 共有フォルダー
+shared-folder: 共有フォルダ  # https://support.apple.com/ja-jp/guide/mac-help/mh17131/mac（「共有フォルダ」。macOS 用「フォルダ」，不用 Windows 的「フォルダー」）
 sharing: 共有
 shared-network: 共有ネットワーク
 host-only: ホストのみ
@@ -38,4 +38,8 @@ capture-mouse: マウスをキャプチャ；捕获鼠标按钮 = 「マウス�
 keys: Control キー、Option キー  # https://support.apple.com/ja-jp/102650
 toolbar: ツールバー
 settings: 設定
+rosetta: Rosetta  # https://support.apple.com/ja-jp/102527
+cpu: CPU  # https://support.apple.com/ja-jp/guide/activity-monitor/actmntr43452/mac
+modifier-key: 修飾キー  # https://support.apple.com/ja-jp/102650
+display: ディスプレイ；monitor 也写 ディスプレイ  # https://support.apple.com/ja-jp/guide/mac-help/mchl126ad5ba/mac
 classic-systems: クラシックシステム

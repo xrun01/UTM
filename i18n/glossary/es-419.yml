@@ -37,7 +37,17 @@ hardware-reset: restablecimiento de hardware（不用 reinicio，reinicio 是重
 mount: montar
 shared-library: biblioteca compartida
 capture-mouse: capturar el mouse；捕获鼠标按钮 = botón Capturar mouse
-keys: tecla Control、tecla Opción  # https://support.apple.com/es-mx/102650
+keys: tecla Control、tecla Opción；按键名 Comando (⌘)、Opción (⌥)、Control (⌃)、Mayúsculas (⇧)、Bloq Mayús (⇪)、Esc (⎋)；keyboard shortcuts = funciones rápidas de teclado（不用 atajos，Atajos 是 App 名）  # https://support.apple.com/es-mx/102650
 toolbar: barra de herramientas
 settings: configuración  # Apple es-mx 写 Configuración del Sistema：https://support.apple.com/es-mx/guide/mac-help/mchlp1225/mac
 classic-systems: sistemas clásicos
+rosetta: Rosetta（不变格）  # https://support.apple.com/es-mx/102527
+cpu: CPU（阳性 el CPU）  # https://support.apple.com/es-mx/guide/activity-monitor/actmntr43452/mac（「Ver la actividad del CPU」）
+# 以下是本批缺译条目中反复出现、terms.yml 中没有的界面术语
+mouse: mouse（不用 ratón）；Mouse genérico、Botón del mouse
+boot: arranque（Dispositivo de arranque、Argumentos de arranque、Cargador de arranque；Secure Boot 按 secure-boot 写 Arranque seguro）
+key: tecla（Tecla modificadora、Enviar tecla；keystrokes = pulsaciones de teclas）
+image: imagen（Imagen de unidad、Imagen de disquete、Imagen de kernel）
+drive: unidad（Unidad externa、Imagen de unidad；不用 disco，disco 只对应 disk）
+installation: instalación（Modo de instalación、Método de instalación；Express Install = Instalación exprés）
+download: descargar；名词 descarga（Cancelar descarga）

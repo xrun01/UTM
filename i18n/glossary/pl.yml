@@ -40,3 +40,10 @@ toolbar: pasek narzędzi
 settings: ustawienia
 classic-systems: klasyczne systemy
 rosetta: Rosetta，按 Apple 波兰语变格：属格 Rosetty，宾格 Rosettę；不写 program Rosetta  # https://support.apple.com/pl-pl/102527（「Otwórz, używając Rosetty」）
+# 以下不在 terms.yml，在补译批次中出现 3 次以上，由改稿代理定下
+display: wyświetlacz；Displays = Wyświetlacze（不用 monitor；英文写 monitor 时才用 monitor）  # https://support.apple.com/pl-pl/guide/mac-help/mchl4ad7a4c2/mac（「Podłączanie wyświetlacza zewnętrznego」）
+boot: rozruch（名词，例如 Urządzenie rozruchowe、Bezpieczny rozruch）；动词 uruchomić；boot arguments = parametry uruchamiania
+power: Zasilanie（菜单和工具栏名）
+download: pobrać；按钮 Pobierz；名词 pobieranie
+modifier-key: klawisz modyfikujący；复数 klawisze modyfikujące；键名 Command、Shift、Option、Control、Caps Lock、Escape 原样保留  # https://support.apple.com/pl-pl/guide/mac-help/cpmh0011/mac
+keyboard-shortcut: skrót klawiszowy；复数 skróty klawiszowe  # https://support.apple.com/pl-pl/guide/mac-help/cpmh0011/mac

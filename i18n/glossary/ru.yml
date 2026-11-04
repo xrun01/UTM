@@ -39,3 +39,8 @@ keys: клавиша Control、клавиша Option  # https://support.apple.co
 toolbar: панель инструментов
 settings: настройки
 classic-systems: классические системы
+rosetta: Rosetta（保留拉丁字母，不变格）  # https://support.apple.com/ru-ru/102527
+cpu: ЦП  # https://support.apple.com/ru-ru/guide/activity-monitor/actmntr43452/mac
+# 以下不在 terms.yml 中，来自补译批次中出现 3 次以上的界面术语
+image: образ（磁盘或安装映像文件，不写 изображение）
+key: клавиша（键盘按键；Send Key = Отправить клавишу）

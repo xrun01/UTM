@@ -35,7 +35,13 @@ hardware-reset: reset hardware
 mount: montare
 shared-library: libreria condivisa
 capture-mouse: catturare il mouse；捕获鼠标按钮 = pulsante Cattura mouse
-keys: tasto Control、tasto Opzione  # https://support.apple.com/it-it/102650
+keys: tasto Control、tasto Opzione；键名 = Comando (⌘)、Opzione (⌥)、Control (⌃)、Maiuscole (⇧)、Blocco maiuscole (⇪)、Esc (⎋)；Keyboard shortcuts = Abbreviazioni da tastiera  # https://support.apple.com/it-it/102650
 toolbar: barra degli strumenti
 settings: impostazioni
 classic-systems: sistemi classici
+rosetta: Rosetta  # https://support.apple.com/it-it/102527
+cpu: CPU  # Monitoraggio Attività（it）：「Uso CPU」
+drive: disco；Drive Image = Immagine disco；External Drive = Disco esterno  # Utility Disco（it）：「Immagine disco」；目录已有 Drives = Dischi
+boot: avvio；Boot Device = Dispositivo di avvio
+recovery: Recovery（macOS Recovery 原样保留）  # https://support.apple.com/it-it/102518
+display: schermo；Displays = Schermi  # 系统设置（it）：「Schermi」

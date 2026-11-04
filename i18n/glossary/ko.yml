@@ -39,3 +39,11 @@ keys: Control 키, Option 키  # https://support.apple.com/ko-kr/102650
 toolbar: 도구 막대
 settings: 설정
 classic-systems: 클래식 시스템
+rosetta: Rosetta  # https://support.apple.com/ko-kr/102527
+cpu: CPU  # https://support.apple.com/ko-kr/guide/activity-monitor/actmntr43452/mac
+
+# 不在 terms.yml 中、缺译批次中出现 3 次以上的界面术语
+key: 키（Send Key = 키 보내기、keystrokes = 키 입력、Keyboard shortcuts = 키보드 단축키）；键名保留拉丁字母，例如 Caps Lock(⇪)  # https://support.apple.com/ko-kr/102650
+modifier-key: 보조 키；Modifiers 也写 보조 키  # https://support.apple.com/ko-kr/102650
+display: 디스플레이；monitor 也写 디스플레이（Displays 菜单、Monitor Number = 디스플레이 번호）  # https://support.apple.com/ko-kr/guide/mac-help/mchl126ad5ba/mac
+power: 전원（显示窗口工具栏和菜单的 Power）
