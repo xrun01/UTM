@@ -26,7 +26,7 @@ export const KEEP_TERMS = [
   "AppleScript",
 ];
 
-const STEMS = { Rosetta: "Rosett", iPhone: "iPhon" };
+const STEMS = { Rosetta: "Rosett" };
 
 const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 

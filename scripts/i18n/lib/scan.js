@@ -38,10 +38,10 @@ export const stringLiteralsOf = (src, { swift = true } = {}) => {
       } else if (src[i] === '"') {
         scanString("");
       } else if (src[i] === "'" && !swift) {
-        // C 字符字面量
+        // C 字符字面量；不闭合时在行尾停止，避免吞掉后面的代码
         advance();
-        while (i < n && src[i] !== "'") advance(src[i] === "\\" ? 2 : 1);
-        advance();
+        while (i < n && src[i] !== "'" && src[i] !== "\n") advance(src[i] === "\\" ? 2 : 1);
+        if (src[i] === "'") advance();
       } else if (in_interp && src[i] === "(") {
         depth++;
         advance();
@@ -91,4 +91,5 @@ export const stringLiteralsOf = (src, { swift = true } = {}) => {
   return out;
 };
 
-export const CJK_RE = /[぀-ヿ㐀-䶿一-鿿가-힯豈-﫿]/;
+// 汉字（含扩展区和「々」）、平假名、片假名（含半角）、韩文（含字母）
+export const CJK_RE = /[\p{Script=Han}\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Hangul}]/u;

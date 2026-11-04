@@ -44,3 +44,28 @@ describe("specMismatchOf", () => {
     expect(specMismatchOf("%@", "%1$@ (%1$@)")).toBeNull();
   });
 });
+
+describe("边界写法", () => {
+  test("空格不是标志：「50% done」「100% CPU」里没有占位符", () => {
+    expect(specsOf("50% done")).toEqual([]);
+    expect(specsOf("100% CPU")).toEqual([]);
+  });
+
+  test("宽度或精度写成 * 时也占 1 个参数", () => {
+    expect(signatureOf("%*d")).toBe("1:d,2:d");
+    expect(signatureOf("%.*f")).toBe("1:d,2:f");
+    expect(signatureOf("%2$*1$d")).toBe("1:d,2:d");
+    expect(specMismatchOf("%d", "%*d")).toContain("占位符不一致");
+  });
+
+  test("%lf 与 %f 是同一类型", () => expect(specMismatchOf("%f", "%lf")).toBeNull());
+
+  test("带位置的 stringsdict 变量", () => expect(signatureOf("%1$#@n@")).toBe("1:var:n"));
+
+  test("格式文案中的字面量百分号必须写成 %%", () => {
+    expect(specMismatchOf("%lld%%", "%lld %")).toBe("格式文案中的百分号必须写成 %%");
+    expect(specMismatchOf("%lld%%", "%lld %%")).toBeNull();
+    expect(specMismatchOf("50% done", "50 % terminé")).toBeNull();
+  });
+});
+

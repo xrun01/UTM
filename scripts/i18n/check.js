@@ -6,7 +6,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { parseArgs } from "node:util";
 import { CATALOG_PATHS, readCatalog } from "./lib/catalog.js";
-import { catalogIssuesOf, exceptionMatcherOf } from "./lib/checks.js";
+import { catalogIssuesOf, exceptionMatcherOf, exceptionProblemsOf } from "./lib/checks.js";
 import { run } from "./lib/run.js";
 import { CJK_RE, stringLiteralsOf } from "./lib/scan.js";
 import { syncAll } from "./lib/sync.js";
@@ -29,13 +29,19 @@ try {
 
 const root = resolve(opt.root),
   known = JSON.parse(readFileSync(join(root, "i18n/languages.json"), "utf8")).languages.map((l) => l.code),
-  langs = opt.lang ? opt.lang.split(",").map((s) => s.trim()) : known,
+  langs = opt.lang === undefined ? known : opt.lang.split(",").map((s) => s.trim()),
   exceptions_path = join(root, "i18n/check-exceptions.json"),
-  exceptions = exceptionMatcherOf(existsSync(exceptions_path) ? JSON.parse(readFileSync(exceptions_path, "utf8")) : []);
+  exception_li = existsSync(exceptions_path) ? JSON.parse(readFileSync(exceptions_path, "utf8")) : [],
+  exceptions = exceptionMatcherOf(exception_li);
 
 const bad_lang = langs.filter((l) => !known.includes(l));
-if (bad_lang.length) {
-  console.error("未知语言: " + bad_lang.join(", ") + "。可选: " + known.join(", "));
+if (bad_lang.length || langs.length === 0) {
+  console.error("未知语言: " + (bad_lang.join(", ") || "（空）") + "。可选: " + known.join(", "));
+  process.exit(2);
+}
+const exception_problems = exceptionProblemsOf(exception_li);
+if (exception_problems.length) {
+  console.error("i18n/check-exceptions.json 格式错误：\n" + exception_problems.join("\n"));
   process.exit(2);
 }
 
@@ -60,17 +66,23 @@ for (const [table, rel] of Object.entries(CATALOG_PATHS)) {
   }
 }
 
-// 只检查部分语言时，其他语言的例外不会被用到，所以只在全量检查时报告无用的例外
-if (!opt.lang) {
-  for (const e of exceptions.unused()) error("i18n/check-exceptions.json", "例外没有命中任何问题，删除它: " + JSON.stringify(e));
-}
-
 // 2. 源码中写死的中日韩文字：界面文案必须写英文，再通过 catalog 翻译
-for (const rel of run("git", "-C", root, "ls-files", "*.swift", "*.m", "*.h").trim().split("\n").filter(Boolean)) {
+// 包括还没有 git add 的新文件；跳过工作区中已删除的文件
+const src_li = run("git", "-C", root, "ls-files", "-z", "--cached", "--others", "--exclude-standard", "*.swift", "*.m", "*.h")
+  .split("\0")
+  .filter((rel) => rel && existsSync(join(root, rel)));
+for (const rel of [...new Set(src_li)]) {
   const src = readFileSync(join(root, rel), "utf8");
   for (const { line, text } of stringLiteralsOf(src, { swift: rel.endsWith(".swift") })) {
-    if (CJK_RE.test(text)) error(rel + ":" + line, "字符串字面量含中日韩文字，改成英文文案: " + JSON.stringify(text));
+    if (CJK_RE.test(text) && !exceptions.skipLiteral(rel, text)) {
+      error(rel + ":" + line, "字符串字面量含中日韩文字，改成英文文案: " + JSON.stringify(text));
+    }
   }
+}
+
+// 只检查部分语言时，其他语言的例外不会被用到，所以只在全量检查时报告无用的例外
+if (opt.lang === undefined) {
+  for (const e of exceptions.unused()) error("i18n/check-exceptions.json", "例外没有命中任何问题，删除它: " + JSON.stringify(e));
 }
 
 // 3. CI：提取结果必须已经同步进 catalog

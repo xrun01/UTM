@@ -63,7 +63,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@ z %2$@（%3$@）"
+            "value" : "%1$@ z %2$@ (%3$@)"
           }
         },
         "ru" : {
@@ -148,7 +148,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "%1$@（%2$@）"
+            "value" : "%1$@ (%2$@)"
           }
         },
         "ru" : {
@@ -994,7 +994,7 @@
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "（tyhjä）"
+            "value" : "(tyhjä)"
           }
         },
         "fr" : {
@@ -11213,7 +11213,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "HiDPI（Retina）"
+            "value" : "HiDPI (Retina)"
           }
         },
         "zh-Hant" : {
@@ -17289,7 +17289,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Option（⌥） to klawisz Meta"
+            "value" : "Option (⌥) to klawisz Meta"
           }
         },
         "zh-HK" : {

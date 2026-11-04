@@ -1,6 +1,5 @@
-// 同步执行外部命令；失败时抛出带完整输出的错误
-
-export const run = (cmd, ...args) => {
+// 同步执行外部命令；失败时抛出带完整输出的错误。返回 { stdout, stderr }
+export const runFull = (cmd, ...args) => {
   const proc = Bun.spawnSync([cmd, ...args], { stdout: "pipe", stderr: "pipe" }),
     stdout = proc.stdout.toString(),
     stderr = proc.stderr.toString();
@@ -9,8 +8,10 @@ export const run = (cmd, ...args) => {
       "命令执行失败(" + proc.exitCode + "): " + [cmd, ...args].join(" ") + "\n" + (stderr || stdout).trim(),
     );
   }
-  return stdout;
+  return { stdout, stderr };
 };
+
+export const run = (cmd, ...args) => runFull(cmd, ...args).stdout;
 
 export const xcrun = (...args) => run("xcrun", ...args);
 

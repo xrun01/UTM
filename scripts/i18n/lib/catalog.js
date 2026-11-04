@@ -15,8 +15,8 @@ export const SOURCE_LANG = "en";
 
 export const emptyCatalog = () => ({ sourceLanguage: SOURCE_LANG, strings: {}, version: "1.0" });
 
-// xcstringstool 的键排序等同于按 UTF-16 码元比较，也就是 JS 的默认字符串比较
-const keyCompare = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
+// xcstringstool 按 Unicode 码点排序，等同于 UTF-8 字节序；JS 默认的 UTF-16 码元比较在 emoji 与全角字符之间结果不同
+const keyCompare = (a, b) => Buffer.compare(Buffer.from(a), Buffer.from(b));
 
 const serializeValue = (value, indent) => {
   if (value === null || typeof value !== "object") return JSON.stringify(value);

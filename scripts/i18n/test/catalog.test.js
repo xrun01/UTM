@@ -14,7 +14,11 @@ describe("serializeCatalog 与 xcstringstool 逐字节一致", () => {
     });
   }
 
-  test("键按 UTF-16 码元排序，空对象中间有空行，文件末尾没有换行", () => {
+  test("键按码点排序：emoji 排在全角字符之后（UTF-16 码元比较会排在前面）", () => {
+    expect(Object.keys(JSON.parse(serializeCatalog({ "😀": 1, "！": 2, "\ue000": 3 })))).toEqual(["\ue000", "！", "😀"]);
+  });
+
+  test("空对象中间有空行，文件末尾没有换行", () => {
     const out = serializeCatalog({ b: {}, B: 1, a: { z: "x", "/": "a/b" } });
     expect(out).toBe(
       ['{', '  "B" : 1,', '  "a" : {', '    "/" : "a/b",', '    "z" : "x"', "  },", '  "b" : {', "", "  }", "}"].join("\n"),

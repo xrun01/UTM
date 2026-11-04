@@ -45,12 +45,16 @@ describe("ObjC", () => {
     expect(texts('/* a /* b */ NSString *s = @"字"; // "注"', { swift: false })).toEqual(["字"]);
   });
 
+  test("不闭合的字符字面量在行尾停止，不吞掉后面的代码", () => {
+    expect(texts("char c = 'x;\nNSString *s = @\"中\";", { swift: false })).toEqual(["中"]);
+  });
+
   test("字符字面量中的引号不会开始字符串", () => {
     expect(texts("char c = '\"'; NSString *t = @\"ok\";", { swift: false })).toEqual(["ok"]);
   });
 });
 
 test("CJK_RE 覆盖中日韩文字，不匹配拉丁字母和全角标点", () => {
-  for (const s of ["中", "日本語", "カタカナ", "ひらがな", "한국어"]) expect(CJK_RE.test(s)).toBe(true);
+  for (const s of ["中", "日本語", "カタカナ", "ひらがな", "한국어", "々", "ｱ", "ㄱ", "ᄀ", "𠀋"]) expect(CJK_RE.test(s)).toBe(true);
   for (const s of ["abc", "Ünïcödé", "，。"]) expect(CJK_RE.test(s)).toBe(false);
 });

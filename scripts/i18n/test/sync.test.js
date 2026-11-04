@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
-import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, rmSync, utimesSync, writeFileSync } from "node:fs";
+import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, utimesSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { CATALOG_PATHS, emptyCatalog, readCatalog, writeCatalog } from "../lib/catalog.js";
@@ -23,16 +23,43 @@ describe("syncEntries", () => {
     });
   });
 
-  test("英文变化：更新英文，translated 改为 needs_review，其他状态不变", () => {
+  test("英文变化：更新英文，translated 和 new 都改为 needs_review", () => {
     const cat = emptyCatalog();
     syncEntries(cat, entries({ K: "Hello" }));
     cat.strings.K.localizations.de = unit("Hallo");
+    cat.strings.K.localizations.fr = unit("Bonjour", "new");
     cat.strings.K.localizations.ja = unit("こんにちは", "needs_review");
     const stats = syncEntries(cat, entries({ K: "Hi" }));
     expect(stats.changed).toBe(1);
     expect(cat.strings.K.localizations.en).toEqual(unit("Hi", "new"));
     expect(cat.strings.K.localizations.de).toEqual(unit("Hallo", "needs_review"));
+    expect(cat.strings.K.localizations.fr.stringUnit.state).toBe("needs_review");
     expect(cat.strings.K.localizations.ja.stringUnit.state).toBe("needs_review");
+  });
+
+  test("原来没有英文时，补上英文并把已有译文改为 needs_review", () => {
+    const cat = emptyCatalog();
+    cat.strings.K = { localizations: { de: unit("Hallo") } };
+    expect(syncEntries(cat, entries({ K: "Hello" })).changed).toBe(1);
+    expect(cat.strings.K.localizations.de.stringUnit.state).toBe("needs_review");
+  });
+
+  test("开发者改过的英文（translated 或复数）保留不动，键改为手动维护", () => {
+    const cat = emptyCatalog(),
+      plural = { variations: { plural: { one: unit("%lld file", "new"), other: unit("%lld files", "new") } } };
+    cat.strings.A = { extractionState: "extracted_with_value", localizations: { en: unit("Custom", "translated") } };
+    cat.strings.B = { extractionState: "extracted_with_value", localizations: { en: plural } };
+    syncEntries(cat, entries({ A: "Default", B: "%lld files" }));
+    expect(cat.strings.A).toEqual({ comment: "c A", localizations: { en: unit("Custom", "translated") } });
+    expect(cat.strings.B.localizations.en).toEqual(plural);
+    expect(cat.strings.B.extractionState).toBeUndefined();
+  });
+
+  test("源码注释为空时保留旧注释", () => {
+    const cat = emptyCatalog();
+    syncEntries(cat, entries({ K: "Hello" }));
+    syncEntries(cat, new Map([["K", { value: "Hello", comment: "" }]]));
+    expect(cat.strings.K.comment).toBe("c K");
   });
 
   test("英文不变时不改动译文状态", () => {
@@ -94,7 +121,10 @@ describe("stringsdataOf", () => {
     mkdirSync(join(build, "stringsdata/extract"), { recursive: true });
     writeFileSync(join(root, "Src/A.swift"), "");
     writeFileSync(join(root, "Src/B.m"), "");
-    writeFileSync(join(build, "manifest.json"), JSON.stringify({ swift: ["Src/A.swift"], objc: ["Src/B.m"] }));
+    writeFileSync(
+      join(build, "manifest.json"),
+      JSON.stringify({ root, started_at: Date.now() + 1000, swift: ["Src/A.swift"], objc: ["Src/B.m"] }),
+    );
     for (const p of ["swiftc/A.stringsdata", "extract/A-swift.stringsdata", "extract/B-m.stringsdata"]) {
       writeFileSync(join(build, "stringsdata", p), "");
     }
@@ -123,10 +153,21 @@ describe("stringsdataOf", () => {
     expect(() => stringsdataOf(root, build)).toThrow("构建清单中的源文件已删除: Src/A.swift");
   });
 
-  test("源文件在构建后被修改", () => {
+  test("源文件在构建开始后被修改", () => {
     const later = new Date(Date.now() + 60_000);
     utimesSync(join(root, "Src/A.swift"), later, later);
-    expect(() => stringsdataOf(root, build)).toThrow("源文件在构建后被修改: Src/A.swift");
+    expect(() => stringsdataOf(root, build)).toThrow("源文件在构建开始后被修改: Src/A.swift");
+  });
+
+  test("构建输出来自另一个目录", () => {
+    const manifest = JSON.parse(readFileSync(join(build, "manifest.json"), "utf8"));
+    writeFileSync(join(build, "manifest.json"), JSON.stringify({ ...manifest, root: tmpdir() }));
+    expect(() => stringsdataOf(root, build)).toThrow("构建输出来自另一个目录");
+  });
+
+  test("旧版构建清单缺少 root 和 started_at", () => {
+    writeFileSync(join(build, "manifest.json"), JSON.stringify({ swift: ["Src/A.swift"], objc: ["Src/B.m"] }));
+    expect(() => stringsdataOf(root, build)).toThrow("缺少 root 或 started_at");
   });
 });
 
@@ -150,7 +191,7 @@ describe("syncAll", () => {
       );
       if (proc.exitCode !== 0) throw new Error("swiftc 失败: " + proc.stderr.toString());
       xcrun("xcstringstool", "extract", "--legacy-localizable-strings", "--modern-localizable-strings", "-o", ext, src);
-      writeFileSync(join(build(), "manifest.json"), JSON.stringify({ swift: ["Src/A.swift"], objc: [] }));
+      writeFileSync(join(build(), "manifest.json"), JSON.stringify({ root, started_at: Date.now() + 1000, swift: ["Src/A.swift"], objc: [] }));
     };
 
   beforeEach(() => {
@@ -191,6 +232,28 @@ describe("syncAll", () => {
     expect(JSON.parse(readFileSync(join(root, REMOVED_PATH), "utf8"))).toEqual([
       { table: "Localizable", key: "Drop me", source: "Drop me", translations: { de: "Weg" }, removedOn: "2026-11-05" },
     ]);
+  });
+
+  test("xib 损坏时任何文件都不修改，也不丢失删除记录", () => {
+    extract('import Foundation\nlet a = String(localized: "Keep")\nlet b = NSLocalizedString("Drop me", comment: "x")\n');
+    syncAll({ root, build_dir: build(), write: true });
+    const path = join(root, CATALOG_PATHS.Localizable),
+      cat = readCatalog(path);
+    cat.strings["Drop me"].localizations = { de: unit("Weg") };
+    writeCatalog(path, cat);
+    const before = readFileSync(path, "utf8");
+
+    extract('import Foundation\nlet a = String(localized: "Keep")\n');
+    writeFileSync(join(root, XIB_PATH), "not a xib");
+    expect(() => syncAll({ root, build_dir: build(), write: true })).toThrow();
+    expect(readFileSync(path, "utf8")).toBe(before);
+    expect(existsSync(join(root, REMOVED_PATH))).toBe(false);
+  });
+
+  test("catalog 含孤立代理项时 xcstringstool 跳过同步，这里必须报错", () => {
+    extract('import Foundation\nlet a = String(localized: "Keep")\n');
+    writeFileSync(join(root, CATALOG_PATHS.Localizable), '{"sourceLanguage":"en","strings":{"\\ud800":{}},"version":"1.0"}');
+    expect(() => syncAll({ root, build_dir: build(), write: false })).toThrow("没有同步");
   });
 
   test("write 为 false 时不修改任何文件", () => {
