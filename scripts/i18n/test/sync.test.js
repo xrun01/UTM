@@ -171,8 +171,10 @@ describe("stringsdataOf", () => {
   });
 });
 
-// 集成测试：用真实的 swiftc、xcstringstool、ibtool 走一遍完整流程；冷启动的工具链较慢，超时放宽到 60 秒
-describe("syncAll", { timeout: 60_000 }, () => {
+// 集成测试：用真实的 swiftc、xcstringstool、ibtool 走一遍完整流程；冷启动的工具链较慢（CI 上 ibtool 首次启动超过 5 秒），超时放宽到 60 秒
+// 超时必须写在每个 test 上：bun 会忽略 describe 的 timeout 选项
+describe("syncAll", () => {
+  const slowTest = (name, fn) => test(name, fn, 60_000);
   let root;
   const build = () => join(root, "build/i18n"),
     // 模拟 vm/script/lib/sdkBuild.js 的提取步骤
@@ -209,7 +211,7 @@ describe("syncAll", { timeout: 60_000 }, () => {
   });
   afterEach(() => rmSync(root, { recursive: true, force: true }));
 
-  test("新增文案 → 加译文 → 删除文案：键被删除，译文记入 removed.json", () => {
+  slowTest("新增文案 → 加译文 → 删除文案：键被删除，译文记入 removed.json", () => {
     extract('import Foundation\nlet a = String(localized: "Keep")\nlet b = NSLocalizedString("Drop me", comment: "x")\n');
     const first = syncAll({ root, build_dir: build(), write: true, today: "2026-11-04" });
     expect(first.tables.Localizable.stats.added).toBe(2);
@@ -234,7 +236,7 @@ describe("syncAll", { timeout: 60_000 }, () => {
     ]);
   });
 
-  test("xib 损坏时任何文件都不修改，也不丢失删除记录", () => {
+  slowTest("xib 损坏时任何文件都不修改，也不丢失删除记录", () => {
     extract('import Foundation\nlet a = String(localized: "Keep")\nlet b = NSLocalizedString("Drop me", comment: "x")\n');
     syncAll({ root, build_dir: build(), write: true });
     const path = join(root, CATALOG_PATHS.Localizable),
@@ -250,13 +252,13 @@ describe("syncAll", { timeout: 60_000 }, () => {
     expect(existsSync(join(root, REMOVED_PATH))).toBe(false);
   });
 
-  test("catalog 含孤立代理项时 xcstringstool 跳过同步，这里必须报错", () => {
+  slowTest("catalog 含孤立代理项时 xcstringstool 跳过同步，这里必须报错", () => {
     extract('import Foundation\nlet a = String(localized: "Keep")\n');
     writeFileSync(join(root, CATALOG_PATHS.Localizable), '{"sourceLanguage":"en","strings":{"\\ud800":{}},"version":"1.0"}');
     expect(() => syncAll({ root, build_dir: build(), write: false })).toThrow("没有同步");
   });
 
-  test("write 为 false 时不修改任何文件", () => {
+  slowTest("write 为 false 时不修改任何文件", () => {
     extract('import Foundation\nlet a = String(localized: "Keep")\n');
     const before = readFileSync(join(root, CATALOG_PATHS.Localizable), "utf8"),
       result = syncAll({ root, build_dir: build(), write: false });
