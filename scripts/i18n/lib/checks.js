@@ -123,6 +123,8 @@ export const pluralCategoriesOf = (lang) => new Intl.PluralRules(lang).resolvedO
 
 // 这个复数类别在这种语言里是否只对应 1 个整数（ar 的 zero、one、two，de 的 one）；这时译文可以省略数字
 export const singleIntegerOf = (lang, category) => {
+  // Apple 运行时对所有语言的 0 都用 zero 变体；CLDR 没有 zero 的语言里，zero 只对应 0
+  if (category === "zero" && !pluralCategoriesOf(lang).includes("zero")) return true;
   const rules = new Intl.PluralRules(lang);
   let n = 0;
   for (let i = 0; i <= 200 && n < 2; i++) if (rules.select(i) === category) n++;

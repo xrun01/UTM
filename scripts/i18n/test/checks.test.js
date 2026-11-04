@@ -263,3 +263,10 @@ describe("第 2 轮评审修复", () => {
   });
 });
 
+test("复数 zero：CLDR 没有 zero 的语言里，zero 可以省略数字（Apple 对 0 都用 zero）", () => {
+  const unit = (value, state = "translated") => ({ stringUnit: { state, value } }),
+    en = { variations: { plural: { zero: unit("No cores", "new"), one: unit("%lld core", "new"), other: unit("%lld cores", "new") } } },
+    de = { variations: { plural: { zero: unit("Keine Kerne"), one: unit("%lld Kern"), other: unit("%lld Kerne") } } };
+  const got = catalogIssuesOf("T", { strings: { "%lld cores": { localizations: { en, de } } } }, { langs: ["de"], known: new Set(["de"]) });
+  expect(got).toEqual([]);
+});

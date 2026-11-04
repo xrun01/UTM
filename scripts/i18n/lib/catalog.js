@@ -1,7 +1,7 @@
 // String Catalog（.xcstrings）的读写与遍历
 // 写出格式与 xcstringstool 逐字节一致，否则 sync 和 Xcode 每次都会产生无意义的 diff
 
-import { existsSync, readFileSync, renameSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, renameSync, rmSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 // 表名 → catalog 相对仓库根目录的路径；表名决定编译出的 <表名>.strings
@@ -51,14 +51,19 @@ export const readCatalog = (path) => {
 };
 
 // 先写临时文件再改名：进程中途被杀时不会留下截断的文件
+// 失败时删掉临时文件，避免在 Platform/ 下留下未跟踪的文件
 export const writeFileAtomic = (path, text) => {
   const tmp = path + ".tmp-" + process.pid;
-  writeFileSync(tmp, text);
-  renameSync(tmp, path);
+  try {
+    writeFileSync(tmp, text);
+    renameSync(tmp, path);
+  } catch (err) {
+    rmSync(tmp, { force: true });
+    throw err;
+  }
 };
 
 export const writeCatalog = (path, catalog) => writeFileAtomic(path, serializeCatalog(catalog));
-
 
 // 遍历一种语言下的全部 stringUnit，包括复数等 variations；回调参数是 (unit, 变体路径数组)
 export const unitsOf = (loc, path = []) => {
@@ -77,7 +82,6 @@ export const unitAt = (loc, path) => {
   for (let i = 0; i < path.length && cur; i += 2) cur = cur.variations?.[path[i]]?.[path[i + 1]];
   return cur?.stringUnit;
 };
-
 
 // 英文原文：优先取 en 的值（xcstringstool 会把多参数格式改写成带序号的形式），没有时就是键本身
 export const sourceLocOf = (key, entry) =>

@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { emptyCatalog, readCatalog, serializeCatalog, sourceLocOf, unitAt, unitsOf, writeCatalog } from "../lib/catalog.js";
@@ -54,7 +54,6 @@ describe("遍历 stringUnit", () => {
     expect(unitAt({ stringUnit: { value: "x" } }, []).value).toBe("x");
   });
 
-
   test("sourceLocOf：有 en 值时用 en 值，否则用键", () => {
     expect(sourceLocOf("%@ (%@)", { localizations: { en: { stringUnit: { value: "%1$@ (%2$@)" } } } }).stringUnit.value).toBe(
       "%1$@ (%2$@)",
@@ -82,5 +81,14 @@ describe("读写文件", () => {
     expect(readCatalog(path)).toEqual(emptyCatalog());
     rmSync(dir, { recursive: true, force: true });
   });
+});
+
+test("writeFileAtomic：改名失败时不留下临时文件", () => {
+  const dir = mkdtempSync(join(tmpdir(), "i18n-cat-")),
+    target = join(dir, "target.xcstrings");
+  mkdirSync(target);
+  expect(() => writeCatalog(target, emptyCatalog())).toThrow();
+  expect(readdirSync(dir)).toEqual(["target.xcstrings"]);
+  rmSync(dir, { recursive: true, force: true });
 });
 
