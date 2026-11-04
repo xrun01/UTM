@@ -7,7 +7,7 @@ import { readFileSync, statSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { parseArgs } from "node:util";
 import { CATALOG_PATHS, readCatalog, writeCatalog } from "./lib/catalog.js";
-import { tokenOf, transportOf } from "./lib/api.js";
+import { langIdOf, tokenOf, transportOf } from "./lib/api.js";
 import { derivableCountOf, deriveLang, pendingOf, translateLang } from "./lib/translate.js";
 
 let opt;
@@ -30,8 +30,27 @@ const root = resolve(opt.root),
   config = JSON.parse(readFileSync(join(root, "i18n/languages.json"), "utf8")).languages,
   wanted = opt.lang ? opt.lang.split(",").map((s) => s.trim()) : config.map((l) => l.code),
   unknown = wanted.filter((c) => !config.some((l) => l.code === c)),
-  limit = opt.limit ? Number(opt.limit) : Infinity;
-if (unknown.length || !(limit > 0)) {
+  limit = opt.limit === undefined ? Infinity : Number(opt.limit);
+// 配置错误时立即退出：每种语言必须有且只有 api 或 derive 中的 1 项，api 必须是接口支持的代码
+const config_problems = config.flatMap((l) => {
+  if (!!l.api === !!l.derive) return [l.code + "：必须有且只有 api 或 derive 中的 1 项"];
+  if (l.api) {
+    try {
+      langIdOf(l.api);
+    } catch (err) {
+      return [l.code + "：" + err.message];
+    }
+    return [];
+  }
+  const base = config.find((x) => x.code === l.derive.from);
+  if (!base?.api) return [l.code + "：derive.from 必须是用接口翻译的已启用语言"];
+  return /^[a-z]+-[a-z]+$/.test(l.derive.opencc ?? "") ? [] : [l.code + "：derive.opencc 必须写成 <from>-<to>，例如 tw-hk"];
+});
+if (config_problems.length) {
+  console.error("i18n/languages.json 配置错误：\n" + config_problems.join("\n"));
+  process.exit(2);
+}
+if (unknown.length || !(Number.isInteger(limit) || limit === Infinity) || limit <= 0) {
   console.error(unknown.length ? "未知语言: " + unknown.join(", ") : "--limit 必须是正整数");
   process.exit(2);
 }
@@ -39,8 +58,9 @@ if (unknown.length || !(limit > 0)) {
 // 先翻译接口支持的语言，再生成派生语言（zh-HK 依赖 zh-Hant 的结果）
 const targets = config.filter((l) => wanted.includes(l.code)).sort((a, b) => Number(!!a.derive) - Number(!!b.derive)),
   paths = Object.fromEntries(Object.entries(CATALOG_PATHS).map(([t, p]) => [t, join(root, p)])),
-  catalogs = Object.fromEntries(Object.entries(paths).map(([t, p]) => [t, readCatalog(p)])),
+  // 先取修改时间再读文件：两步之间被修改时，保存前的比较能发现
   mtimes = Object.fromEntries(Object.entries(paths).map(([t, p]) => [t, statSync(p).mtimeMs])),
+  catalogs = Object.fromEntries(Object.entries(paths).map(([t, p]) => [t, readCatalog(p)])),
   // 一次运行可能持续数十分钟；期间 catalog 被其他工具改过时中止，不覆盖别人的改动
   save = () => {
     const changed = Object.entries(paths).filter(([t, p]) => statSync(p).mtimeMs !== mtimes[t]);

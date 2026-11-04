@@ -188,7 +188,8 @@ describe("translateLang", () => {
       catalogs,
       lang: "ru",
       api_lang: "ru",
-      transport: fakeTransport({ "1 Core": "1 ядро", "2 Cores": "2 ядра", "5 Cores": "5 ядер" }),
+      // ru 的 one 优先选 21：21 在英文里属于 other，送去翻译的就是 check.js 对照的英文 other
+      transport: fakeTransport({ "21 Cores": "21 ядро", "2 Cores": "2 ядра", "5 Cores": "5 ядер" }),
     });
     const ru = catalogs.Localizable.strings["%lld Cores"].localizations.ru.variations.plural;
     expect(Object.fromEntries(Object.entries(ru).map(([k, v]) => [k, v.stringUnit.value]))).toEqual({
@@ -235,9 +236,12 @@ describe("评审修复", () => {
   const unit = (value, state = "translated") => ({ stringUnit: { state, value } }),
     enPlural = () => ({ variations: { plural: { one: unit("%lld Core", "new"), other: unit("%lld Cores", "new") } } });
 
-  test("integerSampleOf：优先 1 至 999，只有 0 才属于的类别用 0", () => {
+  test("integerSampleOf：优先 1 至 999，同一类别中优先选英文属于 other 的数", () => {
     expect(integerSampleOf("fr", "one")).toBe(1);
     expect(integerSampleOf("de", "other")).toBe(2);
+    expect(integerSampleOf("ja", "other")).toBe(2);
+    expect(integerSampleOf("ru", "one")).toBe(21);
+    expect(integerSampleOf("ar", "one")).toBe(1);
     expect(integerSampleOf("ar", "zero")).toBe(0);
     expect(integerSampleOf("ru", "other")).toBeNull();
   });
@@ -260,18 +264,20 @@ describe("评审修复", () => {
     for (const it of items) expect(out[it.id]).toBe(it.text);
   });
 
-  test("复制复数：来源固定为 many，many 没有译文时不退回 one", async () => {
+  test("复制复数：来源固定为 many，many 失败时不退回 one；原来没有复数的键整键不写", async () => {
     const catalogs = catalogsOf({ "%lld Cores": { localizations: { en: enPlural() } } });
     // many 的译文丢了示例数字，不合格
     const report = await translateLang({
       catalogs,
       lang: "ru",
       api_lang: "ru",
-      transport: fakeTransport({ "1 Core": "1 ядро", "2 Cores": "2 ядра", "5 Cores": "пять ядер" }),
+      transport: fakeTransport({ "21 Cores": "21 ядро", "2 Cores": "2 ядра", "5 Cores": "пять ядер" }),
     });
-    const ru = catalogs.Localizable.strings["%lld Cores"].localizations.ru.variations.plural;
-    expect(ru.other).toBeUndefined();
-    expect(report.failed.map((f) => f.reason).join()).toContain("复数类别 other 的来源 many 没有译文");
+    expect(catalogs.Localizable.strings["%lld Cores"].localizations.ru).toBeUndefined();
+    const reasons = report.failed.map((f) => f.reason).join("\n");
+    expect(reasons).toContain("复数类别 other 的来源 many 没有译文");
+    expect(reasons).toContain("同一个键的其他复数类别失败，整键不写入");
+    expect(report.written).toBe(0);
   });
 
   test("--limit：没处理到的复数键不复制，也不报失败", async () => {
@@ -336,6 +342,101 @@ describe("评审修复", () => {
     });
     expect(await t("en", "de", "p", "x")).toBe("x");
     expect(n).toBe(2);
+  });
+});
+
+describe("第 2 轮评审修复", () => {
+  const unit = (value, state = "translated") => ({ stringUnit: { state, value } });
+
+  test("parseYaml：多行普通值交给 YAML 解析，不截成第 1 行；CRLF 也能解析", () => {
+    expect(parseYaml("ka00000000001: Hallo\n  Welt\nka00000000002: ok\n")).toEqual({ ka00000000001: "Hallo Welt", ka00000000002: "ok" });
+    expect(parseYaml('ka00000000001: {1} öffnen\r\nka00000000002: "b"\r\n')).toEqual({ ka00000000001: "{1} öffnen", ka00000000002: "b" });
+  });
+
+  test("parseYaml：YAML 特殊值不当作译文", () => {
+    expect(parseYaml("ka00000000001: null\nka00000000002: true\nka00000000003: ok\n")).toEqual({ ka00000000003: "ok" });
+  });
+
+  test("接口返回 200 但内容无法解析：按整批失败，不逐条重发", async () => {
+    let calls = 0;
+    const transport = async () => {
+      calls++;
+      return "<html>Gateway</html>";
+    };
+    const report = await translateLang({ catalogs: catalogsOf({ A: {}, B: {}, C: {} }), lang: "de", api_lang: "de", transport });
+    expect(calls).toBe(1);
+    expect(report.failed.map((f) => f.reason)).toEqual(Array(3).fill("请求失败: 接口返回的内容无法解析为译文"));
+  });
+
+  test("复数：英文 one 写成「One core」时，中日韩语言用 other 的示例数字照样翻译", async () => {
+    const en = { variations: { plural: { one: unit("One core", "new"), other: unit("%lld cores", "new") } } },
+      catalogs = catalogsOf({ "%lld cores": { localizations: { en } } });
+    const report = await translateLang({ catalogs, lang: "ja", api_lang: "ja", transport: fakeTransport({ "2 cores": "2 コア" }) });
+    expect(report.written).toBe(1);
+    expect(catalogs.Localizable.strings["%lld cores"].localizations.ja.variations.plural.other.stringUnit.value).toBe("%lld コア");
+  });
+
+  test("复数：只对应 1 个整数的类别（ar 的 one）可以省略数字", async () => {
+    const catalogs = catalogsOf({ "%lld Cores": { localizations: { en: { variations: { plural: { one: unit("%lld Core", "new"), other: unit("%lld Cores", "new") } } } } } });
+    const { units } = pendingOf(catalogs, "ar");
+    const one = units.find((u) => u.path[1] === "one");
+    expect(one.text).toBe("1 Core");
+    expect(one.finish("نواة واحدة")).toBe("نواة واحدة");
+  });
+
+  test("空译文的失败原因是「译文为空」", async () => {
+    const report = await translateLang({ catalogs: catalogsOf({ Hello: {} }), lang: "de", api_lang: "de", transport: async (f, t, p, y) => y.replace(/: .*/g, ': ""') });
+    expect(report.failed[0].reason).toContain("译文为空");
+  });
+
+  test("长度异常的机翻不写入", async () => {
+    const report = await translateLang({ catalogs: catalogsOf({ Hello: {} }), lang: "de", api_lang: "de", transport: fakeTransport({ Hello: "x".repeat(500) }) });
+    expect(report.written).toBe(0);
+    expect(report.failed[0].reason).toContain("译文长度异常");
+  });
+
+  test("复制的类别也要校验：来源是不合格的人工译文时整键不写", async () => {
+    const en = { variations: { plural: { one: unit("%lld Core", "new"), other: unit("%lld Cores", "new") } } },
+      // 已有的 many 丢了占位符，复制给 other 后不合格
+      ru = { variations: { plural: { many: unit("ядер") } } },
+      catalogs = catalogsOf({ "%lld Cores": { localizations: { en, ru } } });
+    const report = await translateLang({ catalogs, lang: "ru", api_lang: "ru", transport: fakeTransport({ "21 Cores": "21 ядро", "2 Cores": "2 ядра" }) });
+    expect(report.failed.some((f) => f.reason.includes("占位符"))).toBe(true);
+  });
+
+  test("每次运行的重试 salt 不同，重新运行时不会命中同一个坏缓存", async () => {
+    const keysOf = async () => {
+      const sent = [];
+      await translateLang({
+        catalogs: catalogsOf({ "Install Linux": {} }),
+        lang: "ar",
+        api_lang: "ar",
+        transport: async (...args) => (sent.push(args[3]), fakeTransport({ "Install Linux": "تثبيت لينكس" })(...args)),
+      });
+      return sent.map((s) => s.split(":")[0]);
+    };
+    const a = await keysOf(),
+      b = await keysOf();
+    expect(a[0]).toBe(b[0]);
+    expect(a[1]).not.toBe(b[1]);
+  });
+
+  test("deriveLang 跳过嵌套的 variations", () => {
+    const nested = { variations: { device: { mac: { variations: { plural: { other: unit("核心") } } } } } },
+      catalogs = catalogsOf({ K: { localizations: { "zh-Hant": nested } } });
+    expect(deriveLang({ catalogs, lang: "zh-HK", derive: { from: "zh-Hant", opencc: "tw-hk" } }).written).toBe(0);
+  });
+
+  test("transportOf：报错中的 token 被替换；408 和返回非 JSON 时重试", async () => {
+    const leak = transportOf("SECRET", { retries: 0, fetchFn: async () => new Response("bad token SECRET", { status: 401 }) });
+    await expect(leak("en", "de", "p", "x")).rejects.toThrow("bad token ***");
+    let n = 0;
+    const flaky = transportOf("T", {
+      retries: 2,
+      fetchFn: async () => (++n === 1 ? new Response("", { status: 408 }) : n === 2 ? new Response("<html>") : new Response(JSON.stringify(["ok", 1]))),
+    });
+    expect(await flaky("en", "de", "p", "x")).toBe("ok");
+    expect(n).toBe(3);
   });
 });
 

@@ -1,28 +1,42 @@
 // 机翻缺译条目：只补缺失的部分，已有译文一律不动；写入的译文状态是 needs_review
-// 不合格的译文（占位符、专有名词、数字等，规则与 check.js 相同）不写入，只报告
+// 不合格的译文（占位符、专有名词、数字、长度等，规则与 check.js 相同）不写入，只报告
 
-import { createHash } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import * as OpenCC from "opencc-js";
 import { FatalError } from "./api.js";
 import { SOURCE_LANG, isTranslatable, sourceLocOf, unitAt, unitsOf } from "./catalog.js";
-import { CJK_LANGS, sourceTextAt, unitIssuesOf } from "./checks.js";
+import {
+  CJK_LANGS,
+  RTL_LANGS,
+  ZWSP_LANGS,
+  lengthIssueOf,
+  pluralCategoriesOf,
+  singleIntegerOf,
+  sourceTextAt,
+  unitIssuesOf,
+  unitSourceOf,
+} from "./checks.js";
 import { specsOf } from "./format.js";
 import { maskOf, unmaskOf } from "./mask.js";
 
 const BATCH_SIZE = 150,
   PARALLEL = 4,
-  ZWSP_LANGS = new Set(["km", "lo", "th", "my"]),
-  RTL_LANGS = new Set(["ar", "fa", "he", "iw", "ur", "sd"]),
-  FULLWIDTH = { "，": ", ", "。": ". ", "：": ": ", "；": "; ", "！": "! ", "？": "? ", "（": " (", "）": ")" };
+  FULLWIDTH = { "，": ", ", "。": ". ", "：": ": ", "；": "; ", "！": "! ", "？": "? ", "（": " (", "）": ")" },
+  EN_RULES = new Intl.PluralRules(SOURCE_LANG);
 
-const pluralRulesOf = (lang) => new Intl.PluralRules(lang),
-  pluralCategoriesOf = (lang) => pluralRulesOf(lang).resolvedOptions().pluralCategories;
-
-// 返回 select(n) 等于 category 的示例整数。优先 1 至 999：0 会被意译成「没有」，数字就消失了；
-// 只有 ar 的 zero 这类类别用 0。ru、pl 等语言的 other 只用于小数，没有整数示例，返回 null
+// 返回目标语言中属于 category 的示例整数：
+// - 优先 1 至 999，因为 0 常被意译成「没有」，数字就消失了；只有 ar 的 zero 这类类别用 0
+// - 同一类别中优先选英文属于 other 的数，这样送去翻译的就是 check.js 对照的英文 other
+// - ru、pl 等语言的 other 只用于小数，没有整数示例，返回 null
 export const integerSampleOf = (lang, category) => {
-  const rules = pluralRulesOf(lang);
-  for (let n = 1; n < 1000; n++) if (rules.select(n) === category) return n;
+  const rules = new Intl.PluralRules(lang);
+  let first = null;
+  for (let n = 1; n < 1000; n++) {
+    if (rules.select(n) !== category) continue;
+    if (EN_RULES.select(n) === "other") return n;
+    first ??= n;
+  }
+  if (first !== null) return first;
   return rules.select(0) === category ? 0 : null;
 };
 
@@ -52,36 +66,44 @@ export const polishOf = (lang, source, value) => {
   return lead + v.trim() + trail;
 };
 
-// YAML 键是原文的 hash。服务端按行缓存译文，所以重试时加 salt 换一个键，否则只会拿回同一条坏译文
+// YAML 键是原文的 hash。服务端按行缓存译文，重试时加 salt 换一个键，否则只会拿回同一条坏译文
 const idOf = (text, salt = "") => "k" + createHash("sha1").update(salt + "\x00" + text).digest("hex").slice(0, 12);
 
-const ID_LINE_RE = /^(k[0-9a-f]{12}): (.*)$/;
+const ID_LINE_RE = /^(k[0-9a-f]{12}): ?(.*)$/,
+  CONTINUATION_RE = /^\s+\S/,
+  // 不补引号的值：YAML 的特殊值和锚点、标签。它们解析出的不是字符串，按缺失处理
+  YAML_SPECIAL_RE = /^(?:null|~|true|false|yes|no|on|off)$|^[&!*]/i;
 
 // 把一批文案写成 YAML，值用 JSON 字符串转义（JSON 字符串也是合法的 YAML 双引号字符串）
 export const yamlOf = (items) => items.map((it) => it.id + ": " + JSON.stringify(it.text)).join("\n") + "\n";
 
-// 解析接口返回的 YAML。接口有时不给值加引号，「{1} …」会被解析成映射，所以先给这种值加上引号；
-// 整体解析失败时，只逐行解析双引号值，其余条目按缺失处理，不会把原文写进 catalog
+// 解析接口返回的 YAML，返回 { id: 字符串 }
+// - 接口有时不给值加引号，「{1} …」会被解析成映射，所以先给单行的普通值加上引号
+// - 多行的普通值（下一行是缩进续行）交给 YAML 解析，不补引号，否则会被截成第 1 行
+// - 整体解析失败时，只逐行取单行的双引号值；其余条目按缺失处理，不会把半截或语法写进 catalog
 export const parseYaml = (text) => {
-  const lines = text.split("\n").map((line) => {
-    const m = line.match(ID_LINE_RE);
-    return m && !/^["'|>]/.test(m[2]) ? m[1] + ": " + JSON.stringify(m[2]) : line;
-  });
+  const lines = text.split(/\r?\n/),
+    continued = (i) => CONTINUATION_RE.test(lines[i + 1] ?? "") && !ID_LINE_RE.test(lines[i + 1]),
+    quoted = lines.map((line, i) => {
+      const m = line.match(ID_LINE_RE);
+      if (!m || continued(i) || /^["'|>]/.test(m[2]) || YAML_SPECIAL_RE.test(m[2])) return line;
+      return m[1] + ": " + JSON.stringify(m[2]);
+    });
   try {
-    const obj = Bun.YAML.parse(lines.join("\n"));
+    const obj = Bun.YAML.parse(quoted.join("\n"));
     if (obj && typeof obj === "object" && !Array.isArray(obj)) {
       return Object.fromEntries(Object.entries(obj).filter(([, v]) => typeof v === "string"));
     }
   } catch {}
   const out = {};
-  for (const line of lines) {
+  quoted.forEach((line, i) => {
     const m = line.match(ID_LINE_RE);
-    if (!m?.[2].startsWith('"')) continue;
+    if (!m?.[2].startsWith('"') || continued(i)) return;
     try {
       const v = JSON.parse(m[2]);
       if (typeof v === "string") out[m[1]] = v;
     } catch {}
-  }
+  });
   return out;
 };
 
@@ -94,7 +116,13 @@ const poolRun = async (tasks, limit) => {
   );
 };
 
-// 一个待翻译单元：发送 text，收到后用 finish(译文) 得到最终值（null 表示不合格）
+const batchesOf = (items) => {
+  const out = [];
+  for (let i = 0; i < items.length; i += BATCH_SIZE) out.push(items.slice(i, i + BATCH_SIZE));
+  return out;
+};
+
+// 普通文案：遮盖占位符后发送，收到后还原
 const plainUnitOf = (lang, source) => {
   const masked = maskOf(source);
   if (!masked) return null;
@@ -108,18 +136,20 @@ const plainUnitOf = (lang, source) => {
 };
 
 // 复数类别：把计数占位符换成示例数字发送，收到后把数字换回占位符
+// 这个类别只对应 1 个整数时（ar 的 one、two），译文可以省略数字，与 check.js 的规则一致
 const pluralUnitOf = (lang, entry, key, category, n) => {
-  const source = sourceTextAt(key, entry, ["plural", pluralRulesOf(SOURCE_LANG).select(n)]),
+  const source = sourceTextAt(key, entry, ["plural", EN_RULES.select(n)]),
     specs = specsOf(source);
   if (specs.length !== 1 || source.replace(specs[0].raw, "").includes("%")) return null;
-  const spec = specs[0];
+  const spec = specs[0],
+    may_omit = singleIntegerOf(lang, category);
   return {
-    source,
     text: source.replace(spec.raw, String(n)),
     finish: (out) => {
-      // 译文中的数字可能是阿拉伯-印度数字；示例数字必须正好出现 1 次
+      // 译文中的数字可能是阿拉伯-印度数字
       const ascii = out.replace(/[٠-٩]/g, (d) => d.charCodeAt(0) - 0x660).replace(/[۰-۹]/g, (d) => d.charCodeAt(0) - 0x6f0),
         hits = [...ascii.matchAll(new RegExp("(?<!\\d)" + n + "(?!\\d)", "g"))];
+      if (hits.length === 0 && may_omit) return polishOf(lang, source, out);
       if (hits.length !== 1) return null;
       const i = hits[0].index;
       return polishOf(lang, source, out.slice(0, i) + spec.raw + out.slice(i + String(n).length));
@@ -127,8 +157,9 @@ const pluralUnitOf = (lang, entry, key, category, n) => {
   };
 };
 
-// 收集一种语言的待翻译单元：[{ table, key, path, source, text, finish }]，以及复制项 [{ table, key, path }]
-// 不支持的键写进 skipped，每个键只记 1 次
+// 收集一种语言的待翻译单元。返回 { units, copies }：
+// units 是 [{ table, key, entry, path, text, finish, fresh }]，copies 是 [{ table, key, entry, path, fresh }]
+// fresh 表示这个复数键原来没有任何类别；这种键要么所有类别都写入，要么一个都不写
 export const pendingOf = (catalogs, lang, skipped = []) => {
   const units = [],
     copies = [];
@@ -142,19 +173,21 @@ export const pendingOf = (catalogs, lang, skipped = []) => {
         // 已有不分复数的译文时视为完整
         if (loc?.stringUnit?.value) continue;
         const have = loc?.variations?.plural ?? {},
+          fresh = !Object.values(have).some((v) => v?.stringUnit?.value),
           key_units = [],
           key_copies = [];
         let ok = true;
         for (const category of pluralCategoriesOf(lang)) {
           if (have[category]?.stringUnit?.value) continue;
-          const n = integerSampleOf(lang, category);
+          const path = ["plural", category],
+            n = integerSampleOf(lang, category);
           if (n === null) {
-            key_copies.push({ table, key, path: ["plural", category] });
+            key_copies.push({ table, key, entry, path, fresh });
             continue;
           }
           const unit = pluralUnitOf(lang, entry, key, category, n);
-          if (!unit) ok = false;
-          else key_units.push({ table, key, path: ["plural", category], ...unit });
+          if (unit) key_units.push({ table, key, entry, path, fresh, ...unit });
+          else ok = false;
         }
         if (!ok) skipped.push({ table, key, reason: "复数文案必须只有 1 个计数占位符" });
         else {
@@ -168,13 +201,23 @@ export const pendingOf = (catalogs, lang, skipped = []) => {
         continue;
       }
       if (has) continue;
-      const source = sourceTextAt(key, entry, []),
-        unit = plainUnitOf(lang, source);
-      if (unit) units.push({ table, key, path: [], source, ...unit });
+      const unit = plainUnitOf(lang, sourceTextAt(key, entry, []));
+      if (unit) units.push({ table, key, entry, path: [], fresh: false, ...unit });
       else skipped.push({ table, key, reason: "文案含 stringsdict 变量、带 * 的占位符或字面量 {数字}，暂不支持" });
     }
   }
   return { units, copies };
+};
+
+// 按键截取：最多 limit 个单元，但不把一个复数键截在类别中间
+const limitByKey = (units, limit) => {
+  const out = [];
+  for (const u of units) {
+    const same_key = out.length && out.at(-1).table === u.table && out.at(-1).key === u.key;
+    if (out.length >= limit && !same_key) break;
+    out.push(u);
+  }
+  return out;
 };
 
 const setUnit = (catalog, key, lang, path, value) => {
@@ -189,82 +232,108 @@ const setUnit = (catalog, key, lang, path, value) => {
   variants[path[1]] = { stringUnit: { state: "needs_review", value } };
 };
 
+// 校验 1 条候选译文：规则与 check.js 相同，另外拒绝空串和长度异常；返回 { value } 或 { reason }
+const verdictOf = (lang, u, value) => {
+  if (value === null) return { reason: "占位符或示例数字无法还原" };
+  if (!value.trim()) return { reason: "译文为空" };
+  const source = unitSourceOf(lang, u.key, u.entry, u.path, value),
+    issues = unitIssuesOf(lang, source, value);
+  if (issues.length) return { reason: issues.map((i) => i.msg).join("；") };
+  // 机翻偶尔会输出整段无关文字；长度异常在 check.js 中只是警告，这里直接拒绝
+  if (lengthIssueOf(lang, source, value) || value.length > source.length * 4 + 20) return { reason: "译文长度异常" };
+  return { value };
+};
+
 // 翻译一种语言；transport(from, to, path, yaml) 返回译文 YAML。遇到 FatalError（例如 token 无效）时抛出，中止整次运行
-export const translateLang = async ({ catalogs, lang, api_lang, transport, limit = Infinity }) => {
+export const translateLang = async ({ catalogs, lang, api_lang, transport, limit = Infinity, salt = randomUUID() }) => {
   const report = { lang, written: 0, failed: [], skipped: [] },
     pending = pendingOf(catalogs, lang, report.skipped),
-    units = pending.units.slice(0, limit),
-    attempted = new Set(units.map((u) => u.table + "\x00" + u.key));
+    units = limitByKey(pending.units, limit),
+    included = new Set(units.map((u) => u.table + "\x00" + u.key)),
+    texts = [...new Set(units.map((u) => u.text))];
 
-  // 同一句原文只请求 1 次
-  const texts = new Map();
-  for (const u of units) {
-    u.id = idOf(u.text);
-    texts.set(u.id, u.text);
-  }
-
-  // 发送一批 { id, text }，结果写进 answers；整批失败时记下原因
-  const send = async (items, answers, errors) => {
+  // 发送一批原文，结果写进 answers；整批失败（包括 1 条都没解析出来）时记下原因
+  const send = async (batch, answers, errors, round_salt) => {
+    const items = batch.map((text) => ({ id: idOf(text, round_salt), text }));
     try {
-      const parsed = parseYaml(await transport(SOURCE_LANG, api_lang, "utm/en/strings.yml", yamlOf(items)));
-      for (const it of items) if (parsed[it.id] !== undefined) answers.set(it.text, parsed[it.id]);
+      const parsed = parseYaml(await transport(SOURCE_LANG, api_lang, "utm/en/strings.yml", yamlOf(items))),
+        got = items.filter((it) => parsed[it.id] !== undefined);
+      if (got.length === 0) throw new Error("接口返回的内容无法解析为译文");
+      for (const it of got) answers.set(it.text, parsed[it.id]);
     } catch (err) {
       if (err instanceof FatalError) throw err;
       for (const it of items) errors.set(it.text, err.message);
     }
   };
-  const first = new Map(),
-    first_err = new Map(),
-    items = [...texts].map(([id, text]) => ({ id, text })),
-    batches = [];
-  for (let i = 0; i < items.length; i += BATCH_SIZE) batches.push(items.slice(i, i + BATCH_SIZE));
-  await poolRun(batches.map((b) => () => send(b, first, first_err)), PARALLEL);
-
-  // 修正后按 check.js 的规则校验；返回 { value } 或 { reason }
-  const judge = (u, raw) => {
-    if (raw === undefined) return { reason: "接口没有返回这条译文" };
-    const value = u.finish(raw);
-    if (value === null) return { reason: "译文不合格: 占位符或示例数字无法还原" };
-    const issues = unitIssuesOf(lang, u.source, value);
-    return issues.length ? { reason: "译文不合格: " + issues.map((i) => i.msg).join("；") } : { value };
+  const round = async (batch_texts, round_salt) => {
+    const answers = new Map(),
+      errors = new Map();
+    await poolRun(batchesOf(batch_texts).map((b) => () => send(b, answers, errors, round_salt)), PARALLEL);
+    return { answers, errors };
+  };
+  const judge = (u, answers, errors) => {
+    if (errors.has(u.text)) return { reason: "请求失败: " + errors.get(u.text) };
+    const raw = answers.get(u.text);
+    return raw === undefined ? { reason: "接口没有返回这条译文" } : verdictOf(lang, u, u.finish(raw));
   };
 
-  // 不合格或漏返回的条目换一个键单独重试 1 次；整批请求失败的条目不重试，避免接口故障时逐条重发
-  const retry_text = new Set(units.filter((u) => !first_err.has(u.text) && !judge(u, first.get(u.text)).value).map((u) => u.text)),
-    second = new Map(),
-    second_err = new Map();
-  await poolRun([...retry_text].map((text) => () => send([{ id: idOf(text, "retry"), text }], second, second_err)), PARALLEL);
+  // 第 1 轮用稳定的键（可以命中服务端缓存）；不合格或漏返回的条目，第 2 轮换本次运行专用的键分批重试
+  // 整批请求失败的条目不重试，避免接口故障时反复发送
+  const r1 = await round(texts, ""),
+    first = new Map(units.map((u) => [u, judge(u, r1.answers, r1.errors)])),
+    retry = [...new Set(units.filter((u) => !first.get(u).value && !r1.errors.has(u.text)).map((u) => u.text))],
+    r2 = await round(retry, salt),
+    result = new Map(
+      units.map((u) => {
+        const a = first.get(u);
+        if (a.value !== undefined || !retry.includes(u.text)) return [u, a];
+        const b = judge(u, r2.answers, r2.errors);
+        return [u, b.value !== undefined ? b : { reason: b.reason + "（第 1 次：" + a.reason + "）" }];
+      }),
+    );
 
-  for (const u of units) {
-    let result = judge(u, first.get(u.text));
-    if (first_err.has(u.text)) result = { reason: "请求失败: " + first_err.get(u.text) };
-    else if (!result.value && retry_text.has(u.text)) {
-      const again = second_err.has(u.text) ? { reason: "重试请求失败: " + second_err.get(u.text) } : judge(u, second.get(u.text));
-      result = again.value ? again : { reason: again.reason + "（第 1 次：" + result.reason + "）" };
-    }
-    if (!result.value) {
-      report.failed.push({ table: u.table, key: u.key, reason: result.reason });
-      continue;
-    }
-    setUnit(catalogs[u.table], u.key, lang, u.path, result.value);
-    report.written++;
+  // 按键汇总：复制的类别也先算好、校验好；原来没有复数的键任何 1 个类别失败时整键不写
+  const groups = new Map(),
+    group = (x) => {
+      const id = x.table + "\x00" + x.key;
+      if (!groups.has(id)) groups.set(id, { units: [], copies: [] });
+      return groups.get(id);
+    };
+  for (const u of units) group(u).units.push(u);
+  // 只复制本次处理过的键，或者只缺复制类别的键
+  for (const c of pending.copies) {
+    const id = c.table + "\x00" + c.key;
+    if (included.has(id) || !pending.units.some((u) => u.table === c.table && u.key === c.key)) group(c).copies.push(c);
   }
 
-  // 没有整数示例的复数类别（ru 的 other）：复制固定的来源类别；只处理本次翻译过、或来源已有译文的键
-  for (const c of pending.copies) {
-    const plural = catalogs[c.table].strings[c.key].localizations?.[lang]?.variations?.plural ?? {},
-      from = plural[copySourceOf(c.path[1])]?.stringUnit?.value;
-    if (from) {
-      setUnit(catalogs[c.table], c.key, lang, c.path, from);
-      report.written++;
-    } else if (attempted.has(c.table + "\x00" + c.key)) {
-      report.failed.push({ table: c.table, key: c.key, reason: "复数类别 " + c.path[1] + " 的来源 " + copySourceOf(c.path[1]) + " 没有译文" });
+  for (const { units: key_units, copies } of groups.values()) {
+    const plan = key_units.map((u) => ({ x: u, ...result.get(u) }));
+    for (const c of copies) {
+      const existing = c.entry.localizations?.[lang]?.variations?.plural ?? {},
+        from_path = ["plural", copySourceOf(c.path[1])],
+        from = plan.find((p) => p.x.path.join() === from_path.join() && p.value !== undefined)?.value ?? existing[from_path[1]]?.stringUnit?.value;
+      plan.push({ x: c, ...(from ? verdictOf(lang, c, from) : { reason: "复数类别 " + c.path[1] + " 的来源 " + from_path[1] + " 没有译文" }) });
+    }
+    const fresh = plan.some((p) => p.x.fresh),
+      any_failed = plan.some((p) => p.value === undefined);
+    for (const p of plan) {
+      if (p.value !== undefined && !(fresh && any_failed)) {
+        setUnit(catalogs[p.x.table], p.x.key, lang, p.x.path, p.value);
+        report.written++;
+      } else {
+        report.failed.push({
+          table: p.x.table,
+          key: p.x.key,
+          reason: p.value === undefined ? p.reason : "同一个键的其他复数类别失败，整键不写入",
+        });
+      }
     }
   }
   return report;
 };
 
-// 派生语言中现在就能转换的单元：[{ table, key, path, value }]
+// 派生语言中现在就能转换的单元：[{ table, key, entry, path, value }]
+// 只处理普通文案和复数（2 层路径），与 pendingOf 一致
 const derivableOf = (catalogs, lang, derive) => {
   const out = [];
   for (const [table, catalog] of Object.entries(catalogs)) {
@@ -274,9 +343,10 @@ const derivableOf = (catalogs, lang, derive) => {
         loc = entry.localizations?.[lang],
         has = unitsOf(loc).some(([u]) => u.value);
       for (const [unit, path] of unitsOf(base)) {
+        if (!unit.value || !(path.length === 0 || (path.length === 2 && path[0] === "plural"))) continue;
         // 不分复数的单元只在目标完全没有译文时补；复数单元按类别补，已有的类别不动
-        if (!unit.value || (path.length === 0 ? has : loc?.stringUnit?.value || unitAt(loc, path)?.value)) continue;
-        out.push({ table, key, path, value: unit.value });
+        if (path.length === 0 ? has : loc?.stringUnit?.value || unitAt(loc, path)?.value) continue;
+        out.push({ table, key, entry, path, value: unit.value });
       }
     }
   }
@@ -290,15 +360,13 @@ export const deriveLang = ({ catalogs, lang, derive }) => {
   const [from, to] = derive.opencc.split("-"),
     convert = OpenCC.Converter({ from, to }),
     report = { lang, written: 0, failed: [], skipped: [] };
-  for (const { table, key, path, value: base } of derivableOf(catalogs, lang, derive)) {
-    const entry = catalogs[table].strings[key],
-      value = convert(base),
-      issues = unitIssuesOf(lang, sourceTextAt(key, entry, path), value);
-    if (issues.length) {
-      report.failed.push({ table, key, reason: "转换结果不合格: " + issues.map((i) => i.msg).join("；") });
+  for (const u of derivableOf(catalogs, lang, derive)) {
+    const verdict = verdictOf(lang, u, convert(u.value));
+    if (verdict.value === undefined) {
+      report.failed.push({ table: u.table, key: u.key, reason: "转换结果不合格: " + verdict.reason });
       continue;
     }
-    setUnit(catalogs[table], key, lang, path, value);
+    setUnit(catalogs[u.table], u.key, lang, u.path, verdict.value);
     report.written++;
   }
   return report;
