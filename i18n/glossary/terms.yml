@@ -229,8 +229,8 @@ classic-systems:
   rule: translate
   note: 早期的旧系统，例如 Mac OS 9、Windows 95。
 
-# 原样保留的名称。scripts/i18n/check.js 检查其中的 iPhone、iPad、DirectX、Vulkan、OpenGL，其余审校时人工检查。
-# iPhone 按词干 iPhon 匹配：斯拉夫语变格时去掉词尾 e（cs、sk 写 iPhonu）
+# 原样保留的名称。scripts/i18n/check.js 不检查这一组，审校时人工检查。
+# check.js 自动检查的专有名词清单在 scripts/i18n/lib/terms.js 的 KEEP_TERMS。
 keep-names:
   zh: iPhone、iPad、Vulkan、OpenGL、DirectX、VLAN、ROM、ISO、binfmt、ARM64、ARM32、x86、x86_64、x64、MIPS、PowerPC、RISC-V、68k、Mac OS、Mac OS X
   en: 同 zh

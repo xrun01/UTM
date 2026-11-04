@@ -1,6 +1,6 @@
 # es-419 定下的译法（来自官网的 es.yml）。键是 i18n/glossary/terms.yml 的术语 id。
 # 地区：拉丁美洲西班牙语，Apple 写法按 es-mx（la Mac、computadora、mouse），现有译文就是这种倾向。
-# 称呼：usted。现有译文大多数用 usted；Apple es-mx 用 tú，见 proposal.json 的 doubts。
+# 称呼：usted。官网现有译文大多数用 usted；Apple es-mx 用 tú，审校 app 译文时确认用哪一种。
 virtual-machine: máquina virtual
 guest: invitado；客户机系统 = sistema invitado；客户机工具 = herramientas de invitado
 emulate: emular；emulación（不用 simular）

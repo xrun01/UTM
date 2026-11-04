@@ -5,7 +5,7 @@ description: UTM 的国际化流程：加文案（新增或修改界面文案后
 
 # utm-i18n
 
-这份说明与代理无关，用你的代理提供的工具执行（Claude Code、Codex、OpenCode 等）。这是权威版本，`.claude/commands/`、`.opencode/command/` 下的文件只做转发。
+这份说明与代理无关，用你的代理提供的工具执行，例如 Claude Code、Codex、OpenCode。这是权威版本，`.claude/commands/`、`.opencode/command/` 下的文件只做转发。
 
 ## 先读
 
@@ -49,11 +49,11 @@ description: UTM 的国际化流程：加文案（新增或修改界面文案后
    - 执行前要求用户输入更多信息的菜单项和按钮，以「…」（U+2026）结尾，不写「...」。
    - 专有名词的写法见 `scripts/i18n/lib/terms.js` 和术语表。
    - 有歧义的短词（例如 Display、Open）加 `comment`，或改用显式键。
-5. 运行 `bun scripts/i18n/translate.js`。
+5. 运行 `bun scripts/i18n/translate.js`。它补齐所有语言的全部缺译条目。初次机翻完成后，缺译只剩新文案和此前机翻失败的条目，所以范围和新文案基本一致。
    结果：每种语言输出写入条数和失败条数。失败的条目保持缺译，运行时显示英文。
-6. 运行 `bun scripts/i18n/check.js`。
+6. 运行 `bun scripts/i18n/check.js --ci`。
    结果：`0 个错误`。
-7. 审校新文案的译文：执行流程 3，范围是第 3 步的新键（`review.js export --keys <tmp>/new-keys.json`）。
+7. 审校新文案的译文：执行流程 3 的第 1 至 8 步，范围是第 3 步的新键（`review.js export --keys <tmp>/new-keys.json`）。
 8. 提交源码和 catalog。提交说明写出新增几条文案、机翻几种语言、审校结果。
 
 ## 流程 2：加语言
@@ -68,12 +68,12 @@ description: UTM 的国际化流程：加文案（新增或修改界面文案后
    - 接口没有这种语言、但能由已启用的语言转换时（例如 zh-HK 由 zh-Hant 转换），用 `derive`。
    - 两者都不行时，停止，并告诉用户原因。
 3. 在 `i18n/languages.json` 中加入这种语言。
-4. 准备术语表。amalthea（官网仓库）有这种语言的 `glossary/<code>.yml` 时，复制过来。去掉 `ui-` 开头的术语，并在文件头注明来源 commit。没有时，在第 7 步由改稿代理新建。
+4. 准备术语表。amalthea 是 VM64 官网仓库，本机通常在 `~/dev/amalthea`，GitHub 上是 `xrun01/amalthea`。它的 `glossary/` 用 Google 风格的代码，例如 `zh-TW.yml` 对应 zh-Hant，`es.yml` 对应 es-419。有这种语言的文件时，复制过来。去掉 `ui-` 开头的术语，并在文件头注明来源 commit。没有时，在第 7 步由改稿代理新建。
 5. 运行 `bun scripts/i18n/translate.js --lang <code>`。
 6. 运行 `bun scripts/i18n/check.js --lang <code>`。
    结果：`0 个错误`。
-7. 全量审校：执行流程 3，语言是 `<code>`，范围是 `needs_review`。
-8. 运行 `bun vm/script/buildApp.js`，确认 `UTM.app/Contents/Resources/<code>.lproj/` 存在，再做第 3 节第 9 步的布局验收。
+7. 全量审校：执行流程 3 的第 1 至 8 步，语言是 `<code>`，范围是 `needs_review`。
+8. 运行 `bun vm/script/buildApp.js`，确认 `UTM.app/Contents/Resources/<code>.lproj/` 存在，再做流程 3 第 9 步的布局验收。fork 不维护 `UTM.xcodeproj`，所以不用改它的 `knownRegions`。
 9. 提交 `i18n/languages.json`、术语表和 catalog。
 
 ## 流程 3：审校
@@ -98,7 +98,7 @@ description: UTM 的国际化流程：加文案（新增或修改界面文案后
 
 下文 `<tmp>` 是会话临时目录下的 `i18n-review/`，每种语言 1 个子目录 `<tmp>/<lang>/`。
 
-1. **导出。** 每种语言运行 `bun scripts/i18n/review.js export --lang <lang> --out <tmp>/<lang>/export.json`，按范围加 `--state`、`--keys`、`--key`、`--limit`。
+1. **导出。** 导出 0 条的语言跳过后续步骤。每种语言运行 `bun scripts/i18n/review.js export --lang <lang> --out <tmp>/<lang>/export.json`，按范围加 `--state`、`--keys`、`--key`、`--limit`。
 2. **改稿。** 每种语言启动 1 个改稿代理，最多 3 个并行。说明按 `reviser.md`，填入语言、输入和输出路径。
    结果：`<tmp>/<lang>/proposal.json`，以及更新后的 `i18n/glossary/<lang>.yml`。
 3. **主代理复核。** 读 `proposal.json` 的全部改动和 `doubts`。
@@ -107,10 +107,10 @@ description: UTM 的国际化流程：加文案（新增或修改界面文案后
    - 跨语言都会出现的新术语，补进 `terms.yml`。
 4. **回译。** 运行 `bun scripts/i18n/review.js back-input --proposal <tmp>/<lang>/proposal.json --out <tmp>/<lang>/back-input.json`。每种语言启动 1 个新的回译代理，说明按 `back-translator.md`。回译代理只能看 `back-input.json`。
    结果：`<tmp>/<lang>/back.json`。回译覆盖改动和确认的全部条目，因为机翻条目即使没改也要验证。
-5. **比对。** 逐条比较英文和回译，并读回译代理写的 `note`。条目超过 100 条时，先运行 `bun scripts/i18n/review.js compare-input --dir <tmp> --langs <lang,lang> --out <tmp>/compare-input.json`。然后启动比对代理，说明按 `comparator.md`。
+5. **比对。** 逐条比较英文和回译，并读回译代理写的 `note`。条目超过 100 条时，先运行 `bun scripts/i18n/review.js compare-input --dir <tmp> --langs <lang,lang> --out <tmp>/compare-input.json`。然后启动比对代理，说明按 `comparator.md`。比对结果写到 `<tmp>/compare.json`，第 8 步的报告会读它。
    - 意思一致：通过。
-   - 意思不一致，或 `note` 指出真实的歧义：退回改稿代理。改过的条目再回译 1 次：`back-input` 加 `--ids <id,id>`，结果写 `back2.json`，第 N 轮写 `backN.json`。
-   - 最多退回 2 轮。2 轮后仍有分歧的条目，从 `proposal.json` 中删除，让它保持 `needs_review`。在交付说明中列出这些条目。
+   - 意思不一致，或 `note` 指出真实的歧义：退回改稿代理。改过的条目再回译 1 次。把要重译的条目 id 写成 JSON 数组，比对代理的输出可以直接用。`back-input` 加 `--ids-file <文件>`，结果写 `back2.json`。第 N 轮写 `backN.json`。
+   - 最多退回 2 轮。2 轮后仍有分歧的条目，从 `changes` 和 `approved` 中移到 `withdrawn`，写明原因：`{ "id": "…", "reason": "…" }`。这些条目保持 `needs_review`，报告中单独列出。
 6. **写入。** 先运行 `bun scripts/i18n/review.js apply --lang <lang> --proposal <tmp>/<lang>/proposal.json --dry-run`，通过后去掉 `--dry-run` 再运行 1 次。
    - 脚本逐条核对原译文，并按 `check.js` 的规则校验新译文。任何 1 条不合格时，不写入任何条目。
    - 写入后，改动和确认的条目状态都变成 `translated`。
@@ -120,7 +120,7 @@ description: UTM 的国际化流程：加文案（新增或修改界面文案后
 9. **布局验收。** 文案变长会撑破固定宽度的界面。
    1. 运行 `bun vm/script/buildApp.js`。
    2. 用 `open -n build/UTM.app --args -AppleLanguages "(<lang>)"` 启动 app。打开新建虚拟机向导和设置窗口。
-   3. 用 `screencapture -l <窗口 ID> <文件>` 截图，检查文字是否被截断、是否重叠。
+   3. 用 `screencapture -l <窗口 ID> <文件>` 截图，检查文字是否被截断、是否重叠。窗口 ID 用 CoreGraphics 取：写 1 个 Swift 脚本，调用 `CGWindowListCopyWindowInfo`，按 UTM 的进程号筛选 `kCGWindowNumber`。
    4. 再用 `-NSDoubleLocalizedStrings YES` 启动 1 次，检查文案加倍后的布局。ar 另外检查从右到左的布局。
    注意：截图要求「屏幕录制」权限。没有权限时，请用户授权或人工检查，不要跳过这一步。
 10. **提交。** 提交说明按语言列出改动类别和条数，例如 `de：术语错误 4 条、不通顺 3 条`。
@@ -130,6 +130,7 @@ description: UTM 的国际化流程：加文案（新增或修改界面文案后
 - 不改英文。英文的问题写进 `proposal.json` 的 `source_issues`，交给用户决定。改英文会让所有语言的译文失效。
 - 占位符的数量、类型和位置必须和英文一致。`%@` 可以改成带序号的 `%1$@` 以调整语序。
 - 专有名词原样保留，清单见 `scripts/i18n/lib/terms.js` 和术语表中 rule 为 `keep` 的术语。
+- zh-HK 由 zh-Hant 转换而来，但它是独立的语言，单独审校。审校 zh-Hant 改动的译文不会自动同步到 zh-HK。
 - 英文改过的键，旧译文在 `i18n/removed.json` 中。改稿时可以参考它保持术语和风格一致。但是不要照抄，因为英文的意思可能变了。
 
 ## 交付

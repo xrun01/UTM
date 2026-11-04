@@ -31,7 +31,7 @@
 - rule 是 `apple` 时，按 Apple 在这种语言里的官方写法。查 `support.apple.com/<locale>` 核对。查不到时，写进 `doubts`。
 - rule 是 `microsoft` 时，按这种语言的 Windows 界面写法，查 `support.microsoft.com/<locale>`。
 - rule 是 `translate` 时，按 note 的意思，用这种语言软件界面的通行说法。
-- 待审条目中反复出现、但术语表没有的界面术语，也定下译法，写进 `{lang}.yml`。例如 snapshot、drive、display。在交付总结中列出这些术语，由主代理决定是否补进 `terms.yml`。
+- 待审条目中出现 3 次以上、但术语表没有的界面术语，也定下译法，写进 `{lang}.yml`。例如 drive、display。在交付总结中列出这些术语，由主代理决定是否补进 `terms.yml`。
 
 `{lang}.yml` 的格式：键是术语 id，值是 1 行译法。查过官方来源的，在行末用注释写出 URL。
 

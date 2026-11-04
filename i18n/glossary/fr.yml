@@ -15,7 +15,7 @@ new-vm-wizard: assistant de création de machines virtuelles
 installer-image: image d'installation
 license: licence；自备许可证 = fournir votre propre licence
 secure-boot: démarrage sécurisé  # https://support.microsoft.com/fr-fr/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
-or-later: ou version ultérieure  # App Store 法语页写 ou une version ultérieure：https://apps.apple.com/fr/app/xcode/id497799835，见 doubts
+or-later: ou version ultérieure  # App Store 法语页写 ou une version ultérieure：https://apps.apple.com/fr/app/xcode/id497799835
 experimental: fonctionnalité expérimentale
 auto-resolution: ajustement automatique de la résolution
 shared-clipboard: presse-papiers partagé；共享剪贴板 = partager le presse-papiers
