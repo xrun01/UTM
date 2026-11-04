@@ -71,19 +71,27 @@ const idOf = (text, salt = "") => "k" + createHash("sha1").update(salt + "\x00" 
 
 const ID_LINE_RE = /^(k[0-9a-f]{12}): ?(.*)$/,
   CONTINUATION_RE = /^\s+\S/,
-  // 不补引号的值：YAML 的特殊值和锚点、标签。它们解析出的不是字符串，按缺失处理
-  YAML_SPECIAL_RE = /^(?:null|~|true|false|yes|no|on|off)$|^[&!*]/i;
+  // 不补引号的值：null 和布尔值。它们解析出的不是字符串，按缺失处理。
+  // 以 & ! * 开头的值照常补引号：「&x Text」是正常译文，交给 YAML 会把开头当成锚点或标签吞掉
+  YAML_SPECIAL_RE = /^(?:null|~|true|false)$/i;
 
 // 把一批文案写成 YAML，值用 JSON 字符串转义（JSON 字符串也是合法的 YAML 双引号字符串）
 export const yamlOf = (items) => items.map((it) => it.id + ": " + JSON.stringify(it.text)).join("\n") + "\n";
 
-// 解析接口返回的 YAML，返回 { id: 字符串 }
+// 解析接口返回的 YAML，返回 { id: 字符串 }；内容中没有任何条目行时返回 null（例如网关页面）
 // - 接口有时不给值加引号，「{1} …」会被解析成映射，所以先给单行的普通值加上引号
-// - 多行的普通值（下一行是缩进续行）交给 YAML 解析，不补引号，否则会被截成第 1 行
+// - 多行的普通值（下一个非空行不是条目行）交给 YAML 解析，不补引号，否则会被截成第 1 行
 // - 整体解析失败时，只逐行取单行的双引号值；其余条目按缺失处理，不会把半截或语法写进 catalog
 export const parseYaml = (text) => {
-  const lines = text.split(/\r?\n/),
-    continued = (i) => CONTINUATION_RE.test(lines[i + 1] ?? "") && !ID_LINE_RE.test(lines[i + 1]),
+  const lines = text.split(/\r?\n/);
+  if (!lines.some((line) => ID_LINE_RE.test(line))) return null;
+  // 这一行的值是否延续到后面：跳过空行后，下一个非空行不是条目行
+  const continued = (i) => {
+    let j = i + 1;
+    while (j < lines.length && !lines[j].trim()) j++;
+    return j < lines.length && !ID_LINE_RE.test(lines[j]);
+  };
+  const
     quoted = lines.map((line, i) => {
       const m = line.match(ID_LINE_RE);
       if (!m || continued(i) || /^["'|>]/.test(m[2]) || YAML_SPECIAL_RE.test(m[2])) return line;
@@ -137,22 +145,32 @@ const plainUnitOf = (lang, source) => {
 
 // 复数类别：把计数占位符换成示例数字发送，收到后把数字换回占位符
 // 这个类别只对应 1 个整数时（ar 的 one、two），译文可以省略数字，与 check.js 的规则一致
+// 英文写法只有 1 个计数占位符、没有其他 % 时才能代入示例数字
+const countSpecOf = (text) => {
+  const specs = specsOf(text);
+  return specs.length === 1 && !text.replace(specs[0].raw, "").includes("%") ? specs[0] : null;
+};
+
 const pluralUnitOf = (lang, entry, key, category, n) => {
-  const source = sourceTextAt(key, entry, ["plural", EN_RULES.select(n)]),
-    specs = specsOf(source);
-  if (specs.length !== 1 || source.replace(specs[0].raw, "").includes("%")) return null;
-  const spec = specs[0],
-    may_omit = singleIntegerOf(lang, category);
+  // 发送的英文：示例数字在英文中对应的写法；它没有计数占位符时（例如「One core」），改用英文 other
+  // 修正和校验统一对照英文 other，与 check.js 一致
+  const other = sourceTextAt(key, entry, ["plural", "other"]),
+    natural = sourceTextAt(key, entry, ["plural", EN_RULES.select(n)]),
+    sent = countSpecOf(natural) ? natural : other,
+    spec = countSpecOf(sent);
+  if (!spec || !countSpecOf(other)) return null;
+  const may_omit = singleIntegerOf(lang, category),
+    out_spec = countSpecOf(other).raw;
   return {
-    text: source.replace(spec.raw, String(n)),
+    text: sent.replace(spec.raw, String(n)),
     finish: (out) => {
       // 译文中的数字可能是阿拉伯-印度数字
       const ascii = out.replace(/[٠-٩]/g, (d) => d.charCodeAt(0) - 0x660).replace(/[۰-۹]/g, (d) => d.charCodeAt(0) - 0x6f0),
         hits = [...ascii.matchAll(new RegExp("(?<!\\d)" + n + "(?!\\d)", "g"))];
-      if (hits.length === 0 && may_omit) return polishOf(lang, source, out);
+      if (hits.length === 0 && may_omit) return polishOf(lang, other, out);
       if (hits.length !== 1) return null;
       const i = hits[0].index;
-      return polishOf(lang, source, out.slice(0, i) + spec.raw + out.slice(i + String(n).length));
+      return polishOf(lang, other, out.slice(0, i) + out_spec + out.slice(i + String(n).length));
     },
   };
 };
@@ -233,14 +251,15 @@ const setUnit = (catalog, key, lang, path, value) => {
 };
 
 // 校验 1 条候选译文：规则与 check.js 相同，另外拒绝空串和长度异常；返回 { value } 或 { reason }
-const verdictOf = (lang, u, value) => {
+// 派生语言（OpenCC 只换字形、不改长度）不检查长度：zh-Hant 的长度在 check.js 中只是警告
+const verdictOf = (lang, u, value, { check_length = true } = {}) => {
   if (value === null) return { reason: "占位符或示例数字无法还原" };
   if (!value.trim()) return { reason: "译文为空" };
   const source = unitSourceOf(lang, u.key, u.entry, u.path, value),
     issues = unitIssuesOf(lang, source, value);
   if (issues.length) return { reason: issues.map((i) => i.msg).join("；") };
   // 机翻偶尔会输出整段无关文字；长度异常在 check.js 中只是警告，这里直接拒绝
-  if (lengthIssueOf(lang, source, value) || value.length > source.length * 4 + 20) return { reason: "译文长度异常" };
+  if (check_length && (lengthIssueOf(lang, source, value) || value.length > source.length * 4 + 20)) return { reason: "译文长度异常" };
   return { value };
 };
 
@@ -252,14 +271,13 @@ export const translateLang = async ({ catalogs, lang, api_lang, transport, limit
     included = new Set(units.map((u) => u.table + "\x00" + u.key)),
     texts = [...new Set(units.map((u) => u.text))];
 
-  // 发送一批原文，结果写进 answers；整批失败（包括 1 条都没解析出来）时记下原因
+  // 发送一批原文，结果写进 answers；整批失败（包括返回的内容中没有任何条目行）时记下原因
   const send = async (batch, answers, errors, round_salt) => {
     const items = batch.map((text) => ({ id: idOf(text, round_salt), text }));
     try {
-      const parsed = parseYaml(await transport(SOURCE_LANG, api_lang, "utm/en/strings.yml", yamlOf(items))),
-        got = items.filter((it) => parsed[it.id] !== undefined);
-      if (got.length === 0) throw new Error("接口返回的内容无法解析为译文");
-      for (const it of got) answers.set(it.text, parsed[it.id]);
+      const parsed = parseYaml(await transport(SOURCE_LANG, api_lang, "utm/en/strings.yml", yamlOf(items)));
+      if (parsed === null) throw new Error("接口返回的内容无法解析为译文");
+      for (const it of items) if (parsed[it.id] !== undefined) answers.set(it.text, parsed[it.id]);
     } catch (err) {
       if (err instanceof FatalError) throw err;
       for (const it of items) errors.set(it.text, err.message);
@@ -279,8 +297,12 @@ export const translateLang = async ({ catalogs, lang, api_lang, transport, limit
 
   // 第 1 轮用稳定的键（可以命中服务端缓存）；不合格或漏返回的条目，第 2 轮换本次运行专用的键分批重试
   // 整批请求失败的条目不重试，避免接口故障时反复发送
-  const r1 = await round(texts, ""),
-    first = new Map(units.map((u) => [u, judge(u, r1.answers, r1.errors)])),
+  const r1 = await round(texts, "");
+  // 所有批次都失败：多半是网络或 WEBC_API 配置错误，中止整次运行，不再继续其他语言
+  if (texts.length && texts.every((text) => r1.errors.has(text))) {
+    throw new Error("所有请求都失败（" + r1.errors.get(texts[0]) + "），检查网络和 WEBC_API");
+  }
+  const first = new Map(units.map((u) => [u, judge(u, r1.answers, r1.errors)])),
     retry = [...new Set(units.filter((u) => !first.get(u).value && !r1.errors.has(u.text)).map((u) => u.text))],
     r2 = await round(retry, salt),
     result = new Map(
@@ -361,7 +383,7 @@ export const deriveLang = ({ catalogs, lang, derive }) => {
     convert = OpenCC.Converter({ from, to }),
     report = { lang, written: 0, failed: [], skipped: [] };
   for (const u of derivableOf(catalogs, lang, derive)) {
-    const verdict = verdictOf(lang, u, convert(u.value));
+    const verdict = verdictOf(lang, u, convert(u.value), { check_length: false });
     if (verdict.value === undefined) {
       report.failed.push({ table: u.table, key: u.key, reason: "转换结果不合格: " + verdict.reason });
       continue;

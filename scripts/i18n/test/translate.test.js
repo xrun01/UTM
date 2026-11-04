@@ -305,15 +305,25 @@ describe("评审修复", () => {
     expect(calls).toBe(1);
   });
 
-  test("整批请求失败的条目不逐条重试，失败原因保留", async () => {
+  test("部分批次失败：失败的那批不逐条重发，其余批次照常写入", async () => {
+    const strings = Object.fromEntries(Array.from({ length: 151 }, (_, i) => ["Text " + i, {}]));
     let calls = 0;
-    const transport = async () => {
+    const transport = async (f, to, p, yaml) => {
       calls++;
+      if (yaml.includes('"Text 150"')) throw new Error("网络断开");
+      return yaml;
+    };
+    const report = await translateLang({ catalogs: catalogsOf(strings), lang: "de", api_lang: "de", transport });
+    expect(calls).toBe(2);
+    expect(report.written).toBe(150);
+    expect(report.failed).toEqual([{ table: "Localizable", key: "Text 150", reason: "请求失败: 网络断开" }]);
+  });
+
+  test("所有批次都失败时中止整次运行", async () => {
+    const transport = async () => {
       throw new Error("网络断开");
     };
-    const report = await translateLang({ catalogs: catalogsOf({ A: {}, B: {} }), lang: "de", api_lang: "de", transport });
-    expect(calls).toBe(1);
-    expect(report.failed.map((f) => f.reason)).toEqual(["请求失败: 网络断开", "请求失败: 网络断开"]);
+    await expect(translateLang({ catalogs: catalogsOf({ A: {}, B: {} }), lang: "de", api_lang: "de", transport })).rejects.toThrow("所有请求都失败");
   });
 
   test("重试换一个键，绕开服务端的按行缓存；两次都不合格时保留第 1 次的原因", async () => {
@@ -357,15 +367,16 @@ describe("第 2 轮评审修复", () => {
     expect(parseYaml("ka00000000001: null\nka00000000002: true\nka00000000003: ok\n")).toEqual({ ka00000000003: "ok" });
   });
 
-  test("接口返回 200 但内容无法解析：按整批失败，不逐条重发", async () => {
+  test("接口返回 200 但内容中没有任何条目：按整批失败，不逐条重发", async () => {
     let calls = 0;
     const transport = async () => {
       calls++;
       return "<html>Gateway</html>";
     };
-    const report = await translateLang({ catalogs: catalogsOf({ A: {}, B: {}, C: {} }), lang: "de", api_lang: "de", transport });
+    await expect(translateLang({ catalogs: catalogsOf({ A: {}, B: {}, C: {} }), lang: "de", api_lang: "de", transport })).rejects.toThrow(
+      "接口返回的内容无法解析为译文",
+    );
     expect(calls).toBe(1);
-    expect(report.failed.map((f) => f.reason)).toEqual(Array(3).fill("请求失败: 接口返回的内容无法解析为译文"));
   });
 
   test("复数：英文 one 写成「One core」时，中日韩语言用 other 的示例数字照样翻译", async () => {
@@ -437,6 +448,65 @@ describe("第 2 轮评审修复", () => {
     });
     expect(await flaky("en", "de", "p", "x")).toBe("ok");
     expect(n).toBe(3);
+  });
+});
+
+describe("第 3 轮评审修复", () => {
+  const unit = (value, state = "translated") => ({ stringUnit: { state, value } });
+
+  test("parseYaml：以 & ! * 开头的值是普通文字，不被当成锚点或标签吞掉", () => {
+    expect(parseYaml("ka00000000001: &x Datei öffnen\nka00000000002: !wichtig Text\nka00000000003: *Pflichtfeld\n")).toEqual({
+      ka00000000001: "&x Datei öffnen",
+      ka00000000002: "!wichtig Text",
+      ka00000000003: "*Pflichtfeld",
+    });
+  });
+
+  test("parseYaml：续行前有空行时也不截断", () => {
+    expect(parseYaml("ka00000000001: Bitte die virtuelle Maschine\n\n  jetzt neu starten\nka00000000002: ok\n").ka00000000001).toBe(
+      "Bitte die virtuelle Maschine\njetzt neu starten",
+    );
+  });
+
+  test("parseYaml：内容中没有任何条目行时返回 null", () => {
+    expect(parseYaml("null")).toBeNull();
+    expect(parseYaml("<html>")).toBeNull();
+  });
+
+  test("复数：英文 one 写成「One core」时，de 的 one 改用英文 other 拼原文，照样翻译", async () => {
+    const en = { variations: { plural: { one: unit("One core", "new"), other: unit("%lld cores", "new") } } },
+      catalogs = catalogsOf({ "%lld cores": { localizations: { en } } });
+    const report = await translateLang({ catalogs, lang: "de", api_lang: "de", transport: fakeTransport({ "1 cores": "1 Kern", "2 cores": "2 Kerne" }) });
+    expect(report.written).toBe(2);
+    const de = catalogs.Localizable.strings["%lld cores"].localizations.de.variations.plural;
+    expect([de.one.stringUnit.value, de.other.stringUnit.value]).toEqual(["%lld Kern", "%lld Kerne"]);
+  });
+
+  test("复数：修正对照英文 other，other 有 … 时 one 的 ... 也会还原", async () => {
+    const en = { variations: { plural: { one: unit("%lld file", "new"), other: unit("%lld files…", "new") } } },
+      catalogs = catalogsOf({ "%lld files…": { localizations: { en } } });
+    const report = await translateLang({ catalogs, lang: "de", api_lang: "de", transport: fakeTransport({ "1 file": "1 Datei...", "2 files…": "2 Dateien…" }) });
+    expect(report.written).toBe(2);
+    expect(catalogs.Localizable.strings["%lld files…"].localizations.de.variations.plural.one.stringUnit.value).toBe("%lld Datei…");
+  });
+
+  test("--limit 落在复数键中间时，这个键的全部类别都处理", async () => {
+    const en = { variations: { plural: { one: unit("%lld Core", "new"), other: unit("%lld Cores", "new") } } },
+      catalogs = catalogsOf({ "%lld Cores": { localizations: { en } }, Z: {} });
+    const report = await translateLang({
+      catalogs,
+      lang: "ru",
+      api_lang: "ru",
+      transport: fakeTransport({ "21 Cores": "21 ядро", "2 Cores": "2 ядра", "5 Cores": "5 ядер" }),
+      limit: 1,
+    });
+    expect(report.written).toBe(4);
+    expect(catalogs.Localizable.strings.Z.localizations).toBeUndefined();
+  });
+
+  test("deriveLang 不因长度异常拒绝转换", () => {
+    const catalogs = catalogsOf({ "Dynamic Resolution": { localizations: { "zh-Hant": unit("動態") } } });
+    expect(deriveLang({ catalogs, lang: "zh-HK", derive: { from: "zh-Hant", opencc: "tw-hk" } }).written).toBe(1);
   });
 });
 
