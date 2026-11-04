@@ -14,6 +14,7 @@ const USAGE = `用法：
   review.js export --lang <code> --out <file> [--state needs_review|translated|all] [--table <表名>] [--key <正则>] [--keys <file>] [--limit <n>]
   review.js apply --lang <code> --proposal <file> [--dry-run]
   review.js back-input --proposal <file> --out <file> [--ids <id,id>]
+  review.js compare-input --dir <目录> --langs <code,code> --out <file>
   review.js report --dir <目录> --langs <code,code> --out <file>`;
 
 const [cmd, ...rest] = process.argv.slice(2);
@@ -56,13 +57,23 @@ const root = resolve(opt.root),
   catalogs = () => Object.fromEntries(Object.entries(CATALOG_PATHS).map(([t, p]) => [t, readCatalog(join(root, p))]));
 
 // 条目 id：表名|键|变体路径。键本身是英文句子，所以必须带上表名和路径才唯一
-export const idOf = (table, key, path) => [table, key, path.join("/")].join("|");
+const idOf = (table, key, path) => [table, key, path.join("/")].join("|");
 const parseId = (id) => {
   const first = id.indexOf("|"),
     last = id.lastIndexOf("|");
   if (first < 0 || first === last) return null;
   const path = id.slice(last + 1);
   return { table: id.slice(0, first), key: id.slice(first + 1, last), path: path ? path.split("/") : [] };
+};
+
+// 合并 <dir> 下的 back.json、back2.json……；后一轮覆盖前一轮
+const latestBackOf = (dir) => {
+  const files = existsSync(dir)
+    ? readdirSync(dir)
+        .filter((f) => /^back\d*\.json$/.test(f))
+        .sort((a, b) => (parseInt(a.slice(4)) || 1) - (parseInt(b.slice(4)) || 1))
+    : [];
+  return new Map(files.flatMap((f) => readJson(join(dir, f)).map((b) => [b.id, b])));
 };
 
 const commands = {
@@ -167,6 +178,19 @@ const commands = {
     console.log("回译输入 " + items.length + " 条 → " + opt.out);
   },
 
+  // 比对输入：合并多种语言的英文与最新一轮回译，id 写成 <lang>|<条目 id>
+  "compare-input": () => {
+    need("dir", "langs", "out");
+    const items = opt.langs.split(",").flatMap((lang) => {
+      const dir = join(opt.dir, lang),
+        en = new Map(readJson(join(dir, "export.json")).items.map((it) => [it.id, it.en])),
+        back = latestBackOf(dir);
+      return [...back.values()].map((b) => ({ id: lang + "|" + b.id, en: en.get(b.id) ?? "", back: b.back, note: b.note ?? "" }));
+    });
+    writeFileSync(opt.out, JSON.stringify(items, null, 2) + "\n");
+    console.log("比对输入 " + items.length + " 条 → " + opt.out);
+  },
+
   // 审校报告：读 <dir>/<lang>/ 下的 export.json、proposal.json、back*.json
   report: () => {
     need("dir", "langs", "out");
@@ -174,13 +198,7 @@ const commands = {
       const dir = join(opt.dir, lang),
         exported = new Map(readJson(join(dir, "export.json")).items.map((it) => [it.id, it])),
         proposal = readJson(join(dir, "proposal.json")),
-        // back2.json 覆盖 back.json，依此类推
-        backs = existsSync(dir)
-          ? readdirSync(dir)
-              .filter((f) => /^back\d*\.json$/.test(f))
-              .sort((a, b) => (parseInt(a.slice(4)) || 1) - (parseInt(b.slice(4)) || 1))
-          : [],
-        back = new Map(backs.flatMap((f) => readJson(join(dir, f)).map((b) => [b.id, b])));
+        back = latestBackOf(dir);
       const row = (id, extra) => ({ id, en: exported.get(id)?.en ?? "", back: back.get(id)?.back ?? "", note: back.get(id)?.note ?? "", ...extra });
       return {
         lang,
