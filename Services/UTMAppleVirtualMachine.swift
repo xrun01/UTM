@@ -423,6 +423,7 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
     }
     
     private func _forceStop() async throws {
+        _ = UTMVmBridge.shared.dispatch(.stop(graceful: false))
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
             vmQueue.async {
                 guard let apple = self.apple else {
@@ -506,6 +507,7 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
         state = .stopping
         do {
             try await _restart()
+            _ = UTMVmBridge.shared.dispatch(.resume)
             state = .started
             if #available(macOS 27, *) {
                 await synchronizeUsbDevices()
@@ -543,6 +545,7 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
         state = .pausing
         do {
             try await _pause()
+            _ = UTMVmBridge.shared.dispatch(.pause)
             state = .paused
         } catch {
             state = .stopped
@@ -600,6 +603,7 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
             await recordUsbDevicesForSave()
         }
         try await _saveSnapshot(url: vmSavedStateURL)
+        _ = UTMVmBridge.shared.dispatch(.saveLiveSnapshot(statePath: vmSavedStateURL.appendingPathExtension("vmstate").path, diskPaths: [], cloneSuffix: ""))
         await registryEntry.setIsSuspended(true)
         #endif
     }
@@ -697,7 +701,9 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
         state = .restoring
         do {
             try await _restoreSnapshot(url: vmSavedStateURL)
+            _ = UTMVmBridge.shared.dispatch(.restoreLiveSnapshot(statePath: vmSavedStateURL.appendingPathExtension("vmstate").path))
             try await _resume()
+            _ = UTMVmBridge.shared.dispatch(.resume)
         } catch {
             state = .stopped
             throw error
@@ -730,6 +736,7 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
         state = .resuming
         do {
             try await _resume()
+            _ = UTMVmBridge.shared.dispatch(.resume)
             state = .started
         } catch {
             state = .stopped
@@ -1265,6 +1272,7 @@ extension UTMAppleVirtualMachine {
         }
         let attachment = try VZDiskImageStorageDeviceAttachment(url: imageURL, readOnly: true)
         try await attachDrive(attachment, imageURL: imageURL, id: guestToolsId)
+        _ = UTMVmBridge.shared.dispatch(.mountGuestToolsIso(isoPath: imageURL.path))
     }
 
     func detachGuestTools() async throws {

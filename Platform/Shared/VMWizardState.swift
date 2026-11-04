@@ -322,7 +322,11 @@ struct AlertMessage: Identifiable {
             bootloader.hasSecureBoot = systemBootTpm
             config.system.boot = bootloader
             config.system.genericPlatform = UTMAppleConfigurationGenericPlatform()
-            let unattendPath = (NSTemporaryDirectory() as NSString).appendingPathComponent("Autounattend_\(UUID().uuidString).iso")
+            let unattendDirURL = (FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
+                ?? URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true))
+                .appendingPathComponent("UTM/Unattended", isDirectory: true)
+            try? FileManager.default.createDirectory(at: unattendDirURL, withIntermediateDirectories: true)
+            let unattendPath = unattendDirURL.appendingPathComponent("Autounattend_\(config.information.uuid.uuidString).iso").path
             let unattendUser: String
             if isWindowsExpressInstall {
                 let trimmedUser = windowsUnattendedUserName.trimmingCharacters(in: .whitespacesAndNewlines)

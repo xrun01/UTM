@@ -123,7 +123,12 @@ class VMDisplayVmMetalWindowController: VMDisplayWindowController, VMMetalViewIn
         UTMVmBridge.shared.dispatch(.sendKey(scanCode: UInt16(truncatingIfNeeded: scanCode), isKeyDown: false, modifiers: 0))
     }
 
-    func syncCapsLock(with modifier: NSEvent.ModifierFlags?) {}
+    func syncCapsLock(with modifier: NSEvent.ModifierFlags?) {
+        guard let modifier = modifier else { return }
+        let isCapsOn = modifier.contains(.capsLock)
+        let modRaw = UInt32(truncatingIfNeeded: modifier.rawValue)
+        UTMVmBridge.shared.dispatch(.sendKey(scanCode: 0x39, isKeyDown: isCapsOn, modifiers: modRaw))
+    }
 
     func captureMouse() {
         metalView?.captureMouse()
@@ -133,7 +138,10 @@ class VMDisplayVmMetalWindowController: VMDisplayWindowController, VMMetalViewIn
         metalView?.releaseMouse()
     }
 
-    func didUseNumericPad() {}
+    func didUseNumericPad() {
+        UTMVmBridge.shared.dispatch(.sendKey(scanCode: 0x45, isKeyDown: true, modifiers: 0))
+        UTMVmBridge.shared.dispatch(.sendKey(scanCode: 0x45, isKeyDown: false, modifiers: 0))
+    }
 
     // MARK: - UTMVmBridgeDelegate
 
@@ -154,6 +162,12 @@ class VMDisplayVmMetalWindowController: VMDisplayWindowController, VMMetalViewIn
     func vmBridge(_ bridge: UTMVmBridge, didReceiveGuestClipboardString text: String) {
         NSPasteboard.general.clearContents()
         NSPasteboard.general.setString(text, forType: .string)
+    }
+
+    func vmBridge(_ bridge: UTMVmBridge, didReclaimBalloonBytes reclaimedBytes: UInt64, targetMemoryBytes: UInt64) {
+        let reclaimedMib = reclaimedBytes / (1024 * 1024)
+        let targetMib = targetMemoryBytes / (1024 * 1024)
+        window?.subtitle = "Memory: \(targetMib) MB (Reclaimed \(reclaimedMib) MB)"
     }
 
     func vmBridgeDidStop(_ bridge: UTMVmBridge, errorMessage: String?) {
