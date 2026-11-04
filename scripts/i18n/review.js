@@ -283,7 +283,12 @@ const commands = {
       else if ((unit?.value ?? "") !== ex.current || (hasValue(unit) ? unit.state : "missing") !== ex.state) {
         // 已写入的条目再改时也走到这里：它已是 translated，默认的 needs_review 导出不到它
         // --keys 精确匹配「表名|键」，不受键中的括号等正则字符影响；导出到新目录，不覆盖原来的 export.json
-        const again = unit?.state === "translated" ? "把 " + JSON.stringify(keyOf(t.id)) + " 写进 JSON 数组文件，用 export --state translated --keys <文件> 导出到新目录再审" : "重新导出再审";
+        // 已是 translated 有 2 种来源：本轮自己写入后又改了 proposal，可以重新导出再审；别人在导出后确认的，不能覆盖
+        const again =
+          unit?.state === "translated"
+            ? "如果这条是本轮写入、要再改：把 " + JSON.stringify(keyOf(t.id)) + " 写进 JSON 数组文件，运行 export --lang " + opt.lang +
+              " --state translated --keys <文件> --out <新目录>/export.json，在新目录写 proposal 再审。如果是别人确认的：把它移到 withdrawn，不要覆盖"
+            : "重新导出再审";
         bad("导出后译文或状态变了，现在是 " + (hasValue(unit) ? unit.state + " " + JSON.stringify(unit.value) : "缺译") + "。" + again);
       } else if (sourceTextAt(p.key, entry, p.path) !== ex.en) bad("导出后英文变了。重新导出再审");
       else {

@@ -125,7 +125,10 @@ describe("review.js", () => {
     });
   });
 
-  test("new-keys：所有语言都缺译、并且需要翻译的键", () => {
+  test("new-keys：所有语言都缺译、并且需要翻译的键；空串译文算已有译文", () => {
+    const cat = catalog();
+    cat.strings["Kept empty"] = { localizations: { de: unit(""), ja: unit("") } };
+    saveCatalog(cat);
     run("new-keys", "--out", join(tmp, "new.json"));
     expect(json(join(tmp, "new.json"))).toEqual([{ table: "Localizable", key: "New text", en: "New text" }]);
   });
@@ -269,7 +272,8 @@ describe("review.js", () => {
       p("%@ aufmachen");
       const res = apply();
       expect(res.code).toBe(1);
-      expect(res.out).toContain('把 "Localizable|Open %@" 写进 JSON 数组文件，用 export --state translated --keys <文件> 导出到新目录再审');
+      expect(res.out).toContain('如果这条是本轮写入、要再改：把 "Localizable|Open %@" 写进 JSON 数组文件，运行 export --lang de --state translated --keys <文件> --out <新目录>/export.json');
+      expect(res.out).toContain("如果是别人确认的：把它移到 withdrawn，不要覆盖");
     });
 
     test("补译条目写入后再改：按提示用 --keys 精确导出（键里有括号也能导出），再审后写入", () => {

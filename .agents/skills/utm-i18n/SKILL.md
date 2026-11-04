@@ -54,7 +54,7 @@ description: UTM 的国际化流程：加文案（新增或修改界面文案后
 6. 运行 `bun scripts/i18n/check.js --ci`。
    结果：`0 个错误`。
 7. 审校和补译新文案：执行流程 3 的第 1 至 8 步，导出命令是 `review.js export --lang <lang> --keys <tmp>/new-keys.json --state needs_review,missing --out <tmp>/<lang>/export.json`。机翻的条目审校，缺译的条目补译。
-   zh-HK 这类派生语言：先审校和补译它的来源语言，再运行 `translate.js --lang <code>` 转换，最后单独审校。派生语言导出时不加 `--keys`，这样由旧译文转换出的条目也在范围内。
+   zh-HK 这类派生语言：先审校和补译它的来源语言，再运行 `translate.js --lang <code>` 转换缺译的条目，最后用同样的 `--keys` 单独审校。注意：第 5 步已由机翻的来源语言转换出一部分条目，来源语言审校时改过的条目不会同步过来。单独审校派生语言时，对照来源语言审定后的译文。
 8. 提交源码和 catalog。提交说明写出新增几条文案、机翻几种语言、审校结果。
 
 ## 流程 2：加语言
@@ -124,7 +124,9 @@ description: UTM 的国际化流程：加文案（新增或修改界面文案后
    - 导出的每个条目都必须出现在 `changes`、`approved`、`doubts`、`withdrawn` 中的 1 处，否则拒绝写入。
    - 新译文按 `check.js` 的规则校验。任何 1 条不合格时，不写入任何条目。
    - 写入后，改动和确认的条目状态都变成 `translated`。已经写入的条目再运行时跳过，所以补上漏掉的条目后可以重新运行。
-   - 已经写入的条目要再改时，把这些条目的「表名|键」写成 JSON 数组文件，用 `export --state translated --keys <文件>` 导出到新目录，再走一遍审校。不要用 `--key`：键里的括号、加号会被当成正则。不要覆盖原来的 `export.json`，否则原 proposal 的其他条目会被拒绝。
+   - 脚本报「导出后译文或状态变了，现在是 translated」时，先判断这条是谁写入的：
+     - 本轮自己写入、又要再改：把这些条目的「表名|键」写成 JSON 数组文件，运行 `export --lang <lang> --state translated --keys <文件> --out <新目录>/export.json`，在新目录写 proposal，再走一遍审校。不要用 `--key`：键里的括号、加号会被当成正则。不要覆盖原来的 `export.json`，否则原 proposal 的其他条目会被拒绝。
+     - 别人在导出后确认的：把它移到 `withdrawn`，不要覆盖已审校的译文。
    - 补译复数时只补了部分类别，脚本会警告。缺的类别运行时退回 `other`。
 7. **检查。** 运行 `bun scripts/i18n/check.js`。
    结果：`0 个错误`。

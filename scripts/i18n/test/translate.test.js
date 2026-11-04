@@ -667,4 +667,3 @@ test("deriveLang：目标已有空串译文时不转换，不覆盖", () => {
   expect(deriveLang({ catalogs, lang: "zh-HK", derive: { from: "zh-Hant", opencc: "tw-hk" } }).written).toBe(0);
   expect(catalogs.Localizable.strings["Open the settings"].localizations["zh-HK"]).toEqual(u(""));
 });
-
