@@ -180,6 +180,12 @@
     },
     "%@ (Same as Host)" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "%@ (identisch mit Host)"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -777,6 +783,12 @@
     },
     "%lld Cores / %lld GB Memory / %lld GB NVMe" : {
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "%1$lld Kerne / %2$lld GB Speicher / %3$lld GB NVMe"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -792,11 +804,24 @@
       }
     },
     "%lld virtual machines" : {
-
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "%lld virtuelle Maschinen"
+          }
+        }
+      }
     },
     "'%@' is connected to '%@'. Do you want to disconnect it and connect it to this virtual machine instead?" : {
       "comment" : "VMDisplayAppleWindowController",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "„%1$@“ ist mit „%2$@“ verbunden. Möchten Sie die Verbindung trennen und stattdessen eine Verbindung zu dieser virtuellen Maschine herstellen?"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
@@ -1067,6 +1092,12 @@
     "A drive cannot be read only once a snapshot has been taken of it." : {
       "comment" : "UTMAppleDiskImage",
       "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ein Laufwerk kann erst dann gelesen werden, wenn ein Snapshot davon erstellt wurde."
+          }
+        },
         "zh-HK" : {
           "stringUnit" : {
             "state" : "translated",
