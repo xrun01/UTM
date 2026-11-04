@@ -66,7 +66,7 @@ struct UTMAppleConfigurationSystem: Codable {
         boot = try values.decode(UTMAppleConfigurationBoot.self, forKey: .boot)
         macPlatform = try values.decodeIfPresent(UTMAppleConfigurationMacPlatform.self, forKey: .macPlatform)
         genericPlatform = try values.decodeIfPresent(UTMAppleConfigurationGenericPlatform.self, forKey: .genericPlatform)
-        if boot.operatingSystem == .linux && genericPlatform == nil {
+        if (boot.operatingSystem == .linux || boot.operatingSystem == .windows) && genericPlatform == nil {
             // fix a bug where this was not created
             genericPlatform = UTMAppleConfigurationGenericPlatform()
         }
@@ -80,7 +80,7 @@ struct UTMAppleConfigurationSystem: Codable {
         try container.encode(boot, forKey: .boot)
         if boot.operatingSystem == .macOS {
             try container.encodeIfPresent(macPlatform, forKey: .macPlatform)
-        } else if boot.operatingSystem == .linux {
+        } else if boot.operatingSystem == .linux || boot.operatingSystem == .windows {
             try container.encodeIfPresent(genericPlatform, forKey: .genericPlatform)
         }
     }
@@ -92,11 +92,12 @@ struct UTMAppleConfigurationSystem: Codable {
 extension UTMAppleConfigurationSystem {
     func fillVZConfiguration(_ vzconfig: VZVirtualMachineConfiguration) throws {
         if cpuCount > 0 {
-            vzconfig.cpuCount = cpuCount
+            vzconfig.cpuCount = max(2, cpuCount)
         } else {
             let hostPcorePhysicalCpu = Int(Self.sysctlIntRead("hw.perflevel0.physicalcpu"))
             let hostPhysicalCpu = Int(Self.sysctlIntRead("hw.physicalcpu"))
-            vzconfig.cpuCount = hostPcorePhysicalCpu > 0 ? hostPcorePhysicalCpu : hostPhysicalCpu
+            let detected = hostPcorePhysicalCpu > 0 ? hostPcorePhysicalCpu : hostPhysicalCpu
+            vzconfig.cpuCount = max(2, detected > 0 ? detected : Int(UTMVmConfig.recommendedCpuCount()))
         }
         vzconfig.memorySize = UInt64(memorySize) * bytesInMib
         vzconfig.bootLoader = boot.vzBootloader()

@@ -166,13 +166,13 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
         let vmCfg = UTMVmConfig()
         vmCfg.vmUUID = config.information.uuid.uuidString
         vmCfg.vmName = config.information.name
-        vmCfg.cpuCount = UInt(max(1, config.system.cpuCount))
-        let memBytes = UInt64(config.system.memorySize) * 1024 * 1024
+        vmCfg.cpuCount = config.system.cpuCount >= 2 ? UInt(config.system.cpuCount) : UTMVmConfig.recommendedCpuCount()
+        let memBytes = UInt64(max(4096, config.system.memorySize)) * 1024 * 1024
         vmCfg.memorySizeBytes = memBytes
         vmCfg.hostMemQuotaMinBytes = max(1024 * 1024 * 1024, memBytes / 2)
         vmCfg.hostMemQuotaMaxBytes = memBytes
         vmCfg.adaptiveBalloonEnabled = config.virtualization.hasBalloon
-        vmCfg.useGenericVirtualization = false
+        vmCfg.useGenericVirtualization = config.system.boot.operatingSystem == .macOS
         vmCfg.audioOutputEnabled = config.virtualization.hasAudio
         vmCfg.audioInputEnabled = config.virtualization.hasAudioInput
         if let firstDisplay = config.displays.first {
@@ -190,7 +190,7 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
                 vmCfg.bridgedInterfaceIdentifier = firstNet.bridgeInterface
             }
         }
-        vmCfg.disks = config.drives.compactMap { (drive) -> UTMVmDiskConfig? in
+        var diskList: [UTMVmDiskConfig] = config.drives.compactMap { (drive) -> UTMVmDiskConfig? in
             guard let imgURL = drive.imageURL else { return nil }
             let d = UTMVmDiskConfig()
             d.identifier = drive.id
@@ -200,6 +200,31 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
             d.sizeBytes = UInt64(max(0, drive.sizeMib)) * 1024 * 1024
             return d
         }
+        if config.system.boot.operatingSystem == .windows {
+            let primaryDiskPath = diskList.first(where: { !$0.isOptical && !$0.imagePath.lowercased().hasSuffix(".iso") })?.imagePath
+            let isGptInit = UTMVmConfig.isDiskInitializedGpt(atPath: primaryDiskPath)
+            if !isGptInit {
+                vmCfg.unattendedInstallEnabled = true
+                let hasInstallIso = diskList.contains { d in
+                    let lower = (d.imagePath as NSString).lastPathComponent.lowercased()
+                    return (d.isOptical || lower.hasSuffix(".iso")) && !lower.contains("unattend") && !lower.contains("guesttools")
+                }
+                if !hasInstallIso, let autoIsoURL = UTMVmConfig.detectDefaultWindowsIsoInDownloads() {
+                    let isoDisk = UTMVmDiskConfig()
+                    isoDisk.identifier = "auto-win-iso"
+                    isoDisk.imagePath = autoIsoURL.path
+                    isoDisk.isReadOnly = true
+                    isoDisk.isOptical = true
+                    diskList.insert(isoDisk, at: 0)
+                }
+            } else {
+                diskList.removeAll { d in
+                    let lower = (d.imagePath as NSString).lastPathComponent.lowercased()
+                    return lower.contains("unattend")
+                }
+            }
+        }
+        vmCfg.disks = diskList
         vmCfg.sharedFolders = config.sharedDirectories.compactMap { (share) -> UTMVmSharedFolderConfig? in
             guard let dirURL = share.directoryURL else { return nil }
             let s = UTMVmSharedFolderConfig()
@@ -305,14 +330,21 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
             if !startRes.ok {
                 throw NSError(domain: "com.utmapp.UTMVmBridge", code: Int(startRes.statusCode), userInfo: [NSLocalizedDescriptionKey: startRes.errorMessage ?? "Failed to start VM"])
             }
-            try await createAppleVM(isRestoring: isRestoring)
-            if isRestoring {
-                try await restoreSnapshot()
+            if bridgeCfg.useGenericVirtualization {
+                try await createAppleVM(isRestoring: isRestoring)
+                if isRestoring {
+                    try await restoreSnapshot()
+                } else {
+                    try await _start(options: options, guestProvisioning: vzGuestProvisioning)
+                }
+                if #available(macOS 15, *), await config.system.boot.operatingSystem != .windows {
+                    try await attachExternalDrives()
+                }
             } else {
-                try await _start(options: options, guestProvisioning: vzGuestProvisioning)
-            }
-            if #available(macOS 15, *), await config.system.boot.operatingSystem != .windows {
-                try await attachExternalDrives()
+                snapshotUnsupportedError = UTMAppleVirtualMachineError.operationNotAvailable
+                if isRestoring {
+                    try? await deleteSnapshot()
+                }
             }
             Task { @MainActor in
                 let tag = config.shareDirectoryTag
@@ -443,10 +475,12 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
     }
     
     private func _requestStop() async throws {
+        _ = UTMVmBridge.shared.dispatch(.stop(graceful: true))
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
             vmQueue.async {
                 guard let apple = self.apple else {
-                    continuation.resume() // already stopped
+                    self.state = .stopped
+                    continuation.resume()
                     return
                 }
                 do {
@@ -506,10 +540,19 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
         }
         state = .stopping
         do {
-            try await _restart()
-            _ = UTMVmBridge.shared.dispatch(.resume)
+            if apple != nil {
+                try await _restart()
+                _ = UTMVmBridge.shared.dispatch(.resume)
+            } else {
+                _ = UTMVmBridge.shared.dispatch(.stop(graceful: false))
+                let bridgeCfg = await buildVmBridgeConfig()
+                let startRes = UTMVmBridge.shared.dispatch(.start(config: bridgeCfg))
+                if !startRes.ok {
+                    throw NSError(domain: "com.utmapp.UTMVmBridge", code: Int(startRes.statusCode), userInfo: [NSLocalizedDescriptionKey: startRes.errorMessage ?? "Failed to restart VM"])
+                }
+            }
             state = .started
-            if #available(macOS 27, *) {
+            if #available(macOS 27, *), apple != nil {
                 await synchronizeUsbDevices()
             }
         } catch {
@@ -521,15 +564,15 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
     private func _pause() async throws {
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
             vmQueue.async {
-                guard let apple = self.apple else {
-                    continuation.resume(throwing: UTMAppleVirtualMachineError.operationNotAvailable)
-                    return
-                }
                 if self.isScreenshotEnabled {
                     Task { @MainActor in
                         await self.takeScreenshot()
                         try? self.saveScreenshot()
                     }
+                }
+                guard let apple = self.apple else {
+                    continuation.resume()
+                    return
                 }
                 apple.pause { result in
                     continuation.resume(with: result)
@@ -719,7 +762,7 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
             vmQueue.async {
                 guard let apple = self.apple else {
-                    continuation.resume(throwing: UTMAppleVirtualMachineError.operationNotAvailable)
+                    continuation.resume()
                     return
                 }
                 apple.resume { result in
@@ -747,7 +790,7 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
     @discardableResult @MainActor
     func takeScreenshot() async -> Bool {
         screenshot = screenshotDelegate?.screenshot
-        if let cgImage = screenshot?.image.cgImage(forProposedRect: nil, context: nil, hints: nil) {
+        if apple != nil, let cgImage = screenshot?.image.cgImage(forProposedRect: nil, context: nil, hints: nil) {
             UTMVmBridge.shared.updateDisplay(from: cgImage)
         }
         let reclaimedBytes = UTMVmBridge.shared.reclaimedBalloonBytes

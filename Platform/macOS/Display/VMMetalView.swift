@@ -125,7 +125,8 @@ class VMMetalView: MTKView {
             NSCursor.tryUnhide()
             cursor.set()
         } else {
-            NSCursor.tryHide()
+            NSCursor.tryUnhide()
+            NSCursor.arrow.set()
         }
     }
     

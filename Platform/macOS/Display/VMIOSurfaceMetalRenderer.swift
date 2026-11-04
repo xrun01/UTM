@@ -57,13 +57,15 @@ final class VMIOSurfaceMetalRenderer: NSObject, MTKViewDelegate {
             let srcY = Int(CGFloat(srcTexture.height) * cropNormalizedRect.origin.y)
             let srcW = max(1, min(srcTexture.width - srcX, Int(CGFloat(srcTexture.width) * cropNormalizedRect.size.width)))
             let srcH = max(1, min(srcTexture.height - srcY, Int(CGFloat(srcTexture.height) * cropNormalizedRect.size.height)))
-            if srcW == dstTexture.width && srcH == dstTexture.height {
+            let copyW = min(srcW, dstTexture.width)
+            let copyH = min(srcH, dstTexture.height)
+            if copyW > 0 && copyH > 0 {
                 blit.copy(
                     from: srcTexture,
                     sourceSlice: 0,
                     sourceLevel: 0,
                     sourceOrigin: MTLOrigin(x: srcX, y: srcY, z: 0),
-                    sourceSize: MTLSize(width: srcW, height: srcH, depth: 1),
+                    sourceSize: MTLSize(width: copyW, height: copyH, depth: 1),
                     to: dstTexture,
                     destinationSlice: 0,
                     destinationLevel: 0,

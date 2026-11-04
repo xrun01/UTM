@@ -25,6 +25,20 @@ class VMDisplayVmMetalWindowController: VMDisplayWindowController, VMMetalViewIn
 
     override func windowDidLoad() {
         super.windowDidLoad()
+        if let appleVM = vm as? UTMAppleVirtualMachine {
+            appleVM.screenshotDelegate = self
+            window?.title = appleVM.config.information.name
+        }
+        if let win = window {
+            let targetSize = NSSize(width: 1024, height: 768)
+            win.contentAspectRatio = targetSize
+            win.contentMinSize = NSSize(width: 640, height: 480)
+            let frame = win.frameRect(forContentRect: CGRect(origin: win.frame.origin, size: targetSize))
+            win.setFrame(frame, display: true)
+            if ProcessInfo.processInfo.environment["UTM_HEADLESS_TEST"] != "1" {
+                win.center()
+            }
+        }
         metalView = VMMetalView(frame: displayView.bounds)
         metalView.autoresizingMask = [.width, .height]
         metalView.device = MTLCreateSystemDefaultDevice()
@@ -44,6 +58,16 @@ class VMDisplayVmMetalWindowController: VMDisplayWindowController, VMMetalViewIn
 
     override func enterLive() {
         super.enterLive()
+        if let appleVM = vm as? UTMAppleVirtualMachine {
+            window?.title = appleVM.config.information.name
+        }
+        screenshotView.isHidden = true
+        metalView.isHidden = false
+        UTMVmBridge.shared.delegate = self
+        if let surface = UTMVmBridge.shared.currentIOSurface {
+            renderer?.updateIOSurface(surface)
+            metalView.needsDisplay = true
+        }
         syncDynamicResolution()
         window?.makeFirstResponder(metalView)
     }
@@ -175,5 +199,20 @@ class VMDisplayVmMetalWindowController: VMDisplayWindowController, VMMetalViewIn
         if let errorMessage = errorMessage {
             showErrorAlert(errorMessage)
         }
+    }
+}
+
+extension VMDisplayVmMetalWindowController: UTMScreenshotProvider {
+    var screenshot: UTMVirtualMachineScreenshot? {
+        guard let view = metalView,
+              let rep = view.bitmapImageRepForCachingDisplay(in: view.bounds) else {
+            return nil
+        }
+        view.cacheDisplay(in: view.bounds, to: rep)
+        guard let cgImg = rep.cgImage else {
+            return nil
+        }
+        let img = NSImage(cgImage: cgImg, size: view.bounds.size)
+        return UTMVirtualMachineScreenshot(wrapping: img)
     }
 }

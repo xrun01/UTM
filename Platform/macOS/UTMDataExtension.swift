@@ -60,7 +60,11 @@ extension UTMData {
                         window = VMDisplayAppleTerminalWindowController(primaryForIndex: primarySerialIndex, vm: avm, onClose: close)
                     }
                     if !avm.config.displays.isEmpty {
-                        window = VMDisplayAppleDisplayWindowController(vm: avm, onClose: close)
+                        if avm.config.system.boot.operatingSystem == .macOS {
+                            window = VMDisplayAppleDisplayWindowController(vm: avm, onClose: close)
+                        } else {
+                            window = VMDisplayVmMetalWindowController(vm: avm, onClose: close)
+                        }
                     } else if avm.config.displays.isEmpty && window == nil {
                         window = VMHeadlessSessionState(for: avm, onStop: close)
                     }

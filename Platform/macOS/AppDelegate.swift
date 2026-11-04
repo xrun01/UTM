@@ -326,6 +326,7 @@ enum UTMQuitPolicy: Int {
         guard window.alphaValue != 0 else {
             return
         }
+        window.setFrameAutosaveName("")
         window.alphaValue = 0
         window.ignoresMouseEvents = true
         window.hasShadow = false
@@ -353,8 +354,13 @@ enum UTMQuitPolicy: Int {
         UTMAppleVirtualMachine.removeStaleDisposableOverlayDirectories()
         if Self.isHeadlessTest {
             NSApp.windows.forEach(Self.concealForHeadlessTest)
-        } else if isDockIconHidden {
-            NSApp.setActivationPolicy(.accessory)
+        } else {
+            for win in NSApp.windows where win.frame.origin.x < -1000 || win.frame.origin.y < -1000 {
+                win.center()
+            }
+            if isDockIconHidden {
+                NSApp.setActivationPolicy(.accessory)
+            }
         }
     }
     

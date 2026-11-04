@@ -20,9 +20,9 @@ import Virtualization
 @available(iOS, unavailable, message: "Apple Virtualization not available on iOS")
 struct UTMAppleConfigurationDisplay: Codable, Identifiable {
     
-    var widthInPixels: Int = 1920
+    var widthInPixels: Int = 1024
     
-    var heightInPixels: Int = 1200
+    var heightInPixels: Int = 768
     
     var pixelsPerInch: Int = 80
 
