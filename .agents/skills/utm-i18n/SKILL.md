@@ -49,11 +49,11 @@ description: UTM 的国际化流程：加文案（新增或修改界面文案后
    - 执行前要求用户输入更多信息的菜单项和按钮，以「…」（U+2026）结尾，不写「...」。
    - 专有名词的写法见 `scripts/i18n/lib/terms.js` 和术语表。
    - 有歧义的短词（例如 Display、Open）加 `comment`，或改用显式键。
-5. 运行 `bun scripts/i18n/translate.js`。它补齐所有语言的全部缺译条目。初次机翻完成后，缺译只剩新文案和此前机翻失败的条目，所以范围和新文案基本一致。
-   结果：每种语言输出写入条数和失败条数。失败的条目保持缺译，运行时显示英文。在第 7 步补译。
+5. 运行 `bun scripts/i18n/translate.js`。它机翻所有语言的缺译条目，但不翻译短标签（最多 2 个词、不含占位符）。短标签缺少上下文，机翻常选错义项。
+   结果：每种语言输出写入条数、失败条数、留给 skill 的短标签条数。失败的条目和短标签保持缺译，运行时显示英文，在第 7 步补译。
 6. 运行 `bun scripts/i18n/check.js --ci`。
    结果：`0 个错误`。
-7. 审校新文案的译文：执行流程 3 的第 1 至 8 步，范围是第 3 步的新键（`review.js export --keys <tmp>/new-keys.json`）。机翻失败的条目另外用 `--state missing` 导出，在同一轮中补译。
+7. 审校和补译新文案：执行流程 3 的第 1 至 8 步，导出命令是 `review.js export --lang <lang> --keys <tmp>/new-keys.json --state needs_review,missing --out <tmp>/<lang>/export.json`。机翻的条目审校，缺译的条目补译。
 8. 提交源码和 catalog。提交说明写出新增几条文案、机翻几种语言、审校结果。
 
 ## 流程 2：加语言
@@ -72,13 +72,15 @@ description: UTM 的国际化流程：加文案（新增或修改界面文案后
 5. 运行 `bun scripts/i18n/translate.js --lang <code>`。
 6. 运行 `bun scripts/i18n/check.js --lang <code>`。
    结果：`0 个错误`。
-7. 全量审校：执行流程 3 的第 1 至 8 步，语言是 `<code>`，范围是 `needs_review`。
+7. 全量审校和补译：执行流程 3 的第 1 至 8 步，语言是 `<code>`，范围是 `--state needs_review,missing`。zh-HK 这类派生语言，先审校和补译它的来源语言，再运行 `translate.js --lang <code>` 转换，最后单独审校。
 8. 运行 `bun vm/script/buildApp.js`，确认 `UTM.app/Contents/Resources/<code>.lproj/` 存在，再做流程 3 第 9 步的布局验收。fork 不维护 `UTM.xcodeproj`，所以不用改它的 `knownRegions`。
 9. 提交 `i18n/languages.json`、术语表和 catalog。
 
 ## 流程 3：审校
 
-输入：语言列表和范围，例如「审校日语和韩语新加的译文」。范围的默认值是 `needs_review` 的全部条目。用户说「全部」时，范围是 `--state all`。用户说「补译」或「缺译」时，范围是 `--state missing`。
+输入：语言列表和范围，例如「审校日语和韩语新加的译文」。范围的默认值是 `needs_review` 的全部条目。用户说「全部」时，范围是 `--state all`。用户说「补译」或「缺译」时，范围是 `--state missing`。`--state` 可以写多个状态，用逗号分隔。
+
+注意：范围包括 `translated` 时（用户说「全部」），审校会改动已审校的译文。开始前告诉用户这一点，并在报告中确认这些改动。
 
 ### 问题分类
 
@@ -120,7 +122,9 @@ description: UTM 的国际化流程：加文案（新增或修改界面文案后
    - 脚本只写导出过的条目，并逐条核对导出后译文、状态、英文都没变。所以它不会覆盖导出后别人确认或改过的译文。核对不通过时，重新导出这些条目再审。
    - 导出的每个条目都必须出现在 `changes`、`approved`、`doubts`、`withdrawn` 中的 1 处，否则拒绝写入。
    - 新译文按 `check.js` 的规则校验。任何 1 条不合格时，不写入任何条目。
-   - 写入后，改动和确认的条目状态都变成 `translated`。已经写入的条目再运行时跳过，所以中途改了 proposal 可以重新运行。
+   - 写入后，改动和确认的条目状态都变成 `translated`。已经写入的条目再运行时跳过，所以补上漏掉的条目后可以重新运行。
+   - 已经写入的条目要再改时，用 `export --state translated --key <正则>` 重新导出这些条目，走一遍审校。
+   - 补译复数时只补了部分类别，脚本会警告。缺的类别运行时退回 `other`。
 7. **检查。** 运行 `bun scripts/i18n/check.js`。
    结果：`0 个错误`。
 8. **报告。** 运行 `bun scripts/i18n/review.js report --dir <tmp> --langs <lang,lang> --out <tmp>/report.html`。报告先列待决定的事项，再逐条列改动，可以按语言筛选和搜索。摘要表的「缺回译」不为 0 时，说明有条目跳过了回译，回到第 4 步。用户不懂这种语言时，靠报告判断改得对不对。

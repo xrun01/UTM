@@ -10,6 +10,7 @@ import {
   RTL_LANGS,
   ZWSP_LANGS,
   exceptionMatcherOf,
+  hasValue,
   lengthIssueOf,
   pluralCategoriesOf,
   singleIntegerOf,
@@ -210,17 +211,17 @@ export const pendingOf = (catalogs, lang, skipped = []) => {
       if (!isTranslatable(entry) || entry.extractionState === "stale") continue;
       const src_loc = sourceLocOf(key, entry),
         loc = entry.localizations?.[lang],
-        has = unitsOf(loc).some(([u]) => u.value);
+        has = unitsOf(loc).some(([u]) => hasValue(u));
       if (src_loc.variations?.plural) {
         // 已有不分复数的译文时视为完整
-        if (loc?.stringUnit?.value) continue;
+        if (hasValue(loc?.stringUnit)) continue;
         const have = loc?.variations?.plural ?? {},
-          fresh = !Object.values(have).some((v) => v?.stringUnit?.value),
+          fresh = !Object.values(have).some((v) => hasValue(v?.stringUnit)),
           key_units = [],
           key_copies = [];
         let ok = true;
         for (const category of pluralCategoriesOf(lang)) {
-          if (have[category]?.stringUnit?.value) continue;
+          if (hasValue(have[category]?.stringUnit)) continue;
           const path = ["plural", category],
             n = integerSampleOf(lang, category);
           if (n === null) {
@@ -389,11 +390,11 @@ const derivableOf = (catalogs, lang, derive) => {
       if (!isTranslatable(entry) || entry.extractionState === "stale") continue;
       const base = entry.localizations?.[derive.from],
         loc = entry.localizations?.[lang],
-        has = unitsOf(loc).some(([u]) => u.value);
+        has = unitsOf(loc).some(([u]) => hasValue(u));
       for (const [unit, path] of unitsOf(base)) {
         if (!unit.value || !(path.length === 0 || (path.length === 2 && path[0] === "plural"))) continue;
         // 不分复数的单元只在目标完全没有译文时补；复数单元按类别补，已有的类别不动
-        if (path.length === 0 ? has : loc?.stringUnit?.value || unitAt(loc, path)?.value) continue;
+        if (path.length === 0 ? has : hasValue(loc?.stringUnit) || hasValue(unitAt(loc, path))) continue;
         out.push({ table, key, entry, path, value: unit.value });
       }
     }

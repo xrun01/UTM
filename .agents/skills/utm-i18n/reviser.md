@@ -17,6 +17,7 @@
    - `state` 是 `needs_review` 时，译文通常是机翻。
    - `state` 是 `missing` 时，这条缺译（通常是机翻失败），`current` 是空串。你翻译它，放进 `changes`，`old` 写空串，`type` 写「补译」。
 5. `i18n/removed.json`：英文改过的键的旧译文。可以参考，但英文的意思可能变了。
+6. 复数条目的 `id` 以 `plural/<类别>` 结尾，例如 `plural/few`。`en` 是英文的 `other` 形式。这种语言里只对应 1 个整数的类别（例如 de 的 `one`），译文可以省略数字，写成「Ein Kern」。其他类别必须保留计数占位符。
 
 ## 不要做
 

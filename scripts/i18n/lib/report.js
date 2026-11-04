@@ -86,13 +86,14 @@ for (const d of DATA) {
 }
 const SECTIONS = {
   todo: (d) => [
-    ...d.doubts.map((x) => [x, () => { const c = card("todo", [d.lang, "拿不准的译文"], x.id); c.append(row("英文", x.en), row("当前", x.current, "", d.lang), row("问题", x.question)); return c; }]),
+    ...d.doubts.map((x) => [x, () => { const c = card("todo", [d.lang, "拿不准的译文"], x.id); c.append(row("英文", x.en), row("当前", x.current || "（缺译）", "", d.lang), row("问题", x.question)); return c; }]),
     ...d.source_issues.map((x) => [x, () => { const c = card("todo", [d.lang, "英文原文的问题"], x.id); c.append(row("英文", x.en), row("问题", x.problem), row("建议", x.suggest)); return c; }]),
   ],
   mismatch: (d) => d.mismatches.map((x) => [x, () => { const c = card("todo", [d.lang, x.type], x.id); c.append(row("英文", x.en), row("问题", x.problem)); return c; }]),
-  withdrawn: (d) => d.withdrawn.map((x) => [x, () => { const c = card("", [d.lang, "保持 needs_review"], x.id); c.append(row("英文", x.en), row("当前", x.current, "", d.lang), row("原因", x.reason)); return c; }]),
+  withdrawn: (d) => d.withdrawn.map((x) => [x, () => { const c = card("", [d.lang, "保持原状态" + (x.state ? "：" + x.state : "")], x.id); c.append(row("英文", x.en), row("当前", x.current || "（缺译）", "", d.lang), row("原因", x.reason)); return c; }]),
   changes: (d) => d.changes.map((x) => [x, () => {
-    const c = card("", [d.lang, x.type], x.id);
+    // 改动已审校的译文（导出范围包括 translated 时）单独标出
+    const c = card(x.state === "translated" ? "todo" : "", [d.lang, x.type, x.state === "translated" ? "改动已审校的译文" : ""], x.id);
     c.append(row("英文", x.en), row("原译", x.old || "（缺译）", "old", d.lang), row("新译", x.new, "new", d.lang), row("回译", x.back || "（没有回译）"));
     if (x.note) c.append(row("回译备注", x.note));
     c.append(row("理由", x.reason));

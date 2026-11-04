@@ -7,12 +7,13 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSy
 import { dirname, join, resolve } from "node:path";
 import { parseArgs } from "node:util";
 import { CATALOG_PATHS, readCatalog, setUnit, unitAt, unitsOf, writeCatalog } from "./lib/catalog.js";
-import { exceptionMatcherOf, exceptionProblemsOf, missingPathsOf, sourceTextAt, unitIssuesOf, unitSourceOf } from "./lib/checks.js";
+import { exceptionMatcherOf, hasValue, missingPathsOf, readExceptions, sourceTextAt, unitIssuesOf, unitSourceOf } from "./lib/checks.js";
 import { reportHtmlOf } from "./lib/report.js";
 
 const USAGE = `用法：
   review.js new-keys --out <file>
-  review.js export --lang <code> --out <file> [--state needs_review|translated|all|missing] [--table <表名>] [--key <正则>] [--keys <file>] [--limit <n>]
+  review.js export --lang <code> --out <file> [--state <状态,状态>] [--table <表名>] [--key <正则>] [--keys <file>] [--limit <n>]
+    状态：needs_review（默认）、translated、missing（缺译）、all（needs_review 和 translated）
   review.js apply --lang <code> --proposal <file> [--export <file>] [--dry-run]
   review.js back-input --proposal <file> --out <file> [--ids-file <file>]
   review.js compare-input --dir <目录> --langs <code,code> --out <file>
@@ -194,11 +195,12 @@ const commands = {
     console.log("新文案 " + out.length + " 条 → " + opt.out);
   },
 
-  // 导出 1 种语言的待审条目。--state missing 导出缺译条目（例如机翻失败的），current 是空串
+  // 导出 1 种语言的待审条目。--state 可以写多个状态，用逗号分隔；missing 导出缺译条目（例如短标签和机翻失败的），current 是空串
   export: () => {
     need("lang", "out");
     checkLang(opt.lang);
-    if (!["needs_review", "translated", "all", "missing"].includes(opt.state)) fail("--state 只能是 needs_review、translated、all、missing", 2);
+    const states = new Set(opt.state.split(",").flatMap((s) => (s.trim() === "all" ? ["needs_review", "translated"] : [s.trim()])));
+    if (![...states].every((s) => ["needs_review", "translated", "missing"].includes(s))) fail("--state 只能是 needs_review、translated、missing、all，多个用逗号分隔", 2);
     if (opt.table && !CATALOG_PATHS[opt.table]) fail("未知的表名: " + opt.table + "。可选: " + Object.keys(CATALOG_PATHS).join(", "), 2);
     const limit = opt.limit === undefined ? Infinity : Number(opt.limit);
     if (limit !== Infinity && !(Number.isInteger(limit) && limit > 0)) fail("--limit 必须是正整数", 2);
@@ -223,12 +225,9 @@ const commands = {
           current,
           state,
         });
-        if (opt.state === "missing") {
-          for (const path of missingPathsOf(opt.lang, key, entry)) items.push(item(path, "", "missing"));
-          continue;
-        }
+        if (states.has("missing")) for (const path of missingPathsOf(opt.lang, key, entry)) items.push(item(path, "", "missing"));
         for (const [unit, path] of unitsOf(entry.localizations?.[opt.lang])) {
-          if (unit.value && (opt.state === "all" || unit.state === opt.state)) items.push(item(path, unit.value, unit.state));
+          if (unit.value && states.has(unit.state)) items.push(item(path, unit.value, unit.state));
         }
       }
     }
@@ -249,10 +248,12 @@ const commands = {
     if (!existsSync(export_path)) fail("没有 " + export_path + "。apply 按导出时的状态核对每一条，先运行 export，或用 --export 指定", 2);
     const exp = exportAt(export_path);
     if (exp.lang !== opt.lang) fail(export_path + " 的语言是 " + exp.lang + "，不是 " + opt.lang);
-    const exceptions_path = join(root, "i18n/check-exceptions.json"),
-      exception_li = existsSync(exceptions_path) ? readJson(exceptions_path) : [],
-      exception_problems = exceptionProblemsOf(exception_li);
-    if (exception_problems.length) fail("i18n/check-exceptions.json 格式错误：\n" + exception_problems.join("\n"), 2);
+    let exception_li;
+    try {
+      exception_li = readExceptions(root);
+    } catch (err) {
+      fail(err.message, 2);
+    }
 
     const exported = new Map(exp.items.map((it) => [it.id, it])),
       handled = new Set(ID_LISTS.flatMap((k) => (proposal[k] ?? []).map((x) => x.id))),
@@ -272,12 +273,14 @@ const commands = {
         unit = entry && unitAt(entry.localizations?.[opt.lang], p.path),
         bad = (msg) => problems.push(t.id + "：" + msg);
       if (!ex) bad("不在导出结果中。只能写入导出过的条目");
-      else if (t.before !== ex.current) bad(t.field + " 与导出时的译文不同，导出时是 " + JSON.stringify(ex.current));
       else if ((ex.state === "missing") !== (t.type === FILL_TYPE)) bad(ex.state === "missing" ? "缺译条目只能放进 changes，type 是「" + FILL_TYPE + "」" : "只有缺译条目的 type 是「" + FILL_TYPE + "」");
+      else if (t.before !== ex.current) bad(t.field + " 与导出时的译文不同，导出时是 " + JSON.stringify(ex.current));
       else if (!entry) bad("catalog 中已经没有这个键");
       else if (unit?.value === t.value && unit.state === "translated") done++;
-      else if ((unit?.value ?? "") !== ex.current || (unit?.value ? unit.state : "missing") !== ex.state) {
-        bad("导出后译文或状态变了，现在是 " + (unit?.value ? unit.state + " " + JSON.stringify(unit.value) : "缺译") + "。重新导出再审");
+      else if ((unit?.value ?? "") !== ex.current || (hasValue(unit) ? unit.state : "missing") !== ex.state) {
+        // 已写入的条目再改时也走到这里：它已是 translated，默认的 needs_review 导出不到它
+        const again = unit?.state === "translated" ? "用 --state translated --key 重新导出这一条再审" : "重新导出再审";
+        bad("导出后译文或状态变了，现在是 " + (hasValue(unit) ? unit.state + " " + JSON.stringify(unit.value) : "缺译") + "。" + again);
       } else if (sourceTextAt(p.key, entry, p.path) !== ex.en) bad("导出后英文变了。重新导出再审");
       else {
         const source = unitSourceOf(opt.lang, p.key, entry, p.path, t.value),
@@ -288,6 +291,14 @@ const commands = {
     }
     if (problems.length) fail("没有写入任何条目：\n" + problems.join("\n"));
     const skipped = done ? "，已经写入过的 " + done + " 条跳过" : "";
+    // 补译复数时只补了部分类别：缺的类别运行时退回 other，缺 other 时显示英文
+    const planned = new Set(plan.map((p) => idOf(p.table, p.key, p.path))),
+      partial = [...new Set(plan.filter((p) => p.path[0] === "plural").map((p) => p.table + "\x00" + p.key))].flatMap((table_key) => {
+        const [table, key] = table_key.split("\x00"),
+          lack = missingPathsOf(opt.lang, key, cats[table].strings[key]).filter((path) => !planned.has(idOf(table, key, path)));
+        return lack.length ? [idOf(table, key, []) + "：写入后仍缺复数类别 " + lack.map((path) => path[1]).join("、")] : [];
+      });
+    if (partial.length) console.log("警告：\n  " + partial.join("\n  "));
     if (opt["dry-run"]) return console.log("检查通过，可以写入 " + plan.length + " 条" + skipped);
     for (const { table, key, path, unit, value } of plan) {
       if (unit) Object.assign(unit, { state: "translated", value });
@@ -307,12 +318,14 @@ const commands = {
       backs = backsOf(dirname(opt.proposal));
     let items;
     if (opt["ids-file"]) {
-      // 比对代理输出的 id 是 <lang>|<条目 id>
-      const only = new Set(
-        arrayAt(opt["ids-file"])
-          .map((x) => (typeof x === "string" ? x : x?.id))
-          .map((id) => (id?.startsWith(proposal.lang + "|") ? id.slice(proposal.lang.length + 1) : id)),
-      );
+      // 比对代理输出的 id 是 <lang>|<条目 id>；其他语言的条目直接忽略
+      const others = languages().filter((l) => l !== proposal.lang),
+        only = new Set(
+          arrayAt(opt["ids-file"])
+            .map((x) => (typeof x === "string" ? x : x?.id))
+            .filter((id) => !others.some((l) => id?.startsWith(l + "|")))
+            .map((id) => (id?.startsWith(proposal.lang + "|") ? id.slice(proposal.lang.length + 1) : id)),
+        );
       const unmatched = [...only].filter((id) => !current.has(id));
       if (unmatched.length) console.log("警告：--ids-file 中 " + unmatched.length + " 条不在 proposal 的 changes 或 approved 中：\n  " + unmatched.join("\n  "));
       items = [...current].filter(([id]) => only.has(id));
@@ -378,7 +391,8 @@ const commands = {
           en = (id) => exported.get(id)?.en ?? "",
           // 只取当前译文的回译；没有时 back 为空，报告中显示「没有回译」
           row = (id, text, extra) => ({ id, en: en(id), back: "", note: "", ...backs.get(backIdOf(id, text)), ...extra }),
-          changes = (proposal.changes ?? []).map((c) => row(c.id, c.new, { old: c.old, new: c.new, type: c.type, reason: c.reason ?? "" })),
+          changes = (proposal.changes ?? []).map((c) => row(c.id, c.new, { old: c.old, new: c.new, type: c.type, reason: c.reason ?? "", state: exported.get(c.id)?.state ?? "" })),
+          current = currentTextOf(proposal),
           approved = (proposal.approved ?? []).map((a) => row(a.id, a.value, { value: a.value }));
         return [
           {
@@ -388,9 +402,10 @@ const commands = {
             no_back: [...changes, ...approved].filter((x) => !x.back).length,
             doubts: (proposal.doubts ?? []).map((d) => ({ ...d, en: en(d.id) })),
             source_issues: proposal.source_issues ?? [],
-            withdrawn: (proposal.withdrawn ?? []).map((w) => ({ ...w, en: en(w.id), current: exported.get(w.id)?.current ?? "" })),
+            withdrawn: (proposal.withdrawn ?? []).map((w) => ({ ...w, en: en(w.id), current: exported.get(w.id)?.current ?? "", state: exported.get(w.id)?.state ?? "" })),
+            // 只列当前还要写入的条目：撤回或改成 doubts 的条目不再算回译不一致
             mismatches: compare
-              .filter((m) => typeof m?.id === "string" && m.id.startsWith(lang + "|"))
+              .filter((m) => typeof m?.id === "string" && m.id.startsWith(lang + "|") && current.has(m.id.slice(lang.length + 1)))
               .map((m) => ({ ...m, id: m.id.slice(lang.length + 1), en: en(m.id.slice(lang.length + 1)) })),
           },
         ];

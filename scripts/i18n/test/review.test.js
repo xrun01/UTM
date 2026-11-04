@@ -84,6 +84,25 @@ describe("review.js", () => {
       ]);
     });
 
+    test("--state 可以写多个状态：新文案的审校和补译一次导出", () => {
+      exportDe("--state", "needs_review,missing");
+      expect(json(join(tmp, "de/export.json")).items.map((i) => [i.id, i.state])).toEqual([
+        [ONE, "needs_review"],
+        [OTHER, "needs_review"],
+        ["Localizable|New text|", "missing"],
+        [OPEN, "needs_review"],
+      ]);
+      expect(exportDe("--state", "needs_review,bogus").code).toBe(2);
+    });
+
+    test("空串译文不算缺译：不导出，也就不会被补译覆盖", () => {
+      const cat = catalog();
+      cat.strings["New text"].localizations = { de: unit("") };
+      saveCatalog(cat);
+      exportDe("--state", "missing");
+      expect(json(join(tmp, "de/export.json")).items).toEqual([]);
+    });
+
     test("参数错误时退出码 2；输出目录不存在时自动创建", () => {
       expect(run("export", "--lang", "xx", "--out", join(tmp, "a.json")).code).toBe(2);
       expect(exportDe("--state", "bad").code).toBe(2);
@@ -227,6 +246,49 @@ describe("review.js", () => {
       cat.strings["New text"].localizations = { de: unit("Neu", "needs_review") };
       saveCatalog(cat);
       expect(apply().out).toContain("导出后译文或状态变了，现在是 needs_review \"Neu\"");
+    });
+
+    test("已写入的条目再改：拒绝，并提示用 --state translated 重新导出", () => {
+      exportDe();
+      const p = (text) =>
+        propose({
+          changes: [{ id: OPEN, old: "%@ offnen", new: text, type: "不通顺" }],
+          approved: [{ id: ONE, value: "%lld Kern" }, { id: OTHER, value: "%lld Kerne" }],
+        });
+      p("%@ öffnen");
+      apply();
+      p("%@ aufmachen");
+      const res = apply();
+      expect(res.code).toBe(1);
+      expect(res.out).toContain("用 --state translated --key 重新导出这一条再审");
+    });
+
+    test("缺译条目放进 approved：指出真正的原因", () => {
+      exportDe("--state", "missing");
+      propose({ approved: [{ id: "Localizable|New text|", value: "x" }] });
+      expect(apply().out).toContain("缺译条目只能放进 changes");
+    });
+
+    test("复数只补了部分类别时警告", () => {
+      write(join(root, "i18n/languages.json"), { source: "en", languages: [{ code: "de" }, { code: "ru" }] });
+      mkdirSync(join(tmp, "ru"), { recursive: true });
+      const cat = catalog();
+      cat.strings["%lld Cores"].localizations.en = { variations: { plural: { one: unit("%lld Core"), other: unit("%lld Cores") } } };
+      saveCatalog(cat);
+      run("export", "--lang", "ru", "--state", "missing", "--key", "Cores", "--out", join(tmp, "ru/export.json"));
+      propose(
+        {
+          changes: [
+            { id: "Localizable|%lld Cores|plural/few", old: "", new: "%lld ядра", type: "补译" },
+            { id: "Localizable|%lld Cores|plural/many", old: "", new: "%lld ядер", type: "补译" },
+          ],
+          doubts: [{ id: "Localizable|%lld Cores|plural/one", question: "q" }, { id: "Localizable|%lld Cores|plural/other", question: "q" }],
+        },
+        "ru",
+      );
+      const res = run("apply", "--lang", "ru", "--proposal", join(tmp, "ru/proposal.json"));
+      expect(res.code).toBe(0);
+      expect(res.out).toContain("Localizable|%lld Cores|：写入后仍缺复数类别 one、other");
     });
 
     test("语言不一致、未知语言、缺少 export.json、例外清单格式错误", () => {
@@ -382,6 +444,9 @@ describe("review.js", () => {
       expect(partial.code).toBe(0);
       expect(partial.out).toContain("1 条不在 proposal");
       expect(json(join(tmp, "de/in2.json")).map((i) => i.text)).toEqual(["%@ öffnen"]);
+      // 其他语言的条目直接忽略，不算不匹配
+      write(join(tmp, "redo2.json"), [{ id: "de|" + OPEN }, { id: "ja|" + OPEN }]);
+      expect(backInput("de/in4.json", "--ids-file", join(tmp, "redo2.json")).out).not.toContain("不在 proposal");
       write(join(tmp, "none.json"), ["ja|" + OPEN]);
       expect(backInput("de/in3.json", "--ids-file", join(tmp, "none.json")).code).toBe(1);
     });
@@ -418,12 +483,16 @@ describe("review.js", () => {
         approved: [{ id: ONE, value: "%lld Kern" }],
         withdrawn: [{ id: OPEN, reason: "2 轮后仍有分歧" }],
       });
-      write(join(tmp, "compare.json"), [{ id: "de|" + OPEN, type: "意思不同", problem: "p" }]);
+      // 撤回的条目不再算回译不一致
+      write(join(tmp, "compare.json"), [
+        { id: "de|" + OPEN, type: "意思不同", problem: "p" },
+        { id: "de|" + ONE, type: "术语错", problem: "q" },
+      ]);
       const res = report("de,ja");
       expect(res.code).toBe(0);
       expect(res.out).toContain("ja：没有 proposal.json");
-      expect(html()).toContain('"withdrawn":[{"id":"Localizable|Open %@|","reason":"2 轮后仍有分歧","en":"Open %@","current":"%@ offnen"}]');
-      expect(html()).toContain('"mismatches":[{"id":"Localizable|Open %@|","type":"意思不同","problem":"p","en":"Open %@"}]');
+      expect(html()).toContain('"withdrawn":[{"id":"Localizable|Open %@|","reason":"2 轮后仍有分歧","en":"Open %@","current":"%@ offnen","state":"needs_review"}]');
+      expect(html()).toContain('"mismatches":[{"id":"Localizable|%lld Cores|plural/one","type":"术语错","problem":"q","en":"%lld Cores"}]');
       expect(html()).toContain('"no_back":1');
     });
 

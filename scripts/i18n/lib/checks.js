@@ -123,21 +123,23 @@ export const lengthIssueOf = (lang, source, value) => {
 // 复数类别：按 CLDR 规则，这种语言需要的类别都要有，缺少时运行时会退回 other
 export const pluralCategoriesOf = (lang) => new Intl.PluralRules(lang).resolvedOptions().pluralCategories;
 
-// 1 个键在 1 种语言下缺译的变体路径。规则与 check.js 的缺译和复数检查一致：
-// 不翻译或已删除的键不缺译；英文分复数时，按这种语言的复数类别逐个检查（已有不分复数的译文时视为完整）
-// 复数以外的 variations（例如按设备区分）不支持，返回空
+// 1 个键在 1 种语言下缺译、可以补译的变体路径，与 translate.js 的 pendingOf 逐分支相同：
+// - 不翻译或已删除的键不缺译。有值的单元都算已有译文，包括空串：空串由 check.js 的 empty 规则处理，不能被当成缺译覆盖
+// - 英文分复数时，按这种语言的复数类别逐个检查；已有不分复数的译文时视为完整（check.js 对这种情况给 plural 警告）
+// - 复数以外的 variations（例如按设备区分）不支持，返回空
+export const hasValue = (unit) => unit?.value !== undefined;
 export const missingPathsOf = (lang, key, entry) => {
   if (!isTranslatable(entry) || entry.extractionState === "stale") return [];
   const src = sourceLocOf(key, entry),
     loc = entry.localizations?.[lang];
   if (src.variations?.plural) {
-    if (loc?.stringUnit?.value) return [];
+    if (hasValue(loc?.stringUnit)) return [];
     return pluralCategoriesOf(lang)
-      .filter((c) => !loc?.variations?.plural?.[c]?.stringUnit?.value)
+      .filter((c) => !hasValue(loc?.variations?.plural?.[c]?.stringUnit))
       .map((c) => ["plural", c]);
   }
   if (Object.keys(src.variations ?? {}).length) return [];
-  return unitsOf(loc).some(([u]) => u.value) ? [] : [[]];
+  return unitsOf(loc).some(([u]) => hasValue(u)) ? [] : [[]];
 };
 
 // 这个复数类别在这种语言里是否只对应 1 个整数（ar 的 zero、one、two，de 的 one）；这时译文可以省略数字
