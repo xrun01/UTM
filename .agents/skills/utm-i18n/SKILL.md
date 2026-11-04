@@ -37,7 +37,7 @@ description: UTM 的国际化流程：加文案（新增或修改界面文案后
 
 ## 流程 1：加文案
 
-输入：可选的自然语言描述，例如「只看 Windows 向导」。描述只用来缩小审校范围。不写时，处理全部新文案。
+输入：可选的自然语言描述，例如「只看 Windows 向导」。描述只用来缩小审校范围。不写时，审校全部新文案。
 
 1. 运行 `bun vm/script/buildApp.js`。
 2. 运行 `bun scripts/i18n/sync.js`。
@@ -68,7 +68,7 @@ description: UTM 的国际化流程：加文案（新增或修改界面文案后
    - 接口没有这种语言、但能由已启用的语言转换时（例如 zh-HK 由 zh-Hant 转换），用 `derive`。
    - 两者都不行时，停止，并告诉用户原因。
 3. 在 `i18n/languages.json` 中加入这种语言。
-4. 准备术语表。amalthea（官网仓库）有这种语言的 `glossary/<code>.yml` 时，复制过来，去掉 `ui-` 开头的术语，并在文件头注明来源 commit。没有时，在第 7 步由改稿代理新建。
+4. 准备术语表。amalthea（官网仓库）有这种语言的 `glossary/<code>.yml` 时，复制过来。去掉 `ui-` 开头的术语，并在文件头注明来源 commit。没有时，在第 7 步由改稿代理新建。
 5. 运行 `bun scripts/i18n/translate.js --lang <code>`。
 6. 运行 `bun scripts/i18n/check.js --lang <code>`。
    结果：`0 个错误`。
@@ -92,7 +92,7 @@ description: UTM 的国际化流程：加文案（新增或修改界面文案后
 | 文字系统错误 | 必须保留的名称被音译，或用错文字、大小写、标点 | 阿拉伯语把 Linux 写成「لينكس」 |
 | 不通顺 | 母语读者读不顺，或一眼能看出是机翻 | 逐词直译的长句 |
 
-界面文案按这种语言的 macOS 界面习惯写：菜单和按钮的写法、敬语、是否用句号，都参照 Apple 在这种语言里的写法。
+界面文案按这种语言的 macOS 界面习惯写。菜单和按钮的写法、敬语、是否用句号，都参照 Apple 在这种语言里的写法。
 
 ### 步骤
 
@@ -107,10 +107,10 @@ description: UTM 的国际化流程：加文案（新增或修改界面文案后
    - 跨语言都会出现的新术语，补进 `terms.yml`。
 4. **回译。** 运行 `bun scripts/i18n/review.js back-input --proposal <tmp>/<lang>/proposal.json --out <tmp>/<lang>/back-input.json`。每种语言启动 1 个新的回译代理，说明按 `back-translator.md`。回译代理只能看 `back-input.json`。
    结果：`<tmp>/<lang>/back.json`。回译覆盖改动和确认的全部条目，因为机翻条目即使没改也要验证。
-5. **比对。** 逐条比较英文和回译，并读回译代理写的 `note`。条目超过 100 条时，运行 `bun scripts/i18n/review.js compare-input --dir <tmp> --langs <lang,lang> --out <tmp>/compare-input.json`，再启动比对代理，说明按 `comparator.md`。
+5. **比对。** 逐条比较英文和回译，并读回译代理写的 `note`。条目超过 100 条时，先运行 `bun scripts/i18n/review.js compare-input --dir <tmp> --langs <lang,lang> --out <tmp>/compare-input.json`。然后启动比对代理，说明按 `comparator.md`。
    - 意思一致：通过。
    - 意思不一致，或 `note` 指出真实的歧义：退回改稿代理。改过的条目再回译 1 次：`back-input` 加 `--ids <id,id>`，结果写 `back2.json`，第 N 轮写 `backN.json`。
-   - 最多退回 2 轮。2 轮后仍有分歧的条目，从 `proposal.json` 中删除，让它保持 `needs_review`，并写进交付说明。
+   - 最多退回 2 轮。2 轮后仍有分歧的条目，从 `proposal.json` 中删除，让它保持 `needs_review`。在交付说明中列出这些条目。
 6. **写入。** 先运行 `bun scripts/i18n/review.js apply --lang <lang> --proposal <tmp>/<lang>/proposal.json --dry-run`，通过后去掉 `--dry-run` 再运行 1 次。
    - 脚本逐条核对原译文，并按 `check.js` 的规则校验新译文。任何 1 条不合格时，不写入任何条目。
    - 写入后，改动和确认的条目状态都变成 `translated`。
@@ -122,7 +122,7 @@ description: UTM 的国际化流程：加文案（新增或修改界面文案后
    2. 用 `open -n build/UTM.app --args -AppleLanguages "(<lang>)"` 启动 app。打开新建虚拟机向导和设置窗口。
    3. 用 `screencapture -l <窗口 ID> <文件>` 截图，检查文字是否被截断、是否重叠。
    4. 再用 `-NSDoubleLocalizedStrings YES` 启动 1 次，检查文案加倍后的布局。ar 另外检查从右到左的布局。
-   注意：截图需要「屏幕录制」权限。没有权限时，请用户授权或人工检查，不要跳过这一步。
+   注意：截图要求「屏幕录制」权限。没有权限时，请用户授权或人工检查，不要跳过这一步。
 10. **提交。** 提交说明按语言列出改动类别和条数，例如 `de：术语错误 4 条、不通顺 3 条`。
 
 ### 约束
@@ -130,7 +130,7 @@ description: UTM 的国际化流程：加文案（新增或修改界面文案后
 - 不改英文。英文的问题写进 `proposal.json` 的 `source_issues`，交给用户决定。改英文会让所有语言的译文失效。
 - 占位符的数量、类型和位置必须和英文一致。`%@` 可以改成带序号的 `%1$@` 以调整语序。
 - 专有名词原样保留，清单见 `scripts/i18n/lib/terms.js` 和术语表中 rule 为 `keep` 的术语。
-- 英文改过的键，旧译文在 `i18n/removed.json` 中。改稿时可以参考，保持术语和风格一致，但不要照抄，因为英文的意思可能变了。
+- 英文改过的键，旧译文在 `i18n/removed.json` 中。改稿时可以参考它保持术语和风格一致。但是不要照抄，因为英文的意思可能变了。
 
 ## 交付
 

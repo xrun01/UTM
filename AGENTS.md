@@ -54,7 +54,8 @@ UI text is written in English and translated through String Catalogs
 (`Platform/**/*.xcstrings`); never hard-code another language in a string
 literal — `scripts/i18n/check.js` fails CI on it. After changing UI text, rebuild,
 then run `bun scripts/i18n/sync.js` and `bun scripts/i18n/check.js`. Workflow and
-rules: `Documentation/i18n.md`.
+rules: `Documentation/i18n.md`; the translate and review flows are packaged as the
+`utm-i18n` skill (`.agents/skills/utm-i18n/SKILL.md`, `/utm-i18n`).
 
 ## Contribution workflows
 
