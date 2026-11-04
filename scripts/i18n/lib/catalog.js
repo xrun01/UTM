@@ -88,3 +88,16 @@ export const sourceLocOf = (key, entry) =>
   entry.localizations?.[SOURCE_LANG] ?? { stringUnit: { state: "new", value: key } };
 
 export const isTranslatable = (entry) => entry.shouldTranslate !== false;
+
+// 写入 1 个译文单元：路径为空时写顶层 stringUnit，否则写到对应的变体下（例如 ["plural", "few"]）
+export const setUnit = (catalog, key, lang, path, value, state = "needs_review") => {
+  const entry = catalog.strings[key];
+  entry.localizations ??= {};
+  if (path.length === 0) {
+    entry.localizations[lang] = { stringUnit: { state, value } };
+    return;
+  }
+  const loc = (entry.localizations[lang] ??= {}),
+    variants = ((loc.variations ??= {})[path[0]] ??= {});
+  variants[path[1]] = { stringUnit: { state, value } };
+};

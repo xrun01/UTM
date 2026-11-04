@@ -4,7 +4,7 @@
 import { createHash, randomUUID } from "node:crypto";
 import * as OpenCC from "opencc-js";
 import { FatalError } from "./api.js";
-import { SOURCE_LANG, isTranslatable, sourceLocOf, unitAt, unitsOf } from "./catalog.js";
+import { SOURCE_LANG, isTranslatable, setUnit, sourceLocOf, unitAt, unitsOf } from "./catalog.js";
 import {
   CJK_LANGS,
   RTL_LANGS,
@@ -271,18 +271,6 @@ const limitByKey = (units, limit) => {
     out.push(u);
   }
   return out;
-};
-
-const setUnit = (catalog, key, lang, path, value) => {
-  const entry = catalog.strings[key];
-  entry.localizations ??= {};
-  if (path.length === 0) {
-    entry.localizations[lang] = { stringUnit: { state: "needs_review", value } };
-    return;
-  }
-  const loc = (entry.localizations[lang] ??= {}),
-    variants = ((loc.variations ??= {})[path[0]] ??= {});
-  variants[path[1]] = { stringUnit: { state: "needs_review", value } };
 };
 
 // 校验 1 条候选译文：规则与例外清单都与 check.js 相同，另外拒绝空串和长度异常；返回 { value } 或 { reason }

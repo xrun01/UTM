@@ -50,10 +50,10 @@ description: UTM 的国际化流程：加文案（新增或修改界面文案后
    - 专有名词的写法见 `scripts/i18n/lib/terms.js` 和术语表。
    - 有歧义的短词（例如 Display、Open）加 `comment`，或改用显式键。
 5. 运行 `bun scripts/i18n/translate.js`。它补齐所有语言的全部缺译条目。初次机翻完成后，缺译只剩新文案和此前机翻失败的条目，所以范围和新文案基本一致。
-   结果：每种语言输出写入条数和失败条数。失败的条目保持缺译，运行时显示英文。
+   结果：每种语言输出写入条数和失败条数。失败的条目保持缺译，运行时显示英文。在第 7 步补译。
 6. 运行 `bun scripts/i18n/check.js --ci`。
    结果：`0 个错误`。
-7. 审校新文案的译文：执行流程 3 的第 1 至 8 步，范围是第 3 步的新键（`review.js export --keys <tmp>/new-keys.json`）。
+7. 审校新文案的译文：执行流程 3 的第 1 至 8 步，范围是第 3 步的新键（`review.js export --keys <tmp>/new-keys.json`）。机翻失败的条目另外用 `--state missing` 导出，在同一轮中补译。
 8. 提交源码和 catalog。提交说明写出新增几条文案、机翻几种语言、审校结果。
 
 ## 流程 2：加语言
@@ -78,11 +78,11 @@ description: UTM 的国际化流程：加文案（新增或修改界面文案后
 
 ## 流程 3：审校
 
-输入：语言列表和范围，例如「审校日语和韩语新加的译文」。范围的默认值是 `needs_review` 的全部条目。用户说「全部」时，范围是 `--state all`。
+输入：语言列表和范围，例如「审校日语和韩语新加的译文」。范围的默认值是 `needs_review` 的全部条目。用户说「全部」时，范围是 `--state all`。用户说「补译」或「缺译」时，范围是 `--state missing`。
 
 ### 问题分类
 
-改稿代理只修下面 5 类问题，不改风格偏好。
+改稿代理只修下面 5 类问题，不改风格偏好。缺译条目（导出状态是 `missing`）由改稿代理翻译，类别写「补译」。
 
 | 类别 | 含义 | 例子 |
 |---|---|---|
@@ -99,27 +99,31 @@ description: UTM 的国际化流程：加文案（新增或修改界面文案后
 下文 `<tmp>` 是会话临时目录下的 `i18n-review/`，每种语言 1 个子目录 `<tmp>/<lang>/`。
 
 1. **导出。** 导出 0 条的语言跳过后续步骤。每种语言运行 `bun scripts/i18n/review.js export --lang <lang> --out <tmp>/<lang>/export.json`，按范围加 `--state`、`--keys`、`--key`、`--limit`。
-2. **改稿。** 每种语言启动 1 个改稿代理，最多 3 个并行。说明按 `reviser.md`，填入语言、输入和输出路径。
+   `export.json` 必须留在 `proposal.json` 旁边。第 6 步按它核对导出后有没有变化。
+2. **改稿。** 每种语言启动 1 个改稿代理，最多 3 个并行。说明按 `reviser.md`，填入 4 个参数：语言、仓库根目录、输入路径、输出路径。
    结果：`<tmp>/<lang>/proposal.json`，以及更新后的 `i18n/glossary/<lang>.yml`。
 3. **主代理复核。** 读 `proposal.json` 的全部改动和 `doubts`。
    - 你能判断的语言（至少 zh-Hans），逐条看新译。
-   - `doubts` 中能按术语表规则判断的，直接定。要改多条时，把意见发回原改稿代理。
+   - `doubts` 中能按术语表规则判断的，直接定：把这一条从 `doubts` 移到 `changes` 或 `approved`。要改多条时，把意见发回原改稿代理。
    - 跨语言都会出现的新术语，补进 `terms.yml`。
 4. **回译。** 运行 `bun scripts/i18n/review.js back-input --proposal <tmp>/<lang>/proposal.json --out <tmp>/<lang>/back-input.json`。每种语言启动 1 个新的回译代理，说明按 `back-translator.md`。回译代理只能看 `back-input.json`。
    结果：`<tmp>/<lang>/back.json`。回译覆盖改动和确认的全部条目，因为机翻条目即使没改也要验证。
-   脚本把不透明编号和送去回译的译文记在 `<tmp>/<lang>/back-ids.json`。之后改过的条目，旧回译自动作废。
-5. **比对。** 逐条比较英文和回译，并读回译代理写的 `note`。条目超过 100 条时，先运行 `bun scripts/i18n/review.js compare-input --dir <tmp> --langs <lang,lang> --out <tmp>/compare-input.json`。然后启动比对代理，说明按 `comparator.md`。比对结果写到 `<tmp>/compare.json`，第 8 步的报告会读它。
-   - 条目不超过 100 条、由你自己比对时，也必须按 `comparator.md` 的格式写 `<tmp>/compare.json`。没有问题时写 `[]`。
-   - `compare-input` 只取 proposal 当前的条目。它提示「缺少回译」或「回译已过期」时，先对这些条目重新回译。
+   不透明编号由条目和译文算出。`back-input` 只输出还没有当前译文回译的条目，所以改过的条目会自动重新回译。
+5. **比对。** 运行 `bun scripts/i18n/review.js compare-input --dir <tmp> --langs <lang,lang> --out <tmp>/compare-input.json`。它合并英文和当前译文的回译。提示「缺少当前译文的回译」时，先回到第 4 步。
+   - 条目超过 100 条时，启动比对代理，说明按 `comparator.md`。不超过 100 条时，你自己逐条比较英文、回译和 `note`。
+   - 结果都按 `comparator.md` 的格式写到 `<tmp>/compare.json`，没有问题时写 `[]`。第 8 步的报告读它。
    - 意思一致：通过。
-   - 意思不一致，或 `note` 指出真实的歧义：退回改稿代理。改过的条目再回译 1 次。把要重译的条目 id 写成 JSON 数组，比对代理的输出可以直接用。`back-input` 加 `--ids-file <文件>`，输入写 `<tmp>/<lang>/back2-input.json`，回译代理的结果写 `back2.json`。第 N 轮写 `backN.json`，后一轮覆盖前一轮。
-   - 最多退回 2 轮。2 轮后仍有分歧的条目，从 `changes` 和 `approved` 中移到 `withdrawn`，写明原因：`{ "id": "…", "reason": "…" }`。这些条目保持 `needs_review`，报告中单独列出。
+   - 意思不一致，或 `note` 指出真实的歧义：退回改稿代理。改稿代理改了译文后，再执行第 4 步：`back-input` 的输出写 `<tmp>/<lang>/back2-input.json`，回译代理的结果写 `back2.json`。第 N 轮写 `backN.json`。然后重新执行本步，覆盖 `compare.json`。
+   - 改稿代理坚持原译文、但你想换 1 个回译代理复核时，`back-input` 加 `--ids-file <文件>`，强制输出这些条目。文件是条目 id 的 JSON 数组，比对代理的输出可以直接用。
+   - 最多退回 2 轮。2 轮后仍有分歧的条目，从 `changes` 和 `approved` 中移到 `withdrawn`，写明原因：`{ "id": "…", "reason": "…" }`。这些条目保持原状态，报告中单独列出。
 6. **写入。** 先运行 `bun scripts/i18n/review.js apply --lang <lang> --proposal <tmp>/<lang>/proposal.json --dry-run`，通过后去掉 `--dry-run` 再运行 1 次。
-   - 脚本逐条核对原译文，并按 `check.js` 的规则校验新译文。任何 1 条不合格时，不写入任何条目。
-   - 写入后，改动和确认的条目状态都变成 `translated`。
+   - 脚本只写导出过的条目，并逐条核对导出后译文、状态、英文都没变。所以它不会覆盖导出后别人确认或改过的译文。核对不通过时，重新导出这些条目再审。
+   - 导出的每个条目都必须出现在 `changes`、`approved`、`doubts`、`withdrawn` 中的 1 处，否则拒绝写入。
+   - 新译文按 `check.js` 的规则校验。任何 1 条不合格时，不写入任何条目。
+   - 写入后，改动和确认的条目状态都变成 `translated`。已经写入的条目再运行时跳过，所以中途改了 proposal 可以重新运行。
 7. **检查。** 运行 `bun scripts/i18n/check.js`。
    结果：`0 个错误`。
-8. **报告。** 运行 `bun scripts/i18n/review.js report --dir <tmp> --langs <lang,lang> --out <tmp>/report.html`。报告先列待决定的事项，再逐条列改动，可以按语言筛选和搜索。「没有处理的条目」一节不为空时，说明改稿代理漏了条目：退回改稿代理补上，再从第 4 步重做这些条目。用户不懂这种语言时，靠报告判断改得对不对。
+8. **报告。** 运行 `bun scripts/i18n/review.js report --dir <tmp> --langs <lang,lang> --out <tmp>/report.html`。报告先列待决定的事项，再逐条列改动，可以按语言筛选和搜索。摘要表的「缺回译」不为 0 时，说明有条目跳过了回译，回到第 4 步。用户不懂这种语言时，靠报告判断改得对不对。
 9. **布局验收。** 文案变长会撑破固定宽度的界面。
    1. 运行 `bun vm/script/buildApp.js`。
    2. 用 `open -n build/UTM.app --args -AppleLanguages "(<lang>)"` 启动 app。打开新建虚拟机向导和设置窗口。
@@ -141,6 +145,6 @@ description: UTM 的国际化流程：加文案（新增或修改界面文案后
 交付说明列出：
 
 - 每种语言的改动类别和条数，确认条数。
-- 2 轮后仍有分歧、保持 `needs_review` 的条目。
+- 2 轮后仍有分歧、保持原状态的条目。
 - `source_issues` 汇总，等用户决定是否改英文。
 - 审校报告的路径。
