@@ -1,0 +1,238 @@
+# 来源：amalthea（VM64 官网）的 glossary/，commit 960ff63。去掉了官网专用的 ui-* 术语。
+# 术语表：审校时，每个术语按这里的 rule 和 note 翻译。
+# 每种语言定下的译法写在 i18n/glossary/<lang>.yml。en 的定稿就是本文件的 en 列。
+#
+# rule 的取值：
+#   keep       原样保留，不翻译、不音译。可以按语法加词尾，例如 iPhone-ban。
+#              变格会改动词尾时（cs、sk 写 iPhonu），按 Apple 在这种语言里的写法
+#   apple      按 Apple 在这种语言里的官方写法。查 support.apple.com/<locale> 或 apple.com/<locale>
+#   microsoft  按 Microsoft 在这种语言里的官方写法。查 learn.microsoft.com/<locale> 或 support.microsoft.com/<locale>
+#   translate  按 note 写的意思意译。用这种语言软件界面的通行说法
+#
+# 新增文案出现新术语时，先把术语加进本文件，再翻译。
+
+# 核心术语
+virtual-machine:
+  zh: 虚拟机
+  en: virtual machine
+  rule: translate
+  note: 用软件模拟的一台完整电脑。不用缩写 VM，除非这种语言的软件界面通用缩写。
+guest:
+  zh: 客户机
+  en: guest
+  rule: translate
+  note: 虚拟机里运行的系统。「客户机系统」= guest operating system，「客户机工具」= guest tools（装在虚拟机里的驱动和工具）。不是客户端（client），不是顾客。
+emulate:
+  zh: 模拟
+  en: emulate；名词 emulation
+  rule: translate
+  note: 用 QEMU 在 Mac 上运行另一种 CPU 架构的系统，速度慢。必须和「虚拟化」用不同的词，不能用同一个词根。
+virtualize:
+  zh: 虚拟化
+  en: virtualize；名词 virtualization
+  rule: translate
+  note: 虚拟机和 Mac 的 CPU 架构相同，直接在硬件上运行，速度接近原生。必须和「模拟」区分。
+native:
+  zh: 原生
+  en: native
+  rule: translate
+  note: 「接近原生的速度」= 接近直接在 Mac 上运行的速度。
+architecture:
+  zh: 架构
+  en: architecture
+  rule: translate
+  note: CPU 架构，例如 ARM64、x86_64。不是建筑。
+backend:
+  zh: 后端
+  en: backend
+  rule: translate
+  note: 运行虚拟机的引擎。VM64 有 QEMU 后端和 Apple 后端。不是背景，不是网站后台。
+apple-silicon:
+  zh: Apple 芯片
+  en: Apple silicon
+  rule: apple
+  note: Apple 自研的 M 系列芯片。「Apple 芯片的 Mac」按 Apple 写法，例如 en「Mac with Apple silicon」。en 复数写「Mac computers with Apple silicon」，不写 Macs。每种语言只用 1 种写法。
+intel-mac:
+  zh: Intel Mac
+  en: Intel-based Mac
+  rule: apple
+  note: 使用 Intel 处理器的 Mac。Intel 和 Mac 必须原样保留。en 复数写「Intel-based Mac computers」，不写 Intel Macs。
+snapshot:
+  zh: 快照
+  en: snapshot
+  rule: translate
+  note: 虚拟机在某一时刻的状态，之后可以恢复。不是照片。
+disposable-mode:
+  zh: 一次性模式
+  en: disposable mode
+  rule: translate
+  note: 运行虚拟机时不保存改动，关机后全部丢弃。
+shut-down:
+  zh: 关机
+  en: shut down
+  rule: translate
+  note: 关闭虚拟机里的系统。和 UI 按钮「关闭」（close）不同。
+new-vm-wizard:
+  zh: 新建向导
+  en: wizard for new virtual machines
+  rule: translate
+  note: 新建虚拟机时一步步引导用户的向导。「新建」修饰「向导」的用途，不是「新的向导」。
+installer-image:
+  zh: 安装镜像
+  en: installer image
+  rule: translate
+  note: 系统安装盘的映像文件，通常是 ISO。不是图片。
+license:
+  zh: 许可证
+  en: license
+  rule: microsoft
+  note: Windows 的使用许可。「自备许可证」= 用户必须自己购买许可证。
+secure-boot:
+  zh: Secure Boot
+  en: Secure Boot
+  rule: microsoft
+  note: UEFI 安全启动。按这种语言的 Windows 界面写法，Windows 界面翻译时就跟着翻译。
+or-later:
+  zh: 或更高版本
+  en: or later
+  rule: apple
+  note: 系统要求里的版本下限，例如「macOS 12 或更高版本」。按 Apple 产品页「系统要求」的写法。
+experimental:
+  zh: 实验功能
+  en: experimental feature
+  rule: translate
+  note: 还不稳定、以后可能改变的功能。
+auto-resolution:
+  zh: 自动调整分辨率
+  en: automatic display resolution
+  rule: translate
+  note: 调整虚拟机窗口大小时，虚拟机的屏幕分辨率跟着变化。
+
+# 共享
+shared-clipboard:
+  zh: 共享剪贴板
+  en: shared clipboard
+  rule: apple
+  note: Mac 和虚拟机之间复制粘贴文字。「剪贴板」按 Apple 写法。
+shared-folder:
+  zh: 共享文件夹
+  en: shared folder
+  rule: translate
+  note: 把 Mac 上的文件夹给虚拟机读写。
+sharing:
+  zh: 共享
+  en: Sharing
+  rule: translate
+  note: 作标题时是功能类别名，指共享剪贴板和共享文件夹。用名词或动名词，不用形容词（en 不用 Shared）。
+
+# 网络
+shared-network:
+  zh: 共享网络
+  en: Shared Network
+  rule: translate
+  note: 网络模式名。虚拟机通过 Mac 的网络连接上网（NAT）。
+host-only:
+  zh: 仅主机
+  en: Host Only
+  rule: translate
+  note: 网络模式名。虚拟机只能和 Mac 通信。用这种语言虚拟机软件的通行说法。
+bridged:
+  zh: 桥接
+  en: Bridged
+  rule: translate
+  note: 网络模式名。虚拟机作为局域网里的独立设备。
+emulated-vlan:
+  zh: 模拟 VLAN
+  en: Emulated VLAN
+  rule: translate
+  note: 网络模式名。「模拟」用 emulate 的译法。VLAN 原样保留。
+port-forwarding:
+  zh: 端口转发
+  en: port forwarding
+  rule: translate
+  note: 网络术语。
+lan:
+  zh: 局域网
+  en: local network
+  rule: translate
+  note: 家里或公司里的本地网络。
+
+# 自动化、远程和其他
+shortcuts:
+  zh: 快捷指令
+  en: Shortcuts
+  rule: apple
+  note: Apple 的 App 名称，不是键盘快捷键。按 Apple 在这种语言里的 App 名。
+command-line-tool:
+  zh: 命令行工具
+  en: command-line tool
+  rule: translate
+  note: 在终端里运行的程序。
+clone:
+  zh: 克隆
+  en: clone
+  rule: translate
+  note: 复制出一台相同的虚拟机。
+fingerprint:
+  zh: 指纹
+  en: fingerprint
+  rule: translate
+  note: 加密密钥的指纹，用来核对连接对象。不是手指的指纹。
+hardware-reset:
+  zh: 硬件复位
+  en: hardware reset
+  rule: translate
+  note: 把 USB 设备恢复到初始状态。
+mount:
+  zh: 挂载
+  en: mount
+  rule: translate
+  note: 在 Linux 里挂载文件系统。
+shared-library:
+  zh: 共享库
+  en: shared library
+  rule: translate
+  note: Linux 程序运行时加载的库。和「共享」功能无关。
+capture-mouse:
+  zh: 捕获鼠标
+  en: capture the mouse
+  rule: translate
+  note: 鼠标被锁定在虚拟机窗口里。「捕获鼠标按钮」是工具栏上的按钮。
+keys:
+  zh: Control 键、Option 键
+  en: Control key, Option key
+  rule: apple
+  note: Mac 键盘的按键名。按 Apple 在这种语言里的写法。
+toolbar:
+  zh: 工具栏
+  en: toolbar
+  rule: apple
+  note: 窗口顶部的按钮栏。
+settings:
+  zh: 设置
+  en: settings
+  rule: apple
+  note: 虚拟机的设置。按 Apple 在这种语言里「设置」的写法。
+rosetta:
+  zh: Rosetta
+  en: Rosetta
+  rule: apple
+  note: Apple 的转译程序。保留拉丁字母，按 Apple 在这种语言里的写法变格，例如 pl 写 Rosettę、Rosetty。scripts/i18n/check.js 按词干 Rosett 匹配。
+cpu:
+  zh: CPU
+  en: CPU
+  rule: apple
+  note: 处理器。按 Apple 在这种语言里的写法，可以翻译，例如 pl 写 procesor、uk 写 ЦП。
+classic-systems:
+  zh: 经典系统
+  en: classic systems
+  rule: translate
+  note: 早期的旧系统，例如 Mac OS 9、Windows 95。
+
+# 原样保留的名称。scripts/i18n/check.js 检查其中的 iPhone、iPad、DirectX、Vulkan、OpenGL，其余审校时人工检查。
+# iPhone 按词干 iPhon 匹配：斯拉夫语变格时去掉词尾 e（cs、sk 写 iPhonu）
+keep-names:
+  zh: iPhone、iPad、Vulkan、OpenGL、DirectX、VLAN、ROM、ISO、binfmt、ARM64、ARM32、x86、x86_64、x64、MIPS、PowerPC、RISC-V、68k、Mac OS、Mac OS X
+  en: 同 zh
+  rule: keep
+  note: 产品名、技术名、架构名。不翻译，不音译。

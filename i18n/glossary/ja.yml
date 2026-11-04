@@ -1,0 +1,41 @@
+# ja 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。
+virtual-machine: 仮想マシン
+guest: ゲスト；客户机系统 = ゲスト OS；客户机工具 = ゲストツール
+emulate: エミュレート；エミュレーション
+virtualize: 仮想化
+native: ネイティブ；接近原生的速度 = ネイティブに近い速度
+architecture: アーキテクチャ
+backend: バックエンド
+apple-silicon: Apple シリコン；Apple 芯片的 Mac = Apple シリコン搭載の Mac  # https://support.apple.com/ja-jp/116943（「Appleシリコン搭載のMacコンピュータ」，空格按本站日文的写法加）
+intel-mac: Intel プロセッサ搭載の Mac  # https://support.apple.com/ja-jp/116943（「Intelプロセッサを搭載したMac」）
+snapshot: スナップショット
+disposable-mode: 使い捨てモード
+shut-down: シャットダウン
+new-vm-wizard: 仮想マシン作成ウィザード
+installer-image: インストールイメージ
+license: ライセンス；自备许可证 = ライセンスを自分で用意する
+secure-boot: セキュア ブート  # https://support.microsoft.com/ja-jp/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+experimental: 実験的な機能
+auto-resolution: 解像度の自動調整
+or-later: 以降  # https://www.apple.com/jp/final-cut-pro/specs/（「macOS 15.6以降」）
+shared-clipboard: 共有クリップボード；复制和粘贴 = コピー＆ペースト，粘贴 = ペースト  # https://support.apple.com/ja-jp/guide/mac-help/mchl70368996/mac
+shared-folder: 共有フォルダー
+sharing: 共有
+shared-network: 共有ネットワーク
+host-only: ホストのみ
+bridged: ブリッジ
+emulated-vlan: エミュレートされた VLAN
+port-forwarding: ポート転送
+lan: LAN
+shortcuts: ショートカットアプリ  # https://support.apple.com/ja-jp/guide/shortcuts-mac/welcome/mac
+command-line-tool: コマンドラインツール
+clone: クローン；克隆虚拟机 = 仮想マシンのクローンを作成
+fingerprint: フィンガープリント
+hardware-reset: ハードウェアのリセット
+mount: マウント
+shared-library: 共有ライブラリ
+capture-mouse: マウスをキャプチャ；捕获鼠标按钮 = 「マウスをキャプチャ」ボタン
+keys: Control キー、Option キー  # https://support.apple.com/ja-jp/102650
+toolbar: ツールバー
+settings: 設定
+classic-systems: クラシックシステム

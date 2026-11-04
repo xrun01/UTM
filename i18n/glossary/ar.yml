@@ -1,0 +1,41 @@
+# ar 定下的译法。规则见 i18n/glossary/terms.yml。
+virtual-machine: جهاز ظاهري؛ الجمع أجهزة ظاهرية  # https://support.microsoft.com/ar-sa/windows/enable-virtualization-on-windows-c5578302-6e43-4b4b-a449-8ced115f58e1
+guest: الضيف؛ نظام الضيف، أدوات الضيف
+emulate: يحاكي؛ المحاكاة
+virtualize: الظاهرية  # https://support.microsoft.com/ar-sa/windows/enable-virtualization-on-windows-c5578302-6e43-4b4b-a449-8ced115f58e1
+native: السرعة الأصلية
+architecture: بنية؛ الجمع بنيات
+backend: الواجهة الخلفية؛ واجهة QEMU الخلفية، واجهة Apple الخلفية
+apple-silicon: Apple silicon؛ جهاز Mac مزود بشريحة Apple silicon  # https://support.apple.com/ar-ae/116943
+intel-mac: جهاز Mac مزود بمعالج Intel  # https://support.apple.com/ar-ae/116943
+snapshot: لقطة؛ الجمع لقطات
+disposable-mode: وضع الاستخدام لمرة واحدة
+shut-down: إيقاف التشغيل
+new-vm-wizard: معالج إنشاء الأجهزة الظاهرية
+installer-image: صورة التثبيت
+license: ترخيص
+secure-boot: التمهيد الآمن  # https://support.microsoft.com/ar-sa/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+experimental: ميزة تجريبية
+auto-resolution: ضبط الدقة تلقائيًا
+shared-clipboard: الحافظة المشتركة؛ مشاركة الحافظة
+shared-folder: المجلد المشترك
+sharing: المشاركة
+shared-network: الشبكة المشتركة
+host-only: المضيف فقط
+bridged: الجسر
+emulated-vlan: شبكة VLAN المحاكاة
+port-forwarding: إعادة توجيه المنافذ
+lan: الشبكة المحلية
+shortcuts: تطبيق الاختصارات  # https://support.apple.com/ar-ae/guide/shortcuts-mac/welcome/mac
+command-line-tool: أداة سطر الأوامر
+clone: استنساخ
+fingerprint: البصمة الرقمية
+hardware-reset: إعادة ضبط العتاد
+mount: ركّب (mount)  # 只写 ركّب 会和安装 ثبّت 混淆，ضمّ 读者看不懂；主代理定稿，待母语者确认
+shared-library: مكتبة مشتركة؛ الجمع مكتبات مشتركة
+capture-mouse: التقاط الماوس؛ زر التقاط الماوس
+keys: مفتاح Control، مفتاح Option  # https://support.apple.com/ar-ae/102650
+toolbar: شريط الأدوات
+settings: الإعدادات
+or-later: أو إصدار أحدث؛作宾语时用宾格 أو إصدارًا أحدث
+classic-systems: الأنظمة الكلاسيكية

@@ -1,0 +1,41 @@
+# ru 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。专有名词保留拉丁字母，不变格（на Mac、для Mac）。
+virtual-machine: виртуальная машина
+guest: гостевой；客户机系统 = гостевая система；客户机工具 = гостевые инструменты
+emulate: эмулировать；эмуляция
+virtualize: виртуализировать；виртуализация
+native: нативный；接近原生的速度 = скорость, близкая к нативной
+architecture: архитектура
+backend: бэкенд；бэкенд QEMU、бэкенд Apple（不用 серверная часть）
+apple-silicon: чип Apple；Apple 芯片的 Mac = Mac с чипом Apple  # https://support.apple.com/ru-ru/116943
+intel-mac: Mac с процессором Intel  # https://support.apple.com/ru-ru/116943
+snapshot: снимок
+disposable-mode: одноразовый режим
+shut-down: выключить；выключение
+new-vm-wizard: мастер создания виртуальных машин
+installer-image: установочный образ
+license: лицензия；自备许可证 = собственная лицензия
+secure-boot: безопасная загрузка  # https://support.microsoft.com/ru-ru/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: или более поздняя версия（按格变化，例如 с macOS 13 или более поздней версии）  # https://support.apple.com/ru-ru/108964
+experimental: экспериментальная функция
+auto-resolution: автоматическая настройка разрешения
+shared-clipboard: общий буфер обмена；共享剪贴板（动作）= общий доступ к буферу обмена
+shared-folder: общая папка
+sharing: общий доступ
+shared-network: Общая сеть
+host-only: Только хост
+bridged: Сетевой мост
+emulated-vlan: Эмулируемая VLAN
+port-forwarding: переадресация портов
+lan: локальная сеть
+shortcuts: Быстрые команды  # https://support.apple.com/ru-ru/guide/shortcuts-mac/welcome/mac
+command-line-tool: инструмент командной строки
+clone: клонировать
+fingerprint: отпечаток（不写 отпечаток пальца）
+hardware-reset: аппаратный сброс
+mount: смонтировать
+shared-library: разделяемая библиотека（和「共享」功能的 общий 区分）
+capture-mouse: захватить мышь；捕获鼠标按钮 = кнопка «Захватить мышь»
+keys: клавиша Control、клавиша Option  # https://support.apple.com/ru-ru/102650
+toolbar: панель инструментов
+settings: настройки
+classic-systems: классические системы

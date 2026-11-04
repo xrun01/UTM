@@ -1,0 +1,41 @@
+# ko 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。
+virtual-machine: 가상 머신
+guest: 게스트；客户机系统 = 게스트 운영 체제；客户机工具 = 게스트 도구
+emulate: 에뮬레이트；에뮬레이션
+virtualize: 가상화
+native: 네이티브；接近原生的速度 = 네이티브에 가까운 속도（不用「기본」）
+architecture: 아키텍처
+backend: 백엔드
+apple-silicon: Apple Silicon；Apple 芯片的 Mac = Apple Silicon이 탑재된 Mac  # https://support.apple.com/ko-kr/116943
+intel-mac: Intel 기반 Mac  # https://support.apple.com/ko-kr/116943
+snapshot: 스냅샷
+disposable-mode: 일회용 모드
+shut-down: 종료
+new-vm-wizard: 가상 머신 생성 마법사
+installer-image: 설치 이미지
+license: 라이선스；自备许可证 = 라이선스는 직접 준비해야 합니다
+secure-boot: 보안 부팅  # https://support.microsoft.com/ko-kr/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+experimental: 실험적 기능
+auto-resolution: 해상도 자동 조정
+or-later: 이후 버전  # https://www.apple.com/kr/final-cut-pro/specs/（「macOS 15.6 이후 버전」）
+shared-clipboard: 공유 클립보드；复制和粘贴 = 복사하여 붙여넣기  # https://support.apple.com/ko-kr/guide/mac-help/mchl70368996/mac
+shared-folder: 공유 폴더
+sharing: 공유
+shared-network: 공유 네트워크
+host-only: 호스트 전용
+bridged: 브리지
+emulated-vlan: 에뮬레이트된 VLAN
+port-forwarding: 포트 포워딩
+lan: LAN
+shortcuts: 단축어  # https://support.apple.com/ko-kr/guide/shortcuts-mac/welcome/mac
+command-line-tool: 명령줄 도구
+clone: 복제
+fingerprint: 지문
+hardware-reset: 하드웨어 재설정
+mount: 마운트
+shared-library: 공유 라이브러리
+capture-mouse: 마우스 캡처；捕获鼠标按钮 = 마우스 캡처 버튼
+keys: Control 키, Option 키  # https://support.apple.com/ko-kr/102650
+toolbar: 도구 막대
+settings: 설정
+classic-systems: 클래식 시스템

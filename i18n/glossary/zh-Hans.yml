@@ -1,0 +1,43 @@
+# zh-Hans 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。取自 terms.yml 的 zh 列。
+virtual-machine: 虚拟机
+guest: 客户机
+emulate: 模拟
+virtualize: 虚拟化
+native: 原生
+architecture: 架构
+backend: 后端
+apple-silicon: Apple 芯片
+intel-mac: Intel Mac
+snapshot: 快照
+disposable-mode: 一次性模式
+shut-down: 关机
+new-vm-wizard: 新建向导
+installer-image: 安装镜像
+license: 许可证
+secure-boot: Secure Boot
+or-later: 或更高版本
+experimental: 实验功能
+auto-resolution: 自动调整分辨率
+shared-clipboard: 共享剪贴板
+shared-folder: 共享文件夹
+sharing: 共享
+shared-network: 共享网络
+host-only: 仅主机
+bridged: 桥接
+emulated-vlan: 模拟 VLAN
+port-forwarding: 端口转发
+lan: 局域网
+shortcuts: 快捷指令
+command-line-tool: 命令行工具
+clone: 克隆
+fingerprint: 指纹
+hardware-reset: 硬件复位
+mount: 挂载
+shared-library: 共享库
+capture-mouse: 捕获鼠标
+keys: Control 键、Option 键
+toolbar: 工具栏
+settings: 设置
+rosetta: Rosetta
+cpu: CPU
+classic-systems: 经典系统

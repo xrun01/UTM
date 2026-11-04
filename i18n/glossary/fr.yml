@@ -1,0 +1,41 @@
+# fr 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。称呼用 vous。
+virtual-machine: machine virtuelle
+guest: invité；客户机系统 = système invité；客户机工具 = outils invités
+emulate: émuler；émulation（不用 simuler）
+virtualize: virtualiser；virtualisation
+native: natif；接近原生的速度 = vitesse quasi native
+architecture: architecture；CPU 架构 = architecture de CPU
+backend: backend；QEMU 后端 = backend QEMU，Apple 后端 = backend Apple
+apple-silicon: puce Apple；Apple 芯片的 Mac = Mac avec puce Apple（不用 silicium Apple、Apple Silicon）  # https://support.apple.com/fr-fr/116943
+intel-mac: Mac avec processeur Intel  # https://support.apple.com/fr-fr/116943
+snapshot: instantané
+disposable-mode: mode jetable
+shut-down: arrêter；arrêt
+new-vm-wizard: assistant de création de machines virtuelles
+installer-image: image d'installation
+license: licence；自备许可证 = fournir votre propre licence
+secure-boot: démarrage sécurisé  # https://support.microsoft.com/fr-fr/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: ou version ultérieure  # App Store 法语页写 ou une version ultérieure：https://apps.apple.com/fr/app/xcode/id497799835，见 doubts
+experimental: fonctionnalité expérimentale
+auto-resolution: ajustement automatique de la résolution
+shared-clipboard: presse-papiers partagé；共享剪贴板 = partager le presse-papiers
+shared-folder: dossier partagé
+sharing: Partage
+shared-network: Réseau partagé
+host-only: Hôte uniquement
+bridged: Pont
+emulated-vlan: VLAN émulé
+port-forwarding: redirection de port
+lan: réseau local（不用 LAN）
+shortcuts: Raccourcis  # https://support.apple.com/fr-fr/guide/shortcuts-mac/welcome/mac
+command-line-tool: outil en ligne de commande
+clone: cloner
+fingerprint: empreinte（不用 empreinte digitale）
+hardware-reset: réinitialisation matérielle
+mount: monter
+shared-library: bibliothèque partagée
+capture-mouse: capturer la souris；捕获鼠标按钮 = bouton Capturer la souris
+keys: touche Contrôle、touche Option  # https://support.apple.com/fr-fr/102650
+toolbar: barre d'outils
+settings: réglages  # Apple 法语写 Réglages Système：https://support.apple.com/fr-fr/guide/mac-help/mchlp1225/mac
+classic-systems: systèmes classiques
