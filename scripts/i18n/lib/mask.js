@@ -6,10 +6,10 @@ import { isFormatText, specsOf } from "./format.js";
 const TOKEN_RE = /\{(\d+)\}/g;
 
 // 返回 { text, specs, is_format }；text 中第 n 个参数写成 {n}，%% 写成 %
-// 不支持的文案返回 null：含 %#@var@（stringsdict 变量），或原文本身含 {数字}（会和遮盖标记混淆）
+// 不支持的文案返回 null：含 %#@var@（stringsdict 变量）、带 * 的宽度或精度，或原文本身含 {数字}（会和遮盖标记混淆）
 export const maskOf = (source) => {
   const specs = specsOf(source);
-  if (specs.some((s) => s.var !== undefined) || /\{\d+\}/.test(source)) return null;
+  if (specs.some((s) => s.var !== undefined || s.star) || /\{\d+\}/.test(source)) return null;
   let text = "",
     last = 0;
   for (const s of specs) {

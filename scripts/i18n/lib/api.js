@@ -24,20 +24,24 @@ export const langIdOf = (code) => {
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-// 4xx 与返回格式错误：重试也不会成功
-class FatalError extends Error {}
+// 4xx（429 除外）与返回格式错误：重试也不会成功，调用方应中止整次运行
+export class FatalError extends Error {}
 
-// 返回发送函数 (from, to, path, text) => 译文全文；网络错误、超时和 5xx 最多重试 retries 次
+// 返回发送函数 (from, to, path, text) => 译文全文；网络错误、超时、429 和 5xx 最多重试 retries 次
+// 429 按 Retry-After 等待，最多 60 秒
 export const transportOf = (token, { url = API_URL, retries = 3, timeout = 100_000, fetchFn = fetch } = {}) => {
   if (!token) throw new Error("没有翻译接口的 token：设置环境变量 WEBC_TOKEN，或写入 ~/.config/webc.site.yml");
   return async (from, to, path, text) => {
     const body = JSON.stringify([langIdOf(from), langIdOf(to), path, text]);
-    let last;
+    let last,
+      wait = 0;
     for (let i = 0; i <= retries; i++) {
-      if (i) await sleep(1000 * 2 ** (i - 1));
+      if (i) await sleep(Math.max(wait, 1000 * 2 ** (i - 1)));
+      wait = 0;
       try {
         const res = await fetchFn(url, { method: "POST", headers: { token }, body, signal: AbortSignal.timeout(timeout) });
-        if (res.status >= 500) throw new Error("翻译接口返回 " + res.status);
+        if (res.status === 429) wait = Math.min(Number(res.headers.get("retry-after")) || 0, 60) * 1000;
+        if (res.status >= 500 || res.status === 429) throw new Error("翻译接口返回 " + res.status);
         if (!res.ok) throw new FatalError("翻译接口返回 " + res.status + ": " + (await res.text()).slice(0, 200));
         const data = await res.json().catch(() => null);
         if (!Array.isArray(data) || typeof data[0] !== "string") {

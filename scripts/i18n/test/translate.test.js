@@ -1,8 +1,8 @@
 import { describe, expect, test } from "bun:test";
-import { langIdOf, transportOf } from "../lib/api.js";
+import { FatalError, langIdOf, transportOf } from "../lib/api.js";
 import { emptyCatalog } from "../lib/catalog.js";
 import { maskOf, unmaskOf } from "../lib/mask.js";
-import { deriveLang, pendingOf, polishOf, translateLang } from "../lib/translate.js";
+import { deriveLang, integerSampleOf, parseYaml, pendingOf, polishOf, translateLang, yamlOf } from "../lib/translate.js";
 
 describe("maskOf / unmaskOf", () => {
   const roundTrip = (source, translated) => unmaskOf(maskOf(source), translated);
@@ -188,7 +188,7 @@ describe("translateLang", () => {
       catalogs,
       lang: "ru",
       api_lang: "ru",
-      transport: fakeTransport({ "1 Core": "1 ядро", "2 Cores": "2 ядра", "0 Cores": "0 ядер" }),
+      transport: fakeTransport({ "1 Core": "1 ядро", "2 Cores": "2 ядра", "5 Cores": "5 ядер" }),
     });
     const ru = catalogs.Localizable.strings["%lld Cores"].localizations.ru.variations.plural;
     expect(Object.fromEntries(Object.entries(ru).map(([k, v]) => [k, v.stringUnit.value]))).toEqual({
@@ -211,7 +211,9 @@ describe("translateLang", () => {
       },
     });
     const skipped = [];
-    expect(pendingOf(catalogs, "ru", skipped).map((u) => u.path[1])).toEqual(["few", "many"]);
+    const { units, copies } = pendingOf(catalogs, "ru", skipped);
+    expect(units.map((u) => u.path[1])).toEqual(["few", "many"]);
+    expect(copies).toEqual([]);
   });
 });
 
@@ -228,3 +230,112 @@ test("deriveLang：zh-HK 由 zh-Hant 转换，只补缺失的单元", () => {
   expect(catalogs.Localizable.strings.B.localizations["zh-HK"].stringUnit).toEqual({ state: "needs_review", value: "裏面" });
   expect(catalogs.Localizable.strings.C.localizations).toBeUndefined();
 });
+
+describe("评审修复", () => {
+  const unit = (value, state = "translated") => ({ stringUnit: { state, value } }),
+    enPlural = () => ({ variations: { plural: { one: unit("%lld Core", "new"), other: unit("%lld Cores", "new") } } });
+
+  test("integerSampleOf：优先 1 至 999，只有 0 才属于的类别用 0", () => {
+    expect(integerSampleOf("fr", "one")).toBe(1);
+    expect(integerSampleOf("de", "other")).toBe(2);
+    expect(integerSampleOf("ar", "zero")).toBe(0);
+    expect(integerSampleOf("ru", "other")).toBeNull();
+  });
+
+  test("parseYaml：没加引号的值、{ 开头的值、单引号和折叠写法都按 YAML 解析，不把语法写进译文", () => {
+    const out = parseYaml(['ka00000000001: {1} jetzt kopieren', "ka00000000002: 'Fehler: schlecht'", "ka00000000003: >-", "  gefaltet", 'ka00000000004: "a" # c'].join("\n"));
+    expect(out).toEqual({ ka00000000001: "{1} jetzt kopieren", ka00000000002: "Fehler: schlecht", ka00000000003: "gefaltet", ka00000000004: "a" });
+  });
+
+  test("parseYaml：整体解析失败时只取双引号值，其余按缺失处理", () => {
+    // 没有闭合的双引号不会被补引号，整份 YAML 解析失败
+    const out = parseYaml(['ka00000000001: "ok"', 'ka00000000002: "unterminated'].join("\n"));
+    expect(out.ka00000000001).toBe("ok");
+    expect(out.ka00000000002).toBeUndefined();
+  });
+
+  test("yamlOf 与 parseYaml 往返：引号、反斜杠、换行、制表、冒号、井号、emoji、阿拉伯文", () => {
+    const items = ['say "hi"', "back\\slash", "a\nb", "tab\there", "key: value", "# not comment", "- dash", "😀", "خطأ: %@"].map((text, i) => ({ id: "k" + String(i).padStart(12, "0"), text }));
+    const out = parseYaml(yamlOf(items));
+    for (const it of items) expect(out[it.id]).toBe(it.text);
+  });
+
+  test("复制复数：来源固定为 many，many 没有译文时不退回 one", async () => {
+    const catalogs = catalogsOf({ "%lld Cores": { localizations: { en: enPlural() } } });
+    // many 的译文丢了示例数字，不合格
+    const report = await translateLang({
+      catalogs,
+      lang: "ru",
+      api_lang: "ru",
+      transport: fakeTransport({ "1 Core": "1 ядро", "2 Cores": "2 ядра", "5 Cores": "пять ядер" }),
+    });
+    const ru = catalogs.Localizable.strings["%lld Cores"].localizations.ru.variations.plural;
+    expect(ru.other).toBeUndefined();
+    expect(report.failed.map((f) => f.reason).join()).toContain("复数类别 other 的来源 many 没有译文");
+  });
+
+  test("--limit：没处理到的复数键不复制，也不报失败", async () => {
+    const catalogs = catalogsOf({ A: {}, "%lld Cores": { localizations: { en: enPlural() } } });
+    const report = await translateLang({ catalogs, lang: "ru", api_lang: "ru", transport: fakeTransport({ A: "А" }), limit: 1 });
+    expect(report.written).toBe(1);
+    expect(report.failed).toEqual([]);
+  });
+
+  test("deriveLang：zh-HK 已有复数译文时不被整体覆盖", () => {
+    const catalogs = catalogsOf({
+      K: { localizations: { "zh-Hant": unit("核心"), "zh-HK": { variations: { plural: { other: unit("人工") } } } } },
+    });
+    expect(deriveLang({ catalogs, lang: "zh-HK", derive: { from: "zh-Hant", opencc: "tw-hk" } }).written).toBe(0);
+    expect(catalogs.Localizable.strings.K.localizations["zh-HK"].variations.plural.other.stringUnit.value).toBe("人工");
+  });
+
+  test("FatalError 中止整次运行，不逐条重发", async () => {
+    let calls = 0;
+    const transport = async () => {
+      calls++;
+      throw new FatalError("翻译接口返回 403");
+    };
+    await expect(translateLang({ catalogs: catalogsOf({ A: {}, B: {} }), lang: "de", api_lang: "de", transport })).rejects.toThrow("403");
+    expect(calls).toBe(1);
+  });
+
+  test("整批请求失败的条目不逐条重试，失败原因保留", async () => {
+    let calls = 0;
+    const transport = async () => {
+      calls++;
+      throw new Error("网络断开");
+    };
+    const report = await translateLang({ catalogs: catalogsOf({ A: {}, B: {} }), lang: "de", api_lang: "de", transport });
+    expect(calls).toBe(1);
+    expect(report.failed.map((f) => f.reason)).toEqual(["请求失败: 网络断开", "请求失败: 网络断开"]);
+  });
+
+  test("重试换一个键，绕开服务端的按行缓存；两次都不合格时保留第 1 次的原因", async () => {
+    const sent = [];
+    const transport = async (...args) => {
+      sent.push(args[3]);
+      return fakeTransport({ "Install Linux": "تثبيت لينكس" })(...args);
+    };
+    const report = await translateLang({ catalogs: catalogsOf({ "Install Linux": {} }), lang: "ar", api_lang: "ar", transport });
+    expect(sent).toHaveLength(2);
+    expect(sent[0].split(":")[0]).not.toBe(sent[1].split(":")[0]);
+    expect(report.failed[0].reason).toContain("第 1 次");
+  });
+
+  test("带 * 的占位符不送翻译", () => {
+    const skipped = [];
+    expect(pendingOf(catalogsOf({ "%*d items": {} }), "de", skipped).units).toEqual([]);
+    expect(skipped[0].reason).toContain("带 * 的占位符");
+  });
+
+  test("transportOf：429 按 Retry-After 重试", async () => {
+    let n = 0;
+    const t = transportOf("T", {
+      retries: 1,
+      fetchFn: async () => (++n === 1 ? new Response("", { status: 429, headers: { "retry-after": "0" } }) : new Response(JSON.stringify(["x", 1]))),
+    });
+    expect(await t("en", "de", "p", "x")).toBe("x");
+    expect(n).toBe(2);
+  });
+});
+

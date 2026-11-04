@@ -3,12 +3,12 @@
 // 用法：bun scripts/i18n/translate.js [--lang ja,zh-HK] [--dry-run] [--limit 20] [--verbose]
 // token：环境变量 WEBC_TOKEN，或 ~/.config/webc.site.yml
 
-import { readFileSync } from "node:fs";
+import { readFileSync, statSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { parseArgs } from "node:util";
 import { CATALOG_PATHS, readCatalog, writeCatalog } from "./lib/catalog.js";
 import { tokenOf, transportOf } from "./lib/api.js";
-import { deriveLang, pendingOf, translateLang } from "./lib/translate.js";
+import { derivableCountOf, deriveLang, pendingOf, translateLang } from "./lib/translate.js";
 
 let opt;
 try {
@@ -38,16 +38,28 @@ if (unknown.length || !(limit > 0)) {
 
 // 先翻译接口支持的语言，再生成派生语言（zh-HK 依赖 zh-Hant 的结果）
 const targets = config.filter((l) => wanted.includes(l.code)).sort((a, b) => Number(!!a.derive) - Number(!!b.derive)),
-  catalogs = Object.fromEntries(Object.entries(CATALOG_PATHS).map(([t, p]) => [t, readCatalog(join(root, p))])),
+  paths = Object.fromEntries(Object.entries(CATALOG_PATHS).map(([t, p]) => [t, join(root, p)])),
+  catalogs = Object.fromEntries(Object.entries(paths).map(([t, p]) => [t, readCatalog(p)])),
+  mtimes = Object.fromEntries(Object.entries(paths).map(([t, p]) => [t, statSync(p).mtimeMs])),
+  // 一次运行可能持续数十分钟；期间 catalog 被其他工具改过时中止，不覆盖别人的改动
   save = () => {
-    for (const [t, p] of Object.entries(CATALOG_PATHS)) writeCatalog(join(root, p), catalogs[t]);
+    const changed = Object.entries(paths).filter(([t, p]) => statSync(p).mtimeMs !== mtimes[t]);
+    if (changed.length) throw new Error("catalog 在翻译期间被修改，没有写入: " + changed.map(([, p]) => p).join(", "));
+    for (const [t, p] of Object.entries(paths)) {
+      writeCatalog(p, catalogs[t]);
+      mtimes[t] = statSync(p).mtimeMs;
+    }
   };
 
 if (opt["dry-run"]) {
   for (const l of targets) {
+    if (l.derive) {
+      console.log(l.code + "：现在可由 " + l.derive.from + " 转换 " + derivableCountOf(catalogs, l.code, l.derive) + " 条（先翻译 " + l.derive.from + " 后会更多）");
+      continue;
+    }
     const skipped = [],
-      n = pendingOf(catalogs, l.code, skipped).length;
-    console.log(l.code + "：待翻译 " + n + " 条" + (skipped.length ? "，不支持 " + skipped.length + " 条" : "") + (l.derive ? "（由 " + l.derive.from + " 转换）" : ""));
+      { units, copies } = pendingOf(catalogs, l.code, skipped);
+    console.log(l.code + "：待翻译 " + units.length + " 条" + (copies.length ? "，复制复数类别 " + copies.length + " 条" : "") + (skipped.length ? "，不支持 " + skipped.length + " 条" : ""));
   }
   process.exit(0);
 }
@@ -62,10 +74,17 @@ try {
 
 let failed_n = 0;
 for (const l of targets) {
-  const report = l.derive
-    ? deriveLang({ catalogs, lang: l.code, derive: l.derive })
-    : await translateLang({ catalogs, lang: l.code, api_lang: l.api, transport, limit });
-  save();
+  let report;
+  try {
+    report = l.derive
+      ? deriveLang({ catalogs, lang: l.code, derive: l.derive })
+      : await translateLang({ catalogs, lang: l.code, api_lang: l.api, transport, limit });
+    save();
+  } catch (err) {
+    // 致命错误（例如 token 无效）或 catalog 被并发修改：已完成的语言已经写回
+    console.error(l.code + "：中止。" + err.message);
+    process.exit(1);
+  }
   failed_n += report.failed.length;
   console.log(
     l.code + "：写入 " + report.written + " 条" + (report.failed.length ? "，失败 " + report.failed.length + " 条" : "") + (report.skipped.length ? "，不支持 " + report.skipped.length + " 条" : ""),
