@@ -651,3 +651,20 @@ test("pendingOf 与 review.js 用的 missingPathsOf 给出相同的缺译路径�
   expect(missing).toContain("%lld Disks|plural/few");
   expect(missing).not.toContain("Keep it empty please|");
 });
+
+test("deriveLang：目标已有空串译文时不转换，不覆盖", () => {
+  const u = (value) => ({ stringUnit: { state: "translated", value } }),
+    catalogs = catalogsOf({
+      "Open the settings": { localizations: { "zh-Hant": u("開啟設定"), "zh-HK": u("") } },
+      "%lld Cores": {
+        localizations: {
+          en: { variations: { plural: { one: u("%lld Core"), other: u("%lld Cores") } } },
+          "zh-Hant": { variations: { plural: { other: u("%lld 個核心") } } },
+          "zh-HK": { variations: { plural: { other: u("") } } },
+        },
+      },
+    });
+  expect(deriveLang({ catalogs, lang: "zh-HK", derive: { from: "zh-Hant", opencc: "tw-hk" } }).written).toBe(0);
+  expect(catalogs.Localizable.strings["Open the settings"].localizations["zh-HK"]).toEqual(u(""));
+});
+

@@ -93,6 +93,15 @@ describe("review.js", () => {
         [OPEN, "needs_review"],
       ]);
       expect(exportDe("--state", "needs_review,bogus").code).toBe(2);
+      // 逗号后可以有空格；all 与 translated 重复时不会导出 2 次
+      exportDe("--state", "all, translated");
+      const ids = json(join(tmp, "de/export.json")).items.map((i) => i.id);
+      expect(ids).toEqual([ONE, OTHER, "Localizable|Close|", OPEN]);
+    });
+
+    test("--limit 不把 1 个复数键的类别拆到 2 批", () => {
+      exportDe("--limit", "1");
+      expect(json(join(tmp, "de/export.json")).items.map((i) => i.id)).toEqual([ONE, OTHER]);
     });
 
     test("空串译文不算缺译：不导出，也就不会被补译覆盖", () => {
@@ -260,7 +269,25 @@ describe("review.js", () => {
       p("%@ aufmachen");
       const res = apply();
       expect(res.code).toBe(1);
-      expect(res.out).toContain("用 --state translated --key 重新导出这一条再审");
+      expect(res.out).toContain('把 "Localizable|Open %@" 写进 JSON 数组文件，用 export --state translated --keys <文件> 导出到新目录再审');
+    });
+
+    test("补译条目写入后再改：按提示用 --keys 精确导出（键里有括号也能导出），再审后写入", () => {
+      const cat = catalog();
+      cat.strings["Caps Lock (⇪)"] = {};
+      saveCatalog(cat);
+      exportDe("--state", "missing", "--key", "Caps");
+      propose({ changes: [{ id: "Localizable|Caps Lock (⇪)|", old: "", new: "Feststell (⇪)", type: "补译" }] });
+      expect(apply().code).toBe(0);
+      propose({ changes: [{ id: "Localizable|Caps Lock (⇪)|", old: "", new: "Feststelltaste (⇪)", type: "补译" }] });
+      expect(apply().out).toContain('把 "Localizable|Caps Lock (⇪)" 写进 JSON 数组文件');
+      mkdirSync(join(tmp, "de2"));
+      write(join(tmp, "keys.json"), ["Localizable|Caps Lock (⇪)"]);
+      run("export", "--lang", "de", "--state", "translated", "--keys", join(tmp, "keys.json"), "--out", join(tmp, "de2/export.json"));
+      expect(json(join(tmp, "de2/export.json")).items.map((i) => i.current)).toEqual(["Feststell (⇪)"]);
+      write(join(tmp, "de2/proposal.json"), { lang: "de", changes: [{ id: "Localizable|Caps Lock (⇪)|", old: "Feststell (⇪)", new: "Feststelltaste (⇪)", type: "不通顺" }] });
+      expect(run("apply", "--lang", "de", "--proposal", join(tmp, "de2/proposal.json")).code).toBe(0);
+      expect(catalog().strings["Caps Lock (⇪)"].localizations.de).toEqual(unit("Feststelltaste (⇪)"));
     });
 
     test("缺译条目放进 approved：指出真正的原因", () => {
@@ -494,6 +521,19 @@ describe("review.js", () => {
       expect(html()).toContain('"withdrawn":[{"id":"Localizable|Open %@|","reason":"2 轮后仍有分歧","en":"Open %@","current":"%@ offnen","state":"needs_review"}]');
       expect(html()).toContain('"mismatches":[{"id":"Localizable|%lld Cores|plural/one","type":"术语错","problem":"q","en":"%lld Cores"}]');
       expect(html()).toContain('"no_back":1');
+    });
+
+    test("doubts 的当前译文从 export 取；改动已审校的译文时数据带上导出时的状态", () => {
+      exportDe("--state", "all");
+      propose({
+        changes: [{ id: "Localizable|Close|", old: "Schließen", new: "Zumachen", type: "不通顺" }],
+        approved: [{ id: ONE, value: "%lld Kern" }, { id: OTHER, value: "%lld Kerne" }],
+        doubts: [{ id: OPEN, question: "q" }],
+      });
+      write(join(tmp, "compare.json"), "[]");
+      report();
+      expect(html()).toContain('"doubts":[{"id":"Localizable|Open %@|","question":"q","en":"Open %@","current":"%@ offnen"}]');
+      expect(html()).toContain('"reason":"","state":"translated"');
     });
 
     test("只显示当前译文的回译", () => {

@@ -85,6 +85,8 @@ const checkLang = (lang) => {
 
 // 条目 id：表名|键|变体路径。键本身是英文句子，所以必须带上表名和路径才唯一
 const idOf = (table, key, path) => [table, key, path.join("/")].join("|");
+// 条目 id 去掉变体路径，得到「表名|键」，也就是 --keys 接受的写法
+const keyOf = (id) => id.slice(0, id.lastIndexOf("|"));
 const parseId = (id) => {
   if (typeof id !== "string") return null;
   const first = id.indexOf("|"),
@@ -186,7 +188,7 @@ const commands = {
     for (const [table, catalog] of Object.entries(catalogs())) {
       for (const [key, entry] of Object.entries(catalog.strings)) {
         if (entry.shouldTranslate === false) continue;
-        if (langs.every((lang) => !unitsOf(entry.localizations?.[lang]).some(([u]) => u.value))) {
+        if (langs.every((lang) => !unitsOf(entry.localizations?.[lang]).some(([u]) => hasValue(u)))) {
           out.push({ table, key, en: sourceTextAt(key, entry, []) });
         }
       }
@@ -231,7 +233,8 @@ const commands = {
         }
       }
     }
-    const limited = items.slice(0, limit);
+    // 按键截取：不把 1 个复数键的类别拆到 2 批，否则写入时会误报「仍缺复数类别」
+    const limited = items.filter((it, i) => i < limit || keyOf(it.id) === keyOf(items[limit - 1].id));
     writeOut(opt.out, JSON.stringify({ lang: opt.lang, items: limited }, null, 2) + "\n");
     console.log("导出 " + limited.length + " 条" + (limited.length < items.length ? "（共 " + items.length + " 条）" : "") + " → " + opt.out);
   },
@@ -279,7 +282,8 @@ const commands = {
       else if (unit?.value === t.value && unit.state === "translated") done++;
       else if ((unit?.value ?? "") !== ex.current || (hasValue(unit) ? unit.state : "missing") !== ex.state) {
         // 已写入的条目再改时也走到这里：它已是 translated，默认的 needs_review 导出不到它
-        const again = unit?.state === "translated" ? "用 --state translated --key 重新导出这一条再审" : "重新导出再审";
+        // --keys 精确匹配「表名|键」，不受键中的括号等正则字符影响；导出到新目录，不覆盖原来的 export.json
+        const again = unit?.state === "translated" ? "把 " + JSON.stringify(keyOf(t.id)) + " 写进 JSON 数组文件，用 export --state translated --keys <文件> 导出到新目录再审" : "重新导出再审";
         bad("导出后译文或状态变了，现在是 " + (hasValue(unit) ? unit.state + " " + JSON.stringify(unit.value) : "缺译") + "。" + again);
       } else if (sourceTextAt(p.key, entry, p.path) !== ex.en) bad("导出后英文变了。重新导出再审");
       else {
@@ -293,10 +297,10 @@ const commands = {
     const skipped = done ? "，已经写入过的 " + done + " 条跳过" : "";
     // 补译复数时只补了部分类别：缺的类别运行时退回 other，缺 other 时显示英文
     const planned = new Set(plan.map((p) => idOf(p.table, p.key, p.path))),
-      partial = [...new Set(plan.filter((p) => p.path[0] === "plural").map((p) => p.table + "\x00" + p.key))].flatMap((table_key) => {
-        const [table, key] = table_key.split("\x00"),
-          lack = missingPathsOf(opt.lang, key, cats[table].strings[key]).filter((path) => !planned.has(idOf(table, key, path)));
-        return lack.length ? [idOf(table, key, []) + "：写入后仍缺复数类别 " + lack.map((path) => path[1]).join("、")] : [];
+      plural_keys = new Map(plan.filter((p) => p.path[0] === "plural").map((p) => [idOf(p.table, p.key, []), p])),
+      partial = [...plural_keys].flatMap(([id, { table, key }]) => {
+        const lack = missingPathsOf(opt.lang, key, cats[table].strings[key]).filter((path) => !planned.has(idOf(table, key, path)));
+        return lack.length ? [id + "：写入后仍缺复数类别 " + lack.map((path) => path[1]).join("、")] : [];
       });
     if (partial.length) console.log("警告：\n  " + partial.join("\n  "));
     if (opt["dry-run"]) return console.log("检查通过，可以写入 " + plan.length + " 条" + skipped);
@@ -400,7 +404,7 @@ const commands = {
             changes,
             approved,
             no_back: [...changes, ...approved].filter((x) => !x.back).length,
-            doubts: (proposal.doubts ?? []).map((d) => ({ ...d, en: en(d.id) })),
+            doubts: (proposal.doubts ?? []).map((d) => ({ ...d, en: en(d.id), current: exported.get(d.id)?.current ?? d.current ?? "" })),
             source_issues: proposal.source_issues ?? [],
             withdrawn: (proposal.withdrawn ?? []).map((w) => ({ ...w, en: en(w.id), current: exported.get(w.id)?.current ?? "", state: exported.get(w.id)?.state ?? "" })),
             // 只列当前还要写入的条目：撤回或改成 doubts 的条目不再算回译不一致
