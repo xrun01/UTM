@@ -14914,6 +14914,12 @@
             "value" : "HiDPI (Retina)"
           }
         },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "HiDPI (Retina)"
+          }
+        },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
@@ -42723,6 +42729,12 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
+            "value" : "macOS 12+"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "needs_review",
             "value" : "macOS 12+"
           }
         },

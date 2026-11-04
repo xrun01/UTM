@@ -6,7 +6,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { parseArgs } from "node:util";
 import { CATALOG_PATHS, readCatalog } from "./lib/catalog.js";
-import { catalogIssuesOf, exceptionMatcherOf, readExceptions } from "./lib/checks.js";
+import { EXCEPTIONS_PATH, catalogIssuesOf, exceptionMatcherOf, readExceptions } from "./lib/checks.js";
 import { run } from "./lib/run.js";
 import { CJK_RE, stringLiteralsOf } from "./lib/scan.js";
 import { syncAll } from "./lib/sync.js";
@@ -84,7 +84,7 @@ for (const rel of [...new Set(src_li)]) {
 
 // 只检查部分语言时，其他语言的例外不会被用到，所以只在全量检查时报告无用的例外
 if (opt.lang === undefined) {
-  for (const e of exceptions.unused()) error("i18n/check-exceptions.json", "例外没有命中任何问题，删除它: " + JSON.stringify(e));
+  for (const e of exceptions.unused()) error(EXCEPTIONS_PATH, "例外没有命中任何问题，删除它: " + JSON.stringify(e));
 }
 
 // 3. CI：提取结果必须已经同步进 catalog

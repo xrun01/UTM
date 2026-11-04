@@ -595,6 +595,18 @@ describe("短标签", () => {
   test("isShortLabel：最多 2 个词、不含占位符；只数字母和数字串", () => {
     for (const s of ["Killing", "Send Key", "Escape (⎋)", "Caps Lock (⇪)", "Clone…", "HiDPI (Retina)", "macOS 12+", "50%% done"]) expect(isShortLabel(s)).toBe(true);
     for (const s of ["Open the settings", "Delete %@", "%lld Cores", "Use NVMe Interface", "50%% done now"]) expect(isShortLabel(s)).toBe(false);
+    // 纯符号是 0 个词；撇号、连字符、斜杠把词分开
+    expect(isShortLabel("…")).toBe(true);
+    expect(isShortLabel("Built-in")).toBe(true);
+    expect(isShortLabel("What's New")).toBe(false);
+    expect(isShortLabel("CD/DVD Image")).toBe(false);
+  });
+
+  test("按英文判断短标签，不按键：xib 的键是对象 id", () => {
+    const skipped = [],
+      catalogs = { VMDisplayWindow: { ...emptyCatalog(), strings: { "abc-12-xyz.label": { localizations: { en: { stringUnit: { state: "new", value: "Drives" } } } } } } };
+    expect(pendingOf(catalogs, "de", skipped).units).toEqual([]);
+    expect(skipped.map((s) => [s.key, s.short])).toEqual([["abc-12-xyz.label", true]]);
   });
 
   test("pendingOf 跳过短标签并标记 short；复数和长句照常翻译", () => {
@@ -612,3 +624,10 @@ describe("短标签", () => {
     expect(log.join("")).not.toContain("Force");
   });
 });
+
+test("deriveLang：转换结果也校验引号数量", () => {
+  const u = (value) => ({ stringUnit: { state: "translated", value } }),
+    catalogs = catalogsOf({ "Delete “%@” and “%@”?": { localizations: { "zh-Hant": u("刪除「%1$@」和 %2$@？") } } });
+  expect(deriveLang({ catalogs, lang: "zh-HK", derive: { from: "zh-Hant", opencc: "tw-hk" } }).failed[0].reason).toContain("引号数量");
+});
+

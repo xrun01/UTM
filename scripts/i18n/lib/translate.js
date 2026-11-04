@@ -44,7 +44,7 @@ export const integerSampleOf = (lang, category) => {
 // 没有整数示例的类别从哪个类别复制：被复制的是 many 时用 other，其他情况用 many
 const copySourceOf = (category) => (category === "many" ? "other" : "many");
 
-// 原文用弯引号时，译文换成这种语言的引号。fr 的书名号内侧是不换行空格
+// 原文用弯引号时，译文换成这种语言的引号。fr 的法文引号 « » 内侧是不换行空格
 const QUOTES = { ja: ["「", "」"], "zh-Hant": ["「", "」"], "zh-HK": ["「", "」"], de: ["„", "“"], fr: ["«\u00a0", "\u00a0»"] },
   QUOTE_MARK_RE = /["“”„«»「」『』]/g,
   quoteCountOf = (s) => s.match(QUOTE_MARK_RE)?.length ?? 0;
