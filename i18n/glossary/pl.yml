@@ -1,0 +1,49 @@
+# pl 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。
+virtual-machine: maszyna wirtualna
+guest: gość；客户机系统 = system gościa；客户机工具 = narzędzia gościa
+emulate: emulować；emulacja（不用 symulować）
+virtualize: wirtualizować；wirtualizacja
+native: natywny；接近原生的速度 = szybkość zbliżona do natywnej
+architecture: architektura
+backend: backend（不用 zaplecze）
+apple-silicon: układ scalony Apple；Apple 芯片的 Mac = komputer Mac z układem scalonym Apple  # https://support.apple.com/pl-pl/116943
+intel-mac: komputer Mac z procesorem Intel  # https://support.apple.com/pl-pl/116943
+snapshot: migawka
+disposable-mode: tryb jednorazowy
+shut-down: wyłączyć；wyłączenie
+new-vm-wizard: kreator nowej maszyny wirtualnej
+installer-image: obraz instalacyjny
+license: licencja  # https://support.microsoft.com/pl-pl/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+secure-boot: bezpieczny rozruch  # https://support.microsoft.com/pl-pl/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: lub nowszy  # https://support.apple.com/pl-pl/102552（「macOS Ventura lub nowszym」）
+experimental: funkcja eksperymentalna
+auto-resolution: automatyczne dostosowywanie rozdzielczości
+shared-clipboard: wspólny schowek；共享剪贴板（动作）= udostępnianie schowka
+shared-folder: udostępniony folder；共享文件夹（动作）= udostępnić folder（不用 współdzielony）
+sharing: Udostępnianie
+shared-network: Sieć współdzielona
+host-only: Tylko host
+bridged: Mostkowanie
+emulated-vlan: Emulowana sieć VLAN
+port-forwarding: przekierowanie portów
+lan: sieć lokalna
+shortcuts: Skróty（aplikacja Skróty）  # https://support.apple.com/pl-pl/guide/shortcuts-mac/welcome/mac
+command-line-tool: narzędzie wiersza poleceń
+clone: klonować
+fingerprint: odcisk klucza（不用 odcisk palca）
+hardware-reset: reset sprzętowy
+mount: zamontować
+shared-library: biblioteka współdzielona
+capture-mouse: przechwycić mysz；捕获鼠标按钮 = przycisk Przechwyć mysz
+keys: klawisz Control、klawisz Option  # https://support.apple.com/pl-pl/102650
+toolbar: pasek narzędzi
+settings: ustawienia
+classic-systems: klasyczne systemy
+rosetta: Rosetta，按 Apple 波兰语变格：属格 Rosetty，宾格 Rosettę；不写 program Rosetta  # https://support.apple.com/pl-pl/102527（「Otwórz, używając Rosetty」）
+# 以下不在 terms.yml，在补译批次中出现 3 次以上，由改稿代理定下
+display: wyświetlacz；Displays = Wyświetlacze（不用 monitor；英文写 monitor 时才用 monitor）  # https://support.apple.com/pl-pl/guide/mac-help/mchl4ad7a4c2/mac（「Podłączanie wyświetlacza zewnętrznego」）
+boot: rozruch（名词，例如 Urządzenie rozruchowe、Bezpieczny rozruch）；动词 uruchomić；boot arguments = parametry uruchamiania
+power: Zasilanie（菜单和工具栏名）
+download: pobrać；按钮 Pobierz；名词 pobieranie
+modifier-key: klawisz modyfikujący；复数 klawisze modyfikujące；键名 Command、Shift、Option、Control、Caps Lock、Escape 原样保留  # https://support.apple.com/pl-pl/guide/mac-help/cpmh0011/mac
+keyboard-shortcut: skrót klawiszowy；复数 skróty klawiszowe  # https://support.apple.com/pl-pl/guide/mac-help/cpmh0011/mac

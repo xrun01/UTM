@@ -1,0 +1,47 @@
+# zh-Hant 定下的译法（来自官网的 zh-TW.yml）。键是 i18n/glossary/terms.yml 的术语 id。用台湾用词，不只是简转繁。
+virtual-machine: 虛擬機器
+guest: 客體；客户机系统 = 客體作業系統；客户机工具 = 客體工具  # https://learn.microsoft.com/zh-tw/virtualization/hyper-v-on-windows/about/（「客體作業系統」）；「客體工具」待母语者确认
+emulate: 模擬
+virtualize: 虛擬化
+native: 原生
+architecture: 架構
+backend: 後端
+apple-silicon: Apple 晶片；Apple 芯片的 Mac = 配備 Apple 晶片的 Mac  # https://support.apple.com/zh-tw/116943
+intel-mac: 配備 Intel 處理器的 Mac  # https://support.apple.com/zh-tw/116943
+snapshot: 快照
+disposable-mode: 一次性模式
+shut-down: 關機
+new-vm-wizard: 新增虛擬機器精靈  # Windows Hyper-V 台湾的写法；待确认是否改用 Apple 的「輔助程式」
+installer-image: 安裝映像檔
+license: 授權；自备许可证 = 自備授權
+secure-boot: 安全開機  # https://support.microsoft.com/zh-tw/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+experimental: 實驗性功能
+auto-resolution: 自動調整解析度
+or-later: 或以上版本  # https://www.apple.com/tw/final-cut-pro/specs/（「macOS 15.6 或以上版本」）
+shared-clipboard: 共享剪貼板；复制 = 拷貝，粘贴 = 貼上  # https://support.apple.com/zh-tw/guide/mac-help/mchl70368996/mac
+shared-folder: 共享資料夾
+sharing: 共享
+shared-network: 共享網路
+host-only: 僅主機
+bridged: 橋接
+emulated-vlan: 模擬 VLAN
+port-forwarding: 連接埠轉送
+lan: 區域網路
+shortcuts: 「捷徑」  # https://support.apple.com/zh-tw/guide/shortcuts-mac/welcome/mac
+command-line-tool: 命令列工具
+clone: 複製
+fingerprint: 指紋
+hardware-reset: 硬體重設
+mount: 掛載
+shared-library: 共用函式庫（用「共用」，和共享功能区分）
+capture-mouse: 擷取滑鼠；捕获鼠标按钮 = 「擷取滑鼠」按鈕
+keys: Control 鍵、Option 鍵  # https://support.apple.com/zh-tw/102650
+toolbar: 工具列
+settings: 設定
+classic-systems: 經典系統
+rosetta: Rosetta  # https://support.apple.com/zh-tw/102527
+cpu: CPU  # https://www.apple.com/tw/macbook-air/specs/（「8 核心 CPU」）
+# 以下是补译批次中出现 3 次以上、terms.yml 还没有的界面术语
+mouse: 滑鼠
+key: 按鍵；keystrokes = 按鍵輸入；modifier key = 修飾鍵；keyboard shortcuts = 鍵盤快速鍵  # https://support.apple.com/zh-tw/102650
+power: 電源

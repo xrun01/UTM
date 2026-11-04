@@ -1,0 +1,53 @@
+# es-419 定下的译法（来自官网的 es.yml）。键是 i18n/glossary/terms.yml 的术语 id。
+# 地区：拉丁美洲西班牙语，Apple 写法按 es-mx（la Mac、computadora、mouse），现有译文就是这种倾向。
+# 称呼：usted。官网现有译文大多数用 usted；Apple es-mx 用 tú，审校 app 译文时确认用哪一种。
+virtual-machine: máquina virtual
+guest: invitado；客户机系统 = sistema invitado；客户机工具 = herramientas de invitado
+emulate: emular；emulación（不用 simular）
+virtualize: virtualizar；virtualización
+native: nativo；接近原生的速度 = velocidad casi nativa
+architecture: arquitectura；CPU 架构 = arquitectura de CPU
+backend: backend；QEMU 后端 = backend QEMU，Apple 后端 = backend de Apple
+apple-silicon: chip de Apple；Apple 芯片的 Mac = Mac con chip de Apple（Mac 用阴性 la Mac，复数 las Mac）  # https://support.apple.com/es-mx/116943
+intel-mac: Mac con procesador Intel  # https://support.apple.com/es-mx/116943
+snapshot: instantánea
+disposable-mode: modo desechable
+shut-down: apagar；apagado
+new-vm-wizard: asistente de creación de máquinas virtuales
+installer-image: imagen de instalación
+license: licencia；自备许可证 = licencia propia
+secure-boot: arranque seguro  # https://support.microsoft.com/es-mx/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: o posterior  # https://apps.apple.com/mx/app/xcode/id497799835（「Requiere macOS 26.6 o posterior」）
+experimental: función experimental
+auto-resolution: ajuste automático de la resolución
+shared-clipboard: portapapeles compartido；共享剪贴板 = compartir el portapapeles
+shared-folder: carpeta compartida
+sharing: Uso compartido
+shared-network: Red compartida
+host-only: Solo host
+bridged: Puente
+emulated-vlan: VLAN emulada
+port-forwarding: reenvío de puertos
+lan: red local（不用 LAN）
+shortcuts: Atajos  # https://support.apple.com/es-mx/guide/shortcuts-mac/welcome/mac
+command-line-tool: herramienta de línea de comandos
+clone: clonar
+fingerprint: huella digital
+hardware-reset: restablecimiento de hardware（不用 reinicio，reinicio 是重启）
+mount: montar
+shared-library: biblioteca compartida
+capture-mouse: capturar el mouse；捕获鼠标按钮 = botón Capturar mouse
+keys: tecla Control、tecla Opción；按键名 Comando (⌘)、Opción (⌥)、Control (⌃)、Mayúsculas (⇧)、Bloq Mayús (⇪)、Esc (⎋)；keyboard shortcuts = funciones rápidas de teclado（不用 atajos，Atajos 是 App 名）  # https://support.apple.com/es-mx/102650
+toolbar: barra de herramientas
+settings: configuración  # Apple es-mx 写 Configuración del Sistema：https://support.apple.com/es-mx/guide/mac-help/mchlp1225/mac
+classic-systems: sistemas clásicos
+rosetta: Rosetta（不变格）  # https://support.apple.com/es-mx/102527
+cpu: CPU（阳性 el CPU）  # https://support.apple.com/es-mx/guide/activity-monitor/actmntr43452/mac（「Ver la actividad del CPU」）
+# 以下是本批缺译条目中反复出现、terms.yml 中没有的界面术语
+mouse: mouse（不用 ratón）；Mouse genérico、Botón del mouse
+boot: arranque（Dispositivo de arranque、Argumentos de arranque、Cargador de arranque；Secure Boot 按 secure-boot 写 Arranque seguro）
+key: tecla（Tecla modificadora、Enviar tecla；keystrokes = pulsaciones de teclas）
+image: imagen（Imagen de unidad、Imagen de disquete、Imagen de kernel）
+drive: unidad（Unidad externa、Imagen de unidad；不用 disco，disco 只对应 disk）
+installation: instalación（Modo de instalación、Método de instalación；Express Install = Instalación exprés）
+download: descargar；名词 descarga（Cancelar descarga）

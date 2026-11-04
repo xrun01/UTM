@@ -2,7 +2,7 @@ import { describe, expect, test } from "bun:test";
 import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { EXCEPTIONS_PATH, catalogIssuesOf, exceptionMatcherOf, exceptionProblemsOf, lengthIssueOf, readExceptions, sourceTextAt, unitIssuesOf } from "../lib/checks.js";
+import { EXCEPTIONS_PATH, catalogIssuesOf, exceptionMatcherOf, exceptionProblemsOf, lengthIssueOf, missingPathsOf, readExceptions, sourceTextAt, unitIssuesOf } from "../lib/checks.js";
 import { termIssuesOf } from "../lib/terms.js";
 
 const rulesOf = (lang, src, value) => unitIssuesOf(lang, src, value).map((i) => i.rule);
@@ -292,4 +292,19 @@ test("readExceptions：文件不存在时为空；JSON 不合法或格式错误�
   writeFileSync(join(root, EXCEPTIONS_PATH), JSON.stringify(ok));
   expect(readExceptions(root)).toEqual(ok);
   rmSync(root, { recursive: true, force: true });
+});
+
+test("missingPathsOf：与 check.js 的缺译和复数规则一致", () => {
+  const u = (value) => ({ stringUnit: { state: "translated", value } }),
+    en_plural = { en: { variations: { plural: { one: u("%lld Core"), other: u("%lld Cores") } } } };
+  expect(missingPathsOf("de", "Hello", {})).toEqual([[]]);
+  expect(missingPathsOf("de", "Hello", { localizations: { de: u("Hallo") } })).toEqual([]);
+  expect(missingPathsOf("de", "Hello", { shouldTranslate: false })).toEqual([]);
+  expect(missingPathsOf("de", "Gone", { extractionState: "stale" })).toEqual([]);
+  // 英文分复数：按目标语言的类别逐个检查；已有不分复数的译文时视为完整
+  expect(missingPathsOf("ru", "%lld Cores", { localizations: en_plural })).toEqual([["plural", "one"], ["plural", "few"], ["plural", "many"], ["plural", "other"]]);
+  expect(missingPathsOf("de", "%lld Cores", { localizations: { ...en_plural, de: { variations: { plural: { one: u("%lld Kern") } } } } })).toEqual([["plural", "other"]]);
+  expect(missingPathsOf("ja", "%lld Cores", { localizations: { ...en_plural, ja: u("%lld コア") } })).toEqual([]);
+  // 复数以外的 variations 不支持
+  expect(missingPathsOf("de", "K", { localizations: { en: { variations: { device: { mac: u("Click") } } } } })).toEqual([]);
 });

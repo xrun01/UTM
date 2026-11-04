@@ -1,7 +1,7 @@
 import { describe, expect, test } from "bun:test";
 import { FatalError, langIdOf, transportOf } from "../lib/api.js";
 import { emptyCatalog } from "../lib/catalog.js";
-import { exceptionMatcherOf } from "../lib/checks.js";
+import { exceptionMatcherOf, missingPathsOf } from "../lib/checks.js";
 import { maskOf, unmaskOf } from "../lib/mask.js";
 import { deriveLang, integerSampleOf, isShortLabel, parseYaml, pendingOf, polishOf, translateLang, yamlOf } from "../lib/translate.js";
 
@@ -629,4 +629,41 @@ test("deriveLang：转换结果也校验引号数量", () => {
   const u = (value) => ({ stringUnit: { state: "translated", value } }),
     catalogs = catalogsOf({ "Delete “%@” and “%@”?": { localizations: { "zh-Hant": u("刪除「%1$@」和 %2$@？") } } });
   expect(deriveLang({ catalogs, lang: "zh-HK", derive: { from: "zh-Hant", opencc: "tw-hk" } }).failed[0].reason).toContain("引号数量");
+});
+
+test("pendingOf 与 review.js 用的 missingPathsOf 给出相同的缺译路径（短标签除外）", () => {
+  const u = (value, state = "translated") => ({ stringUnit: { state, value } }),
+    plural = (one, other) => ({ variations: { plural: { one: u(one, "new"), other: u(other, "new") } } }),
+    strings = {
+      "Open the settings": {},
+      "Close the window now": { localizations: { ru: u("Закрыть окно") } },
+      "Keep it empty please": { localizations: { ru: u("") } },
+      "%lld Cores": { localizations: { en: plural("%lld Core", "%lld Cores") } },
+      "%lld Disks": { localizations: { en: plural("%lld Disk", "%lld Disks"), ru: { variations: { plural: { one: u("%lld диск") } } } } },
+      "%lld Files": { localizations: { en: plural("%lld File", "%lld Files"), ru: u("%lld файлов") } },
+      "Not translated at all": { shouldTranslate: false },
+      "Gone from the source": { extractionState: "stale" },
+    },
+    { units, copies } = pendingOf(catalogsOf(strings), "ru"),
+    pending = [...units, ...copies].map((x) => x.key + "|" + x.path.join("/")).sort(),
+    missing = Object.entries(strings).flatMap(([key, entry]) => missingPathsOf("ru", key, entry).map((path) => key + "|" + path.join("/"))).sort();
+  expect(pending).toEqual(missing);
+  expect(missing).toContain("%lld Disks|plural/few");
+  expect(missing).not.toContain("Keep it empty please|");
+});
+
+test("deriveLang：目标已有空串译文时不转换，不覆盖", () => {
+  const u = (value) => ({ stringUnit: { state: "translated", value } }),
+    catalogs = catalogsOf({
+      "Open the settings": { localizations: { "zh-Hant": u("開啟設定"), "zh-HK": u("") } },
+      "%lld Cores": {
+        localizations: {
+          en: { variations: { plural: { one: u("%lld Core"), other: u("%lld Cores") } } },
+          "zh-Hant": { variations: { plural: { other: u("%lld 個核心") } } },
+          "zh-HK": { variations: { plural: { other: u("") } } },
+        },
+      },
+    });
+  expect(deriveLang({ catalogs, lang: "zh-HK", derive: { from: "zh-Hant", opencc: "tw-hk" } }).written).toBe(0);
+  expect(catalogs.Localizable.strings["Open the settings"].localizations["zh-HK"]).toEqual(u(""));
 });

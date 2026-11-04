@@ -5,10 +5,70 @@
       "comment" : "Class = \"NSToolbarItem\"; label = \"Send Key\"; ObjectID = \"0aR-4a-Su7\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إرسال مفتاح"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taste senden"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Send Key"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enviar tecla"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lähetä näppäin"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envoyer une touche"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invia tasto"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キーを送信"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "키 보내기"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wyślij klawisz"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отправить клавишу"
           }
         },
         "zh-HK" : {
@@ -21,6 +81,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "发送按键"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "傳送按鍵"
           }
         }
       }
@@ -29,10 +95,70 @@
       "comment" : "Class = \"NSToolbarItem\"; paletteLabel = \"Send Key\"; ObjectID = \"0aR-4a-Su7\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إرسال مفتاح"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Taste senden"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Send Key"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enviar tecla"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lähetä näppäin"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Envoyer une touche"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invia tasto"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キーを送信"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "키 보내기"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wyślij klawisz"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отправить клавишу"
           }
         },
         "zh-HK" : {
@@ -46,6 +172,12 @@
             "state" : "translated",
             "value" : "发送按键"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "傳送按鍵"
+          }
         }
       }
     },
@@ -53,10 +185,70 @@
       "comment" : "Class = \"NSToolbarItem\"; toolTip = \"Keyboard shortcuts\"; ObjectID = \"0aR-4a-Su7\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اختصارات لوحة المفاتيح"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tastaturkurzbefehle"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Keyboard shortcuts"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Funciones rápidas de teclado"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pikanäppäimet"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Raccourcis clavier"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abbreviazioni da tastiera"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キーボードショートカット"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "키보드 단축키"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skróty klawiszowe"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Сочетания клавиш"
           }
         },
         "zh-HK" : {
@@ -70,6 +262,12 @@
             "state" : "translated",
             "value" : "键盘快捷键"
           }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "鍵盤快速鍵"
+          }
         }
       }
     },
@@ -77,6 +275,12 @@
       "comment" : "Class = \"NSToolbarItem\"; label = \"Shared Folder\"; ObjectID = \"7EC-GE-fIl\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المجلد المشترك"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -161,6 +365,12 @@
       "comment" : "Class = \"NSToolbarItem\"; paletteLabel = \"Shared Folder\"; ObjectID = \"7EC-GE-fIl\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المجلد المشترك"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -245,6 +455,12 @@
       "comment" : "Class = \"NSToolbarItem\"; toolTip = \"Shared folder\"; ObjectID = \"7EC-GE-fIl\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "المجلد المشترك"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -329,6 +545,12 @@
       "comment" : "Class = \"NSToolbarItem\"; label = \"Toolbar Item\"; ObjectID = \"C8Y-BQ-Y6m\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عنصر شريط الأدوات"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -347,6 +569,18 @@
             "value" : "Elemento de la barra de herramientas"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Työkalupalkin kohde"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Élément de barre d'outils"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -363,6 +597,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "툴바 항목"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Element paska narzędzi"
           }
         },
         "ru" : {
@@ -395,6 +635,12 @@
       "comment" : "Class = \"NSToolbarItem\"; paletteLabel = \"Toolbar Item\"; ObjectID = \"C8Y-BQ-Y6m\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عنصر شريط الأدوات"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -413,6 +659,18 @@
             "value" : "Elemento de la barra de herramientas"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Työkalupalkin kohde"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Élément de barre d'outils"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -429,6 +687,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "툴바 항목"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Element paska narzędzi"
           }
         },
         "ru" : {
@@ -461,6 +725,12 @@
       "comment" : "Class = \"NSToolbarItem\"; label = \"Capture Input\"; ObjectID = \"FN7-zs-mWC\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "التقاط المدخلات"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -545,6 +815,12 @@
       "comment" : "Class = \"NSToolbarItem\"; paletteLabel = \"Capture Input\"; ObjectID = \"FN7-zs-mWC\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "التقاط المدخلات"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -719,6 +995,12 @@
       "comment" : "Class = \"NSToolbarItem\"; label = \"Displays\"; ObjectID = \"MQ2-L1-yl7\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شاشات العرض"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -737,6 +1019,18 @@
             "value" : "Ventanas"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Näytöt"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Affichages"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -753,6 +1047,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "창"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wyświetlacze"
           }
         },
         "ru" : {
@@ -785,6 +1085,12 @@
       "comment" : "Class = \"NSToolbarItem\"; paletteLabel = \"Displays\"; ObjectID = \"MQ2-L1-yl7\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شاشات العرض"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -803,6 +1109,18 @@
             "value" : "Ventanas"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Näytöt"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Affichages"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -819,6 +1137,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "창"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wyświetlacze"
           }
         },
         "ru" : {
@@ -851,6 +1175,12 @@
       "comment" : "Class = \"NSToolbarItem\"; toolTip = \"Windows\"; ObjectID = \"MQ2-L1-yl7\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "النوافذ"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -869,6 +1199,18 @@
             "value" : "Ventanas"
           }
         },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ikkunat"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fenêtres"
+          }
+        },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
@@ -885,6 +1227,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "창"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Okna"
           }
         },
         "ru" : {
@@ -1187,10 +1535,64 @@
       "comment" : "Class = \"NSToolbarItem\"; label = \"Power\"; ObjectID = \"Pwr-Ct-ite\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الطاقة"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein/Aus"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Power"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Virta"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alimentation"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alimentazione"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "電源"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "전원"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zasilanie"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Питание"
           }
         },
         "zh-HK" : {
@@ -1203,6 +1605,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "电源"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "電源"
           }
         }
       }
@@ -1211,10 +1619,64 @@
       "comment" : "Class = \"NSToolbarItem\"; paletteLabel = \"Power\"; ObjectID = \"Pwr-Ct-ite\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الطاقة"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein/Aus"
+          }
+        },
         "en" : {
           "stringUnit" : {
             "state" : "new",
             "value" : "Power"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Virta"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alimentation"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alimentazione"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "電源"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "전원"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zasilanie"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Питание"
           }
         },
         "zh-HK" : {
@@ -1227,6 +1689,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "电源"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "電源"
           }
         }
       }
@@ -1248,6 +1716,12 @@
       "comment" : "Class = \"NSToolbarItem\"; label = \"Resize Console\"; ObjectID = \"Ulf-oT-4cP\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تغيير حجم وحدة التحكم"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1332,6 +1806,12 @@
       "comment" : "Class = \"NSToolbarItem\"; paletteLabel = \"Resize Console\"; ObjectID = \"Ulf-oT-4cP\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تغيير حجم وحدة التحكم"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1596,6 +2076,12 @@
       "comment" : "Class = \"NSToolbarItem\"; label = \"Drives\"; ObjectID = \"bKL-Th-FFw\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الأقراص"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1680,6 +2166,12 @@
       "comment" : "Class = \"NSToolbarItem\"; paletteLabel = \"Drives\"; ObjectID = \"bKL-Th-FFw\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الأقراص"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1854,6 +2346,12 @@
       "comment" : "Class = \"NSToolbarItem\"; label = \"USB Devices\"; ObjectID = \"tlw-Fb-ne3\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أجهزة USB"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1938,6 +2436,12 @@
       "comment" : "Class = \"NSToolbarItem\"; paletteLabel = \"USB Devices\"; ObjectID = \"tlw-Fb-ne3\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أجهزة USB"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2022,6 +2526,12 @@
       "comment" : "Class = \"NSToolbarItem\"; toolTip = \"USB devices\"; ObjectID = \"tlw-Fb-ne3\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أجهزة USB"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
