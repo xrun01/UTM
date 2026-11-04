@@ -10,7 +10,7 @@ import { KEEP_TERMS, termIssuesOf } from "./terms.js";
 export const CJK_LANGS = new Set(["zh-Hans", "zh-Hant", "zh-HK", "ja", "ko"]);
 
 // 高棉语、老挝语、泰语、缅甸语用 U+200B 标记词边界，删掉会影响换行
-const ZWSP_LANGS = new Set(["km", "lo", "th", "my"]),
+export const ZWSP_LANGS = new Set(["km", "lo", "th", "my"]),
   // 从右到左的语言用 Bidi 隔离符（U+2066 至 U+2069）包住从左到右的占位符，这是推荐写法
   RTL_LANGS = new Set(["ar", "fa", "he", "iw", "ur", "sd"]);
 
@@ -119,10 +119,10 @@ export const lengthIssueOf = (lang, source, value) => {
 };
 
 // 复数类别：按 CLDR 规则，这种语言需要的类别都要有，缺少时运行时会退回 other
-const pluralCategoriesOf = (lang) => new Intl.PluralRules(lang).resolvedOptions().pluralCategories;
+export const pluralCategoriesOf = (lang) => new Intl.PluralRules(lang).resolvedOptions().pluralCategories;
 
 // 这个复数类别在这种语言里是否只对应 1 个整数（ar 的 zero、one、two，de 的 one）；这时译文可以省略数字
-const singleIntegerOf = (lang, category) => {
+export const singleIntegerOf = (lang, category) => {
   const rules = new Intl.PluralRules(lang);
   let n = 0;
   for (let i = 0; i <= 200 && n < 2; i++) if (rules.select(i) === category) n++;
@@ -142,6 +142,10 @@ const pluralSourceOf = (lang, key, entry, path, value) => {
   }
   return src;
 };
+
+// 1 条译文应该和哪段英文比较；check.js 和 translate.js 用同一个标准
+export const unitSourceOf = (lang, key, entry, path, value) =>
+  path[0] === "plural" ? pluralSourceOf(lang, key, entry, path, value) : sourceTextAt(key, entry, path);
 
 // 可以写例外的规则：报错规则，以及 3 条警告（审过的警告可以消掉，避免每次检查都被同样的警告淹没）
 // 源码字面量的例外按文件和文字匹配
@@ -228,8 +232,7 @@ export const catalogIssuesOf = (table, catalog, { langs, known, exceptions = exc
         continue;
       }
       for (const [unit, path] of units) {
-        const is_plural = path[0] === "plural",
-          src = is_plural ? pluralSourceOf(lang, key, entry, path, unit.value) : sourceTextAt(key, entry, path);
+        const src = unitSourceOf(lang, key, entry, path, unit.value);
         // 空串会编译进 app，界面上显示空白，而不是英文
         if (unit.value === "") {
           if (src !== "") add("error", "empty", key, lang, "译文是空串，app 中会显示空白；补上译文，或删除这条译文");
