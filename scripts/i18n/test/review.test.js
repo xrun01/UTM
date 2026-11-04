@@ -106,9 +106,16 @@ describe("review.js", () => {
     expect(readFileSync(join(root, CATALOG_PATHS.Localizable), "utf8")).toBe(before);
   });
 
-  test("apply：proposal 的语言不一致时拒绝", () => {
+  test("apply：proposal 的语言不一致时拒绝；未知语言、例外清单格式错误时退出码 2", () => {
     writeFileSync(join(tmp, "de/proposal.json"), JSON.stringify({ lang: "ja", changes: [] }));
     expect(run("apply", "--lang", "de", "--proposal", join(tmp, "de/proposal.json")).code).toBe(1);
+    writeFileSync(join(tmp, "de/proposal.json"), JSON.stringify({ lang: "xx" }));
+    expect(run("apply", "--lang", "xx", "--proposal", join(tmp, "de/proposal.json")).code).toBe(2);
+    writeFileSync(join(tmp, "de/proposal.json"), JSON.stringify({ lang: "de" }));
+    writeFileSync(join(root, "i18n/check-exceptions.json"), JSON.stringify([{ table: "Localizable", key: "Close", rule: "nope", reason: "r" }]));
+    const bad = run("apply", "--lang", "de", "--proposal", join(tmp, "de/proposal.json"));
+    expect(bad.code).toBe(2);
+    expect(bad.out).toContain("check-exceptions.json 格式错误");
   });
 
   test("back-input：回译输入用不透明 id，看不到英文原文；compare-input 按映射还原，后一轮覆盖前一轮", () => {
@@ -136,7 +143,61 @@ describe("review.js", () => {
     writeFileSync(join(tmp, "de/back.json"), JSON.stringify([{ id: open_id, back: "Offen %@", note: "" }]));
     writeFileSync(join(tmp, "de/back2.json"), JSON.stringify([{ id: open_id, back: "Open %@", note: "ok" }]));
     run("compare-input", "--dir", tmp, "--langs", "de,ja", "--out", join(tmp, "cmp.json"));
+    // %lld Kern 没有回译：不进比对输入，并提示
+    const cmp = run("compare-input", "--dir", tmp, "--langs", "de,ja", "--out", join(tmp, "cmp.json"));
     expect(json(join(tmp, "cmp.json"))).toEqual([{ id: "de|Localizable|Open %@|", en: "Open %@", back: "Open %@", note: "ok" }]);
+    expect(cmp.out).toContain("缺少回译：Localizable|%lld Cores|plural/one");
+    expect(cmp.out).toContain("ja：没有 export.json，跳过");
+    // 映射写在 proposal 的目录，记录送去回译时的译文
+    expect(Object.values(json(join(tmp, "de/back-ids.json")))).toContainEqual({ id: "Localizable|Open %@|", text: "%@ öffnen" });
+  });
+
+  test("back-input：映射放在 proposal 目录，输出放在别处也能找到；回译后改过的条目视为过期", () => {
+    run("export", "--lang", "de", "--out", join(tmp, "de/export.json"));
+    const proposal = (text) =>
+      writeFileSync(join(tmp, "de/proposal.json"), JSON.stringify({ lang: "de", changes: [{ id: "Localizable|Open %@|", old: "%@ offnen", new: text, type: "不通顺" }] }));
+    proposal("%@ öffnen");
+    run("back-input", "--proposal", join(tmp, "de/proposal.json"), "--out", join(tmp, "elsewhere/in.json"));
+    const [{ id }] = json(join(tmp, "elsewhere/in.json"));
+    writeFileSync(join(tmp, "de/back.json"), JSON.stringify([{ id, back: "Open %@", note: "" }, { id: "bunknown", back: "x" }]));
+    const ok = run("compare-input", "--dir", tmp, "--langs", "de", "--out", join(tmp, "cmp.json"));
+    expect(json(join(tmp, "cmp.json"))).toHaveLength(1);
+    expect(ok.out).toContain("未知的回译 id");
+
+    // 改稿代理在回译后又改了译文：旧回译作废，比对输入不含它，报告标为过期
+    proposal("%@ aufmachen");
+    const stale = run("compare-input", "--dir", tmp, "--langs", "de", "--out", join(tmp, "cmp.json"));
+    expect(json(join(tmp, "cmp.json"))).toEqual([]);
+    expect(stale.out).toContain("回译已过期（译文改过）：Localizable|Open %@|");
+    writeFileSync(join(tmp, "compare.json"), "[]");
+    run("report", "--dir", tmp, "--langs", "de", "--out", join(tmp, "r.html"));
+    expect(readFileSync(join(tmp, "r.html"), "utf8")).toContain('"back":"Open %@","note":"回译已过期：译文在回译后改过"');
+
+    // 重新回译后，新编号对应新译文
+    run("back-input", "--proposal", join(tmp, "de/proposal.json"), "--out", join(tmp, "de/back2-input.json"));
+    const [{ id: id2 }] = json(join(tmp, "de/back2-input.json"));
+    expect(id2).not.toBe(id);
+    writeFileSync(join(tmp, "de/back2.json"), JSON.stringify([{ id: id2, back: "Open up %@", note: "" }]));
+    run("compare-input", "--dir", tmp, "--langs", "de", "--out", join(tmp, "cmp.json"));
+    expect(json(join(tmp, "cmp.json"))).toEqual([{ id: "de|Localizable|Open %@|", en: "Open %@", back: "Open up %@", note: "" }]);
+  });
+
+  test("back-input：--ids-file 有不匹配的 id 时警告，全部不匹配时失败", () => {
+    writeFileSync(join(tmp, "de/proposal.json"), JSON.stringify({ lang: "de", approved: [{ id: "Localizable|Close|", value: "Schließen" }] }));
+    const args = (f) => ["back-input", "--proposal", join(tmp, "de/proposal.json"), "--out", join(tmp, "de/in.json"), "--ids-file", f];
+    writeFileSync(join(tmp, "ids.json"), JSON.stringify(["de|Localizable|Close|", "Localizable|Gone|"]));
+    const partial = run(...args(join(tmp, "ids.json")));
+    expect(partial.code).toBe(0);
+    expect(partial.out).toContain("1 条不在 proposal");
+    writeFileSync(join(tmp, "none.json"), JSON.stringify(["ja|Localizable|Close|"]));
+    expect(run(...args(join(tmp, "none.json"))).code).toBe(1);
+  });
+
+  test("report：没有 compare.json 时警告", () => {
+    writeFileSync(join(tmp, "de/proposal.json"), JSON.stringify({ lang: "de" }));
+    const res = run("report", "--dir", tmp, "--langs", "de", "--out", join(tmp, "r.html"));
+    expect(res.code).toBe(0);
+    expect(res.out).toContain("没有 " + join(tmp, "compare.json"));
   });
 
   test("apply：重复 id、空译文、结构错误时整体拒绝，退出码 2", () => {
@@ -157,6 +218,12 @@ describe("review.js", () => {
     expect(tryApply({ changes: "x" }).code).toBe(2);
     expect(tryApply({ changes: [{ id: "bad", old: "a", new: "b", type: "不通顺" }] }).out).toContain("id 格式不对");
     expect(tryApply({ changes: [{ id: "Localizable|Close|", old: "Schließen", new: "Zu", type: "风格" }] }).out).toContain("type 必须是");
+    // 带语言前缀的 id 表名不对，不能绕过重复检查
+    const prefixed = tryApply({ approved: [{ id: "Localizable|Close|", value: "Schließen" }], doubts: [{ id: "de|Localizable|Close|", question: "q" }] });
+    expect(prefixed.out).toContain("id 的表名不对");
+    expect(tryApply({ changes: [{ id: "Localizable|Close|", old: "Schließen", new: "Schließen", type: "不通顺" }] }).out).toContain("新旧译文相同");
+    expect(tryApply({ withdrawn: [{ id: "Localizable|Close|" }] }).out).toContain("缺少 reason");
+    expect(tryApply({ source_issues: [{ id: "Localizable|Close|" }] }).out).toContain("必须有 id 和 problem");
     expect(readFileSync(join(root, CATALOG_PATHS.Localizable), "utf8")).toBe(before);
   });
 
@@ -199,7 +266,9 @@ describe("review.js", () => {
     expect(res.code).toBe(0);
     expect(res.out).toContain("ja：没有 proposal.json");
     const html = readFileSync(join(tmp, "r.html"), "utf8");
-    expect(html).toContain('"withdrawn":[{"id":"Localizable|Open %@|","reason":"2 轮后仍有分歧","en":"Open %@"}]');
+    expect(html).toContain('"withdrawn":[{"id":"Localizable|Open %@|","reason":"2 轮后仍有分歧","en":"Open %@","current":"%@ offnen"}]');
+    // 导出了但 proposal 没有列出的条目，单独列为没有处理
+    expect(html).toContain('"unhandled":[{"id":"Localizable|%lld Cores|plural/one","en":"%lld Cores","current":"%lld Kern"},{"id":"Localizable|%lld Cores|plural/other"');
     expect(html).toContain('"mismatches":[{"id":"Localizable|Open %@|","type":"意思不同","problem":"p","en":"Open %@"}]');
   });
 

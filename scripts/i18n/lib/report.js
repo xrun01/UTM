@@ -1,4 +1,4 @@
-// 审校报告：单文件 HTML。先列待决定的事项，再列回译不一致与撤回的改动，然后逐条列改动和确认的条目
+// 审校报告：单文件 HTML。先列待决定的事项，再列回译不一致、撤回的改动和没有处理的条目，然后逐条列改动和确认的条目
 // 语言筛选和搜索对所有区块生效。数据以 JSON 嵌入页面，全部用 textContent 渲染，不拼接 HTML
 
 export const reportHtmlOf = (data) => {
@@ -50,7 +50,7 @@ details summary { cursor: pointer; color: var(--accent); }
 <main>
 <h1>UTM 译文审校</h1>
 <p class="sub" id="sub"></p>
-<table id="summary"><thead><tr><th>语言</th><th>改动</th><th>确认</th><th>待决定</th><th>回译不一致</th><th>撤回</th></tr></thead><tbody></tbody></table>
+<table id="summary"><thead><tr><th>语言</th><th>改动</th><th>确认</th><th>待决定</th><th>回译不一致</th><th>撤回</th><th>未处理</th></tr></thead><tbody></tbody></table>
 <div class="bar"><select id="lang" aria-label="语言"><option value="">全部语言</option></select><input id="q" type="search" placeholder="搜索英文、译文或理由" aria-label="搜索"></div>
 <h2>待决定</h2>
 <div id="todo"></div>
@@ -58,6 +58,8 @@ details summary { cursor: pointer; color: var(--accent); }
 <div id="mismatch"></div>
 <h2>撤回的改动</h2>
 <div id="withdrawn"></div>
+<h2>没有处理的条目</h2>
+<div id="unhandled"></div>
 <h2>改动</h2>
 <div id="changes"></div>
 <h2>确认无误的条目</h2>
@@ -85,7 +87,7 @@ document.getElementById("sub").textContent = DATA.length + " 种语言，改动 
 const tbody = document.querySelector("#summary tbody"), lang_sel = document.getElementById("lang"), q = document.getElementById("q");
 for (const d of DATA) {
   const tr = el("tr");
-  for (const v of [d.lang, d.changes.length, d.approved.length, d.doubts.length + d.source_issues.length, d.mismatches.length, d.withdrawn.length]) tr.append(el("td", "", String(v)));
+  for (const v of [d.lang, d.changes.length, d.approved.length, d.doubts.length + d.source_issues.length, d.mismatches.length, d.withdrawn.length, d.unhandled.length]) tr.append(el("td", "", String(v)));
   tbody.append(tr);
   lang_sel.append(Object.assign(el("option", "", d.lang), { value: d.lang }));
 }
@@ -95,7 +97,9 @@ const SECTIONS = {
     ...d.source_issues.map((x) => [x, () => { const c = card("todo", [d.lang, "英文原文的问题"], x.id); c.append(row("英文", x.en), row("问题", x.problem), row("建议", x.suggest)); return c; }]),
   ],
   mismatch: (d) => d.mismatches.map((x) => [x, () => { const c = card("todo", [d.lang, x.type], x.id); c.append(row("英文", x.en), row("问题", x.problem)); return c; }]),
-  withdrawn: (d) => d.withdrawn.map((x) => [x, () => { const c = card("", [d.lang, "保持 needs_review"], x.id); c.append(row("英文", x.en), row("原因", x.reason)); return c; }]),
+  withdrawn: (d) => d.withdrawn.map((x) => [x, () => { const c = card("", [d.lang, "保持 needs_review"], x.id); c.append(row("英文", x.en), row("当前", x.current, "", d.lang), row("原因", x.reason)); return c; }]),
+  // 导出了但 proposal 没有列出：说明审校漏了，状态保持不变
+  unhandled: (d) => d.unhandled.map((x) => [x, () => { const c = card("todo", [d.lang, "审校漏了"], x.id); c.append(row("英文", x.en), row("当前", x.current, "", d.lang)); return c; }]),
   changes: (d) => d.changes.map((x) => [x, () => {
     const c = card("", [d.lang, x.type], x.id);
     c.append(row("英文", x.en), row("原译", x.old, "old", d.lang), row("新译", x.new, "new", d.lang), row("回译", x.back || "（没有回译）"));
@@ -110,7 +114,7 @@ const SECTIONS = {
     return c;
   }]),
 };
-const EMPTY = { todo: "没有待决定的事项。", mismatch: "没有回译不一致的条目。", withdrawn: "没有撤回的改动。", changes: "没有匹配的改动。", approved: "没有。" };
+const EMPTY = { todo: "没有待决定的事项。", mismatch: "没有回译不一致的条目。", withdrawn: "没有撤回的改动。", unhandled: "导出的条目都处理了。", changes: "没有匹配的改动。", approved: "没有。" };
 const matches = (x) => {
   const needle = q.value.trim().toLowerCase();
   return !needle || Object.values(x).some((v) => typeof v === "string" && v.toLowerCase().includes(needle));

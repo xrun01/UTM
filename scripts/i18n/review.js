@@ -7,7 +7,7 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 
 import { dirname, join, resolve } from "node:path";
 import { parseArgs } from "node:util";
 import { CATALOG_PATHS, readCatalog, unitAt, unitsOf, writeCatalog } from "./lib/catalog.js";
-import { exceptionMatcherOf, sourceTextAt, unitIssuesOf, unitSourceOf } from "./lib/checks.js";
+import { exceptionMatcherOf, exceptionProblemsOf, sourceTextAt, unitIssuesOf, unitSourceOf } from "./lib/checks.js";
 import { reportHtmlOf } from "./lib/report.js";
 
 const USAGE = `用法：
@@ -89,19 +89,33 @@ const parseId = (id) => {
 };
 
 // 回译用的不透明 id：条目 id 里有英文原文，回译代理看到就失去了检查作用
-const backIdOf = (id) => "b" + createHash("sha1").update(id).digest("hex").slice(0, 10);
+// 映射 { 不透明 id: { id, text } } 写在语言目录的 back-ids.json；text 是送去回译时的译文，用来判断回译是否过期
+const backIdOf = (id, text) => "b" + createHash("sha1").update(id + "\x00" + text).digest("hex").slice(0, 10);
 const BACK_IDS = "back-ids.json";
 
-// 合并 <dir> 下的 back.json、back2.json……（后一轮覆盖前一轮），并按 back-ids.json 还原成条目 id
-const latestBackOf = (dir) => {
+// 合并 <dir> 下的 back.json、back2.json……（后一轮覆盖前一轮），按 back-ids.json 还原条目 id
+// 返回 Map<条目 id, { back, note, text }>；未知 id 写进 warnings
+const latestBackOf = (dir, warnings = []) => {
   const ids = existsSync(join(dir, BACK_IDS)) ? readJson(join(dir, BACK_IDS)) : {},
     files = existsSync(dir)
       ? readdirSync(dir)
           .filter((f) => /^back\d*\.json$/.test(f))
           .sort((a, b) => (parseInt(a.slice(4)) || 1) - (parseInt(b.slice(4)) || 1))
-      : [];
-  return new Map(files.flatMap((f) => readJson(join(dir, f)).map((b) => [ids[b.id] ?? b.id, { ...b, id: ids[b.id] ?? b.id }])));
+      : [],
+    out = new Map();
+  for (const f of files) {
+    for (const b of readJson(join(dir, f))) {
+      const m = ids[b?.id];
+      if (!m) warnings.push(f + "：未知的回译 id " + JSON.stringify(b?.id));
+      else out.set(m.id, { back: b.back ?? "", note: b.note ?? "", text: m.text });
+    }
+  }
+  return out;
 };
+
+// proposal 当前要写入的条目：{ 条目 id: 译文 }
+const currentTextOf = (proposal) =>
+  new Map([...(proposal.changes ?? []).map((c) => [c.id, c.new]), ...(proposal.approved ?? []).map((a) => [a.id, a.value])]);
 
 // 校验 proposal 的结构；返回问题描述列表
 const proposalProblemsOf = (p) => {
@@ -115,7 +129,10 @@ const proposalProblemsOf = (p) => {
   }
   if (out.length) return out;
   const claim = (list, item, i) => {
-    if (!parseId(item?.id)) return out.push(list + " 第 " + (i + 1) + " 条：id 格式不对");
+    const parsed = parseId(item?.id);
+    if (!parsed) return out.push(list + " 第 " + (i + 1) + " 条：id 格式不对");
+    // 表名必须存在：带语言前缀的 id（例如比对代理输出的 de|Localizable|…）会绕过重复检查
+    if (!CATALOG_PATHS[parsed.table]) return out.push(list + " 第 " + (i + 1) + " 条：id 的表名不对：" + item.id);
     // 同一条目只能出现在 changes、approved、doubts、withdrawn 中的 1 处
     if (seen.has(item.id)) out.push(item.id + "：同时出现在 " + seen.get(item.id) + " 和 " + list);
     else seen.set(item.id, list);
@@ -125,13 +142,20 @@ const proposalProblemsOf = (p) => {
     if (!isText(c?.old)) out.push("changes 第 " + (i + 1) + " 条：缺少 old");
     if (!isText(c?.new) || !c.new.trim()) out.push("changes 第 " + (i + 1) + " 条：new 必须是非空字符串");
     if (!CHANGE_TYPES.includes(c?.type)) out.push("changes 第 " + (i + 1) + " 条：type 必须是 " + CHANGE_TYPES.join("、") + " 之一");
+    if (isText(c?.old) && c?.new === c.old) out.push("changes 第 " + (i + 1) + " 条：新旧译文相同，放进 approved");
   });
   (p.approved ?? []).forEach((a, i) => {
     claim("approved", a, i);
     if (!isText(a?.value) || !a.value.trim()) out.push("approved 第 " + (i + 1) + " 条：value 必须是非空字符串");
   });
   (p.doubts ?? []).forEach((d, i) => claim("doubts", d, i));
-  (p.withdrawn ?? []).forEach((w, i) => claim("withdrawn", w, i));
+  (p.withdrawn ?? []).forEach((w, i) => {
+    claim("withdrawn", w, i);
+    if (!isText(w?.reason) || !w.reason.trim()) out.push("withdrawn 第 " + (i + 1) + " 条：缺少 reason");
+  });
+  (p.source_issues ?? []).forEach((s, i) => {
+    if (!isText(s?.id) || !isText(s?.problem)) out.push("source_issues 第 " + (i + 1) + " 条：必须有 id 和 problem");
+  });
   return out;
 };
 
@@ -196,13 +220,17 @@ const commands = {
   // 先校验结构，再逐条核对原值，并按 check.js 的规则（含例外清单）校验新译文；任何 1 条不合格时不写入任何条目
   apply: () => {
     need("lang", "proposal");
+    checkLang(opt.lang);
     const proposal = readJson(opt.proposal),
       shape = proposalProblemsOf(proposal);
     if (shape.length) fail("proposal 格式不对，没有写入任何条目：\n" + shape.join("\n"), 2);
     if (proposal.lang !== opt.lang) fail("proposal 的语言是 " + proposal.lang + "，不是 " + opt.lang);
+    const exceptions_path = join(root, "i18n/check-exceptions.json"),
+      exception_li = existsSync(exceptions_path) ? readJson(exceptions_path) : [],
+      exception_problems = exceptionProblemsOf(exception_li);
+    if (exception_problems.length) fail("i18n/check-exceptions.json 格式错误：\n" + exception_problems.join("\n"), 2);
     const cats = catalogs(),
-      exceptions_path = join(root, "i18n/check-exceptions.json"),
-      exceptions = exceptionMatcherOf(existsSync(exceptions_path) ? readJson(exceptions_path) : []),
+      exceptions = exceptionMatcherOf(exception_li),
       problems = [],
       plan = [];
     const locate = (id) => {
@@ -253,19 +281,23 @@ const commands = {
       // 比对代理输出的 id 是 <lang>|<条目 id>
       only = new Set(list.map((x) => (typeof x === "string" ? x : x?.id)).map((id) => (id?.startsWith(proposal.lang + "|") ? id.slice(proposal.lang.length + 1) : id)));
     }
-    const items = [
-        ...(proposal.changes ?? []).map((c) => ({ id: c.id, text: c.new })),
-        ...(proposal.approved ?? []).map((a) => ({ id: a.id, text: a.value })),
-      ].filter((it) => !only || only.has(it.id)),
-      ids_path = join(dirname(opt.out), BACK_IDS),
+    const current = currentTextOf(proposal),
+      items = [...current].filter(([id]) => !only || only.has(id)).map(([id, text]) => ({ id, text }));
+    if (only) {
+      const unmatched = [...only].filter((id) => !current.has(id));
+      if (unmatched.length) console.log("警告：--ids-file 中 " + unmatched.length + " 条不在 proposal 的 changes 或 approved 中：\n  " + unmatched.join("\n  "));
+      if (!items.length) fail("--ids-file 没有匹配到任何条目，检查 id 和语言前缀");
+    }
+    // 映射放在 proposal 所在的语言目录：compare-input 和 report 从这里读，--out 指向别的目录时也能找到
+    const ids_path = join(dirname(opt.proposal), BACK_IDS),
       ids = existsSync(ids_path) ? readJson(ids_path) : {};
-    for (const it of items) ids[backIdOf(it.id)] = it.id;
-    writeOut(opt.out, JSON.stringify(items.map((it) => ({ id: backIdOf(it.id), text: it.text })), null, 2) + "\n");
+    for (const it of items) ids[backIdOf(it.id, it.text)] = { id: it.id, text: it.text };
+    writeOut(opt.out, JSON.stringify(items.map((it) => ({ id: backIdOf(it.id, it.text), text: it.text })), null, 2) + "\n");
     writeOut(ids_path, JSON.stringify(ids, null, 2) + "\n");
     console.log("回译输入 " + items.length + " 条 → " + opt.out);
   },
 
-  // 比对输入：合并多种语言的英文与最新一轮回译，id 写成 <lang>|<条目 id>；没有导出或回译的语言跳过
+  // 比对输入：合并多种语言的英文与最新一轮回译，id 写成 <lang>|<条目 id>；没有导出或 proposal 的语言跳过
   "compare-input": () => {
     need("dir", "langs", "out");
     const items = opt.langs.split(",").flatMap((lang) => {
@@ -274,8 +306,23 @@ const commands = {
         console.log(lang + "：没有 export.json，跳过");
         return [];
       }
-      const en = new Map(readJson(join(dir, "export.json")).items.map((it) => [it.id, it.en]));
-      return [...latestBackOf(dir).values()].map((b) => ({ id: lang + "|" + b.id, en: en.get(b.id) ?? "", back: b.back, note: b.note ?? "" }));
+      if (!existsSync(join(dir, "proposal.json"))) {
+        console.log(lang + "：没有 proposal.json，跳过");
+        return [];
+      }
+      // 只比对 proposal 当前的条目，并且回译必须对应当前译文；过期或缺少回译的条目提示重新回译
+      const en = new Map(readJson(join(dir, "export.json")).items.map((it) => [it.id, it.en])),
+        warnings = [],
+        back = latestBackOf(dir, warnings),
+        out = [];
+      for (const [id, text] of currentTextOf(readJson(join(dir, "proposal.json")))) {
+        const b = back.get(id);
+        if (!b) warnings.push("缺少回译：" + id);
+        else if (b.text !== text) warnings.push("回译已过期（译文改过）：" + id);
+        else out.push({ id: lang + "|" + id, en: en.get(id) ?? "", back: b.back, note: b.note });
+      }
+      if (warnings.length) console.log(lang + "：" + warnings.length + " 个问题，先重新回译：\n  " + warnings.join("\n  "));
+      return out;
     });
     writeOut(opt.out, JSON.stringify(items, null, 2) + "\n");
     console.log("比对输入 " + items.length + " 条 → " + opt.out);
@@ -284,7 +331,9 @@ const commands = {
   // 审校报告：读 <dir>/<lang>/ 下的 export.json、proposal.json、back*.json，以及 <dir>/compare.json（比对代理的输出）
   report: () => {
     need("dir", "langs", "out");
-    const compare = existsSync(join(opt.dir, "compare.json")) ? readJson(join(opt.dir, "compare.json")) : [],
+    const compare_path = join(opt.dir, "compare.json");
+    if (!existsSync(compare_path)) console.log("警告：没有 " + compare_path + "，报告中「回译不一致」一节为空。比对结果没有问题时也要写 []");
+    const compare = existsSync(compare_path) ? readJson(compare_path) : [],
       data = opt.langs.split(",").flatMap((lang) => {
         const dir = join(opt.dir, lang);
         if (!existsSync(join(dir, "proposal.json"))) {
@@ -295,15 +344,24 @@ const commands = {
           proposal = readJson(join(dir, "proposal.json")),
           back = latestBackOf(dir),
           en = (id) => exported.get(id)?.en ?? "";
-        const row = (id, extra) => ({ id, en: en(id), back: back.get(id)?.back ?? "", note: back.get(id)?.note ?? "", ...extra });
+        // 回译对应的译文和当前译文不同时，标为过期
+        const backOf = (id, text) => {
+          const b = back.get(id);
+          if (!b) return { back: "", note: "" };
+          return b.text === text ? { back: b.back, note: b.note } : { back: b.back, note: "回译已过期：译文在回译后改过" };
+        };
+        const row = (id, text, extra) => ({ id, en: en(id), ...backOf(id, text), ...extra });
+        const handled = new Set(["changes", "approved", "doubts", "withdrawn"].flatMap((k) => (proposal[k] ?? []).map((x) => x.id)));
         return [
           {
             lang,
-            changes: (proposal.changes ?? []).map((c) => row(c.id, { old: c.old, new: c.new, type: c.type, reason: c.reason ?? "" })),
-            approved: (proposal.approved ?? []).map((a) => row(a.id, { value: a.value })),
+            changes: (proposal.changes ?? []).map((c) => row(c.id, c.new, { old: c.old, new: c.new, type: c.type, reason: c.reason ?? "" })),
+            approved: (proposal.approved ?? []).map((a) => row(a.id, a.value, { value: a.value })),
             doubts: (proposal.doubts ?? []).map((d) => ({ ...d, en: en(d.id) })),
             source_issues: proposal.source_issues ?? [],
-            withdrawn: (proposal.withdrawn ?? []).map((w) => ({ ...w, en: en(w.id) })),
+            withdrawn: (proposal.withdrawn ?? []).map((w) => ({ ...w, en: en(w.id), current: exported.get(w.id)?.current ?? "" })),
+            // 导出了但 proposal 中哪个列表都没有的条目：没有处理，保持原状态
+            unhandled: [...exported.values()].filter((it) => !handled.has(it.id)).map((it) => ({ id: it.id, en: it.en, current: it.current })),
             mismatches: compare
               .filter((m) => typeof m?.id === "string" && m.id.startsWith(lang + "|"))
               .map((m) => ({ ...m, id: m.id.slice(lang.length + 1), en: en(m.id.slice(lang.length + 1)) })),

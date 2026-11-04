@@ -107,16 +107,19 @@ description: UTM 的国际化流程：加文案（新增或修改界面文案后
    - 跨语言都会出现的新术语，补进 `terms.yml`。
 4. **回译。** 运行 `bun scripts/i18n/review.js back-input --proposal <tmp>/<lang>/proposal.json --out <tmp>/<lang>/back-input.json`。每种语言启动 1 个新的回译代理，说明按 `back-translator.md`。回译代理只能看 `back-input.json`。
    结果：`<tmp>/<lang>/back.json`。回译覆盖改动和确认的全部条目，因为机翻条目即使没改也要验证。
+   脚本把不透明编号和送去回译的译文记在 `<tmp>/<lang>/back-ids.json`。之后改过的条目，旧回译自动作废。
 5. **比对。** 逐条比较英文和回译，并读回译代理写的 `note`。条目超过 100 条时，先运行 `bun scripts/i18n/review.js compare-input --dir <tmp> --langs <lang,lang> --out <tmp>/compare-input.json`。然后启动比对代理，说明按 `comparator.md`。比对结果写到 `<tmp>/compare.json`，第 8 步的报告会读它。
+   - 条目不超过 100 条、由你自己比对时，也必须按 `comparator.md` 的格式写 `<tmp>/compare.json`。没有问题时写 `[]`。
+   - `compare-input` 只取 proposal 当前的条目。它提示「缺少回译」或「回译已过期」时，先对这些条目重新回译。
    - 意思一致：通过。
-   - 意思不一致，或 `note` 指出真实的歧义：退回改稿代理。改过的条目再回译 1 次。把要重译的条目 id 写成 JSON 数组，比对代理的输出可以直接用。`back-input` 加 `--ids-file <文件>`，结果写 `back2.json`。第 N 轮写 `backN.json`。
+   - 意思不一致，或 `note` 指出真实的歧义：退回改稿代理。改过的条目再回译 1 次。把要重译的条目 id 写成 JSON 数组，比对代理的输出可以直接用。`back-input` 加 `--ids-file <文件>`，输入写 `<tmp>/<lang>/back2-input.json`，回译代理的结果写 `back2.json`。第 N 轮写 `backN.json`，后一轮覆盖前一轮。
    - 最多退回 2 轮。2 轮后仍有分歧的条目，从 `changes` 和 `approved` 中移到 `withdrawn`，写明原因：`{ "id": "…", "reason": "…" }`。这些条目保持 `needs_review`，报告中单独列出。
 6. **写入。** 先运行 `bun scripts/i18n/review.js apply --lang <lang> --proposal <tmp>/<lang>/proposal.json --dry-run`，通过后去掉 `--dry-run` 再运行 1 次。
    - 脚本逐条核对原译文，并按 `check.js` 的规则校验新译文。任何 1 条不合格时，不写入任何条目。
    - 写入后，改动和确认的条目状态都变成 `translated`。
 7. **检查。** 运行 `bun scripts/i18n/check.js`。
    结果：`0 个错误`。
-8. **报告。** 运行 `bun scripts/i18n/review.js report --dir <tmp> --langs <lang,lang> --out <tmp>/report.html`。报告先列待决定的事项，再逐条列改动，可以按语言筛选和搜索。用户不懂这种语言时，靠报告判断改得对不对。
+8. **报告。** 运行 `bun scripts/i18n/review.js report --dir <tmp> --langs <lang,lang> --out <tmp>/report.html`。报告先列待决定的事项，再逐条列改动，可以按语言筛选和搜索。「没有处理的条目」一节不为空时，说明改稿代理漏了条目：退回改稿代理补上，再从第 4 步重做这些条目。用户不懂这种语言时，靠报告判断改得对不对。
 9. **布局验收。** 文案变长会撑破固定宽度的界面。
    1. 运行 `bun vm/script/buildApp.js`。
    2. 用 `open -n build/UTM.app --args -AppleLanguages "(<lang>)"` 启动 app。打开新建虚拟机向导和设置窗口。
