@@ -17374,7 +17374,7 @@
         },
         "zh-HK" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "HiDPI (Retina)"
           }
         },
@@ -49264,7 +49264,7 @@
         },
         "zh-HK" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "macOS 12+"
           }
         },
@@ -49763,7 +49763,7 @@
         "zh-HK" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "虛擬機"
+            "value" : "vm"
           }
         },
         "zh-Hans" : {
@@ -49775,7 +49775,7 @@
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "虛擬機器"
+            "value" : "vm"
           }
         }
       }
