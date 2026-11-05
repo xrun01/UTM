@@ -1,0 +1,44 @@
+# id 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。
+# 来源：amalthea（VM64 官网）的 glossary/id.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+virtual-machine: mesin virtual
+guest: tamu；客户机系统 = sistem tamu；客户机工具 = alat tamu
+emulate: mengemulasi；emulasi（不用 meniru、simulasi）
+virtualize: virtualisasi
+native: asli；接近原生的速度 = kecepatan mendekati asli
+architecture: arsitektur
+backend: backend；backend QEMU、backend Apple
+apple-silicon: Apple silicon；Apple 芯片的 Mac = Mac dengan Apple silicon  # https://support.apple.com/id-id/116943
+intel-mac: Mac berbasis Intel  # https://support.apple.com/id-id/116943
+snapshot: snapshot
+disposable-mode: mode sekali pakai
+shut-down: mematikan；关机后 = setelah dimatikan
+new-vm-wizard: wizard pembuatan mesin virtual
+installer-image: citra instalasi（不用 gambar）
+license: lisensi  # https://support.microsoft.com/id-id/windows/activate-windows-c39005d4-95ee-b91e-b399-2820fda32227
+secure-boot: Boot Aman  # https://support.microsoft.com/id-id/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: atau lebih baru  # https://support.apple.com/id-id/guide/mac-help/welcome/mac（「macOS 26 atau lebih baru」）
+experimental: fitur eksperimental
+auto-resolution: penyesuaian resolusi otomatis
+shared-clipboard: papan klip bersama；共享剪贴板（动作）= berbagi papan klip；粘贴 = tempel  # https://support.apple.com/id-id/guide/mac-help/welcome/mac（「Papan Klip Universal」）
+shared-folder: folder bersama
+sharing: Berbagi
+shared-network: Jaringan Bersama
+host-only: Hanya Host
+bridged: Jembatan
+emulated-vlan: VLAN Emulasi
+port-forwarding: penerusan port
+lan: jaringan lokal
+shortcuts: Pintasan  # https://support.apple.com/id-id/guide/shortcuts-mac/welcome/mac
+command-line-tool: alat baris perintah
+clone: mengkloning；kloning
+fingerprint: sidik jari
+hardware-reset: pengaturan ulang perangkat keras
+mount: mount（不用 pasang，pasang 也指安装）
+shared-library: pustaka bersama
+capture-mouse: menangkap mouse；捕获鼠标按钮 = tombol Tangkap Mouse
+keys: tombol Control、tombol Option  # https://support.apple.com/id-id/102650
+toolbar: bar alat  # https://support.apple.com/id-id/guide/mac-help/welcome/mac
+settings: pengaturan  # https://support.apple.com/id-id/guide/mac-help/mchlp1225/mac
+classic-systems: sistem klasik
+cpu: CPU  # https://support.apple.com/id-id/guide/mac-help/welcome/mac（「aktivitas CPU」）
+rosetta: Rosetta  # https://support.apple.com/id-id/102527

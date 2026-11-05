@@ -1,0 +1,45 @@
+# bs 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。用拉丁字母和 ijekavica，不用塞尔维亚语形式（zahtevaju、promene、takođe）。
+# 来源：amalthea（VM64 官网）的 glossary/bs.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple、Microsoft 没有 bs 本地化，rule 是 apple、microsoft 的术语参照 hr 的官方写法。
+virtual-machine: virtuelna mašina（不写 virtualna）
+guest: gostujući；客户机系统 = gostujući sistem；客户机工具 = alati za gostujući sistem
+emulate: emulirati；emulacija（不写 simulirati）
+virtualize: virtuelizirati；virtuelizacija
+native: izvorni；接近原生的速度 = brzina bliska izvornoj
+architecture: arhitektura；CPU 架构 = CPU arhitektura
+backend: backend；QEMU 后端 = QEMU backend，Apple 后端 = Apple backend
+apple-silicon: čip Apple Silicon；Apple 芯片的 Mac = Mac računar s čipom Apple Silicon  # 参照 https://support.apple.com/hr-hr/102527
+intel-mac: Mac računar s Intelovim procesorom  # 参照 https://support.apple.com/hr-hr/116943
+snapshot: snimak；复数 snimci
+disposable-mode: jednokratni način rada
+shut-down: isključivanje
+new-vm-wizard: čarobnjak za kreiranje virtuelnih mašina
+installer-image: instalacijska slika
+license: licenca；自备许可证 = vlastita licenca
+secure-boot: sigurno pokretanje  # Microsoft 没有 bs 页面，参照 https://support.microsoft.com/hr-hr/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: ili noviji  # 参照 https://support.apple.com/hr-hr/102552
+experimental: eksperimentalna funkcija
+auto-resolution: automatsko prilagođavanje rezolucije
+shared-clipboard: dijeljeni međuspremnik；共享剪贴板（动作）= dijeljenje međuspremnika  # 参照 https://support.apple.com/hr-hr/102650
+shared-folder: dijeljeni folder（不写 fascikla、mapa）
+sharing: dijeljenje
+shared-network: Dijeljena mreža
+host-only: Samo host
+bridged: Premošćena mreža
+emulated-vlan: Emulirani VLAN
+port-forwarding: prosljeđivanje portova
+lan: lokalna mreža（不写 LAN）
+shortcuts: aplikacija Prečaci  # 参照 https://support.apple.com/hr-hr/guide/shortcuts-mac/welcome/mac
+command-line-tool: alat komandne linije
+clone: klonirati
+fingerprint: otisak（不写 otisak prsta）
+hardware-reset: resetiranje hardvera
+mount: montirati
+shared-library: dijeljena biblioteka
+capture-mouse: uhvatiti miš；捕获鼠标按钮 = dugme „Uhvati miš“
+keys: tipka Control、tipka Option  # 参照 https://support.apple.com/hr-hr/102650
+toolbar: alatna traka（不写 traka sa alatkama）
+settings: postavke
+classic-systems: klasični sistemi
+cpu: CPU（保留；30 多种 CPU = više od 30 vrsta CPU-a；CPU 核心 = CPU jezgro）
+rosetta: Rosetta（参照 Apple hr 变格：Rosettu、Rosette）  # 参照 https://support.apple.com/hr-hr/102527

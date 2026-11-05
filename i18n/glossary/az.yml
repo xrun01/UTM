@@ -1,0 +1,45 @@
+# az 定下的译法。规则见 i18n/glossary/terms.yml。Apple 和 Microsoft 都没有 az 页面（support.apple.com/az-az、support.microsoft.com/az-latn-az 回退到英文），apple、microsoft 规则的术语按阿塞拜疆语软件界面的通行说法。
+# 来源：amalthea（VM64 官网）的 glossary/az.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# 专有名词保留拉丁字母，用连字符加词尾。Mac 按读音 mak 用后元音：Mac-da、Mac-ın、Mac-a、Mac-lar；VM64 写 VM64-ü、VM64-ün。
+virtual-machine: virtual maşın
+guest: qonaq；客户机系统 = qonaq sistemi；客户机工具 = qonaq alətləri（不用 müştəri）
+emulate: emulyasiya etmək；emulyasiya（不用 təqlid、simulyasiya）
+virtualize: virtuallaşdırmaq；virtuallaşdırma（不用 virtualizasiya）
+native: yerli；接近原生的速度 = yerli sürətə yaxın sürət（不用 doğma、təxminən）
+architecture: arxitektura；CPU 架构 = CPU arxitekturası（不用 memarlıq）
+backend: mühərrik；QEMU mühərriki、Apple mühərriki（待母语者确认）
+apple-silicon: Apple çipi；Apple 芯片的 Mac = Apple çipli Mac（不用 silisium、Apple silicon）
+intel-mac: Intel prosessorlu Mac
+snapshot: anlıq görüntü（不用 şəkil、snapshot）
+disposable-mode: birdəfəlik rejim
+shut-down: söndürmək；söndürmə
+new-vm-wizard: virtual maşın yaratma sehrbazı
+installer-image: quraşdırma obrazı（不用 şəkil）
+license: lisenziya
+secure-boot: Secure Boot（Microsoft 没有 az 页面，待确认）
+or-later: və ya daha yeni versiya（不用 daha yüksək、daha sonra）
+experimental: eksperimental funksiya
+auto-resolution: ayırdetmənin avtomatik tənzimlənməsi（不用 qətnamə）
+shared-clipboard: paylaşılan mübadilə buferi（不用土耳其语 pano，不单写 bufer）
+shared-folder: paylaşılan qovluq（不用 ortaq qovluq）
+sharing: Paylaşma
+shared-network: Paylaşılan şəbəkə
+host-only: Yalnız host
+bridged: Körpü
+emulated-vlan: Emulyasiya edilən VLAN
+port-forwarding: port yönləndirməsi
+lan: yerli şəbəkə（不用 LAN）
+shortcuts: Shortcuts（macOS 没有 az 界面，保留 App 原名；不用 Qısayollar）
+command-line-tool: komanda sətri aləti
+clone: klonlamaq
+fingerprint: barmaq izi
+hardware-reset: aparat sıfırlaması
+mount: montaj etmək（不用 quraşdırmaq，避免和安装混淆）
+shared-library: paylaşılan kitabxana
+capture-mouse: siçanı tutmaq；捕获鼠标按钮 = «Siçanı tut» düyməsi（待确认 App 界面）
+keys: Control düyməsi、Option düyməsi（键名不翻译）
+toolbar: alətlər paneli
+settings: parametrlər
+rosetta: Rosetta，用连字符加词尾：Rosetta-nı
+cpu: CPU；CPU 核心 = CPU nüvəsi
+classic-systems: klassik sistemlər

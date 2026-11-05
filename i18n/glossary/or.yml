@@ -1,0 +1,49 @@
+# or 定下的译法。规则见 i18n/glossary/terms.yml。
+# 来源：amalthea（VM64 官网）的 glossary/or.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 有奥里亚语的 iPhone 和 iPad 使用手册。Mac 使用手册只有界面是奥里亚语，正文是英文。rule 是 apple 的术语，能在 iPhone、iPad 使用手册里核对的写出 URL，其余写「未查到」。
+# 句号用奥里亚语 ।（U+0964），不用 ASCII 竖线 |。标题、导航、按钮不加句末符号。
+# 拉丁字母名称后的后置词按 Apple 写法空 1 格：Mac ରେ、iPhone ର、Mac ରୁ  # https://support.apple.com/or-in/guide/iphone/iph505911a40/27/ios/27
+# 以辅音加 ୍ 结尾的词再接词尾时，中间加 U+200C，避免连写成合体字：ମେସିନ୍‌ରେ、ଡାଉନ୍‌ଲୋଡ୍  # https://support.apple.com/or-in/guide/iphone/iph220ea8dca/27/ios/27（「ଡିଭାଇସ୍‌ରେ」）
+virtual-machine: ଭର୍ଚୁଆଲ୍ ମେସିନ୍
+guest: ଗେଷ୍ଟ୍；客户机系统 = ଗେଷ୍ଟ୍ ସିଷ୍ଟମ୍，客户机工具 = ଗେଷ୍ଟ୍ ଟୂଲ୍（不用 କ୍ଲାଏଣ୍ଟ、ଅତିଥି）
+emulate: ଏମୁଲେଟ୍ କରିବା；ଏମୁଲେସନ୍（不用 ଅନୁକରଣ、ସିମୁଲେଟ୍）
+virtualize: ଭର୍ଚୁଆଲାଇଜ୍ କରିବା；ଭର୍ଚୁଆଲାଇଜେସନ୍（不用 ଆଭାସୀକରଣ）
+native: ନେଟିଭ୍；接近原生的速度 = ପ୍ରାୟ ନେଟିଭ୍ ଗତି（不用 ଦେଶୀ，ଦେଶୀ 是「本国的」）
+architecture: ଆର୍କିଟେକ୍ଚର୍（不用 ସ୍ଥାପତ୍ୟ、ସଂରଚନା，ସ୍ଥାପତ୍ୟ 是建筑）
+backend: ବ୍ୟାକେଣ୍ଡ୍；QEMU ବ୍ୟାକେଣ୍ଡ୍，Apple ବ୍ୟାକେଣ୍ଡ୍
+apple-silicon: Apple silicon；Apple 芯片的 Mac = Apple silicon ଥିବା Mac  # 未查到 Apple 奥里亚语 Mac 写法，参照 Apple 印地语写法保留拉丁字母，待母语者确认
+intel-mac: Intel-ଆଧାରିତ Mac  # 未查到 Apple 奥里亚语写法，参照 Apple 英文 Intel-based Mac
+cpu: CPU（不音译，不加英文复数 s）
+rosetta: Rosetta
+snapshot: ସ୍ନାପସଟ୍
+disposable-mode: ଡିସ୍ପୋଜେବଲ୍ ମୋଡ୍
+shut-down: ସଟ୍ ଡାଉନ୍ କରିବା；名词 ସଟ୍ ଡାଉନ୍（不用 ବନ୍ଦ ହେବା，ବନ୍ଦ 是「关闭」）  # 未查到 Apple 奥里亚语 Mac 写法
+new-vm-wizard: ଭର୍ଚୁଆଲ୍ ମେସିନ୍ ସୃଷ୍ଟି କରିବାର ୱିଜାର୍ଡ୍
+installer-image: ଇନ୍‌ଷ୍ଟଲର୍ ଇମେଜ୍（不用 ପ୍ରତିଛବି，ପ୍ରତିଛବି 是图片）
+license: ଲାଇସେନ୍ସ；自备许可证 = ଆପଣଙ୍କର ନିଜର ଲାଇସେନ୍ସ ଆବଶ୍ୟକ
+secure-boot: Secure Boot  # Microsoft 奥里亚语支持页未本地化；原译混用 ସୁରକ୍ଷିତ ବୁଟ୍ 和 Secure Boot，统一为拉丁字母，待母语者确认
+or-later: କିମ୍ବା ତା’ର ପରବର୍ତ୍ତୀ ଭର୍ଶନ୍（「版本」按 Apple 写 ଭର୍ଶନ୍，不写 ଭର୍ସନ୍；Apple 奥里亚语手册 58 处都是 ଭର୍ଶନ୍）  # https://support.apple.com/or-in/guide/iphone/iph505911a40/27/ios/27（「macOS 15 କିମ୍ବା ତା’ର ପରବର୍ତ୍ତୀ ଭର୍ଶନ୍」）
+experimental: ପରୀକ୍ଷାମୂଳକ ଫୀଚର୍
+auto-resolution: ସ୍ୱୟଂଚାଳିତ ରେଜୋଲ୍ୟୁସନ୍ ଆଡ୍‌ଜଷ୍ଟମେଣ୍ଟ୍
+shared-clipboard: ଶେୟର୍ କରାଯାଇଥିବା କ୍ଲିପ୍‌ବୋର୍ଡ୍；共享剪贴板（动作）= କ୍ଲିପ୍‌ବୋର୍ଡ୍ ଶେୟର୍ କରିବା  # https://support.apple.com/or-in/guide/iphone/iph220ea8dca/27/ios/27（「କ୍ଲିପ୍‌ବୋର୍ଡ୍」）
+shared-folder: ଶେୟର୍ କରାଯାଇଥିବା ଫୋଲ୍ଡର୍；共享文件夹（动作）= ଫୋଲ୍ଡର୍ ଶେୟର୍ କରିବା（不用 ଅଂଶୀଦାର，ଅଂଶୀଦାର 是「合伙人」）  # https://support.apple.com/or-in/guide/iphone/iph023f98729/27/ios/27（「ଫୀଚର୍ ଶେୟର୍ କରନ୍ତୁ」）
+sharing: ଶେୟରିଂ
+shared-network: ଶେୟର୍ଡ୍ ନେଟ୍‌ୱର୍କ୍
+host-only: କେବଳ ହୋଷ୍ଟ୍
+bridged: ବ୍ରିଜ୍ଡ୍
+emulated-vlan: ଏମୁଲେଟେଡ୍ VLAN
+port-forwarding: ପୋର୍ଟ୍ ଫରୱାର୍ଡିଂ
+lan: ସ୍ଥାନୀୟ ନେଟ୍‌ୱର୍କ୍（不用英文缩写 LAN）
+shortcuts: ଶର୍ଟ୍‌କଟ୍；正文写 ଶର୍ଟ୍‌କଟ୍ ଆପ୍，和键盘快捷键区分  # https://support.apple.com/or-in/guide/iphone/iph47e1c9d7d/27/ios/27（「ଶର୍ଟ୍‌କଟ୍ ଆପ୍」）
+command-line-tool: କମାଣ୍ଡ୍-ଲାଇନ୍ ଟୂଲ୍
+clone: କ୍ଲୋନ୍ କରିବା
+fingerprint: ଫିଙ୍ଗରପ୍ରିଣ୍ଟ୍
+hardware-reset: ହାର୍ଡୱେର୍ ରିସେଟ୍（不用 ପୁନଃସେଟ୍）
+mount: ମାଉଣ୍ଟ୍ କରିବା
+shared-library: ଶେୟର୍ଡ୍ ଲାଇବ୍ରେରି
+capture-mouse: ମାଉସ୍ କ୍ୟାପ୍ଚର୍ କରିବା；捕获鼠标按钮 = ମାଉସ୍ କ୍ୟାପ୍ଚର୍ ବଟନ୍
+keys: କଣ୍ଟ୍ରୋଲ୍ କୀ’、ଅପ୍ସନ୍ କୀ’  # https://support.apple.com/or-in/guide/ipad/ipad9a246749/ipados（「କଣ୍ଟ୍ରୋଲ୍‌ ଏବଂ ଅପ୍ସନ୍‌ କୀ’」）
+toolbar: ଟୂଲ୍‌ବାର୍  # https://support.apple.com/or-in/guide/ipad/ipad7796380e/ipados（「ଟୂଲ୍‌ବାର୍ କଷ୍ଟମାଇଜ୍ କରନ୍ତୁ」）
+settings: ସେଟିଂସ୍  # https://support.apple.com/or-in/guide/iphone/iph60ba71065/27/ios/27（「ସେଟିଂସ୍ ଆପ୍」）
+classic-systems: କ୍ଲାସିକ୍ ସିଷ୍ଟମ୍
+# 其他统一写法（Apple 写法）：安装 = ଇନ୍‌ଷ୍ଟଲ୍（不用 ସଂସ୍ଥାପନ），版本 = ଭର୍ଶନ୍（不用 ସଂସ୍କରଣ），设备 = ଡିଭାଇସ୍（不用 ଉପକରଣ），粘贴 = ପେଷ୍ଟ୍（不用 ଲେପନ），保存 = ସେଭ୍

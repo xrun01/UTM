@@ -1,0 +1,47 @@
+# kn 定下的译法。规则见 i18n/glossary/terms.yml。
+# 来源：amalthea（VM64 官网）的 glossary/kn.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 只有卡纳达语的 iPhone 使用手册，没有卡纳达语的 Mac 文档。rule 是 apple 的术语，能在 iPhone 使用手册里核对的写出 URL，其余写「未查到」。
+# 拉丁字母名称后的词尾按 Apple 写法：处所格、从格、属格、与格直接连写（Macನಲ್ಲಿ、Macನಿಂದ、Macನ、Macಗೆ、Macಗಳು），宾格写成分开的 ಅನ್ನು（iPhone ಅನ್ನು）  # https://support.apple.com/kn-in/guide/iphone/iph505911a40/27/ios/27（「ನಿಮ್ಮ Macನಿಂದ iPhone ಅನ್ನು ನಿಯಂತ್ರಿಸುವುದು」）
+virtual-machine: ವರ್ಚುವಲ್ ಯಂತ್ರ（不用 ವರ್ಚುವಲ್ ಮೆಷಿನ್、ವರ್ಚುವಲ್ ಗಣಕ）
+guest: ಗೆಸ್ಟ್；客户机系统 = ಗೆಸ್ಟ್ ಸಿಸ್ಟಮ್，客户机工具 = ಗೆಸ್ಟ್ ಪರಿಕರಗಳು（不用 ಕ್ಲೈಂಟ್、ಅತಿಥಿ、ಗ್ರಾಹಕ）
+emulate: ಎಮ್ಯುಲೇಟ್ ಮಾಡು；ಎಮ್ಯುಲೇಶನ್（不用 ಅನುಕರಿಸು、ಸಿಮ್ಯುಲೇಶನ್）
+virtualize: ವರ್ಚುವಲೈಸ್ ಮಾಡು；ವರ್ಚುವಲೈಸೇಶನ್
+native: ನೇಟಿವ್；接近原生的速度 = ಬಹುತೇಕ ನೇಟಿವ್ ವೇಗ（不用 ಸ್ಥಳೀಯ，它和「局域网」的 ಸ್ಥಳೀಯ ನೆಟ್‌ವರ್ಕ್ 冲突）
+architecture: ಆರ್ಕಿಟೆಕ್ಚರ್
+backend: ಬ್ಯಾಕೆಂಡ್；QEMU ಬ್ಯಾಕೆಂಡ್，Apple ಬ್ಯಾಕೆಂಡ್
+apple-silicon: Apple ಚಿಪ್；Apple 芯片的 Mac = Apple ಚಿಪ್ ಹೊಂದಿರುವ Mac  # 未查到 Apple 卡纳达语 Mac 写法，待母语者确认
+intel-mac: Intel ಆಧಾರಿತ Mac；复数 Intel ಆಧಾರಿತ Macಗಳು  # 未查到 Apple 卡纳达语写法，参照 Apple 英文 Intel-based Mac
+cpu: CPU（不音译成 ಸಿಪಿಯು）
+rosetta: Rosetta；宾格 Rosetta ಅನ್ನು
+snapshot: ಸ್ನ್ಯಾಪ್‌ಶಾಟ್
+disposable-mode: ಡಿಸ್ಪೋಸಬಲ್ ಮೋಡ್（不用 ಒಂದು-ಶಾಟ್、ಒನ್-ಶಾಟ್、ಥ್ರೋಅವೇ）
+shut-down: ಶಟ್ ಡೌನ್ ಮಾಡು
+new-vm-wizard: ಹೊಸ ವರ್ಚುವಲ್ ಯಂತ್ರ ರಚಿಸುವ ವಿಝಾರ್ಡ್
+installer-image: ಇನ್‌ಸ್ಟಾಲರ್ ಇಮೇಜ್（不用 ಚಿತ್ರ，ಚಿತ್ರ 是图片）
+license: ಪರವಾನಗಿ；自备许可证 = ನಿಮ್ಮ ಸ್ವಂತ ಪರವಾನಗಿ ಅಗತ್ಯವಿದೆ
+secure-boot: Secure Boot  # Microsoft 卡纳达语页面未本地化（support.microsoft.com/kn-in 跳到 en-us），UEFI 和 Windows 设置里显示英文，待母语者确认
+or-later: ಅಥವಾ ನಂತರದ ಆವೃತ್ತಿ  # https://support.apple.com/kn-in/guide/iphone/iph505911a40/27/ios/27（「macOS 15 ಅಥವಾ ನಂತರದ ಆವೃತ್ತಿಯನ್ನು」）
+experimental: ಪ್ರಾಯೋಗಿಕ ಫೀಚರ್
+auto-resolution: ಸ್ವಯಂಚಾಲಿತ ರೆಸಲ್ಯೂಶನ್ ಹೊಂದಾಣಿಕೆ
+shared-clipboard: ಹಂಚಿಕೊಂಡ ಕ್ಲಿಪ್‌ಬೋರ್ಡ್；共享剪贴板（动作）= ಕ್ಲಿಪ್‌ಬೋರ್ಡ್ ಹಂಚಿಕೊಳ್ಳುವುದು；复制粘贴 = ಕಾಪಿ ಮಾಡಿ ಪೇಸ್ಟ್ ಮಾಡು  # https://support.apple.com/kn-in/guide/iphone/iph220ea8dca/27/ios/27
+shared-folder: ಹಂಚಿಕೊಂಡ ಫೋಲ್ಡರ್；共享文件夹（动作）= ಫೋಲ್ಡರ್‌ಗಳನ್ನು ಹಂಚಿಕೊಳ್ಳುವುದು
+sharing: ಹಂಚಿಕೆ
+shared-network: ಹಂಚಿಕೊಂಡ ನೆಟ್‌ವರ್ಕ್
+host-only: ಹೋಸ್ಟ್ ಮಾತ್ರ
+bridged: ಬ್ರಿಡ್ಜ್ಡ್（不用 ಸೇತುವೆ，ಸೇತುವೆ 是桥梁）
+emulated-vlan: ಎಮ್ಯುಲೇಟೆಡ್ VLAN
+port-forwarding: ಪೋರ್ಟ್ ಫಾರ್ವರ್ಡಿಂಗ್
+lan: ಸ್ಥಳೀಯ ನೆಟ್‌ವರ್ಕ್（不写英文 LAN）
+shortcuts: ಶಾರ್ಟ್‌ಕಟ್ಸ್；正文写 ಶಾರ್ಟ್‌ಕಟ್ಸ್ ಆ್ಯಪ್，和键盘快捷键 ಕೀಬೋರ್ಡ್ ಶಾರ್ಟ್‌ಕಟ್‌ಗಳು 区分  # https://support.apple.com/kn-in/guide/iphone/iph47e1c9d7d/27/ios/27
+command-line-tool: ಕಮಾಂಡ್-ಲೈನ್ ಟೂಲ್
+clone: ಕ್ಲೋನ್ ಮಾಡು
+fingerprint: ಫಿಂಗರ್‌ಪ್ರಿಂಟ್（不用 ಬೆರಳಚ್ಚು）
+hardware-reset: ಹಾರ್ಡ್‌ವೇರ್ ರೀಸೆಟ್（不用 ಮರುಹೊಂದಿಕೆ）
+mount: ಮೌಂಟ್ ಮಾಡು
+shared-library: ಶೇರ್ಡ್ ಲೈಬ್ರರಿ（和「共享」功能的 ಹಂಚಿಕೊಂಡ 区分）
+capture-mouse: ಮೌಸ್ ಕ್ಯಾಪ್ಚರ್ ಮಾಡು；捕获鼠标按钮 = ಮೌಸ್ ಕ್ಯಾಪ್ಚರ್ ಬಟನ್（不用 ಸೆರೆಹಿಡಿ）
+keys: ಕಂಟ್ರೋಲ್ ಕೀ、ಆಪ್ಷನ್ ಕೀ  # Apple 卡纳达语按键名音译：https://support.apple.com/kn-in/guide/iphone/iph220ea8dca/27/ios/27（「ಕಮಾಂಡ್-C」「ಕಂಟ್ರೋಲ್-ಕ್ಲಿಕ್」）；Option 未查到，待母语者确认
+toolbar: ಟೂಲ್‌ಬಾರ್  # 未查到 Apple 卡纳达语 Mac 写法
+settings: ಸೆಟ್ಟಿಂಗ್ಸ್  # https://support.apple.com/kn-in/guide/iphone/iph079e1fe9d/27/ios/27
+classic-systems: ಕ್ಲಾಸಿಕ್ ಸಿಸ್ಟಮ್‌ಗಳು
+run: ರನ್ ಮಾಡು（运行系统、程序、虚拟机都用这个，不用 ಚಲಾಯಿಸು、ಚಾಲನೆ ಮಾಡು）；运行状态 = ಚಾಲನೆಯಲ್ಲಿರುವ ಸ್ಥಿತಿ

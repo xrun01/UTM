@@ -1,0 +1,46 @@
+# fa 定下的译法。规则见 i18n/glossary/terms.yml。
+# 来源：amalthea（VM64 官网）的 glossary/fa.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 和 Microsoft 都没有波斯语网站和支持页（support.apple.com/fa-ir 显示英文），rule 是 apple、microsoft 的术语按波斯语软件界面的通行说法定。
+# 正文按波斯语正字法用 U+200C（零宽不连字）连接 می‌、‌ها、‌شده 等词缀。
+virtual-machine: ماشین مجازی
+guest: مهمان；客户机系统 = سیستم‌عامل مهمان，客户机工具 = ابزارهای مهمان
+emulate: شبیه‌سازی کردن；شبیه‌سازی
+virtualize: مجازی‌سازی کردن；مجازی‌سازی
+native: بومی；接近原生的速度 = سرعتی نزدیک به سرعت بومی
+architecture: معماری
+backend: بک‌اند；بک‌اند QEMU，بک‌اند Apple（不用 باطن、پشتیبان）
+apple-silicon: تراشه Apple；Apple 芯片的 Mac = Mac با تراشه Apple  # 无 Apple 波斯语来源，待母语者确认
+intel-mac: Mac با پردازنده Intel  # 无 Apple 波斯语来源，参照 ar「جهاز Mac مزود بمعالج Intel」
+cpu: CPU
+rosetta: Rosetta
+snapshot: اسنپ‌شات（不用 عکس فوری）
+disposable-mode: حالت یک‌بارمصرف
+shut-down: خاموش کردن；关机后 = پس از خاموش شدن
+new-vm-wizard: دستیار ساخت ماشین مجازی
+installer-image: ایمیج نصب（不用 تصویر نصب）
+license: مجوز；自备许可证 = باید مجوز آن را خودتان تهیه کنید
+secure-boot: Secure Boot  # 无 Microsoft 波斯语来源，保留英文
+or-later: یا جدیدتر
+experimental: قابلیت آزمایشی
+auto-resolution: تنظیم خودکار وضوح تصویر
+shared-clipboard: کلیپ‌بورد مشترک；共享剪贴板（动作）= اشتراک‌گذاری کلیپ‌بورد
+shared-folder: پوشه مشترک；共享文件夹（动作）= اشتراک‌گذاری پوشه
+sharing: اشتراک‌گذاری
+shared-network: شبکه مشترک
+host-only: فقط میزبان
+bridged: پل
+emulated-vlan: VLAN شبیه‌سازی‌شده
+port-forwarding: هدایت پورت
+lan: شبکه محلی
+shortcuts: برنامه Shortcuts  # 无 Apple 波斯语 App 名；میانبرها 会读成键盘快捷键
+command-line-tool: ابزار خط فرمان
+clone: کلون کردن（不用 شبیه‌سازی，和模拟冲突）
+fingerprint: اثر انگشت
+hardware-reset: بازنشانی سخت‌افزاری
+mount: مانت کردن
+shared-library: کتابخانه اشتراکی
+capture-mouse: گرفتن ماوس；捕获鼠标按钮 = دکمه گرفتن ماوس
+keys: کلید Control، کلید Option
+toolbar: نوار ابزار
+settings: تنظیمات
+classic-systems: سیستم‌عامل‌های کلاسیک

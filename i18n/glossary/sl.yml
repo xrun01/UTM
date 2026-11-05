@@ -1,0 +1,44 @@
+# sl 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。Mac、iPhone、iPad 按 Apple 斯洛文尼亚语变格（v Macu、iz iPhona、iPada）。
+# 来源：amalthea（VM64 官网）的 glossary/sl.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+virtual-machine: navidezni računalnik  # Microsoft 斯洛文尼亚语的通行写法；不用 virtualni stroj、navidezni stroj
+guest: gostujoči；客户机系统 = gostujoči sistem；客户机工具 = orodja za gostujoči sistem（不用 odjemalski）
+emulate: emulirati；emulacija（不用 posnemati、simulirati）
+virtualize: virtualizirati；virtualizacija  # https://support.microsoft.com/sl-si/windows/enable-virtualization-on-windows-c5578302-6e43-4b4b-a449-8ced115f58e1
+native: izvorni；接近原生的速度 = skoraj izvorna hitrost
+architecture: arhitektura
+cpu: procesor；CPU 架构 = arhitektura procesorja
+backend: zaledje；zaledje QEMU、zaledje Apple
+apple-silicon: čip Apple；Apple 芯片的 Mac = Mac s čipom Apple  # https://support.apple.com/sl-si/guide/maps/aside/glos8428854a/3.0/mac/15.0
+intel-mac: Mac s procesorjem Intel  # Apple sl-si/116943 只有英文，按通行说法写，待母语者确认
+rosetta: Rosetta；按阴性名词变格（Rosetto、Rosette），不加 program  # Apple 没有斯洛文尼亚语的 Rosetta 页面，待母语者确认
+snapshot: posnetek
+disposable-mode: način za enkratno uporabo
+shut-down: zaustaviti；zaustavitev
+new-vm-wizard: čarovnik za nove navidezne računalnike
+installer-image: namestitvena slika
+license: licenca；自备许可证 = lastna licenca  # https://support.microsoft.com/sl-si/windows/activate-windows-c39005d4-95ee-b91e-b399-2820fda32227
+secure-boot: varni zagon  # https://support.microsoft.com/sl-si/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: ali novejši（macOS 13 ali novejši）  # 没有找到 Apple 斯洛文尼亚语的系统要求页，待母语者确认
+experimental: poskusna funkcija
+auto-resolution: samodejna prilagoditev ločljivosti
+shared-clipboard: skupno odložišče；共享剪贴板（动作）= skupna raba odložišča；粘贴 = prilepiti  # https://support.apple.com/sl-si/guide/mac-help/mchlp1225/mac（目录「Kopirajte in prilepite med napravami」）
+shared-folder: mapa v skupni rabi；共享文件夹（动作）= dati mapo v skupno rabo
+sharing: skupna raba
+shared-network: Skupno omrežje
+host-only: Samo gostitelj
+bridged: Premoščeno
+emulated-vlan: Emulirani VLAN
+port-forwarding: posredovanje vrat
+lan: lokalno omrežje
+shortcuts: Bližnjice（aplikacija Bližnjice）  # https://support.apple.com/sl-si/guide/mac-help/mchlp1225/mac（目录「Avtomatizacija opravil z bližnjicami」）
+command-line-tool: orodje ukazne vrstice
+clone: klonirati
+fingerprint: prstni odtis
+hardware-reset: ponastavitev strojne opreme
+mount: priklopiti
+shared-library: deljena knjižnica（和「共享」功能的 skupna raba 区分）
+capture-mouse: zajeti miško；捕获鼠标按钮 = gumb Zajemi miško
+keys: tipka Control、tipka Option  # https://support.apple.com/sl-si/guide/mac-help/mchlp1225/mac（正文「tipko Option」）
+toolbar: orodna vrstica  # https://support.apple.com/sl-si/guide/mac-help/mchlp1225/mac
+settings: nastavitve  # https://support.apple.com/sl-si/guide/mac-help/mchlp1225/mac（「Nastavitve sistema」）
+classic-systems: klasični sistemi

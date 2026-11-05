@@ -1,0 +1,44 @@
+# ms 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。
+# 来源：amalthea（VM64 官网）的 glossary/ms.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+virtual-machine: mesin maya
+guest: tetamu；客户机系统 = sistem tetamu；客户机工具 = alatan tetamu
+emulate: mengemulasi；emulasi（不用 meniru、simulasi）
+virtualize: virtualisasi
+native: asli；接近原生的速度 = kelajuan hampir asli
+architecture: seni bina
+backend: backend；backend QEMU、backend Apple（不用 bahagian belakang）
+apple-silicon: Apple silicon；Apple 芯片的 Mac = Mac dengan Apple silicon  # https://support.apple.com/ms-my/guide/mac-help/welcome/mac（「komputer Mac dengan Apple silicon」）
+intel-mac: Mac berasaskan Intel  # https://support.apple.com/ms-my/guide/mac-help/welcome/mac（「Mac berasaskan Intel」）
+snapshot: syot kilat
+disposable-mode: mod pakai buang
+shut-down: mematikan；关机后 = selepas dimatikan（不用 ditutup）
+new-vm-wizard: wizard penciptaan mesin maya
+installer-image: imej pemasangan
+license: lesen  # support.microsoft.com/ms-my 没有马来语版，按马来语通行写法
+secure-boot: Secure Boot  # support.microsoft.com/ms-my 只有英文版，查不到 Windows 马来语界面写法，已列入 doubts
+or-later: atau lebih baharu  # https://support.apple.com/ms-my/guide/mac-help/welcome/mac（「macOS 26 atau lebih baharu」）
+experimental: ciri percubaan
+auto-resolution: pelarasan resolusi automatik
+shared-clipboard: papan klip kongsi；共享剪贴板（动作）= berkongsi papan klip；粘贴 = tampal  # https://support.apple.com/ms-my/guide/mac-help/welcome/mac（「Papan Klip Universal」「Salin dan tampal」）
+shared-folder: folder kongsi
+sharing: Perkongsian
+shared-network: Rangkaian Kongsi
+host-only: Hos Sahaja
+bridged: Jambatan
+emulated-vlan: VLAN Emulasi
+port-forwarding: pemajuan port
+lan: rangkaian setempat
+shortcuts: Pintasan  # https://support.apple.com/ms-my/guide/shortcuts-mac/welcome/mac
+command-line-tool: alat baris arahan
+clone: klon
+fingerprint: cap jari
+hardware-reset: tetapan semula perkakasan
+mount: lekap（不用 pasang，pasang 也指安装）
+shared-library: pustaka kongsi
+capture-mouse: tangkap tetikus；捕获鼠标按钮 = butang Tangkap Tetikus
+keys: kekunci Control、kekunci Option  # https://support.apple.com/ms-my/guide/mac-help/welcome/mac（「kekunci Option」）
+toolbar: bar alat  # https://support.apple.com/ms-my/guide/mac-help/welcome/mac
+settings: seting（不用 tetapan）  # https://support.apple.com/ms-my/guide/mac-help/mchlp1225/mac
+classic-systems: sistem klasik
+cpu: CPU  # https://support.apple.com/ms-my/guide/mac-help/welcome/mac（「aktiviti CPU」）
+rosetta: Rosetta  # Apple 马来语页面不翻译 Rosetta：https://support.apple.com/ms-my/102527

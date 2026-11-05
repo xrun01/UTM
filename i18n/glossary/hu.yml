@@ -1,0 +1,44 @@
+# hu 定下的译法。规则见 i18n/glossary/terms.yml。
+# 来源：amalthea（VM64 官网）的 glossary/hu.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+virtual-machine: virtuális gép
+guest: vendég；客户机系统 = vendégrendszer；客户机工具 = vendégeszközök
+emulate: emulál；emuláció；QEMU 模拟 = QEMU-emuláció
+virtualize: virtualizál；virtualizáció
+native: natív；接近原生的速度 = közel natív sebesség
+architecture: architektúra；CPU 架构 = processzorarchitektúra
+backend: háttérrendszer；QEMU-háttérrendszer、Apple-háttérrendszer
+apple-silicon: Apple chip；Apple 芯片的 Mac = Apple chipes Mac  # https://support.apple.com/hu-hu/116943
+intel-mac: Intel processzoros Mac  # https://support.apple.com/hu-hu/116943
+snapshot: pillanatkép
+disposable-mode: eldobható mód
+shut-down: leállít；leállítás
+new-vm-wizard: az új virtuális gépek varázslója
+installer-image: telepítőlemezkép
+license: licenc
+secure-boot: biztonságos rendszerindítás  # https://support.microsoft.com/hu-hu/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: vagy újabb  # https://support.apple.com/hu-hu/102552（「macOS Ventura vagy újabb」）
+experimental: kísérleti funkció
+auto-resolution: a felbontás automatikus beállítása
+shared-clipboard: megosztott vágólap；复制和粘贴 = másolás és beillesztés  # https://support.apple.com/hu-hu/guide/mac-help/mchl70368996/mac（「Szerkesztés > Beillesztés」）
+shared-folder: megosztott mappa
+sharing: Megosztás
+shared-network: Megosztott hálózat
+host-only: Csak gazdagép
+bridged: Hálózati híd
+emulated-vlan: Emulált VLAN
+port-forwarding: porttovábbítás
+lan: helyi hálózat
+shortcuts: Parancsok；用快捷指令 = a Parancsok appal  # https://support.apple.com/hu-hu/guide/shortcuts-mac/welcome/mac
+command-line-tool: parancssori eszköz
+clone: klónoz
+fingerprint: ujjlenyomat
+hardware-reset: hardveres alaphelyzetbe állítás
+mount: felcsatol（不用 csatlakoztat，那是连接设备）
+shared-library: megosztott könyvtár
+capture-mouse: egér rögzítése；捕获鼠标按钮 = Egér rögzítése gomb（待确认 App 界面）
+keys: Control billentyű、Option billentyű（Apple 修饰键列表写「Alt (Option)」，待确认）  # https://support.apple.com/hu-hu/102650
+toolbar: eszköztár
+settings: beállítások
+rosetta: Rosetta，宾格 Rosettát（不加连字符）
+cpu: processzor；CPU 架构 = processzorarchitektúra；CPU 核心 = processzormag  # https://support.apple.com/hu-hu/guide/activity-monitor/actmntr43452/mac（「Processzor」）
+classic-systems: klasszikus rendszerek

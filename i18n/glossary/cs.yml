@@ -1,0 +1,43 @@
+# cs 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。
+# 来源：amalthea（VM64 官网）的 glossary/cs.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+virtual-machine: virtuální počítač（不用 virtuální stroj）
+guest: host；客户机系统 = hostovaný systém（不用 hostující，它表示宿主）；客户机工具 = nástroje pro hosta
+emulate: emulovat；emulace（不用 simulovat）
+virtualize: virtualizovat；virtualizace
+native: nativní（不用 přirozený）
+architecture: architektura
+backend: backend
+apple-silicon: čip Apple；Apple 芯片的 Mac = Mac s čipem Apple  # https://support.apple.com/cs-cz/116943
+intel-mac: Mac s procesorem Intel  # https://support.apple.com/cs-cz/116943
+snapshot: snímek
+disposable-mode: jednorázový režim
+shut-down: vypnout；vypnutí
+new-vm-wizard: průvodce vytvořením virtuálního počítače
+installer-image: instalační obraz
+license: licence
+secure-boot: zabezpečené spouštění  # https://support.microsoft.com/cs-cz/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: nebo novější（不用 vyšší）  # https://support.apple.com/cs-cz/102552（「macOS Ventura nebo novější」）
+experimental: experimentální funkce
+auto-resolution: automatická úprava rozlišení
+shared-clipboard: sdílená schránka；共享剪贴板（动作）= sdílení schránky
+shared-folder: sdílená složka；共享文件夹（动作）= sdílet složku
+sharing: Sdílení
+shared-network: Sdílená síť
+host-only: Pouze hostitel
+bridged: Přemostění
+emulated-vlan: Emulovaná VLAN
+port-forwarding: přesměrování portů
+lan: místní síť
+shortcuts: Zkratky（aplikace Zkratky）  # https://support.apple.com/cs-cz/guide/shortcuts-mac/welcome/mac
+command-line-tool: nástroj příkazového řádku
+clone: klonovat
+fingerprint: otisk klíče（不用 otisk prstu）
+hardware-reset: hardwarový reset
+mount: připojit（Linux 文件系统）
+shared-library: sdílená knihovna
+capture-mouse: zachytit myš；捕获鼠标按钮 = tlačítko Zachytit myš
+keys: klávesa Control、klávesa Option  # https://support.apple.com/cs-cz/102650
+toolbar: panel nástrojů
+settings: nastavení
+classic-systems: klasické systémy
+rosetta: Rosetta，按 Apple 捷克语变格：Rosetty、Rosettě、Rosettu  # https://support.apple.com/cs-cz/102527

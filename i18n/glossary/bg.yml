@@ -1,0 +1,46 @@
+# bg 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。用 вие 祈使式；专有名词保留拉丁字母，不变格。
+# 来源：amalthea（VM64 官网）的 glossary/bg.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 的保加利亚语支持页正文是英文（例如 https://support.apple.com/bg-bg/116943），rule 是 apple 的术语查不到官方写法，按通行说法定，待母语者确认。
+# 虚拟机名用同位语：виртуална машина macOS、виртуална машина Linux（不用「на Linux」，会读成宿主是 Linux）。
+virtual-machine: виртуална машина；复数 виртуални машини
+guest: гостуваща；客户机系统 = гостуваща система；客户机工具 = инструменти за гостуващата система（不用 клиентски）
+emulate: емулирам；емулация、емулиране（不用 симулирам）
+virtualize: виртуализация
+native: нативен；接近原生的速度 = почти нативна скорост（不用 естествен、роден）
+architecture: архитектура
+backend: бекенд；бекендът QEMU、бекендът Apple
+apple-silicon: чип на Apple；Apple 芯片的 Mac = Mac с чип на Apple（不用音译 силикон）  # Apple 无保加利亚语原文，待母语者确认
+intel-mac: Mac с процесор Intel；复数 Mac компютрите с процесор Intel（不用 Intel Macs）
+snapshot: моментна снимка；复数 моментни снимки
+disposable-mode: режим за еднократна употреба
+shut-down: изключване
+new-vm-wizard: съветник за създаване на виртуални машини
+installer-image: инсталационен образ（不用 изображение）
+license: лиценз；自备许可证 = собствен лиценз
+secure-boot: защитено стартиране  # https://support.microsoft.com/bg-bg/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: или по-нова версия
+experimental: експериментална функция
+auto-resolution: автоматично настройване на разделителната способност
+shared-clipboard: споделен клипборд；粘贴 = поставяне
+shared-folder: споделена папка
+sharing: Споделяне
+shared-network: Споделена мрежа
+host-only: Само хост
+bridged: Мрежов мост
+emulated-vlan: Емулирана VLAN
+port-forwarding: пренасочване на портове
+lan: локална мрежа
+shortcuts: Shortcuts（Apple 无保加利亚语 App 名，保留拉丁字母；不用 преки пътища，那是 Windows 快捷方式）
+command-line-tool: инструмент за команден ред
+clone: клонирам；клониране
+fingerprint: отпечатък（不写 пръстов отпечатък）
+hardware-reset: хардуерно нулиране
+mount: монтирам；монтиране
+shared-library: споделена библиотека
+capture-mouse: прихващане на мишката；捕获鼠标按钮 = бутона „Прихващане на мишката“；退出 = освобождавам мишката
+keys: клавиш Control、клавиш Option
+toolbar: лента с инструменти
+settings: настройки
+classic-systems: класически системи
+cpu: CPU（不变格；「30 多种 CPU」= над 30 вида CPU；「CPU 核心」= ядра на CPU）
+rosetta: Rosetta（不变格，不加冠词）

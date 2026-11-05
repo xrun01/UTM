@@ -905,16 +905,94 @@
       "comment" : "Class = \"NSToolbarItem\"; toolTip = \"Capture input devices\"; ObjectID = \"FN7-zs-mWC\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Vang invoertoestelle vas"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "التقاط أجهزة الإدخال"
           }
         },
+        "as" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ইনপুট ডিভাইচসমূহ ধৰি লওক"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Daxiletmə cihazlarını çəkin"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Захоп прылады ўводу"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Заснемане на входни устройства"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ইনপুট ডিভাইস ক্যাপচার করুন"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Snimite ulazne uređaje"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Dispositius d'entrada de captura"
+          }
+        },
+        "ceb" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Pagkuha mga input device"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Zachyťte vstupní zařízení"
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Dal dyfeisiau mewnbwn"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Optag inputenheder"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Eingabegeräte erfassen"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Λήψη συσκευών εισόδου"
           }
         },
         "en" : {
@@ -929,16 +1007,94 @@
             "value" : "Capturar dispositivos de entrada"
           }
         },
+        "et" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Jäädvustage sisendseadmeid"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Atera sarrera-gailuak"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "دستگاه های ورودی را ضبط کنید"
+          }
+        },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Kaappaa syötelaitteet"
           }
         },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Kunin ang mga input device"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Capturer les périphériques d’entrée"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Captura dispositivos de entrada"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ઇનપુટ ઉપકરણો કેપ્ચર"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "לכידת התקני קלט"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "इनपुट डिवाइस कैप्चर करें"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Snimanje ulaznih uređaja"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Bemeneti eszközök rögzítése"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Նկարել մուտքային սարքերը"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Tangkap perangkat input"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Handtaka inntakstæki"
           }
         },
         "it" : {
@@ -953,10 +1109,118 @@
             "value" : "入力デバイスをキャプチャします"
           }
         },
+        "jv" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Njupuk piranti input"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "შეყვანის მოწყობილობების გადაღება"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Енгізу құрылғыларын түсіру"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ចាប់យកឧបករណ៍បញ្ចូល"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ಇನ್‌ಪುಟ್ ಸಾಧನಗಳನ್ನು ಸೆರೆಹಿಡಿಯಿರಿ"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "입력 장치를 캡처합니다."
+          }
+        },
+        "lb" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Capture Input Apparater"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ຈັບອຸປະກອນປ້ອນຂໍ້ມູນ"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Užfiksuokite įvesties įrenginius"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Uztveriet ievades ierīces"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Снимајте влезни уреди"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "इनपुट उपकरणे कॅप्चर करा"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Tangkap peranti input"
+          }
+        },
+        "mt" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Apparat ta' input tal-qbid"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ထည့်သွင်းကိရိယာများကို ဖမ်းယူပါ။"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ta opp inndataenheter"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "इनपुट उपकरणहरू क्याप्चर गर्नुहोस्"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Invoerapparaten vastleggen"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ଇନପୁଟ୍ ଉପକରଣଗୁଡ଼ିକୁ କ୍ୟାପଚର୍ କରନ୍ତୁ |"
           }
         },
         "pl" : {
@@ -965,10 +1229,118 @@
             "value" : "Przechwyć urządzenia wejściowe"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Capturar dispositivos de entrada"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Captură dispozitive de intrare"
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Захват устройств ввода"
+          }
+        },
+        "sd" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ان پٽ ڊوائيسز کي پڪڙيو"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ආදාන උපාංග ග්‍රහණය කරන්න"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Zachytenie vstupných zariadení"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Zajemite vhodne naprave"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Kapni pajisjet hyrëse"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Снимите улазне уређаје"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Fånga inmatningsenheter"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Nasa vifaa vya kuingiza sauti"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "உள்ளீட்டு சாதனங்களைப் பிடிக்கவும்"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ఇన్‌పుట్ పరికరాలను క్యాప్చర్ చేయండి"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "จับอุปกรณ์อินพุต"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Giriş cihazlarını yakalayın"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Захоплення пристроїв введення"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ان پٹ ڈیوائسز کیپچر کریں۔"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Kirish qurilmalarini yozib oling"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Chụp các thiết bị đầu vào"
           }
         },
         "zh-HK" : {
@@ -1265,16 +1637,94 @@
       "comment" : "Class = \"NSSegmentedCell\"; Pwr-Ct-cel.ibShadowedToolTips[0] = \"Shuts down and stops the VM\"; ObjectID = \"Pwr-Ct-cel\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Skakel die VM af en stop dit"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "إيقاف وإيقاف VM"
           }
         },
+        "as" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "বন্ধ কৰে আৰু ভিএম বন্ধ কৰে"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM-i bağlayır və dayandırır"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Выключае і спыняе віртуальную машыну"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Изключва и спира VM"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM বন্ধ করে এবং বন্ধ করে দেয়"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Isključuje i zaustavlja VM"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Tanca i atura la VM"
+          }
+        },
+        "ceb" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Gipalong ug gipahunong ang VM"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Vypne a zastaví VM"
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Yn cau i lawr ac yn atal y VM"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Lukker og stopper VM'en"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Fährt die VM herunter und stoppt sie"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Τερματίζει και σταματά το VM"
           }
         },
         "en" : {
@@ -1289,16 +1739,94 @@
             "value" : "Apaga y detiene la VM"
           }
         },
+        "et" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Lülitab välja ja peatab VM-i"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM-a itzali eta geldiarazten du"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM را خاموش و متوقف می کند"
+          }
+        },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Sammuttaa ja pysäyttää virtuaalikoneen"
           }
         },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Isinara at ititigil ang VM"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Arrête et stoppe la VM"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Apaga e detén a máquina virtual"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM બંધ કરે છે અને બંધ કરે છે"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "מכבה ומפסיק את ה-VM"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "वीएम को बंद और बंद कर देता है"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Isključuje i zaustavlja VM"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Leállítja és leállítja a virtuális gépet"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Անջատում և կանգնեցնում է VM-ը"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Mematikan dan menghentikan VM"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Slekkur á og stöðvar VM"
           }
         },
         "it" : {
@@ -1313,10 +1841,118 @@
             "value" : "仮想マシンをシステム終了し、停止します"
           }
         },
+        "jv" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Mateni lan mungkasi VM"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ითიშება და აჩერებს VM-ს"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM-ді өшіреді және тоқтатады"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "បិទ និងបញ្ឈប់ VM"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM ಅನ್ನು ಸ್ಥಗಿತಗೊಳಿಸುತ್ತದೆ ಮತ್ತು ನಿಲ್ಲಿಸುತ್ತದೆ"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "가상 머신의 시스템을 종료하고 중지합니다."
+          }
+        },
+        "lb" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Schalt a stoppt de VM"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ປິດລົງແລະຢຸດ VM"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Išsijungia ir sustabdo VM"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Izslēdz un aptur VM"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Исклучува и го запира VM"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM बंद करते आणि थांबवते"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Mematikan dan menghentikan VM"
+          }
+        },
+        "mt" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Itfi u twaqqaf il-VM"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ပိတ်ပြီး VM ကို ရပ်လိုက်ပါ။"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Slår av og stopper VM"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "बन्द हुन्छ र VM लाई रोक्छ"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Sluit af en stopt de VM"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM ବନ୍ଦ କରିଦିଏ |"
           }
         },
         "pl" : {
@@ -1325,10 +1961,118 @@
             "value" : "Wyłącza i zatrzymuje maszynę wirtualną"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Desliga e interrompe a VM"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Oprește și oprește VM"
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Завершение работы и остановка ВМ"
+          }
+        },
+        "sd" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM کي بند ڪري ٿو ۽ بند ڪري ٿو"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM වසා දමා නවත්වයි"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Vypne a zastaví VM"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Izklopi in ustavi VM"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Fik dhe ndalon VM-në"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Искључује и зауставља ВМ"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Stänger av och stoppar den virtuella datorn"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Huzima na kusimamisha VM"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VMஐ அணைத்து நிறுத்துகிறது"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VMని మూసివేసి ఆపివేస్తుంది"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ปิดและหยุด VM"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM'yi kapatır ve durdurur"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Вимикає та зупиняє віртуальну машину"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM کو بند اور روکتا ہے۔"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VMni o'chiradi va to'xtatadi"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Tắt và dừng VM"
           }
         },
         "zh-HK" : {
@@ -1355,16 +2099,94 @@
       "comment" : "Class = \"NSSegmentedCell\"; Pwr-Ct-cel.ibShadowedToolTips[1] = \"Start/pause the VM\"; ObjectID = \"Pwr-Ct-cel\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Begin/onderbreek die VM"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "بدء/إيقاف مؤقت لجهاز VM"
           }
         },
+        "as" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ভিএম আৰম্ভ/বিৰতি কৰক"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM-i başladın/pauza verin"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Запуск/прыпыненне віртуальнай машыны"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Стартирайте/поставете на пауза VM"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM শুরু/পজ করুন"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Pokrenite/pauzirajte VM"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Inicieu/pausa la VM"
+          }
+        },
+        "ceb" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Pagsugod/paghunong sa VM"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Spusťte/pozastavte virtuální počítač"
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Cychwyn / oedi'r VM"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Start/pause VM'en"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Startet bzw. pausiert die VM"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Εκκίνηση/παύση του VM"
           }
         },
         "en" : {
@@ -1379,16 +2201,94 @@
             "value" : "Inicia/pausa la VM"
           }
         },
+        "et" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Käivitage/peatage VM"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Hasi/pausatu VM"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM را شروع/مکث کنید"
+          }
+        },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Käynnistä/tauota virtuaalikone"
           }
         },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Simulan/i-pause ang VM"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Démarre/met en pause la VM"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Iniciar/pausar a máquina virtual"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM શરૂ/થોભો"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "הפעל/השהה את ה-VM"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM को प्रारंभ/रोकें"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Pokrenite/pauzirajte VM"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Indítsa el/szüneteltesse a virtuális gépet"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Սկսել/դադարեցնել VM-ը"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Mulai/jeda VM"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ræstu / gerðu hlé á VM"
           }
         },
         "it" : {
@@ -1403,10 +2303,118 @@
             "value" : "仮想マシンを開始/一時停止します"
           }
         },
+        "jv" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Miwiti / ngaso VM"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM-ის დაწყება/პაუზა"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM іске қосу/кідірту"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ចាប់ផ្តើម / ផ្អាក VM"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM ಅನ್ನು ಪ್ರಾರಂಭಿಸಿ/ವಿರಾಮಗೊಳಿಸಿ"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "가상 머신을 시작/일시 정지합니다."
+          }
+        },
+        "lb" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Start / Paus de VM"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ເລີ່ມ/ຢຸດ VM"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Paleiskite / pristabdykite VM"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Sāciet/apturiet virtuālo mašīnu"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Стартувајте/паузирајте го VM"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM सुरू/विराम द्या"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Mulakan/jeda VM"
+          }
+        },
+        "mt" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ibda/waqfa' l-VM"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM ကို စတင်/ရပ်ပါ။"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Start/pause VM"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM सुरु/पज गर्नुहोस्"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Start/pauzeer de VM"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM ଆରମ୍ଭ / ବିରତି କରନ୍ତୁ |"
           }
         },
         "pl" : {
@@ -1415,10 +2423,118 @@
             "value" : "Uruchom/wstrzymaj maszynę wirtualną"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Iniciar/pausar a VM"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Porniți/întrerupeți VM"
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Запуск/приостановка ВМ"
+          }
+        },
+        "sd" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM شروع ڪريو / روڪيو"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM ආරම්භ කරන්න/විරාම කරන්න"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Spustite/pozastavte VM"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Zaženite/začasno ustavite VM"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Nisni / ndaloni VM-në"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Покрените/паузирајте ВМ"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Starta/pausa den virtuella datorn"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Anzisha/sitisha VM"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM ஐத் தொடங்கவும்/இடைநிறுத்தவும்"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VMని ప్రారంభించండి/పాజ్ చేయండి"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "เริ่ม/หยุด VM ชั่วคราว"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM'yi başlat/duraklat"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Запуск/призупинення віртуальної машини"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM شروع/روک دیں۔"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VMni ishga tushirish/pauza qilish"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Bắt đầu/tạm dừng VM"
           }
         },
         "zh-HK" : {
@@ -1445,16 +2561,94 @@
       "comment" : "Class = \"NSSegmentedCell\"; Pwr-Ct-cel.ibShadowedToolTips[2] = \"Restarts the VM\"; ObjectID = \"Pwr-Ct-cel\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Herbegin die VM"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "إعادة تشغيل VM"
           }
         },
+        "as" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM পুনৰাৰম্ভ কৰে"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM-ni yenidən işə salır"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Перазапускае віртуальную машыну"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Рестартира VM"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM রিস্টার্ট করে"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ponovo pokreće VM"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Reinicia la VM"
+          }
+        },
+        "ceb" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "I-restart ang VM"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Restartuje VM"
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Yn ailgychwyn y VM"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Genstarter VM'en"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Startet die VM neu"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Επανεκκινεί το VM"
           }
         },
         "en" : {
@@ -1469,16 +2663,94 @@
             "value" : "Reinicia la VM"
           }
         },
+        "et" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Taaskäivitab VM-i"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM berrabiarazi egiten du"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM را دوباره راه اندازی می کند"
+          }
+        },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Käynnistää virtuaalikoneen uudelleen"
           }
         },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "I-restart ang VM"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Redémarre la VM"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Reinicia a máquina virtual"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM પુનઃપ્રારંભ કરે છે"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "מפעיל מחדש את ה-VM"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM को पुनः आरंभ करता है"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ponovno pokreće VM"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Újraindítja a virtuális gépet"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Վերագործարկում է VM-ը"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Mulai ulang komputer virtual"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Endurræsir VM"
           }
         },
         "it" : {
@@ -1493,10 +2765,118 @@
             "value" : "仮想マシンを再起動します"
           }
         },
+        "jv" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Wiwiti maneh VM"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "გადატვირთავს VM-ს"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM қайта іске қосылады"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ចាប់ផ្ដើម VM ឡើងវិញ"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM ಅನ್ನು ಮರುಪ್ರಾರಂಭಿಸುತ್ತದೆ"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "가상 머신을 재시작합니다."
+          }
+        },
+        "lb" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Restart de VM"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ຣີສະຕາດ VM"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Iš naujo paleidžia VM"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Restartē virtuālo mašīnu"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Го рестартира VM-от"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM रीस्टार्ट करते"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Memulakan semula VM"
+          }
+        },
+        "mt" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Jibda mill-ġdid il-VM"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM ကို ပြန်လည်စတင်သည်။"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Starter VM på nytt"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM पुन: सुरु गर्छ"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Start de virtuele machine opnieuw op"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM କୁ ପୁନ Rest ଆରମ୍ଭ କରେ |"
           }
         },
         "pl" : {
@@ -1505,10 +2885,118 @@
             "value" : "Uruchom ponownie maszynę wirtualną"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Reinicia a VM"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Repornește VM-ul"
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Перезапускает ВМ"
+          }
+        },
+        "sd" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM کي ٻيهر شروع ڪري ٿو"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM නැවත ආරම්භ කරයි"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Reštartuje VM"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Znova zažene VM"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Rinis VM-në"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Поново покреће ВМ"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Startar om den virtuella datorn"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Huanzisha upya VM"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM ஐ மறுதொடக்கம் செய்கிறது"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VMని పునఃప్రారంభిస్తుంది"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "รีสตาร์ท VM"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM'yi yeniden başlatır"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Перезапускає віртуальну машину"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM کو دوبارہ شروع کرتا ہے۔"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VMni qayta ishga tushiradi"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Khởi động lại VM"
           }
         },
         "zh-HK" : {
@@ -1896,16 +3384,94 @@
       "comment" : "Class = \"NSToolbarItem\"; toolTip = \"Send console resize command\"; ObjectID = \"Ulf-oT-4cP\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Stuur opdrag om die grootte van die konsole te verander"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "إرسال أمر تغيير حجم وحدة التحكم"
           }
         },
+        "as" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ক'ন্সোলৰ আকাৰ সলনি আদেশ পঠাওক"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Konsolun ölçüsünü dəyişmə əmrini göndər"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Адправіць кансольную каманду змены памеру"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Изпратете команда за преоразмеряване на конзолата"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "কনসোল রিসাইজ কমান্ড পাঠান"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Pošalji naredbu za promjenu veličine konzole"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Envia l'ordre de canvi de mida de la consola"
+          }
+        },
+        "ceb" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ipadala ang console resize command"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Odeslat příkaz pro změnu velikosti konzoly"
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Anfon gorchymyn newid maint consol"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Send kommandoen til at ændre størrelse på konsollen"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Befehl zur Größenänderung der Konsole senden"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Αποστολή εντολής αλλαγής μεγέθους κονσόλας"
           }
         },
         "en" : {
@@ -1920,16 +3486,94 @@
             "value" : "Enviar el comando de redimensionamiento de la consola"
           }
         },
+        "et" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Saada konsooli suuruse muutmise käsk"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Bidali kontsolaren tamaina aldatzeko komandoa"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "دستور تغییر اندازه کنسول را ارسال کنید"
+          }
+        },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lähetä konsolin koonmuutoskomento"
           }
         },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Magpadala ng utos sa pagbabago ng laki ng console"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Envoyer la commande de redimensionnement à la console"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Enviar comando de cambio de tamaño da consola"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "કન્સોલ રીસાઈઝ આદેશ મોકલો"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "שלח פקודת שינוי גודל של המסוף"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "कंसोल आकार बदलने का आदेश भेजें"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Pošalji naredbu za promjenu veličine konzole"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Küldje el a konzol átméretezési parancsát"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ուղարկեք վահանակի չափափոխման հրամանը"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Kirim perintah pengubahan ukuran konsol"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Sendu stjórnborðsstærðarskipun"
           }
         },
         "it" : {
@@ -1944,10 +3588,118 @@
             "value" : "コンソールサイズ変更コマンドを送信します"
           }
         },
+        "jv" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Kirimi printah ukuran console"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "კონსოლის ზომის შეცვლის ბრძანების გაგზავნა"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Консоль өлшемін өзгерту пәрменін жіберу"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ផ្ញើពាក្យបញ្ជាផ្លាស់ប្តូរទំហំកុងសូល។"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ಕನ್ಸೋಲ್ ಮರುಗಾತ್ರಗೊಳಿಸುವ ಆಜ್ಞೆಯನ್ನು ಕಳುಹಿಸಿ"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "콘솔 크기 조정 명령을 보냅니다."
+          }
+        },
+        "lb" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Schécken Konsole änneren Kommando"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ສົ່ງຄໍາສັ່ງປັບຂະຫນາດ console"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Siųsti konsolės dydžio keitimo komandą"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Sūtīt konsoles izmēru maiņas komandu"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Испрати команда за промена на големината на конзолата"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "कन्सोल रिसाइज कमांड पाठवा"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Hantar arahan ubah saiz konsol"
+          }
+        },
+        "mt" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ibgħat il-kmand tad-daqs tal-console"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ကွန်ဆိုးလ်အရွယ်အစားကို ပြောင်းလဲရန် အမိန့်ကို ပေးပို့ပါ။"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Send kommando for endring av størrelse på konsollen"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "कन्सोल रिसाइज आदेश पठाउनुहोस्"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Stuur de opdracht voor het wijzigen van de console"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "କନସୋଲ୍ ରିଜାଇଜ୍ କମାଣ୍ଡ୍ ପଠାନ୍ତୁ |"
           }
         },
         "pl" : {
@@ -1956,10 +3708,118 @@
             "value" : "Wyślij polecenie zmiany rozmiaru konsoli"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Enviar comando de redimensionamento do console"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Trimite comanda de redimensionare a consolei"
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Отправить команду на изменение размера консоли"
+          }
+        },
+        "sd" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ڪنسول ريزائز ڪمانڊ موڪليو"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "කොන්සෝල ප්‍රමාණය වෙනස් කිරීමේ විධානය යවන්න"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Odoslať príkaz na zmenu veľkosti konzoly"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Pošlji ukaz za spreminjanje velikosti konzole"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Dërgo komandën e ndryshimit të madhësisë së konsolës"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Пошаљите команду за промену величине конзоле"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Skicka kommandot för att ändra storlek på konsolen"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Tuma amri ya kubadilisha ukubwa wa kiweko"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "கன்சோல் அளவை மாற்றுவதற்கான கட்டளையை அனுப்பவும்"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "కన్సోల్ పునఃపరిమాణం ఆదేశాన్ని పంపండి"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ส่งคำสั่งปรับขนาดคอนโซล"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Konsolu yeniden boyutlandırma komutunu gönder"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Надіслати консольну команду зміни розміру"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "کنسول ری سائز کمانڈ بھیجیں۔"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Konsol o'lchamini o'zgartirish buyrug'ini yuborish"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Gửi lệnh thay đổi kích thước bảng điều khiển"
           }
         },
         "zh-HK" : {
@@ -1986,16 +3846,94 @@
       "comment" : "Class = \"NSButton\"; ibShadowedToolTip = \"Starts/resumes the VM\"; ObjectID = \"ZTi-Hs-ge6\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Begin/hervat die VM"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "يبدأ/يستأنف الجهاز الظاهري"
           }
         },
+        "as" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ভিএম আৰম্ভ/পুনৰ আৰম্ভ কৰে"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM-i işə salır/davam edir"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Запускае/аднаўляе віртуальную машыну"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Стартира/възобновява VM"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM শুরু/পুনরায় শুরু করে"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Pokreće/nastavlja VM"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Inicia/reprèn la VM"
+          }
+        },
+        "ceb" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Nagsugod/nagpadayon sa VM"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Spustí/obnoví virtuální počítač"
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Yn dechrau/ailddechrau'r VM"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Starter/genoptager VM'en"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Startet die VM bzw. setzt sie fort"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ξεκινά/συνέχεια του VM"
           }
         },
         "en" : {
@@ -2010,16 +3948,94 @@
             "value" : "Inicia/reanuda la VM"
           }
         },
+        "et" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Käivitab/jätkab VM-i"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM-a abiarazten/berresten du"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM را شروع/از سرگیری می کند"
+          }
+        },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Käynnistää virtuaalikoneen tai jatkaa sen suoritusta"
           }
         },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Sinisimulan/ipagpatuloy ang VM"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Démarre/reprend la VM"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Inicia/retoma a máquina virtual"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM શરૂ/ફરી શરૂ કરે છે"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "מפעיל/מחדש את ה-VM"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM को प्रारंभ/पुनः आरंभ करता है"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Pokreće/nastavlja VM"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Elindítja/folytatja a virtuális gépet"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Սկսում/վերսկսում է VM-ը"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Memulai/melanjutkan VM"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ræsir/heldur áfram VM"
           }
         },
         "it" : {
@@ -2034,10 +4050,118 @@
             "value" : "仮想マシンを開始/再開します"
           }
         },
+        "jv" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Miwiti / nerusake VM"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "იწყებს / განაახლებს VM-ს"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM іске қосады/жалғастыру"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ចាប់ផ្តើម/បន្ត VM"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM ಅನ್ನು ಪ್ರಾರಂಭಿಸುತ್ತದೆ/ಪುನರಾರಂಭಿಸುತ್ತದೆ"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "가상 머신을 시작/재개합니다."
+          }
+        },
+        "lb" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Fänkt de VM un / resuméiert"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ເລີ່ມ/ສືບຕໍ່ VM"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Paleidžia / atnaujina VM"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Sāk/atsāk VM"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Го стартува/продолжува VM-от"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM सुरू/पुन्हा सुरू करते"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Memulakan/menyambung semula VM"
+          }
+        },
+        "mt" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Jibda/jibda l-VM"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM ကို စတင်သည်/ပြန်လည်စတင်သည်။"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Starter/gjenopptar VM"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM सुरु/सुचारु गर्छ"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Start/hervat de VM"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM ଆରମ୍ଭ / ପୁନ umes ଆରମ୍ଭ କରେ |"
           }
         },
         "pl" : {
@@ -2046,10 +4170,118 @@
             "value" : "Uruchamia/Wznawia maszynę wirtualną"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Inicia/retoma a VM"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Pornește/reia VM-ul"
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Запуск/возобновление работы виртуальной машины"
+          }
+        },
+        "sd" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM شروع ٿئي ٿو / ٻيهر شروع ڪري ٿو"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM ආරම්භ කරයි/නැවත ආරම්භ කරයි"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Spustí/obnoví VM"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Zažene/nadaljuje VM"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Nis/rifill VM-në"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Покреће/наставља ВМ"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Startar/återupptar den virtuella datorn"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Inaanza/kuanzisha tena VM"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VMஐத் தொடங்குகிறது/தொடக்குகிறது"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VMని ప్రారంభిస్తుంది/పునరుద్ధరిస్తుంది"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "เริ่ม/ดำเนินการ VM ต่อ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM'yi başlatır/sürdürür"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Запускає/відновлює віртуальну машину"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VM شروع/دوبارہ شروع کرتا ہے۔"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "VMni ishga tushiradi/davom ettiradi"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Bắt đầu/tiếp tục VM"
           }
         },
         "zh-HK" : {
@@ -2256,16 +4488,94 @@
       "comment" : "Class = \"NSToolbarItem\"; toolTip = \"Drive image options\"; ObjectID = \"bKL-Th-FFw\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drive-prentopsies"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "خيارات صورة محرك الأقراص"
           }
         },
+        "as" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ড্ৰাইভ ছবি বিকল্পসমূহ"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Sürücü təsviri seçimləri"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Параметры выявы дыска"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Опции за изображение на диск"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ড্রাইভ ইমেজ অপশন"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Opcije slike diska"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Opcions d'imatge de Drive"
+          }
+        },
+        "ceb" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Mga kapilian sa imahe sa pagmaneho"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Možnosti obrazu disku"
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Dewisiadau delwedd Drive"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drev-billedmuligheder"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Optionen für Laufwerksimages"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Δώστε επιλογές εικόνας"
           }
         },
         "en" : {
@@ -2280,16 +4590,94 @@
             "value" : "Opciones de imagen de unidad"
           }
         },
+        "et" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Sõidupildi valikud"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Gidatu irudien aukerak"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "گزینه های تصویر درایو"
+          }
+        },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Aseman levykuvan valinnat"
           }
         },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Mga pagpipilian sa imahe ng drive"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Options d'images de lecteurs"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Opcións de imaxe de Drive"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ડ્રાઇવ છબી વિકલ્પો"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "אפשרויות תמונת Drive"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ड्राइव छवि विकल्प"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Opcije slike pogona"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drive képbeállítások"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drive պատկերի ընտրանքներ"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Mendorong opsi gambar"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drive myndvalkostir"
           }
         },
         "it" : {
@@ -2304,10 +4692,118 @@
             "value" : "ドライブイメージのオプション"
           }
         },
+        "jv" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Pilihan gambar drive"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "დისკის სურათის პარამეტრები"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drive кескінінің опциялары"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ជម្រើសរូបភាពដ្រាយ"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ಡ್ರೈವ್ ಇಮೇಜ್ ಆಯ್ಕೆಗಳು"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "드라이브 이미지 옵션"
+          }
+        },
+        "lb" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drive Bild Optiounen"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drive ຕົວເລືອກຮູບພາບ"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Disko vaizdo parinktys"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Diska attēla opcijas"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Опции за слика на возење"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ड्राइव्ह प्रतिमा पर्याय"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Pilihan imej memandu"
+          }
+        },
+        "mt" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Għażliet tal-immaġni tas-sewqan"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drive ပုံရွေးချယ်စရာများ"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drive-bildealternativer"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ड्राइभ छवि विकल्पहरू"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drive-afbeeldingsopties"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ପ୍ରତିଛବି ବିକଳ୍ପଗୁଡ଼ିକୁ ଚଲାନ୍ତୁ |"
           }
         },
         "pl" : {
@@ -2316,10 +4812,118 @@
             "value" : "Ustawienia obrazu dysku"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Opções de imagem do Drive"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drive opțiuni de imagine"
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Опции образов дисков"
+          }
+        },
+        "sd" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ڊرائيو تصوير جا اختيار"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drive රූප විකල්ප"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Možnosti obrazu disku"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Možnosti slike pogona"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drive opsionet e imazhit"
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Опције слике диска"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drive-bildalternativ"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Chaguo za picha za Hifadhi"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "இயக்கக பட விருப்பங்கள்"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "డ్రైవ్ ఇమేజ్ ఎంపికలు"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ตัวเลือกรูปภาพไดรฟ์"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drive görseli seçenekleri"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Параметри образу диска"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ڈرائیو امیج کے اختیارات"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Drayv tasvir parametrlari"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Tùy chọn hình ảnh ổ đĩa"
           }
         },
         "zh-HK" : {

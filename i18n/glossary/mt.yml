@@ -1,0 +1,45 @@
+# mt 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。
+# 来源：amalthea（VM64 官网）的 glossary/mt.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 和 Microsoft 在马耳他只有英文站（support.apple.com/mt-mt、apple.com/mt、support.microsoft.com/mt-mt 都是英文内容），rule 是 apple、microsoft 的术语按英文写法的结构，用马耳他语通行说法。
+virtual-machine: magna virtwali；复数 magni virtwali
+guest: mistieden；客户机系统 = sistema mistiedna，复数 sistemi mistiedna；客户机工具 = l-għodod tal-mistieden
+emulate: emula（第 3 人称 jemula、temula）；emulazzjoni
+virtualize: ivvirtwalizza；virtwalizzazzjoni
+native: nattiv；接近原生的速度 = veloċità kważi nattiva
+architecture: arkitettura
+backend: backend；复数 backends；il-backend QEMU、il-backend Apple
+apple-silicon: ċippa Apple；复数 ċipep Apple；Apple 芯片的 Mac = Mac b'ċippa Apple，复数 kompjuters Mac b'ċippa Apple  # 无马耳他语 Apple 页面，结构参照 https://support.apple.com/en-mt/116943（Mac with Apple silicon）
+intel-mac: Mac b'proċessur Intel；复数 kompjuters Mac b'proċessur Intel  # 结构参照 https://support.apple.com/en-mt/116943（Mac with an Intel processor）
+snapshot: snapshot；复数 snapshots
+disposable-mode: modalità ta' użu wieħed
+shut-down: titfi；名词 it-tifi
+new-vm-wizard: l-assistent għal magni virtwali ġodda
+installer-image: immaġni tal-installazzjoni；复数 immaġnijiet tal-installazzjoni
+license: liċenzja；自备许可证 = il-liċenzja tiegħek stess
+secure-boot: Secure Boot（不译）  # support.microsoft.com/mt-mt 只有英文内容
+or-later: jew ogħla
+experimental: karatteristika sperimentali；复数 karatteristiċi sperimentali
+auto-resolution: aġġustament awtomatiku tar-riżoluzzjoni
+shared-clipboard: clipboard kondiviż；共享剪贴板（动作）= taqsam il-clipboard；复制和粘贴 = ikkopja u waħħal
+shared-folder: folder kondiviż；复数 folders kondiviżi；共享文件夹（动作）= taqsam folders
+sharing: Qsim
+shared-network: Netwerk Kondiviż
+host-only: Host Biss
+bridged: Bridged（模式名不译）
+emulated-vlan: VLAN Emulat
+port-forwarding: port forwarding
+lan: netwerk lokali
+shortcuts: Shortcuts  # Apple 马耳他站用英文 App 名
+command-line-tool: l-għodda tal-linja tal-kmand
+clone: ikklona
+fingerprint: fingerprint（不用 marki tas-swaba'，那是手指的指纹）
+hardware-reset: reset tal-ħardwer
+mount: immonta
+shared-library: librerija kondiviża；复数 libreriji kondiviżi
+capture-mouse: taqbad il-maws（不用 ġurdien）；捕获鼠标按钮 = il-buttuna Aqbad il-Maws
+keys: it-tasta Control、it-tasta Option；同时写 2 个键 = it-tasti Control u Option（不用 ċavetta，那是锁的钥匙）
+toolbar: toolbar
+settings: settings（is-settings）
+rosetta: Rosetta
+cpu: CPU；CPU 核心 = qalba，复数 qlub
+classic-systems: sistemi klassiċi

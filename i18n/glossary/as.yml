@@ -1,0 +1,46 @@
+# as 定下的译法。规则见 i18n/glossary/terms.yml。
+# 来源：amalthea（VM64 官网）的 glossary/as.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 和 Microsoft 都没有阿萨姆语支持页（support.apple.com/as-in 返回 404，support.microsoft.com/as-in 跳转到 en-us）。rule 是 apple、microsoft 的术语按阿萨姆语软件界面的通行说法定，待母语者确认。
+# as 只修语义错误、术语错误、漏译、文字系统错误，不修不通顺。数字用阿拉伯数字，不用 ০-৯。
+virtual-machine: ভাৰ্চুৱেল মেচিন（不用 ভাৰ্চুৱেল যন্ত্ৰ）
+guest: অতিথি；客户机系统 = অতিথি চিস্টেম，客户机工具 = অতিথি সঁজুলি（不用 ক্লাএন্ট）
+emulate: ইমুলেট কৰা；ইমুলেচন（不用 অনুকৰণ、চিমুলেচন）
+virtualize: ভাৰ্চুৱেলাইজ কৰা；ভাৰ্চুৱেলাইজেচন
+native: নেটিভ；接近原生的速度 = প্ৰায় নেটিভ গতি（不用 স্থানীয়，它是本地）
+architecture: আৰ্কিটেকচাৰ（不用 স্থাপত্য，它是建筑）
+backend: বেকএণ্ড；QEMU বেকএণ্ড，Apple বেকএণ্ড
+apple-silicon: Apple চিপ；Apple 芯片的 Mac = Apple চিপ থকা Mac  # 无 Apple 阿萨姆语来源
+intel-mac: Intel Mac；不加英文复数 s，复数写 Intel Mac সমূহ  # 无 Apple 阿萨姆语来源
+cpu: CPU（不音译）
+rosetta: Rosetta；词尾直接连写，例如 Rosettaও
+snapshot: স্নেপশ্বট
+disposable-mode: থ্ৰ'ৱে মোড  # 待母语者确认
+shut-down: বন্ধ কৰা；关机后 = বন্ধ কৰাৰ পিছত
+new-vm-wizard: ভাৰ্চুৱেল মেচিন সৃষ্টিৰ উইজাৰ্ড（不写 নতুন উইজাৰ্ড）
+installer-image: ইনষ্টলেচন ইমেজ（不用 ছবি、প্ৰতিমুৰ্তি）
+license: অনুজ্ঞাপত্ৰ；自备许可证 = নিজৰ অনুজ্ঞাপত্ৰৰ প্ৰয়োজন
+secure-boot: সুৰক্ষিত বুট  # 无 Microsoft 阿萨姆语来源，沿用原译，待母语者确认
+or-later: বা তাৰ পিছৰ সংস্কৰণ  # 无 Apple 阿萨姆语来源
+experimental: পৰীক্ষামূলক বৈশিষ্ট্য
+auto-resolution: স্বয়ংক্ৰিয় ৰিজ'লিউচন সামঞ্জস্য
+shared-clipboard: অংশীদাৰী ক্লিপবৰ্ড；共享剪贴板（动作）= ক্লিপবৰ্ড অংশীদাৰী কৰা
+shared-folder: অংশীদাৰী ফোল্ডাৰ；共享文件夹（动作）= ফোল্ডাৰ অংশীদাৰী কৰা
+sharing: অংশীদাৰী（不用 শ্বেয়াৰ、শ্বেয়াৰিং）
+shared-network: অংশীদাৰী নেটৱৰ্ক
+host-only: কেৱল হস্ট
+bridged: ব্ৰীজ কৰা
+emulated-vlan: ইমুলেটেড VLAN
+port-forwarding: পৰ্ট ফৰৱাৰ্ডিং
+lan: স্থানীয় নেটৱৰ্ক（不写 LAN）
+shortcuts: চৰ্টকাট এপ；加 এপ，和键盘快捷键区分  # 无 Apple 阿萨姆语来源
+command-line-tool: আদেশ-শাৰী সঁজুলি
+clone: ক্ল'ন কৰা
+fingerprint: আঙুলিৰ ছাপ
+hardware-reset: হাৰ্ডৱেৰ ৰিছেট
+mount: মাউন্ট কৰা
+shared-library: অংশীদাৰী লাইব্ৰেৰী
+capture-mouse: মাউছ ধৰা；捕获鼠标按钮 = মাউছ ধৰা বুটাম
+keys: Control কি'、Option কি'（键名按键帽写，不意译）
+toolbar: সঁজুলিদণ্ডি
+settings: সংহতি（不用 ছেটিংছ）
+classic-systems: ক্লাছিক চিস্টেম

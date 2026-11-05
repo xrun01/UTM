@@ -1,0 +1,46 @@
+# kk 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。专有名词（Apple、Mac、macOS、Windows、Linux、QEMU、VM64、Rosetta）保留拉丁字母，需要格词尾时加中心词（Mac компьютері、Rosetta бағдарламасы）。
+# 来源：amalthea（VM64 官网）的 glossary/kk.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# support.apple.com/kk-kz 只有导航是哈萨克语，正文是英文；support.microsoft.com/kk-kz 跳转到俄语。rule 是 apple、microsoft 的术语按哈萨克语软件界面的通行说法写，待母语者确认。
+virtual-machine: виртуалды машина（不用 виртуалды құрылғы）
+guest: қонақ；客户机系统 = қонақ жүйе；客户机工具 = қонақ құралдары（不用 клиент）
+emulate: эмуляциялау；эмуляция（不用 имитациялау、симуляция）
+virtualize: виртуалдандыру；名词同形（不用 виртуализация）
+native: нативті；接近原生的速度 = нативтіге жақын жылдамдық（不用 жергілікті，它是「本地的」）
+architecture: архитектура；CPU 架构 = процессор архитектурасы
+backend: бэкенд；QEMU бэкенді、Apple бэкенді（不用 сервер）
+apple-silicon: Apple чипі；Apple 芯片的 Mac = Apple чипі бар Mac（不用 Apple silicon、Apple кремнийі）  # https://support.apple.com/kk-kz/116943 正文为英文，查不到官方写法
+intel-mac: Intel процессоры бар Mac  # 同上
+snapshot: снапшот（不用 сурет，它是照片）  # 待确认
+disposable-mode: бір реттік режим（不用 тастау режимі、бір рет түсіру）
+shut-down: өшіру
+new-vm-wizard: виртуалды машина жасау шебері（不用 жаңа шебер）
+installer-image: орнату кескіні  # 沿用原译，待确认
+license: лицензия；自备许可证 = өз лицензияңыз
+secure-boot: Secure Boot（保留拉丁字母）  # support.microsoft.com/kk-kz 跳转到俄语页面，沿用原译，待确认
+or-later: немесе одан кейінгі нұсқасы（不用 немесе одан жоғары）
+experimental: эксперименттік функция（不用 мүмкіндік）
+auto-resolution: ажыратымдылықты автоматты реттеу
+shared-clipboard: ортақ алмасу буфері；共享剪贴板（动作）= алмасу буферін ортақ пайдалану
+shared-folder: ортақ қалта；共享文件夹（动作）= қалталарды ортақ пайдалану
+sharing: Ортақ пайдалану（不用 бөлісу、ортақтастыру）
+shared-network: Ортақ желі
+host-only: Тек хост
+bridged: Желілік көпір
+emulated-vlan: Эмуляцияланған VLAN
+port-forwarding: порттарды қайта бағыттау
+lan: жергілікті желі
+shortcuts: Shortcuts қолданбасы（不用 Таңбашалар，它是键盘快捷键）  # Apple 无 kk 界面，待确认
+command-line-tool: пәрмен жолы құралы
+clone: клондау
+fingerprint: кілт ізі（不用 саусақ ізі）  # 待确认
+hardware-reset: аппараттық қалпына келтіру
+mount: монтаждау（不用 орнату，它表示安装）
+shared-library: ортақ кітапхана
+capture-mouse: тінтуірді ұстау；捕获鼠标按钮 = «Тінтуірді ұстау» түймесі（不用 тышқан）
+keys: Control пернесі、Option пернесі（键名不翻译）
+toolbar: құралдар тақтасы
+settings: параметрлер
+rosetta: Rosetta，需要格词尾时写 Rosetta бағдарламасы
+cpu: процессор
+classic-systems: классикалық жүйелер
+# 标题、步骤标题、列表标签和链接用动名词（-у），号召句（band）用祈使句。Mac 作硬件时写 Mac компьютері，不写 Mac жүйесі。

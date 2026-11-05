@@ -1,0 +1,43 @@
+# nb（bokmål）定下的译法。规则见 i18n/glossary/terms.yml。
+# 来源：amalthea（VM64 官网）的 glossary/no.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+virtual-machine: virtuell maskin；复数 virtuelle maskiner
+guest: gjest；客户机系统 = gjestesystem，客户机工具 = gjesteverktøy
+emulate: emulere；emulering
+virtualize: virtualisere；virtualisering
+native: native；接近原生的速度 = nesten native hastighet
+architecture: arkitektur
+backend: backend；复数 backender；QEMU-backend、Apple-backend
+apple-silicon: Apple-chip；Apple 芯片的 Mac = Mac med Apple-chip，复数 Macer med Apple-chip  # https://support.apple.com/no-no/116943
+intel-mac: Mac med Intel-prosessor；复数 Macer med Intel-prosessor  # https://support.apple.com/no-no/116943
+snapshot: øyeblikksbilde；复数 øyeblikksbilder
+disposable-mode: engangsmodus
+shut-down: slå av
+new-vm-wizard: veiviseren for nye virtuelle maskiner
+installer-image: installasjonsbilde
+license: lisens
+secure-boot: sikker oppstart  # https://support.microsoft.com/nb-no/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: eller nyere  # https://support.apple.com/no-no/102552（「macOS Ventura eller nyere」）
+experimental: eksperimentell funksjon
+auto-resolution: automatisk justering av oppløsningen
+shared-clipboard: delt utklippstavle；共享剪贴板（动作）= dele utklippstavlen；粘贴 = lime inn  # https://support.apple.com/no-no/guide/mac-help/mchlp1012/mac（「Kopier og lim inn mellom enheter」）
+shared-folder: delt mappe；共享文件夹（动作）= dele mapper
+sharing: Deling
+shared-network: Delt nettverk
+host-only: Kun vert
+bridged: Brokoblet
+emulated-vlan: Emulert VLAN
+port-forwarding: portvideresending
+lan: lokalt nettverk
+shortcuts: Snarveier  # https://support.apple.com/no-no/guide/shortcuts-mac/welcome/mac
+command-line-tool: kommandolinjeverktøy
+clone: klone
+fingerprint: fingeravtrykk
+hardware-reset: tilbakestilling av maskinvare
+mount: montere
+shared-library: delt bibliotek；复数 delte biblioteker
+capture-mouse: fange musen；捕获鼠标按钮 = knappen Fang mus
+keys: Kontroll-tasten、Tilvalg-tasten；同时写 2 个键 = Kontroll- og Tilvalg-tasten  # https://support.apple.com/no-no/102650
+toolbar: verktøylinje
+settings: innstillinger
+classic-systems: klassiske systemer
+# Mac 的定指形式按 Apple 写 Macen，不写 Mac-en。

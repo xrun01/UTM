@@ -1,0 +1,46 @@
+# te 定下的译法。规则见 i18n/glossary/terms.yml。
+# 来源：amalthea（VM64 官网）的 glossary/te.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 只有泰卢固语的 iPhone 使用手册，没有泰卢固语的 Mac 文档。rule 是 apple 的术语，能在 iPhone 使用手册里核对的写出 URL，其余写「未查到」。
+# 拉丁字母名称后的词尾直接连写，不加空格和连字符：Macలో、Macను、iPhoneలో、Rosettaను  # https://support.apple.com/te-in/guide/iphone/iph220ea8dca/27/ios/27（「iPhone, Macలో」「Apple Intelligenceను」）
+virtual-machine: వర్చువల్ మెషీన్；复数 వర్చువల్ మెషీన్‌లు（不用 మిషన్）
+guest: గెస్ట్；客户机系统 = గెస్ట్ సిస్టమ్，客户机工具 = గెస్ట్ టూల్స్（不用 క్లయింట్）
+emulate: ఎమ్యులేట్ చేయడం；ఎమ్యులేషన్（不用 అనుకరించడం、సిమ్యులేషన్）
+virtualize: వర్చువలైజ్ చేయడం；వర్చువలైజేషన్
+native: నేటివ్；接近原生的速度 = దాదాపు నేటివ్ వేగం（不用 స్థానిక，స్థానిక 是本地）
+architecture: ఆర్కిటెక్చర్（不用 నిర్మాణం，నిర్మాణం 是建筑、结构）
+backend: బ్యాకెండ్；QEMU బ్యాకెండ్，Apple బ్యాకెండ్
+apple-silicon: Apple చిప్；Apple 芯片的 Mac = Apple చిప్ ఉన్న Mac  # 未查到 Apple 泰卢固语 Mac 写法，待母语者确认
+intel-mac: Intel ఆధారిత Mac  # 未查到 Apple 泰卢固语写法，参照 Apple 英文 Intel-based Mac
+cpu: CPU（不音译）
+rosetta: Rosetta；词尾连写，例如 Rosettaను、Rosettaతో
+snapshot: స్నాప్‌షాట్
+disposable-mode: డిస్పోజబుల్ మోడ్
+shut-down: షట్ డౌన్ చేయడం
+new-vm-wizard: వర్చువల్ మెషీన్‌ను సృష్టించే విజార్డ్
+installer-image: ఇన్‌స్టాలర్ ఇమేజ్（不用 చిత్రం，చిత్రం 是图片）
+license: లైసెన్స్；自备许可证 = మీ స్వంత లైసెన్స్ అవసరం
+secure-boot: Secure Boot（拉丁字母，和 TPM 一致）  # support.microsoft.com/te-in 跳转到 en-us，Microsoft 泰卢固语页面未本地化，待母语者确认
+or-later: లేదా తర్వాతి వెర్షన్  # https://support.apple.com/te-in/guide/iphone/iph505911a40/27/ios/27（「macOS 15 లేదా తర్వాతి వెర్షన్」）
+experimental: ప్రయోగాత్మక ఫీచర్
+auto-resolution: ఆటోమేటిక్ రిజల్యూషన్ సర్దుబాటు
+shared-clipboard: షేర్ చేసిన క్లిప్‌బోర్డ్；共享剪贴板（动作）= క్లిప్‌బోర్డ్‌ను షేర్ చేయడం  # https://support.apple.com/te-in/guide/iphone/iph220ea8dca/27/ios/27（「క్లిప్‌బోర్డ్」「కాపీ చేసి, పేస్ట్ చేయడం」）
+shared-folder: షేర్ చేసిన ఫోల్డర్；共享文件夹（动作）= ఫోల్డర్‌ను షేర్ చేయడం
+sharing: షేరింగ్
+shared-network: షేర్డ్ నెట్‌వర్క్
+host-only: హోస్ట్ మాత్రమే
+bridged: బ్రిడ్జ్డ్（不用 వంతెన）
+emulated-vlan: ఎమ్యులేటెడ్ VLAN
+port-forwarding: పోర్ట్ ఫార్వర్డింగ్
+lan: లోకల్ నెట్‌వర్క్
+shortcuts: షార్ట్‌కట్స్；正文写 షార్ట్‌కట్స్ యాప్，和键盘快捷键区分（不用 సత్వరమార్గాలు）  # https://support.apple.com/te-in/guide/iphone/iph47e1c9d7d/27/ios/27
+command-line-tool: కమాండ్-లైన్ టూల్
+clone: క్లోన్ చేయడం
+fingerprint: ఫింగర్‌ప్రింట్（不用 వేలిముద్ర）
+hardware-reset: హార్డ్‌వేర్ రీసెట్
+mount: మౌంట్ చేయడం
+shared-library: షేర్డ్ లైబ్రరీ
+capture-mouse: మౌస్‌ను క్యాప్చర్ చేయడం；捕获鼠标按钮 = మౌస్ క్యాప్చర్ బటన్
+keys: కంట్రోల్ కీ、ఆప్షన్ కీ  # 未直接查到；Apple 泰卢固语把键名音译，例如「కమాండ్-C」 https://support.apple.com/te-in/guide/iphone/iph220ea8dca/27/ios/27
+toolbar: టూల్‌బార్  # 未查到 Apple 泰卢固语 Mac 写法
+settings: సెట్టింగ్‌లు  # https://support.apple.com/te-in/guide/iphone/iph079e1fe9d/27/ios/27
+classic-systems: క్లాసిక్ సిస్టమ్‌లు

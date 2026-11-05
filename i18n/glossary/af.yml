@@ -1,0 +1,46 @@
+# af 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。称呼统一用 jy。
+# 来源：amalthea（VM64 官网）的 glossary/af.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 和 Microsoft 都没有南非语页面（support.apple.com/af-za、support.microsoft.com/af-za 都跳转到英文），rule 是 apple、microsoft 的术语参照 nl 的结构，或用南非语软件的通行说法。
+# 「X 虚拟机」写成 virtuele X-masjien，例如 virtuele QEMU-masjien、virtuele macOS-masjien。
+virtual-machine: virtuele masjien；复数 virtuele masjiene
+guest: gas；客户机系统 = gasstelsel；客户机工具 = gasnutsgoed
+emulate: emuleer；emulasie
+virtualize: virtualiseer；virtualisering
+native: inheems；接近原生的速度 = byna-inheemse spoed
+architecture: argitektuur
+backend: backend；QEMU-backend、Apple-backend
+apple-silicon: Apple silicon；Apple 芯片的 Mac = Mac met Apple silicon；复数 Macs met Apple silicon（照 nl 结构）
+intel-mac: Intel-Mac；复数 Intel-Macs（照 nl 结构）
+snapshot: momentopname；复数 momentopnames
+disposable-mode: weggooimodus
+shut-down: afskakel；afskakeling
+new-vm-wizard: assistent vir nuwe virtuele masjiene
+installer-image: installasiebeeld
+license: lisensie；自备许可证 = jou eie lisensie
+secure-boot: Secure Boot（没有查到 Windows 南非语界面的写法）
+or-later: of nuwer（照 nl 的 of nieuwer）
+experimental: eksperimentele funksie
+auto-resolution: outomatiese aanpassing van die resolusie
+shared-clipboard: gedeelde knipbord；共享剪贴板（动作）= die knipbord deel
+shared-folder: gedeelde vouer
+sharing: Deling
+shared-network: Gedeelde netwerk
+host-only: Slegs gasheer
+bridged: Oorbrug
+emulated-vlan: Geëmuleerde VLAN
+port-forwarding: poortaansturing
+lan: plaaslike netwerk
+shortcuts: Shortcuts（macOS 没有南非语界面，App 显示英文名）
+command-line-tool: opdragreëlhulpmiddel
+clone: kloon
+fingerprint: vingerafdruk
+hardware-reset: hardeware-terugstelling
+mount: monteer
+shared-library: gedeelde biblioteek；复数 gedeelde biblioteke
+capture-mouse: muis vasvang；捕获鼠标按钮 = knoppie Vang muis
+keys: Control-sleutel、Option-sleutel（按 Mac 键帽）
+toolbar: nutsbalk
+settings: instellings
+rosetta: Rosetta
+cpu: SVE；复数 SVE's
+classic-systems: klassieke stelsels
