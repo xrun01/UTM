@@ -2,7 +2,7 @@
 virtual-machine: آلة افتراضية؛ الآلة الافتراضية؛ الجمع الآلات الافتراضية  # app 已审校译文统一用 افتراضي（translated 中 69 条），与官网（Microsoft 写法 جهاز ظاهري）不同
 guest: الضيف؛ نظام الضيف، أدوات الضيف
 emulate: يحاكي؛ المحاكاة
-virtualize: الافتراضية（Virtualization = الافتراضية、Use Virtualization = استخدام الافتراضية）  # app 已审校译文统一用 افتراضي，与官网（Microsoft 写法 الظاهرية）不同；不用 المحاكاة الافتراضية，因为 المحاكاة 是 emulate 的译法
+virtualize: الظاهرية（Virtualization = الظاهرية、Use Virtualization = استخدام الظاهرية、Apple Virtualization = ظاهرية Apple）  # https://support.microsoft.com/ar-sa/windows/enable-virtualization-on-windows-c5578302-6e43-4b4b-a449-8ced115f58e1 ；单独的 الافتراضية 会读成「默认值」，所以名词「虚拟化」不用它。形容词「虚拟的」仍用 افتراضي（آلة افتراضية），Default 也是 افتراضي，但只作修饰语（عدد الأنوية الافتراضي）。不用 المحاكاة الافتراضية，因为 المحاكاة 是 emulate 的译法
 native: السرعة الأصلية
 architecture: بنية؛ الجمع بنيات
 backend: الواجهة الخلفية؛ واجهة QEMU الخلفية، واجهة Apple الخلفية
@@ -47,3 +47,13 @@ display: شاشة عرض؛ الجمع شاشات العرض（窗口菜单和工
 key: مفتاح؛ الجمع مفاتيح（Send Key = إرسال مفتاح、Modifier Key = مفتاح التعديل、keystrokes = ضغطات المفاتيح）；键名保留拉丁字母  # https://support.apple.com/ar-ae/102650
 device: جهاز؛ الجمع أجهزة（USB Devices = أجهزة USB、Boot Device = جهاز التمهيد）
 power: الطاقة（显示窗口工具栏和菜单的 Power）  # macOS 本地化资源（ar）：Power = الطاقة
+cpu: CPU（界面短标签保留拉丁字母，CPU Cores = أنوية CPU）；Apple 正文写 وحدة المعالجة المركزية
+boot: التمهيد（Boot Device = جهاز التمهيد、Bootloader = محمل التمهيد、Boot ISO Image = صورة ISO قابلة للتمهيد）；不用 الإقلاع
+mouse: الماوس（Generic Mouse = ماوس عام、Mouse/Keyboard = الماوس/لوحة المفاتيح）；不用 فأرة
+capture-input: التقاط الإدخال（Capture Input = التقاط الإدخال）；不用 المدخلات、القبض
+directory: دليل؛ الجمع دلائل（Shared Directory = دليل مشترك）；不用 المسار（path）
+ramdisk: قرص RAM（Initial Ramdisk = قرص RAM أولي）；不用 ذاكرة مؤقتة（缓存）
+serial: منفذ تسلسلي（Serial = منفذ تسلسلي、Serial (TTY) = المنفذ التسلسلي (TTY)）；不用 سلسلة
+dock: شريط الأيقونات（Show dock icon = عرض الأيقونة في شريط الأيقونات）  # https://support.apple.com/ar-ae/guide/mac-help/mh35859/mac
+suspend: الإسبات（Suspend = إسبات、Suspended = تم الإسبات、suspend state = حالة الإسبات）；保存状态后挂起，和 Pause（إيقاف مؤقت）不同；不用 تعليق（常读成「评论」）  # Windows 阿拉伯语 Hibernate = إسبات
+boot-arguments: وسيطات التمهيد；不用 وسائط（介质）

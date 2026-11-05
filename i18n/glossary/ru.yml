@@ -44,3 +44,14 @@ cpu: ЦП  # https://support.apple.com/ru-ru/guide/activity-monitor/actmntr43452
 # 以下不在 terms.yml 中，来自补译批次中出现 3 次以上的界面术语
 image: образ（磁盘或安装映像文件，不写 изображение）
 key: клавиша（键盘按键；Send Key = Отправить клавишу）
+# 以下来自 2026-11-05 已审校条目复审，在待审条目中出现 3 次以上
+drive: диск（Drive Image = Образ диска）
+display: дисплей；Displays = Дисплеи
+ramdisk: RAM-диск；initial ramdisk = первоначальный RAM-диск（不写拉丁字母 ramdisk）
+shared-directory: общий каталог；Directory sharing = общий доступ к каталогам
+kill: принудительно завершить；名词 принудительное завершение（不写 убить、уничтожить；завершение работы 是正常关机）
+serial: последовательный порт（不单写形容词 последовательный）
+download: скачать；名词 скачивание（不写 загрузить：Boot 译作 Загрузка，会混淆）
+pause: пауза；Pause = Пауза，Paused = На паузе，Pausing = Ставится на паузу（和 suspend 区分）
+suspend: приостановить；Suspend = Приостановить，Suspended = Приостановлена（保存状态后停止，和 pause 区分）
+balloon: Balloon（устройство Balloon，保留拉丁字母）

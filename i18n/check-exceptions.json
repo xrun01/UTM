@@ -32,12 +32,5 @@
     "lang": "ko",
     "rule": "keep-source",
     "reason": "elementary OS 的官方写法是小写"
-  },
-  {
-    "table": "Localizable",
-    "key": "HiDPI (Retina)",
-    "lang": "ko",
-    "rule": "term:Retina",
-    "reason": "已审校的人工译文「레티나」，是否改成 Retina 由审校决定"
   }
 ]
