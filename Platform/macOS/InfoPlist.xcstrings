@@ -14,7 +14,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Für Mikrofonzugriff in der VM wird Ihre Erlaubnis benötigt."
+            "value" : "Damit eine virtuelle Maschine über das Mikrofon aufnehmen kann, ist eine Berechtigung erforderlich."
           }
         },
         "en" : {
@@ -32,7 +32,7 @@
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "UTM vaatii luvan mikrofonin käyttöön."
+            "value" : "Lupa vaaditaan, jotta virtuaalikone voi tallentaa ääntä mikrofonista."
           }
         },
         "fr" : {
@@ -44,7 +44,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Permette alle Macchine Virtuali di accedere al Microfono"
+            "value" : "Permette alle macchine virtuali di accedere al microfono."
           }
         },
         "ja" : {
@@ -86,7 +86,7 @@
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "UTM 需要您的授權才能使用麥克風。"
+            "value" : "任何虛擬機器要使用麥克風錄音，都需要取得權限。"
           }
         }
       }
@@ -122,19 +122,19 @@
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "UTM virtuaalilaite"
+            "value" : "UTM-virtuaalikone"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Machine Virtuelle UTM"
+            "value" : "Machine virtuelle UTM"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Macchina Virtuale UTM"
+            "value" : "Macchina virtuale UTM"
           }
         },
         "ja" : {
@@ -176,7 +176,7 @@
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "UTM 虛擬機"
+            "value" : "UTM 虛擬機器"
           }
         }
       }

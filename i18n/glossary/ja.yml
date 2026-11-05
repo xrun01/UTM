@@ -10,7 +10,7 @@ apple-silicon: Apple シリコン；Apple 芯片的 Mac = Apple シリコン搭�
 intel-mac: Intel プロセッサ搭載の Mac  # https://support.apple.com/ja-jp/116943（「Intelプロセッサを搭載したMac」）
 snapshot: スナップショット
 disposable-mode: 使い捨てモード
-shut-down: シャットダウン
+shut-down: システム終了；强制关机 = 強制システム終了  # https://support.apple.com/ja-jp/guide/mac-help/mchlp2522/mac（「Macをシステム終了する」）
 new-vm-wizard: 仮想マシン作成ウィザード
 installer-image: インストールイメージ
 license: ライセンス；自备许可证 = ライセンスを自分で用意する
@@ -43,3 +43,10 @@ cpu: CPU  # https://support.apple.com/ja-jp/guide/activity-monitor/actmntr43452/
 modifier-key: 修飾キー  # https://support.apple.com/ja-jp/102650
 display: ディスプレイ；monitor 也写 ディスプレイ  # https://support.apple.com/ja-jp/guide/mac-help/mchl126ad5ba/mac
 classic-systems: クラシックシステム
+drive: ドライブ
+image: イメージ；disk image = ディスクイメージ，drive image = ドライブイメージ
+configuration: 構成
+serial: シリアルポート；Serial %lld = シリアルポート%lld
+read-only: 読み出しのみ
+capture-input: 入力をキャプチャ；input capture = 入力キャプチャ
+user: ユーザ；username = ユーザ名  # https://support.apple.com/ja-jp/guide/mac-help/mtusr001/mac（「ユーザとグループ」「ユーザアカウント」）

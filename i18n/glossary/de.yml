@@ -42,3 +42,8 @@ or-later: oder neuer  # Apple 德语页面写系统要求用「oder neuer」，�
 image: Image（Installationsimage、Laufwerksimage、Boot-Image、Kernel-Image；不用 Abbild）
 boot: Boot（Boot-Gerät、Boot-Argumente、UEFI-Boot；Secure Boot 例外，按 secure-boot 写 sicherer Start）
 drive: Laufwerk（Externes Laufwerk、Laufwerksimage）
+cpu: Prozessor（CPU Cores = Prozessor-Kerne；Core = Kern）  # https://support.apple.com/de-de/guide/activity-monitor/actmntr43452/mac（Apple 德语页面混用 CPU 和 Prozessor，界面标签统一用 Prozessor）
+rosetta: Rosetta  # https://support.apple.com/de-de/102527
+display: Display；复数 Displays（工具栏项、菜单都用 Displays，不用 Bildschirm、Fenster）
+vm-shortcut: Verknüpfung（指向 VM 存放位置的快捷方式；不是 Kurzbefehle）
+memory: Arbeitsspeicher（虚拟机内存 RAM；Storage = Datenspeicher，不用单独的 Speicher）  # https://support.apple.com/de-de/guide/mac-help/syspr35536/mac（「Informationen über den Arbeitsspeicher deines Computers」）

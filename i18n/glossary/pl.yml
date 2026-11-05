@@ -47,3 +47,14 @@ power: Zasilanie（菜单和工具栏名）
 download: pobrać；按钮 Pobierz；名词 pobieranie
 modifier-key: klawisz modyfikujący；复数 klawisze modyfikujące；键名 Command、Shift、Option、Control、Caps Lock、Escape 原样保留  # https://support.apple.com/pl-pl/guide/mac-help/cpmh0011/mac
 keyboard-shortcut: skrót klawiszowy；复数 skróty klawiszowe  # https://support.apple.com/pl-pl/guide/mac-help/cpmh0011/mac
+# 以下在复审 translated 批次时定下（各出现 3 次以上）
+shared-directory: udostępniony katalog；Shared Folder 仍写 udostępniony folder（不用 współdzielony）
+input-capture: przechwytywanie danych wejściowych；Capture Input = Przechwyć dane wejściowe；设置分页 Input = Urządzenia wejściowe
+serial: port szeregowy（Serial、Serial %lld、Serial (TTY) 统一）
+ramdisk: ramdysk；initial ramdisk = początkowy ramdysk
+pause-suspend: Pause = Wstrzymaj，Paused = Wstrzymana；Suspend = Zawieś，Suspended = Zawieszona，suspend state = stan zawieszenia（Stop = Zatrzymaj；Pause、Suspend、Stop 三者不能同词）
+create: utworzyć；按钮 Utwórz（不用 Stwórz）
+quit: 退出 App = Zakończ（不用 Wyjdź）
+vm-state: 进行中的状态标签用动名词，例如 Uruchamianie、Wstrzymywanie、Wznawianie、Zatrzymywanie（不用第 1 人称动词）
+generic: ogólny（Generic = Ogólne，Generic Mouse = Ogólna mysz，Generic USB 键盘选项 = Ogólna klawiatura USB）
+removable: wymienny；Removable Drive = Dysk wymienny（External Drive = Dysk zewnętrzny，两者不能同词）

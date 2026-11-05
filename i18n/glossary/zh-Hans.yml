@@ -43,3 +43,13 @@ cpu: CPU
 classic-systems: 经典系统
 # 以下是补译批次中出现 3 次以上、terms.yml 还没有的界面术语
 key: 按键；keystrokes = 击键；modifier key = 修饰键；Caps Lock = 大写锁定键  # https://support.apple.com/zh-cn/102650
+# 以下是复审批次中出现 3 次以上、terms.yml 还没有的界面术语
+drive: 驱动器；External Drive = 外部驱动器；Removable Drive = 可移除驱动器
+host: 主机；host operating system = 主机操作系统
+image: 映像；disk image = 磁盘映像；installer image 见 installer-image（安装镜像）
+recovery-mode: 恢复模式；recovery IPSW = IPSW 恢复映像
+full-screen: 全屏幕
+account: 账户
+screenshot: 截图（不是快照 snapshot）
+restore: 恢复（恢复快照）；Resume = 继续
+gallery: 虚拟机下载页（UTM 官网的在线虚拟机下载页，不是 Library「资源库」）；UTM Gallery = UTM 虚拟机下载页

@@ -19,7 +19,7 @@ experimental: 實驗性功能
 auto-resolution: 自動調整解析度
 or-later: 或以上版本  # https://www.apple.com/tw/final-cut-pro/specs/（「macOS 15.6 或以上版本」）
 shared-clipboard: 共享剪貼板；复制 = 拷貝，粘贴 = 貼上  # https://support.apple.com/zh-tw/guide/mac-help/mchl70368996/mac
-shared-folder: 共享資料夾
+shared-folder: 共享檔案夾；folder/directory = 檔案夾  # https://support.apple.com/zh-tw/guide/mac-help/mh17131/mac
 sharing: 共享
 shared-network: 共享網路
 host-only: 僅主機
@@ -29,7 +29,7 @@ port-forwarding: 連接埠轉送
 lan: 區域網路
 shortcuts: 「捷徑」  # https://support.apple.com/zh-tw/guide/shortcuts-mac/welcome/mac
 command-line-tool: 命令列工具
-clone: 複製
+clone: 複製（UTM 的 Clone 和 Duplicate 是同一操作 data.clone，同用「複製」；Copy = 拷貝）
 fingerprint: 指紋
 hardware-reset: 硬體重設
 mount: 掛載
@@ -45,3 +45,15 @@ cpu: CPU  # https://www.apple.com/tw/macbook-air/specs/（「8 核心 CPU」）
 mouse: 滑鼠
 key: 按鍵；keystrokes = 按鍵輸入；modifier key = 修飾鍵；keyboard shortcuts = 鍵盤快速鍵  # https://support.apple.com/zh-tw/102650
 power: 電源
+# 以下是复审批次中出现 3 次以上、terms.yml 还没有的界面术语
+drive: 磁碟機；drive image = 磁碟機映像檔；disk image = 磁碟映像檔
+image: 映像檔（不写「映像檔案」「映像」）
+display: 顯示器；Displays（工具列）= 顯示器
+configuration: 組態（不写「設定檔」）
+boot: 開機；Boot ISO Image = 可開機的 ISO 映像檔
+recovery: 復原；recovery mode = 復原模式；restore = 回復  # https://support.apple.com/zh-tw/102518（「macOS 復原」「從時光機回復」）
+serial: 序列埠
+optional: 選填
+mac-address: MAC 位址  # https://support.apple.com/zh-tw/guide/mac-help/mchlp1066/mac（「IP 位址」）
+mouse-button: 左鍵、中鍵、右鍵
+suspend: 擱置；suspended = 已擱置；pause = 暫停（suspend 先保存状态再挂起，必须和 pause 区分）  # https://download.parallels.com/desktop/v18/docs/zh_TW.lproj/32827.htm（Parallels Desktop「動作」>「擱置」）

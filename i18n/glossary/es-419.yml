@@ -1,6 +1,6 @@
 # es-419 定下的译法（来自官网的 es.yml）。键是 i18n/glossary/terms.yml 的术语 id。
 # 地区：拉丁美洲西班牙语，Apple 写法按 es-mx（la Mac、computadora、mouse），现有译文就是这种倾向。
-# 称呼：usted。官网现有译文大多数用 usted；Apple es-mx 用 tú，审校 app 译文时确认用哪一种。
+# 称呼：app 译文用 tú（按 Apple es-419/es-mx 界面写法，已审校的 app 译文也以 tú 为主）。官网译文大多用 usted，不受此条约束。
 virtual-machine: máquina virtual
 guest: invitado；客户机系统 = sistema invitado；客户机工具 = herramientas de invitado
 emulate: emular；emulación（不用 simular）
@@ -51,3 +51,14 @@ image: imagen（Imagen de unidad、Imagen de disquete、Imagen de kernel）
 drive: unidad（Unidad externa、Imagen de unidad；不用 disco，disco 只对应 disk）
 installation: instalación（Modo de instalación、Método de instalación；Express Install = Instalación exprés）
 download: descargar；名词 descarga（Cancelar descarga）
+# 以下是复审已审校条目时定下的界面术语
+display: pantalla；Displays = Pantallas（不用 monitor；Monitor Number 是快捷指令参数，按原文写 Número de monitor）
+serial: puerto serial（Serial %lld = Puerto serial %lld；单独的名词 serial 是「连续剧」）
+kernel: kernel（Imagen de kernel、Kernel de Linux；不写 núcleo，núcleo 只对应 CPU core）
+ramdisk: Ramdisk（Ramdisk inicial；不写 RAMDisk）
+resume: reanudar；Resuming = Reanudando（不用 resumir，resumir 是「总结」）
+gallery: galería（UTM Gallery = galería de UTM；不用 librería，librería 是书店；Library = biblioteca）
+mouse-button: Izquierdo、Derecho、Central（修饰 botón，用阳性）
+ok-button: Aceptar
+kill: 菜单项 Force kill = Forzar salida；正文 kill = forzar el cierre（不用 matar）；停止方式选项 Killing = Terminar proceso  # https://support.apple.com/es-mx/102586
+browse: Explorar…（文件选择按钮；不用 Buscar，Buscar 是「搜索」）

@@ -47,3 +47,12 @@ key: 키（Send Key = 키 보내기、keystrokes = 키 입력、Keyboard shortcu
 modifier-key: 보조 키；Modifiers 也写 보조 키  # https://support.apple.com/ko-kr/102650
 display: 디스플레이；monitor 也写 디스플레이（Displays 菜单、Monitor Number = 디스플레이 번호）  # https://support.apple.com/ko-kr/guide/mac-help/mchl126ad5ba/mac
 power: 전원（显示窗口工具栏和菜单的 Power）
+
+# 复审（全部 translated 条目）时新定的界面术语
+stop: 중지（Stopped = 중지됨、Stopping = 중지 중）；和 Pause 的「일시 정지」区分
+pause: 일시 정지（Paused = 일시 정지됨、Pausing = 일시 정지 중）
+suspend: 일시 중단（保存状态后挂起；Suspended = 일시 중단됨、suspend state = 일시 중단 상태）。不用「일시 중지」，读者分不开它和 Pause 的「일시 정지」
+delete: 삭제（删除数据或列表项）；Remove = 제거（只移除引用，例如快捷方式）
+removable: 이동식（Removable Drive = 이동식 드라이브）。不用「제거 가능」，它读成「可以删除」
+operating-system: 운영 체제（中间空格）
+eject: 꺼내기

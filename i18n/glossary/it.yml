@@ -43,5 +43,12 @@ rosetta: Rosetta  # https://support.apple.com/it-it/102527
 cpu: CPU  # Monitoraggio Attività（it）：「Uso CPU」
 drive: disco；Drive Image = Immagine disco；External Drive = Disco esterno  # Utility Disco（it）：「Immagine disco」；目录已有 Drives = Dischi
 boot: avvio；Boot Device = Dispositivo di avvio
-recovery: Recovery（macOS Recovery 原样保留）  # https://support.apple.com/it-it/102518
+recovery: Recovery（macOS Recovery 原样保留）；recovery mode = modalità Recovery；Run Recovery = Avvia in Recovery；recovery IPSW = file IPSW di ripristino  # https://support.apple.com/it-it/102518
 display: schermo；Displays = Schermi  # 系统设置（it）：「Schermi」
+ramdisk: ramdisk（阳性）；Initial Ramdisk = Ramdisk iniziale
+delete: eliminare（永久删除）；Delete = Elimina
+remove: rimuovere（只移除，不删除数据）；Remove = Rimuovi。必须和 delete 区分
+gallery: Galleria（UTM 官网的在线虚拟机下载页）；必须和 UTM Library（Libreria UTM）区分
+dock: Dock  # Apple 意大利语写大写的 Dock
+sleep: standby；Prevent … from sleeping = Impedisci lo standby  # https://support.apple.com/it-it/102650（「Abbreviazioni per standby, logout e spegnimento」）
+vm-state: 进行中状态写「… in corso」，例如 Avvio in corso、Messa in pausa in corso；完成状态写 Avviata、In pausa、Sospesa

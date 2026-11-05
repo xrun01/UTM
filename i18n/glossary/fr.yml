@@ -43,3 +43,14 @@ classic-systems: systèmes classiques
 display: affichage；窗口菜单和工具栏的 Displays = Affichages（和已有的 Display = Affichage 一致）
 power: alimentation；工具栏和菜单的 Power = Alimentation
 scan-code: code de balayage（不用 code de numérisation）
+rosetta: Rosetta  # https://support.apple.com/fr-fr/102527
+cpu: CPU；CPU 核心 = cœurs de CPU  # Apple 法语技术规格写 CPU 10 cœurs：https://www.apple.com/fr/macbook-air/specs/
+# 下面是复审时补的界面术语，terms.yml 中还没有
+drive: lecteur；drive image = image de lecteur；disk image = image disque
+device: périphérique（虚拟设备和 USB 设备；Devices = Périphériques）；Apple 主机设备（Mac、iPad）= appareil
+boot: démarrage；启动镜像 = image de démarrage，UEFI Boot = Démarrage UEFI（不用 boot、booter）
+serial: port série（Serial、Serial %lld、Serial (TTY) 统一；不单写 Série）
+gallery: galerie（UTM Gallery 网站 = galerie UTM；主窗口 UTM Library = Bibliothèque UTM，两者不同词）
+menu-bar: barre des menus；Dock 首字母大写  # https://support.apple.com/fr-fr/guide/mac-help/mchlp1446/mac
+recovery: récupération；macOS Recovery = Récupération macOS，recovery mode = mode de récupération，recovery IPSW = IPSW de récupération（不用 réinstallation）  # https://support.apple.com/fr-fr/102518
+force-kill: fin forcée du processus；Force kill = Forcer la fin du processus（和 Force shut down = Forcer l’arrêt 区分）
