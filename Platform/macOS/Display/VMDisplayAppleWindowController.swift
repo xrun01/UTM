@@ -285,7 +285,7 @@ extension VMDisplayAppleWindowController {
         }
         menu.autoenablesItems = false
         let item = NSMenuItem()
-        item.title = NSLocalizedString("Querying USB devices...", comment: "VMDisplayAppleWindowController")
+        item.title = NSLocalizedString("Querying USB devices…", comment: "VMDisplayAppleWindowController")
         item.isEnabled = false
         menu.addItem(item)
         Task { @MainActor in
@@ -334,7 +334,7 @@ extension VMDisplayAppleWindowController {
     override func updateDrivesMenu(_ menu: NSMenu) {
         menu.autoenablesItems = false
         let item = NSMenuItem()
-        item.title = NSLocalizedString("Querying drives status...", comment: "VMDisplayWindowController")
+        item.title = NSLocalizedString("Querying drive status…", comment: "VMDisplayWindowController")
         item.isEnabled = false
         menu.addItem(item)
         updateDrivesMenu(menu, drives: appleConfig.drives)
@@ -444,7 +444,7 @@ extension VMDisplayAppleWindowController {
                 try await self.appleVM.detachGuestTools()
             }
         } else {
-            showConfirmAlert(NSLocalizedString("An USB device containing the installer will be mounted in the virtual machine. Only macOS Sequoia (15.0) and newer guests are supported.", comment: "VMDisplayAppleDisplayController")) {
+            showConfirmAlert(NSLocalizedString("A USB device containing the installer will be mounted in the virtual machine. Only macOS Sequoia (15.0) and newer guests are supported.", comment: "VMDisplayAppleDisplayController")) {
                 NotificationCenter.default.post(name: NSNotification.InstallGuestTools, object: self.appleVM)
             }
         }

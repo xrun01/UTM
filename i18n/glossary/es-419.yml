@@ -60,5 +60,5 @@ resume: reanudar；Resuming = Reanudando（不用 resumir，resumir 是「总结
 gallery: galería（UTM Gallery = galería de UTM；不用 librería，librería 是书店；Library = biblioteca）
 mouse-button: Izquierdo、Derecho、Central（修饰 botón，用阳性）
 ok-button: Aceptar
-kill: 菜单项 Force kill = Forzar salida；正文 kill = forzar el cierre（不用 matar）；停止方式选项 Killing = Terminar proceso  # https://support.apple.com/es-mx/102586
+kill: 菜单项 Force kill = Forzar salida；正文 kill = forzar el cierre（不用 matar）；快捷指令停止方式选项 Kill（原 Killing）= Terminar proceso，和 Force = Forzar 区分  # https://support.apple.com/es-mx/102586
 browse: Explorar…（文件选择按钮；不用 Buscar，Buscar 是「搜索」）

@@ -17,16 +17,21 @@
 import SwiftUI
 
 struct VMWizardContent<Content>: View where Content: View {
-    let titleKey: LocalizedStringKey
+    let title: Text
     let content: Content
     
     init(_ titleKey: LocalizedStringKey, @ViewBuilder content: () -> Content) {
-        self.titleKey = titleKey
+        self.init(title: Text(titleKey), content: content)
+    }
+    
+    /// Use when the title needs an explicit localization key, e.g. a word that has another meaning elsewhere
+    init(title: Text, @ViewBuilder content: () -> Content) {
+        self.title = title
         self.content = content()
     }
     
     var body: some View {
-        Text(titleKey)
+        title
             .font(.largeTitle)
         List {
             if #available(macOS 13, *) {

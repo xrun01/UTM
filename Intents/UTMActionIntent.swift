@@ -59,7 +59,7 @@ struct UTMStartActionIntent: AppIntent, UTMIntent {
     @Parameter(title: "Recovery", description: "Boot into recovery mode. Only supported on Apple Virtualization backend.", default: false)
     var isRecovery: Bool
 
-    @Parameter(title: "Disposible", description: "Do not save any changes to disk.", default: false)
+    @Parameter(title: "Disposable", description: "Do not save any changes to disk.", default: false)
     var isDisposible: Bool
 
     @MainActor
@@ -130,7 +130,7 @@ extension UTMVirtualMachineStopMethod: AppEnum {
     static let caseDisplayRepresentations: [UTMVirtualMachineStopMethod: DisplayRepresentation] = [
         .request: DisplayRepresentation(title: "Request", subtitle: "Sends power down request to the guest. This simulates pressing the power button on a PC."),
         .force: DisplayRepresentation(title: "Force", subtitle: "Tells the VM process to shut down with risk of data corruption. This simulates holding down the power button on a PC."),
-        .kill: DisplayRepresentation(title: "Killing", subtitle: "Force kill the VM process with high risk of data corruption."),
+        .kill: DisplayRepresentation(title: "Kill", subtitle: "Force kill the VM process with high risk of data corruption."),
     ]
 }
 

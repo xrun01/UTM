@@ -109,7 +109,7 @@ struct VMConfigAppleBootView: View {
                     FileBrowseField("Ramdisk (optional)", url: $config.boot.linuxInitialRamdiskURL, isFileImporterPresented: $importFileShown) {
                         importBootloaderSelection = .ramdisk
                     }
-                    TextField("Boot arguments", text: $config.boot.linuxCommandLine.bound)
+                    TextField("Boot Arguments", text: $config.boot.linuxCommandLine.bound)
                 }
             } else if operatingSystem == .macOS {
                 #if arch(arm64)

@@ -128,7 +128,7 @@ private struct ResizePopoverView: View {
                     }
                 }
             } else {
-                ProgressView("Calculating current size...")
+                ProgressView("Calculating current size…")
             }
         }.onAppear {
             Task { @MainActor in

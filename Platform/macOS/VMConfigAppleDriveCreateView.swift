@@ -32,7 +32,7 @@ struct VMConfigAppleDriveCreateView: View {
             VStack(alignment: .leading) {
                 Toggle(isOn: $config.isExternal.animation(), label: {
                     Text("Removable")
-                }).help("If checked, the drive image will be stored with the VM.")
+                }).help("If checked, the drive image will not be stored with the VM.")
                 .onChange(of: config.isExternal) { newValue in
                     if newValue {
                         config.sizeMib = 0
