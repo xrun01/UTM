@@ -1062,7 +1062,7 @@ extension UTMDataError: LocalizedError {
         case .importParseFailed:
             return NSLocalizedString("Failed to parse imported VM.", comment: "UTMData")
         case .altServerNotFound:
-            return NSLocalizedString("Cannot find AltServer for JIT enable. You cannot run VMs until JIT is enabled.", comment: "UTMData")
+            return NSLocalizedString("Cannot find AltServer to enable JIT. You cannot run VMs until JIT is enabled.", comment: "UTMData")
         case .altJitError(let message):
             return String.localizedStringWithFormat(NSLocalizedString("AltJIT error: %@", comment: "UTMData"), message)
         case .jitStreamerDecodeFailed:

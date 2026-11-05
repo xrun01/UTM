@@ -71,7 +71,7 @@ struct VMWizardOSWindowsView: View {
                 }
             } else {
                 Section {
-                    Toggle("Install Windows 10 or higher", isOn: $wizardState.isWindows10OrHigher)
+                    Toggle("Install Windows 10 or later", isOn: $wizardState.isWindows10OrHigher)
                         .onChange(of: wizardState.isWindows10OrHigher) { newValue in
                             if newValue {
                                 wizardState.systemBootUefi = true

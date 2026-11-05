@@ -1,11 +1,5 @@
 [
   {
-    "table": "VMDisplayWindow",
-    "key": "MQ2-L1-yl7.toolTip",
-    "rule": "term:Windows",
-    "reason": "这里的 Windows 指窗口列表，不是操作系统"
-  },
-  {
     "table": "Localizable",
     "key": "Nintendo",
     "lang": "ja",

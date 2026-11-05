@@ -1610,7 +1610,7 @@ extension UTMAppleVirtualMachineError: LocalizedError {
         case .cannotSaveInDisposibleMode:
             return NSLocalizedString("Suspend state cannot be saved when running without saving changes.", comment: "UTMAppleVirtualMachine")
         case .guestProvisioningNotSupported:
-            return NSLocalizedString("Setting up the guest automatically requires a macOS virtual machine and macOS 27 or later on Apple Silicon.", comment: "UTMAppleVirtualMachine")
+            return NSLocalizedString("Setting up the guest automatically requires a macOS virtual machine and macOS 27 or later on Apple silicon.", comment: "UTMAppleVirtualMachine")
         case .guestProvisioningNotAvailable:
             return NSLocalizedString("The guest can only be set up automatically on the first start after macOS is installed. It cannot be set up before macOS is installed, from a saved state, or in recovery mode.", comment: "UTMAppleVirtualMachine")
         case .guestProvisioningInvalidFullName:

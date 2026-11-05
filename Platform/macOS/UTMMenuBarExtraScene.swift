@@ -31,7 +31,7 @@ struct UTMMenuBarExtraScene: Scene {
             }.keyboardShortcut("0")
             .help("Show the main window.")
             Toggle("Hide dock icon on next launch", isOn: $isDockIconHidden)
-            .help("Requires restarting UTM to take affect.")
+            .help("Requires restarting UTM to take effect.")
             Divider()
             if data.virtualMachines.isEmpty {
                 Text("No virtual machines found.")

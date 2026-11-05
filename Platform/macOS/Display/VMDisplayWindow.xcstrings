@@ -1172,91 +1172,91 @@
       }
     },
     "MQ2-L1-yl7.toolTip" : {
-      "comment" : "Class = \"NSToolbarItem\"; toolTip = \"Windows\"; ObjectID = \"MQ2-L1-yl7\";",
+      "comment" : "Class = \"NSToolbarItem\"; toolTip = \"Displays\"; ObjectID = \"MQ2-L1-yl7\";",
       "extractionState" : "extracted_with_value",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "النوافذ"
+            "value" : "شاشات العرض"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fenster"
+            "value" : "Displays"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Windows"
+            "value" : "Displays"
           }
         },
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ventanas"
+            "value" : "Pantallas"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Ikkunat"
+            "value" : "Näytöt"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Fenêtres"
+            "value" : "Affichages"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Finestre"
+            "value" : "Schermi"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ウインドウ"
+            "value" : "ディスプレイ"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "창"
+            "value" : "디스플레이"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Okna"
+            "value" : "Wyświetlacze"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Окна"
+            "value" : "Дисплеи"
           }
         },
         "zh-HK" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "視窗"
+            "value" : "顯示器"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "窗口"
+            "value" : "显示"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "視窗"
+            "value" : "顯示器"
           }
         }
       }

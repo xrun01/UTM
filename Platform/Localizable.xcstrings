@@ -1497,6 +1497,89 @@
       },
       "shouldTranslate" : false
     },
+    "A USB device containing the installer will be mounted in the virtual machine. Only macOS Sequoia (15.0) and newer guests are supported." : {
+      "comment" : "VMDisplayAppleDisplayController",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سيتم تركيب (mount) جهاز USB يحتوي على برنامج التثبيت في الآلة الافتراضية. لا يُدعم إلا نظام الضيف macOS Sequoia (15.0) أو إصدار أحدث."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ein USB-Gerät mit dem Installationsprogramm wird in der virtuellen Maschine bereitgestellt. Es werden nur macOS Sequoia (15.0) und neuere Gäste unterstützt."
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se montará un dispositivo USB que contiene el instalador en la máquina virtual. Solo se admiten invitados con macOS Sequoia (15.0) o posterior."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Asennusohjelman sisältävä USB-laite liitetään virtuaalikoneeseen. Vain macOS Sequoia (15.0) ja uudemmat vierasjärjestelmät ovat tuettuja."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un périphérique USB contenant le programme d'installation sera monté dans la machine virtuelle. Seuls les invités exécutant macOS Sequoia (15.0) ou version ultérieure sont pris en charge."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Un dispositivo USB contenente il programma di installazione verrà montato nella macchina virtuale. Sono supportati solo macOS Sequoia (15.0) e guest più recenti."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "インストーラを含むUSBデバイスが仮想マシンにマウントされます。macOS Sequoia（15.0）以降のゲストにのみ対応しています。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "설치 프로그램이 포함된 USB 장치가 가상 머신에 마운트됩니다. macOS Sequoia (15.0) 이상의 게스트만 지원됩니다."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Urządzenie USB zawierające instalator zostanie zamontowane w maszynie wirtualnej. Obsługiwane są tylko systemy gościa macOS Sequoia (15.0) i nowsze."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "USB-устройство, содержащее программу установки, будет подключено к виртуальной машине. Поддерживаются только гостевые системы macOS Sequoia (15.0) и новее."
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "包含安裝程式的 USB 裝置將裝載至虛擬機。只支援 macOS Sequoia (15.0) 或以上版本的客體。"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "包含安装程序的 USB 设备将挂载到虚拟机中。仅支持 macOS Sequoia (15.0) 及更新版本的客户机。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "包含安裝程式的 USB 裝置會掛載到虛擬機器中。僅支援 macOS Sequoia (15.0) 或以上版本的客體。"
+          }
+        }
+      }
+    },
     "A drive cannot be read only once a snapshot has been taken of it." : {
       "comment" : "UTMAppleDiskImage",
       "localizations" : {
@@ -2914,89 +2997,6 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "必須指定 IPSW 復原映像才能建立 macOS 虛擬機器。"
-          }
-        }
-      }
-    },
-    "An USB device containing the installer will be mounted in the virtual machine. Only macOS Sequoia (15.0) and newer guests are supported." : {
-      "comment" : "VMDisplayAppleDisplayController",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "سيتم تثبيت جهاز USB يحتوي على برنامج التثبيت في الجهاز الظاهري. يتم دعم نظام التشغيل macOS Sequoia (15.0) والضيوف الجدد فقط."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Ein USB-Gerät mit dem Installationsprogramm wird in der virtuellen Maschine bereitgestellt. Es werden nur macOS Sequoia (15.0) und neuere Gäste unterstützt."
-          }
-        },
-        "es-419" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Se montará un dispositivo USB que contiene el instalador en la máquina virtual. Solo se admiten macOS Sequoia (15.0) e invitados más recientes."
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Asennusohjelman sisältävä USB-laite asennetaan virtuaalikoneeseen. Vain macOS Sequoia (15.0) ja uudemmat vierailijat ovat tuettuja."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Un périphérique USB contenant le programme d'installation sera monté dans la machine virtuelle. Seuls macOS Sequoia (15.0) et les invités plus récents sont pris en charge."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Un dispositivo USB contenente il programma di installazione verrà montato nella macchina virtuale. Sono supportati solo macOS Sequoia (15.0) e guest più recenti."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "インストーラを含むUSBデバイスが仮想マシンにマウントされます。macOS Sequoia（15.0）以降のゲストにのみ対応しています。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "설치 프로그램이 포함된 USB 장치가 가상 머신에 마운트됩니다. macOS Sequoia (15.0) 이상의 게스트만 지원됩니다."
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Urządzenie USB zawierające instalator zostanie zamontowane na maszynie wirtualnej. Obsługiwane są tylko macOS Sequoia (15.0) i nowsze wersje gości."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "USB-устройство, содержащее программу установки, будет подключено к виртуальной машине. Поддерживаются только macOS Sequoia (15.0) и более новые версии."
-          }
-        },
-        "zh-HK" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "包含安裝程式的 USB 裝置將裝載至虛擬機。只支援 macOS Sequoia (15.0) 或以上版本的客體。"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "包含安装程序的 USB 设备将挂载到虚拟机中。仅支持 macOS Sequoia (15.0) 及更新版本的客户机。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "包含安裝程式的 USB 裝置將安裝在虛擬機器中。僅支援 macOS Sequoia (15.0) 和更高版本的客戶機。"
           }
         }
       }
@@ -4664,88 +4664,6 @@
         }
       }
     },
-    "Boot arguments" : {
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "وسيطات التمهيد"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Boot-Argumente"
-          }
-        },
-        "es-419" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Argumentos de arranque"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Käynnistysargumentit"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Arguments de démarrage"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Argomenti di avvio"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "起動引数"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "부팅 파라미터"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Parametry uruchamiania"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Аргументы загрузки"
-          }
-        },
-        "zh-HK" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "啟動引數"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "启动参数"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "開機引數"
-          }
-        }
-      }
-    },
     "Boot from ISO image" : {
       "localizations" : {
         "ar" : {
@@ -5896,30 +5814,30 @@
         }
       }
     },
-    "Calculating current size..." : {
+    "Calculating current size…" : {
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "يتم حساب الحجم الحالي..."
+            "value" : "يتم حساب الحجم الحالي…"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Aktuelle Größe berechnen..."
+            "state" : "translated",
+            "value" : "Aktuelle Größe wird berechnet…"
           }
         },
         "es-419" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Calculando el tamaño actual..."
+            "state" : "translated",
+            "value" : "Calculando el tamaño actual…"
           }
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Lasketaan nykyistä kokoa..."
+            "state" : "translated",
+            "value" : "Lasketaan nykyistä kokoa…"
           }
         },
         "fr" : {
@@ -5930,8 +5848,8 @@
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Calcolo della dimensione attuale..."
+            "state" : "translated",
+            "value" : "Calcolo della dimensione attuale…"
           }
         },
         "ja" : {
@@ -5949,19 +5867,19 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Obliczam obecny rozmiar..."
+            "value" : "Obliczanie obecnego rozmiaru…"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Вычисление текущего размера..."
+            "state" : "translated",
+            "value" : "Вычисление текущего размера…"
           }
         },
         "zh-HK" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "計算現時大小…"
+            "value" : "正在計算現時大小…"
           }
         },
         "zh-Hans" : {
@@ -6309,7 +6227,7 @@
         }
       }
     },
-    "Cannot find AltServer for JIT enable. You cannot run VMs until JIT is enabled." : {
+    "Cannot find AltServer to enable JIT. You cannot run VMs until JIT is enabled." : {
       "comment" : "UTMData",
       "localizations" : {
         "ar" : {
@@ -6321,7 +6239,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Der AltServer für JIT wurde nicht gefunden. Die VMs können nicht starten, bis JIT aktiviert wurde."
+            "value" : "AltServer zum Aktivieren von JIT wurde nicht gefunden. VMs können erst ausgeführt werden, wenn JIT aktiviert ist."
           }
         },
         "es-419" : {
@@ -6339,7 +6257,7 @@
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Impossible de trouver AltServer pour activation JIT. Vous ne pouvez pas démarrer de VM tant que JIT n’est pas activé."
+            "value" : "Impossible de trouver AltServer pour activer JIT. Vous ne pouvez pas démarrer de VM tant que JIT n’est pas activé."
           }
         },
         "it" : {
@@ -10189,88 +10107,6 @@
         }
       }
     },
-    "Delete this shortcut. The underlying data will not be deleted." : {
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "حذف هذا الاختصار. البيانات الأساسية لن تحذف."
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Löschen Sie diese Verknüpfung. Die zugrunde liegenden Daten werden nicht gelöscht."
-          }
-        },
-        "es-419" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Eliminar este acceso directo. Los datos subyacentes no se eliminarán."
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Poista tämä pikakuvake. Taustalla olevia tietoja ei poisteta."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Supprime ce raccourci. Les données associées ne seront pas supprimées."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Elimina questa scorciatoia. I dati originali non saranno eliminati."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "このショートカットを削除します。リンク先のデータは削除されません。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "이 바로 가기를 제거합니다. 데이터는 삭제되지 않습니다."
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Usuń ten skrót. Dane, do których się odwołuje, nie zostaną usunięte."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Удалить этот ярлык. При этом основные данные не будут удалены."
-          }
-        },
-        "zh-HK" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "刪除此捷徑。它指向的資料不會被刪除。"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "删除此快捷方式。快捷方式背后指向的数据不会被删除。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "刪除這個捷徑。不會刪除它指向的資料。"
-          }
-        }
-      }
-    },
     "Delete this snapshot" : {
       "localizations" : {
         "ar" : {
@@ -11260,6 +11096,88 @@
         }
       }
     },
+    "Disposable" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "وضع الاستخدام لمرة واحدة"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wegwerfmodus"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Desechable"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kertakäyttötila"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mode jetable"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usa e getta"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "使い捨て"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "일회용 모드"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tryb jednorazowy"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Одноразовый режим"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "一次性模式"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "一次性模式"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "一次性模式"
+          }
+        }
+      }
+    },
     "Disposable Mode" : {
       "comment" : "VMDisplayAppleWindowController",
       "localizations" : {
@@ -11303,88 +11221,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "使い捨てモード"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "일회용 모드"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Tryb jednorazowy"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Одноразовый режим"
-          }
-        },
-        "zh-HK" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "一次性模式"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "一次性模式"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "一次性模式"
-          }
-        }
-      }
-    },
-    "Disposible" : {
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "وضع الاستخدام لمرة واحدة"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Wegwerfmodus"
-          }
-        },
-        "es-419" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Desechable"
-          }
-        },
-        "fi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kertakäyttötila"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mode jetable"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Usa e getta"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "使い捨て"
           }
         },
         "ko" : {
@@ -17889,84 +17725,84 @@
         }
       }
     },
-    "If checked, the drive image will be stored with the VM." : {
+    "If checked, the drive image will not be stored with the VM." : {
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "إذا تم تحديده، ستُخزن صورة القرص مع الآلة الافتراضية."
+            "value" : "إذا تم تحديده، فلن تُخزَّن صورة القرص مع الآلة الافتراضية."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Wenn diese Option aktiviert ist, wird das Laufwerksimage mit der VM gespeichert."
+            "state" : "translated",
+            "value" : "Wenn diese Option aktiviert ist, wird das Laufwerksimage nicht mit der VM gespeichert."
           }
         },
         "es-419" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Si está marcada, la imagen de la unidad se almacenará con la VM."
+            "state" : "translated",
+            "value" : "Si está marcada, la imagen de la unidad no se almacenará con la VM."
           }
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Jos tämä on valittuna, aseman kuva tallennetaan virtuaalikoneeseen."
+            "state" : "translated",
+            "value" : "Jos tämä on valittuna, aseman levykuvaa ei tallenneta virtuaalikoneen mukana."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Si coché, l’image de lecteur sera stockée avec la VM."
+            "value" : "Si cette case est cochée, l’image du lecteur ne sera pas stockée avec la VM."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Se attivo, l'immagine disco sarà salvata insieme alla VM."
+            "value" : "Se selezionato, l'immagine disco non verrà archiviata con la VM."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "チェックを入れると、ドライブイメージが仮想マシンに保存されます。"
+            "value" : "チェックを入れると、ドライブイメージは仮想マシンに保存されません。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "활성화하면 드라이브 이미지가 가상 머신과 함께 저장됩니다."
+            "value" : "활성화하면 드라이브 이미지가 가상 머신과 함께 저장되지 않습니다."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Jeśli zaznaczone, obraz dysku będzie przechowywany wraz z maszyną wirtualną."
+            "value" : "Jeśli ta opcja jest zaznaczona, obraz dysku nie będzie przechowywany wraz z maszyną wirtualną."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Если этот флажок установлен, образ диска будет храниться вместе с виртуальной машиной."
+            "state" : "translated",
+            "value" : "Если этот флажок установлен, образ диска не будет храниться вместе с ВМ."
           }
         },
         "zh-HK" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "如選擇，磁碟映像檔將會與虛擬機一起儲存。"
+            "value" : "如選擇，磁碟映像檔不會與虛擬機一起儲存。"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "若选中，驱动器映像将和虚拟机一起存储。"
+            "value" : "若选中，驱动器映像不会和虚拟机一起存储。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "核取後，磁碟機映像檔會和虛擬機器存放在一起。"
+            "value" : "核取後，磁碟機映像檔不會和虛擬機器存放在一起。"
           }
         }
       }
@@ -20026,7 +19862,7 @@
         }
       }
     },
-    "Install Windows 10 or higher" : {
+    "Install Windows 10 or later" : {
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -20036,8 +19872,8 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Installieren Sie Windows 10 oder höher"
+            "state" : "translated",
+            "value" : "Windows 10 oder neuer installieren"
           }
         },
         "es-419" : {
@@ -20048,7 +19884,7 @@
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Asenna Windows 10 tai uudempi"
           }
         },
@@ -20073,7 +19909,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Windows 10 이상 설치"
+            "value" : "Windows 10 이후 버전 설치"
           }
         },
         "pl" : {
@@ -21429,7 +21265,7 @@
         }
       }
     },
-    "Killing" : {
+    "Kill" : {
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -21482,13 +21318,13 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zakończenie procesu"
+            "value" : "Wymuszone zakończenie"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Завершение процесса"
+            "value" : "Принудительное завершение"
           }
         },
         "zh-HK" : {
@@ -29316,13 +29152,13 @@
         }
       }
     },
-    "Querying USB devices..." : {
+    "Querying USB devices…" : {
       "comment" : "VMDisplayAppleWindowController",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "يتم الاستعلام عن أجهزة USB..."
+            "value" : "يتم الاستعلام عن أجهزة USB…"
           }
         },
         "de" : {
@@ -29339,8 +29175,8 @@
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Kysellään USB-laitteita..."
+            "state" : "translated",
+            "value" : "Kysellään USB-laitteita…"
           }
         },
         "fr" : {
@@ -29352,7 +29188,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Verifica dello stato dei dispositivi USB…"
+            "value" : "Verifica dei dispositivi USB…"
           }
         },
         "ja" : {
@@ -29370,7 +29206,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zbieranie informacji o statusie urządzeń USB..."
+            "value" : "Zbieranie informacji o urządzeniach USB…"
           }
         },
         "ru" : {
@@ -29399,13 +29235,13 @@
         }
       }
     },
-    "Querying drives status..." : {
+    "Querying drive status…" : {
       "comment" : "VMDisplayWindowController",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "يتم الاستعلام عن حالة الأقراص..."
+            "value" : "يتم الاستعلام عن حالة الأقراص…"
           }
         },
         "de" : {
@@ -29422,14 +29258,14 @@
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Asemien tilaa kysytään..."
+            "state" : "translated",
+            "value" : "Kysellään asemien tilaa…"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Recherche du statut des lecteurs…"
+            "value" : "Récupération de l’état des lecteurs…"
           }
         },
         "it" : {
@@ -29453,7 +29289,7 @@
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zbieranie informacji o statusie dysków..."
+            "value" : "Zbieranie informacji o statusie dysków…"
           }
         },
         "ru" : {
@@ -30564,6 +30400,88 @@
         }
       }
     },
+    "Remove this shortcut. The underlying data will not be deleted." : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "إزالة هذا الاختصار. لن تُحذف البيانات التي يشير إليها."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Entfernen Sie diese Verknüpfung. Die zugrunde liegenden Daten werden nicht gelöscht."
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elimina este acceso directo. Los datos subyacentes no se eliminarán."
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Poista tämä pikakuvake. Sen osoittamia tietoja ei poisteta."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Retire ce raccourci. Les données sous-jacentes ne seront pas supprimées."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rimuovi questa scorciatoia. I dati sottostanti non verranno eliminati."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このショートカットを削除します。リンク先のデータは削除されません。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이 바로 가기를 제거합니다. 원본 데이터는 삭제되지 않습니다."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Usuń ten skrót. Dane, do których prowadzi skrót, nie zostaną usunięte."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Удалить этот ярлык. Данные, на которые он ссылается, не будут удалены."
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "移除此捷徑。它指向的資料不會被刪除。"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "移除此快捷方式。快捷方式指向的数据不会被删除。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "移除這個捷徑。不會刪除它指向的資料。"
+          }
+        }
+      }
+    },
     "Remove…" : {
       "comment" : "VMDisplayAppleController",
       "localizations" : {
@@ -31304,7 +31222,7 @@
         }
       }
     },
-    "Requires restarting UTM to take affect." : {
+    "Requires restarting UTM to take effect." : {
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -31314,19 +31232,19 @@
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Um wirksam zu werden, ist ein Neustart von UTM erforderlich."
+            "state" : "translated",
+            "value" : "Wird erst nach einem Neustart von UTM wirksam."
           }
         },
         "es-419" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Requiere reiniciar UTM para que surta efecto."
           }
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Vaatii UTM:n uudelleenkäynnistyksen, jotta se tulee voimaan."
           }
         },
@@ -31339,7 +31257,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Richiede il riavvio di UTM."
+            "value" : "Richiede il riavvio di UTM per avere effetto."
           }
         },
         "ja" : {
@@ -31362,7 +31280,7 @@
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Требуется перезапуск UTM, чтобы изменения вступили в силу."
           }
         },
@@ -35921,67 +35839,67 @@
         }
       }
     },
-    "Setting up the guest automatically requires a macOS virtual machine and macOS 27 or later on Apple Silicon." : {
+    "Setting up the guest automatically requires a macOS virtual machine and macOS 27 or later on Apple silicon." : {
       "comment" : "UTMAppleVirtualMachine",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "يتطلب إعداد الضيف تلقائيًا جهازًا افتراضيًا يعمل بنظام macOS ونظام التشغيل macOS 27 أو إصدار أحدث على Apple Silicon."
+            "state" : "translated",
+            "value" : "يتطلب إعداد الضيف تلقائيًا آلة افتراضية تعمل بنظام macOS ونظام التشغيل macOS 27 أو إصدارًا أحدث على Apple silicon."
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Für die automatische Einrichtung des Gastes sind eine virtuelle macOS-Maschine und macOS 27 oder höher auf Apple Silicon erforderlich."
+            "state" : "translated",
+            "value" : "Für die automatische Einrichtung des Gastes sind eine virtuelle macOS-Maschine und macOS 27 oder neuer auf einem Mac mit Apple-Chip erforderlich."
           }
         },
         "es-419" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "La configuración automática del invitado requiere una máquina virtual macOS y macOS 27 o posterior en Apple Silicon."
+            "state" : "translated",
+            "value" : "La configuración automática del invitado requiere una máquina virtual macOS y macOS 27 o posterior en una Mac con chip de Apple."
           }
         },
         "fi" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Vieraan automaattinen käyttöönotto edellyttää macOS-virtuaalikonetta ja macOS 27:ää tai uudempaa Apple Siliconissa."
+            "state" : "translated",
+            "value" : "Vieraan automaattinen määritys edellyttää macOS-virtuaalikonetta sekä Applen sirulla varustettua Macia, jossa on macOS 27 tai uudempi."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "La configuration automatique de l'invité nécessite une machine virtuelle macOS et macOS 27 ou version ultérieure sur Apple Silicon."
+            "state" : "translated",
+            "value" : "La configuration automatique de l'invité nécessite une machine virtuelle macOS et macOS 27 ou version ultérieure sur un Mac avec puce Apple."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "La configurazione dell'ospite richiede automaticamente una macchina virtuale macOS e macOS 27 o versione successiva su Apple Silicon."
+            "state" : "translated",
+            "value" : "La configurazione automatica del guest richiede una macchina virtuale macOS e macOS 27 o versioni successive su un Mac con chip Apple."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "ゲストを自動的にセットアップするには、Apple Silicon 上の macOS 仮想マシンと macOS 27 以降が必要です。"
+            "state" : "translated",
+            "value" : "ゲストを自動的にセットアップするには、macOS 仮想マシンと、Apple シリコン上の macOS 27 以降が必要です。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "게스트를 자동으로 설정하려면 macOS 가상 머신과 Apple Silicon의 macOS 27 이상이 필요합니다."
+            "state" : "translated",
+            "value" : "게스트를 자동으로 설정하려면 macOS 가상 머신이 필요하며, Apple Silicon이 탑재된 Mac에서 macOS 27 이후 버전을 실행해야 합니다."
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Automatyczna konfiguracja gościa wymaga maszyny wirtualnej z systemem macOS oraz systemu macOS 27 lub nowszego na platformie Apple Silicon."
+            "state" : "translated",
+            "value" : "Automatyczna konfiguracja gościa wymaga maszyny wirtualnej z systemem macOS oraz systemu macOS 27 lub nowszego na komputerze Mac z układem scalonym Apple."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "Для автоматической настройки гостя требуется виртуальная машина macOS и macOS 27 или более поздней версии на Apple Silicon."
+            "state" : "translated",
+            "value" : "Для автоматической настройки гостевой системы требуются виртуальная машина macOS и macOS 27 или более поздней версии на Mac с чипом Apple."
           }
         },
         "zh-HK" : {
@@ -35998,8 +35916,8 @@
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : "自動設定訪客需要 macOS 虛擬機器以及 Apple Silicon 上的 macOS 27 或更高版本。"
+            "state" : "translated",
+            "value" : "自動設定客體需要 macOS 虛擬機器，以及在 Apple 晶片上執行的 macOS 27 或以上版本。"
           }
         }
       }
@@ -38317,7 +38235,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "بدء"
+            "value" : "بدء التشغيل"
           }
         },
         "de" : {
@@ -38329,13 +38247,13 @@
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Inicio"
+            "value" : "Iniciar"
           }
         },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Aloita"
+            "value" : "Käynnistä"
           }
         },
         "fr" : {
@@ -38347,7 +38265,7 @@
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Inizia"
+            "value" : "Avvia"
           }
         },
         "ja" : {
@@ -38371,7 +38289,7 @@
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Запуск"
+            "value" : "Запустить"
           }
         },
         "zh-HK" : {
@@ -38383,7 +38301,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "开始"
+            "value" : "启动"
           }
         },
         "zh-Hant" : {
@@ -49782,6 +49700,96 @@
     },
     "webOS" : {
       "shouldTranslate" : false
+    },
+    "wizard.start.title" : {
+      "comment" : "Title of the first page of the new VM wizard. The Start button that runs a VM is a separate string.",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "البدء"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Start"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inicio"
+          }
+        },
+        "fi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aloitus"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pour commencer"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inizia"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "はじめに"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "시작하기"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Początek"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Начало работы"
+          }
+        },
+        "zh-HK" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "開始"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "开始"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "開始"
+          }
+        }
+      }
     },
     "• " : {
       "localizations" : {

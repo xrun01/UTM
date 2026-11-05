@@ -39,7 +39,7 @@ struct VMWizardStartView: View {
     }
     
     var body: some View {
-        VMWizardContent("Start") {
+        VMWizardContent(title: Text(String(localized: "wizard.start.title", defaultValue: "Start", comment: "Title of the first page of the new VM wizard. The Start button that runs a VM is a separate string."))) {
             Section {
                 let virtButton = Button {
                     wizardState.useVirtualization = true

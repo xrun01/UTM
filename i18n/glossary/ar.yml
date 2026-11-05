@@ -37,6 +37,7 @@ capture-mouse: التقاط الماوس؛ زر التقاط الماوس
 keys: مفتاح Control، مفتاح Option  # https://support.apple.com/ar-ae/102650
 toolbar: شريط الأدوات
 settings: الإعدادات
+rosetta: Rosetta（保留拉丁字母，不音译）  # https://support.apple.com/ar-ae/102527
 or-later: أو إصدار أحدث؛作宾语时用宾格 أو إصدارًا أحدث
 classic-systems: الأنظمة الكلاسيكية
 

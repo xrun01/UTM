@@ -126,7 +126,7 @@ struct VMContextMenuModifier: ViewModifier {
                 } label: {
                     Label("Remove", systemImage: "trash")
                 }.disabled(!vm.isModifyAllowed)
-                .help("Delete this shortcut. The underlying data will not be deleted.")
+                .help("Remove this shortcut. The underlying data will not be deleted.")
             } else {
                 DestructiveButton {
                     confirmAction = .confirmDeleteVM(vm: vm)
