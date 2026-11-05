@@ -43,3 +43,25 @@ settings: կարգավորումներ
 rosetta: Rosetta，用连字符加词尾：Rosetta-ն、Rosetta-ի
 cpu: պրոցեսոր；CPU 核心 = պրոցեսորային միջուկ
 classic-systems: դասական համակարգեր
+# 以下是审校界面文案时新定的译法（不在 terms.yml 中）
+vm-abbreviation: VM 写全称 վիրտուալ մեքենա（不用 VM、ՎՄ）；快捷指令搜索关键词 vm 写 վմ
+host: հոսթ；主机 = հոսթ մեքենա，主机系统 = հոսթ օպերացիոն համակարգ（不用 հյուրընկալող，它和 guest 的 հյուր 同词根）
+drive: սկավառակ；Removable Drive = Շարժական սկավառակ，External Drive = Արտաքին սկավառակ（不用 դրայվ、կրիչ）；驱动程序 driver = դրայվեր
+image: պատկեր（磁盘或安装映像）；disk image = սկավառակի պատկեր，boot image = բեռնման պատկեր；snapshot 必须写全 ակնթարթային պատկեր，不单写 պատկեր
+boot: բեռնում；Boot Device = Բեռնման սարք，Bootloader = Բեռնիչ（不用 բեռնախցիկ，它是汽车后备箱）
+configuration: կազմաձև（不用 կոնֆիգուրացիա）
+display: էկրան；Displays = Էկրաններ
+memory: հիշողություն；storage = պահեստ，internal storage = ներքին պահեստ，两者区分
+input: ներածում；output = արտածում；Capture Input = Գրավել ներածումը（不用 մուտքագրում、նկարել）
+interface: ինտերֆեյս（硬件或网络接口）；网络接口选择器写 Ցանցային ինտերֆեյս（不用 միջերես）
+console: կոնսոլ（不用 վահանակ）
+serial: Սերիական պորտ（不用 Սերիա）
+directory: գրացուցակ（和 folder = թղթապանակ 区分，不用 դիրեկտորիա）
+share: 分享按钮 Share = Կիսվել；共享功能用 համօգտագործել（不用 ընդհանուր）
+vm-actions: Start/Run = Գործարկել，Stop = Կանգնեցնել，Pause = Դադար（动词 դադար տալ），Suspend = Կասեցնել，Resume = Շարունակել，Restart = Վերագործարկել，Restore = Վերականգնել
+vm-states: Started = Գործարկված է，Starting = Գործարկվում է，Stopped = Կանգնեցված է，Paused = Դադարի մեջ է，Suspended = Կասեցված է，Resuming = Շարունակվում է，Restoring = Վերականգնվում է
+stop-method: Request = Անջատման հարցում，Force = Հարկադիր անջատում，Kill = Գործընթացի ավարտ；停止菜单项写动词：Ուղարկել անջատման հարցում、Անջատել հարկադրաբար、Ավարտել գործընթացը հարկադրաբար
+generic-default: Generic = Ստանդարտ，Default = Կանխադրված，Custom = Անհատական
+keystroke: ստեղնահարում；scan code = սկան-կոդ；modifier key = մոդիֆիկատոր ստեղն
+macos-ui: Dock 保留原名（Dock-ի պատկերակ）；menu bar = ընտրացանկի գոտի；macOS 没有亚美尼亚语界面，系统菜单名（Virtual Machine Accessories）保留英文
+ui-style: 按钮、菜单项、开关、操作说明用动词不定式（Ստեղծել、Ջնջել）；对用户的指令用命令式（Ընտրեք）；数词后的名词用单数（4 միջուկ）；GiB = ԳիԲ，MiB = ՄիԲ

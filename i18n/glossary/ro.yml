@@ -42,3 +42,18 @@ settings: configurări  # Apple 罗马尼亚语「Configurări sistem」：https
 classic-systems: sisteme clasice
 cpu: CPU（不变格；「30 多种 CPU」= peste 30 de tipuri de CPU）
 rosetta: Rosetta（阴性，例如 Rosetta este disponibilă、trebuie instalată Rosetta）  # https://support.apple.com/ro-ro/102527
+# 下面是 75 种语言审校时补的界面术语，terms.yml 中还没有
+vm: 英文缩写 VM 也译 mașină virtuală（阴性，例如 această mașină virtuală、mașina virtuală selectată），不用 VM、VM-ul
+ui-style: 按钮、菜单项、工具栏标签、设置开关、快捷指令动作名用 Apple 的第二人称单数命令式（Anulează、Șterge、Afișează pictograma în Dock）；完整句子、提示和说明用敬称（Selectați…、Doriți să…?）
+drive: unitate；Drives = Unități；drive image = imagine de unitate；disk image = imagine de disc
+kernel: kernel（不用 nucleu，nucleu 留给 CPU 核心：%lld nuclee、Nuclee CPU）
+boot: pornire；Boot Image = Imagine de pornire，UEFI Boot = Pornire UEFI（不用 boot）；Secure Boot 按术语表写 bootare sigură
+read-only: doar citire；Read Only = Doar citire；read-only drive images = imagini de unitate doar pentru citire  # Finder「Doar citire」
+display: afișaj；Displays = Afișaje
+directory: director（Shared Directory = Director partajat）；folder 按术语表写 dosar
+host: gazdă；Host Networks = Rețele gazdă
+vm-state: 完成状态用阴性（Pornită、Oprită、Întreruptă、Suspendată），进行中状态写「Se …」（Se pornește、Se oprește、Se reia、Se restaurează）
+pause-suspend: Pause = Întrerupe，Suspend = Suspendă，Resume = Reia，Restore = Restaurează；Eject = Scoate，Delete = Șterge，Remove = Elimină
+gallery: Galeria UTM（官网下载页）；UTM Library = Biblioteca UTM
+dock: Dock（pictograma din Dock，不用 andocare）
+stop-method: Request = Solicitare oprire，Force = Oprire forțată，Kill = Terminare forțată（名词，同组一致）

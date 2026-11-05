@@ -44,3 +44,30 @@ keys: کلید Control، کلید Option
 toolbar: نوار ابزار
 settings: تنظیمات
 classic-systems: سیستم‌عامل‌های کلاسیک
+# 以下是 2026-11 审校时新定的界面术语（terms.yml 中没有）
+image: ایمیج（磁盘、启动、内核映像文件；Disk Image = ایمیج دیسک，Boot Image = ایمیج بوت，不写 تصویر）
+drive: درایو；Removable Drive = درایو جداشدنی，External Drive = درایو خارجی
+directory: پوشه（和 shared-folder 同译：Shared Directory = پوشه مشترک；不写 فهرست、دایرکتوری）
+display: نمایشگر；Displays = نمایشگرها
+start: شروع；Starting = در حال شروع，Started = شروع‌شده；向导标题 wizard.start.title = آغاز（和按钮区分）
+run: اجرا；restart = راه‌اندازی مجدد；reset = بازنشانی
+pause: مکث；Paused = مکث‌شده，Pausing = در حال مکث（和 suspend、stop 区分）
+suspend: تعلیق；Suspended = تعلیق‌شده，suspended state = حالت تعلیق
+stop: توقف；Stopped = متوقف‌شده，Stopping = در حال توقف
+resume: ازسرگیری；Resuming = در حال ازسرگیری（和 restore 区分）
+restore: بازگردانی（从快照恢复）；Restoring = در حال بازگردانی；recovery mode = حالت بازیابی
+delete: حذف（永久删除）；remove = برداشتن（移除快捷方式、共享目录、设备）；eject = خارج کردن；Extracting… = در حال استخراج…
+kill: خاتمه اجباری；停止方式：Request = درخواست توقف，Force = توقف اجباری，Kill = خاتمه اجباری
+capture-input: گرفتن ورودی（和 capture-mouse 一致；不写 ضبط，ضبط 是「录制」）
+serial: درگاه سریال（不只写 سریال，会读成序列号）
+shortcut: میانبر（指向别处虚拟机的快捷方式，不是快捷指令 App）；Keyboard shortcuts = میانبرهای صفحه‌کلید
+memory: حافظه；storage = فضای ذخیره‌سازی（internal storage = فضای ذخیره‌سازی داخلی），两者区分
+screenshot: اسکرین‌شات
+keystroke: ضربه کلید；Keystrokes = ضربه‌های کلید；modifier key = کلید تغییردهنده
+custom: سفارشی；generic = عمومی；default = پیش‌فرض（三者区分）
+gallery: گالری；UTM Library = کتابخانه UTM（两者区分）
+host-machine: دستگاه（宿主 Mac 写 دستگاه 或 دستگاه میزبان，不写 ماشین，避免和 ماشین مجازی 混淆）
+units: GiB、MiB 保留单位符号，不写 گیگابایت（那是 GB）
+dock: داک（نماد داک）
+vm-short: 不用缩写 VM，写 ماشین مجازی；数词后名词用单数：%lld ماشین مجازی
+punctuation: 引号用 «»；问号用 ؟；逗号用 ،；按钮、菜单项、开关用名词短语（فعال کردن …、حذف …），不用「…کنید」

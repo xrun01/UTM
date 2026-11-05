@@ -58,3 +58,9 @@ quit: 退出 App = Zakończ（不用 Wyjdź）
 vm-state: 进行中的状态标签用动名词，例如 Uruchamianie、Wstrzymywanie、Wznawianie、Zatrzymywanie（不用第 1 人称动词）
 generic: ogólny（Generic = Ogólne，Generic Mouse = Ogólna mysz，Generic USB 键盘选项 = Ogólna klawiatura USB）
 removable: wymienny；Removable Drive = Dysk wymienny（External Drive = Dysk zewnętrzny，两者不能同词）
+# 以下在 75 种语言轮次的 needs_review 批次中定下（各出现 3 次以上）
+power-down: power down = wyłączenie；Request power down = Wyślij żądanie wyłączenia（不写 wyłączenie zasilania）
+scan-code: kod skanowania；复数 kody skanowania
+keystroke: naciśnięcie klawisza；sequence of keystrokes = sekwencja naciśnięć klawiszy
+recovery-image: IPSW recovery image = obraz odzyskiwania IPSW；recovery mode = tryb odzyskiwania
+snapshot-take: take a snapshot = wykonać migawkę；snapshot operation = operacja na migawce

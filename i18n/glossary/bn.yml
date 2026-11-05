@@ -44,3 +44,23 @@ keys: Control কী、Option কী  # 未查到 Apple 孟加拉语 Mac 写法�
 toolbar: টুলবার  # 未查到 Apple 孟加拉语 Mac 写法
 settings: সেটিংস  # https://support.apple.com/bn-in/guide/iphone/iph9374b7411/27/ios/27
 classic-systems: ক্লাসিক সিস্টেম
+# 以下不在 terms.yml，在 needs_review 和补译批次中出现 3 次以上，由改稿代理定下。
+drive: ড্রাইভ；驱动器映像 = ড্রাইভ ইমেজ
+image: ইমেজ；磁盘映像 = ডিস্ক ইমেজ（不用 চিত্র、ছবি，那是图画、照片）
+display: ডিসপ্লে
+directory: ডিরেক্টরি；共享目录 = শেয়ার করা ডিরেক্টরি（和 shared-folder 写法一致）
+version: ভার্সন（不用 সংস্করণ）  # https://support.apple.com/bn-in/guide/iphone/iph9374b7411/27/ios/27（「iOS 17 অথবা এর পরবর্তী ভার্সন」）
+recovery: রিকভারি；恢复模式 = রিকভারি মোড，恢复 IPSW = রিকভারি IPSW（পুনরুদ্ধার 只用于从快照恢复 Restore）
+status: স্থিতি（status）；state（状态）= অবস্থা
+vm-actions: Start = চালু করুন；Run = চালান；Stop = বন্ধ করুন；Pause = বিরতি দিন；Suspend = স্থগিত করুন；Resume = চালিয়ে যান；Restart = রিস্টার্ট করুন；Restore = পুনরুদ্ধার করুন
+vm-states: 进行态用「…হচ্ছে」，完成态用「…হয়েছে」，例如 চালু হচ্ছে、চালু হয়েছে、বিরতি দেওয়া হয়েছে、স্থগিত করা হয়েছে
+remove: অপসারণ করুন；Move = সরান；Delete = মুছুন；Eject = বের করুন；Clear = সাফ করুন
+read-only: শুধুমাত্র পঠনযোগ্য
+full-screen: পূর্ণ স্ক্রিন
+built-in: বিল্ট-ইন
+process: প্রসেস；强制结束进程 = কিল করা
+text: টেক্সট（不用 পাঠ্য）
+storage: স্টোরেজ（存储空间）；Memory = মেমরি
+import: আমদানি করুন
+serial: সিরিয়াল পোর্ট（单写 সিরিয়াল 读成序号）
+finder: Finder（Apple App 名，保留拉丁字母）

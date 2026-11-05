@@ -47,3 +47,11 @@ rosetta: Rosetta  # https://support.apple.com/de-de/102527
 display: Display；复数 Displays（工具栏项、菜单都用 Displays，不用 Bildschirm、Fenster）
 vm-shortcut: Verknüpfung（指向 VM 存放位置的快捷方式；不是 Kurzbefehle）
 memory: Arbeitsspeicher（虚拟机内存 RAM；Storage = Datenspeicher，不用单独的 Speicher）  # https://support.apple.com/de-de/guide/mac-help/syspr35536/mac（「Informationen über den Arbeitsspeicher deines Computers」）
+disk-image: Laufwerksimage（disk image 和 drive image 同译；不用 Disk-Image、Festplatten-Image、Laufwerksbild）
+vm-state: Zustand（虚拟机状态：Save State = Zustand speichern、Current State = Aktueller Zustand；Status 只用于 status）
+stop-vm: ausschalten（Stop = Ausschalten、Stopped = Ausgeschaltet；Stop Method = Stoppmethode）
+pause-vm: pausieren（Pause = Pause、Paused = Pausiert；不用 anhalten）
+suspend-vm: aussetzen（Suspend = Aussetzen、Suspended = Ausgesetzt；suspended state = ausgesetzter Zustand）
+power-down: Herunterfahren（Request Power Down = Herunterfahren anfordern；不用 Abschaltung）
+directory: Ordner（Shared Directory = Freigegebener Ordner；不用 Verzeichnis）
+share-vm: teilen（分享 VM 副本：Share… = Teilen…；freigeben 只用于共享文件夹）

@@ -42,3 +42,24 @@ settings: ρυθμίσεις
 classic-systems: κλασικά συστήματα
 cpu: CPU（不变格，复数也写 CPU；「30 多种 CPU」= περισσότεροι από 30 τύποι CPU）
 rosetta: Rosetta（中性，το Rosetta，不变格）  # https://support.apple.com/el-gr/102527
+# 以下是 terms.yml 没有、但待审条目中出现 3 次以上的界面术语（2026-11-05 审校时定）。
+# 写法规则：引号用 «»；按钮、菜单项、开关、帮助提示和快捷指令说明用名词形式（Προσθήκη、Διαγραφή…），不用命令式；标题用句首大写；不用缩写 VM。
+drive: μονάδα δίσκου；复数 μονάδες δίσκου（不写 δίσκος，那是 disk）
+disk-image: εικόνα δίσκου；映像统称 εικόνα（不用 είδωλο）
+install: εγκατάσταση；εγκαθιστώ
+host: κεντρικός υπολογιστής
+display: οθόνη；Displays 菜单 = Οθόνες
+directory: κατάλογος；共享目录 = κοινόχρηστος κατάλογος（folder 是 φάκελος）
+storage: χώρος αποθήκευσης（和 memory = μνήμη 区分）
+start-stop: Start = Εκκίνηση；Stop = Διακοπή；Restart = Επανεκκίνηση；Run = Εκτέλεση
+pause-suspend: Pause = Παύση，Paused = Σε παύση；Suspend = Αναστολή，Suspended = Σε αναστολή，suspended state = κατάσταση αναστολής
+resume-restore: Resume = Συνέχιση；Restore（快照）= Επαναφορά；Reset = Επαναφορά
+vm-states: 进行中 = Γίνεται + 名词（Γίνεται εκκίνηση、Γίνεται διακοπή）；Started = Σε λειτουργία；Stopped = Σταματημένη
+remove-delete-eject: Remove = Αφαίρεση；Delete = Διαγραφή；Eject = Εξαγωγή；Extracting… = Αποσυμπίεση…
+kill: 强制终止进程 = αναγκαστικός τερματισμός διεργασίας；Kill 选项 = Τερματισμός διεργασίας；Force = Εξαναγκασμός；Request = Αίτημα
+power-down: απενεργοποίηση；Request power down = Αίτημα απενεργοποίησης
+capture-input: δέσμευση εισόδου（和 capture-mouse 一致；不用 καταγραφή、λήψη）
+guest-account: λογαριασμός στο σύστημα επισκέπτη（不写 λογαριασμός επισκέπτη，会读成 macOS 访客账户）
+dock: Dock；Dock 图标 = εικονίδιο στο Dock
+gallery-library: UTM Gallery = Συλλογή UTM；UTM Library = Βιβλιοθήκη UTM
+serial: σειριακή θύρα（不是 σειρά、σειριακός αριθμός）

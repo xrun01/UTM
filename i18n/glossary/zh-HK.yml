@@ -59,3 +59,8 @@ suspend: 擱置；suspended = 已擱置；suspended state = 擱置狀態；pause
 kill: 強制結束（Quit = 結束，kill 必须带「強制」）
 import: 匯入（Apple 香港写「輸入」，但本 App 设置里 Input = 輸入（输入设备），回译分不开，所以改用「匯入」，与 zh-Hant 一致）
 create: 製作
+run: 執行（running = 正在執行；不用「運行」）
+send: 傳送（快捷指令的 Send Keystrokes、Send Scan Code、Send Mouse Click 同用「傳送」；不用「發送」）
+scan-code: 掃描碼（不写「掃碼」，那是扫二维码）
+resume: 繼續；Resume Virtual Machine = 繼續執行虛擬機（不用「恢復」「復原」，与 restore = 還原 区分）
+built-in: 內置（按已审校译文 Built-in Terminal = 內置終端機；不用台湾的「內建」）

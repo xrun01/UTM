@@ -46,3 +46,30 @@ settings: mga setting
 classic-systems: mga klasiko nga sistema
 cpu: CPU
 rosetta: Rosetta  # https://support.apple.com/en-ph/102527
+# 以下是本轮审校新定的界面术语（terms.yml 没有，在待审条目中出现 3 次以上）。待主代理决定是否补进 terms.yml。
+drive: drive；复数 mga drive（不用 pagdrayb、pagmaneho，二者是「开车」）
+image: image；disk image、drive image、ISO image、boot image、kernel image、recovery image（不用 imahe、hulagway，hulagway 是图片）
+device: device；复数 mga device（不用 aparato）
+configuration: configuration（指配置本身；配置的动作写 pag-configure）
+directory: direktoryo；共享目录 = gipaambit nga direktoryo
+display: display；复数 mga display
+data: datos（不用 data）
+state: kahimtang；保存的状态 = na-save nga kahimtang；挂起状态 = gisuspinde nga kahimtang（不用 estado）
+status: kahimtang
+save: i-save；未保存 = wala ma-save（不用 luwas、maluwas、tipig）
+delete: papason；按钮 Papasa（不用 kuhaa、i-delete）
+remove: tangtangon；按钮 Tangtanga（不用 kuhaa，kuhaa 也是「获取」）
+eject: i-eject
+install: i-install；名词 pag-install（不用 instalar）
+recovery: recovery；recovery mode、recovery IPSW（不用 pagbawi）
+restore: ibalik；状态 Restoring = Nagbalik（不用 pasig-uli）
+path: path（不用 dalan、agianan）
+read-only: basahon lang（不用 read only）
+memory: memorya
+storage: storage（不用 pagtipig，pagtipig 也是「保存」）
+error: sayop（不用 sayup）
+if-enabled: Kung naka-enable（不用 Kung mahimo，那是「如果可以」）
+dock: Dock（Apple 的 Dock，不用 pantalan，pantalan 是港口）
+stop-pause-suspend: Stop = ihunong；Pause = i-pause（Paused = Naka-pause）；Suspend = isuspinde（Suspended = Gisuspinde）
+stop-method: Request = Paghangyo；Force = Pagpuwersa；Kill = Pagpatay
+gallery-library: Gallery = Galeriya；UTM Library = Librarya sa UTM

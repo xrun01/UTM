@@ -41,3 +41,22 @@ toolbar: panel nástrojů
 settings: nastavení
 classic-systems: klasické systémy
 rosetta: Rosetta，按 Apple 捷克语变格：Rosetty、Rosettě、Rosettu  # https://support.apple.com/cs-cz/102527
+cpu: CPU（中性，例如 10jádrové CPU）；CPU Cores = Jádra CPU  # https://www.apple.com/cz/macbook-air/specs/
+# 以下不在 terms.yml，在 needs_review 和补译批次中出现 3 次以上，由改稿代理定下
+drive: disk（不用 jednotka）；External Drive = Externí disk，Removable Drive = Vyměnitelný disk（两者不能同词）  # https://support.apple.com/cs-cz/guide/mac-help/mchlp2304/mac（「disků」）
+disk-image: obraz disku；image 单用时写 obraz（不用 obrázek、bitová kopie）  # https://support.apple.com/cs-cz/guide/disk-utility/dskutl11888/mac
+display: monitor；Displays = Monitory（不用 displej）  # https://support.apple.com/cs-cz/guide/mac-help/mchl3a7ba2b7/mac（「Připojení externího monitoru」）
+menu-bar: řádek nabídek（不用 panel nabídek）；Dock 原样大写，ikona v Docku  # https://support.apple.com/cs-cz/guide/mac-help/mchlp1446/mac
+recovery: zotavení（Zotavení macOS；recovery mode = režim zotavení；recovery IPSW = IPSW pro zotavení），不用 obnovení  # https://support.apple.com/cs-cz/102518
+restore-resume: Restore = Obnovit，Restoring = Obnovuje se；Resume = Pokračovat，Resuming = Pokračuje（两组不能同词）
+pause-suspend: Pause = Pozastavit，Paused = Pozastaveno；Suspend = Uspat，Suspended = Uspáno，suspend state = stav uspání；Stop = Zastavit（三者不能同词）
+vm-state: 进行中的状态用「动词 + se」，例如 Spouští se、Zastavuje se、Ukládá se；完成的状态用中性被动形容词，例如 Spuštěno、Zastaveno
+boot: 名词 spouštění（Boot、UEFI Boot、Secure Boot）；形容词 spouštěcí（Boot Image = Spouštěcí obraz）；动词 spustit
+delete-remove: Delete = Smazat；Remove = Odstranit（不用 odebrat）；Eject = Vysunout
+vm-shortcut: zástupce（UTM 中指向别处虚拟机的快捷方式；不用 zkratka，避免和 Zkratky App 混淆）
+shared-directory: sdílený adresář；Shared Folder 仍写 sdílená složka
+input-capture: zachytávání vstupu；Capture Input = Zachytit vstup
+serial: sériový port（Serial、Serial %lld、Serial (TTY) 统一）
+keystroke: stisknutí kláves（不用 úhozy）；modifier key = modifikační klávesa
+stop-method: Request = Požádat，Force = Vynutit，Kill = Ukončit proces；菜单 Force kill = Vynutit ukončení procesu
+help-text: 帮助提示和快捷指令说明：带句号的写第 3 人称（Smaže…、Spustí…）；不带句号的按钮提示和标签写不定式（Klonovat…）；要求用户操作的提示写命令式（Vyberte…）

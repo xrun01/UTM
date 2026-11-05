@@ -45,3 +45,37 @@ toolbar: ટૂલબાર  # https://support.apple.com/gu-in/guide/ipad/ipad77
 settings: સેટિંગ્સ  # https://support.apple.com/gu-in/guide/iphone/iph60ba71065/27/ios/27
 classic-systems: ક્લાસિક સિસ્ટમ
 # 版本统一写 વર્ઝન（Apple 写法），不用 સંસ્કરણ
+
+# 2026-11-05 审校新增：待审条目中出现 3 次以上、terms.yml 没有的界面术语
+image: ઇમેજ（磁盘、启动、内核映像；不用 છબી，不写 ઈમેજ）
+drive: ડ્રાઇવ（阴性：નવી ડ્રાઇવ；不写 ડ્રાઈવ）
+device: ઉપકરણ；复数 ઉપકરણો
+directory: ડિરેક્ટરી（阴性）；共享目录 = શેર કરેલી ડિરેક્ટરી（不用 ડાયરેક્ટરી、નિર્દેશિકા、વહેંચાયેલ）
+boot: બૂટ；બૂટ કરો（和 secure-boot 的 બૂટ 一致，不写 બુટ）
+configuration: રૂપરેખાંકન（不用 ગોઠવણી）
+recovery: પુનઃપ્રાપ્તિ；恢复模式 = પુનઃપ્રાપ્તિ મોડ
+import: આયાત કરો
+delete: કાઢી નાખો（永久删除；不用 ડિલીટ કરો）
+remove: દૂર કરો（移除，和 delete 区分）
+eject: ઇજેક્ટ કરો（和 delete、extract 区分）
+restart: પુનઃપ્રારંભ કરો
+resume: ફરી ચાલુ કરો（不用 ફરી શરૂ કરો，那会读成重新开始）
+restore: પુનઃસ્થાપિત કરો（从快照恢复）
+pause: થોભાવો；状态 થોભાવેલું
+suspend: સસ્પેન્ડ કરો；状态 સસ્પેન્ડ કરેલું
+stop: રોકો；状态 Stopped = બંધ
+state: સ્થિતિ（虚拟机状态、快照状态）
+status: સ્ટેટસ  # https://support.apple.com/gu-in/guide/iphone/iph60ba71065/27/ios/27（「iPhone સ્ટેટસ આઇકન」）
+position: સ્થાન（鼠标位置，和 state 的 સ્થિતિ 区分）
+read-only: ફક્ત વાંચવા માટે
+supported: સમર્થિત（不用 સપોર્ટેડ）
+size: કદ；调整大小 = કદ બદલો（不用 માપ）
+quit: બહાર નીકળો（退出 UTM，和 close 的 બંધ કરો 区分）
+save: સાચવો
+access: ઍક્સેસ  # https://support.apple.com/gu-in/guide/iphone/iph60ba71065/27/ios/27（「ફીચર ઍક્સેસ કરો」）
+shortcut: શૉર્ટકટ（虚拟机快捷方式，拼法和 shortcuts 一致）
+command-key: કમાંડ；Shift = શિફ્ટ；Caps Lock = Caps લૉક  # https://support.apple.com/gu-in/guide/ipad/ipad9a246749/ipados
+screenshot: સ્ક્રીનશૉટ  # https://support.apple.com/gu-in/guide/iphone/iph60ba71065/27/ios/27（「સ્ક્રીનશૉટ લો」）
+icon: આઇકન（不用 ચિહ્ન、આયકન）
+operation: ઑપરેશન
+account: એકાઉન્ટ；客户机账户 = ગેસ્ટ એકાઉન્ટ

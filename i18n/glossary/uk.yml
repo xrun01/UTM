@@ -42,3 +42,26 @@ settings: параметри（不用 налаштування）  # Apple 乌�
 classic-systems: класичні системи
 install: інсталювати；安装（名词）= інсталяція（不用 встановити、установити、встановлення）  # https://support.apple.com/uk-ua/102527（「Як інсталювати транслятор Rosetta」）
 rosetta: Rosetta，不变格；需要中心词时写 транслятор Rosetta  # https://support.apple.com/uk-ua/102527
+cpu: ЦП；CPU Cores = Ядра ЦП  # https://support.apple.com/uk-ua/guide/activity-monitor/welcome/mac
+# 以下是 2026-11 审校时新定的界面术语（terms.yml 中没有）
+image: образ（磁盘或安装映像文件；Drive Image = Образ диска，不写 зображення）
+drive: диск；Removable Drive = Знімний диск，External Drive = Зовнішній диск
+display: дисплей；Displays = Дисплеї
+directory: каталог；Shared Directory = Спільний каталог，Directory sharing = Спільний доступ до каталогів（shared folder 仍是 спільна папка）
+download: завантажити；名词 завантаження（Apple 写法。Boot 也是 завантаження，只用于系统启动：Boot Image = Завантажувальний образ）
+pause: пауза；Pause = Пауза，Paused = На паузі，Pausing = Постановка на паузу（和 suspend 区分）
+suspend: призупинити；Suspend = Призупинити，Suspended = Призупинено，suspended state = стан призупинення
+resume: продовжити роботу；Resume = Продовжити，Resuming = Продовження роботи（和 restore 区分）
+restore: відновити；Restore = Відновити，Restoring = Відновлення（从快照恢复）
+delete: видалити（永久删除）；remove = вилучити（移除快捷方式、共享目录），两者区分
+eject: вийняти（不写 видалити）；Extracting… = Розпакування…
+kill: примусово завершити；Kill（停止方式）= Завершення процесу，Force = Примусове вимкнення，Request = Запит
+serial: послідовний порт（不写 серійний номер）
+shortcut: ярлик（指向别处虚拟机的快捷方式，不是快捷指令 App）
+memory: пам’ять；RAM = ОЗП；storage = сховище（internal storage = внутрішнє сховище），两者区分
+screenshot: знімок екрана（不写 скріншот）
+custom: власний；generic = стандартний；default = за замовчуванням（三者区分）
+dock: Dock（значок у Dock，不写 док-станція）
+menu-bar: рядок меню
+vm-short: 不用缩写 ВМ，写 віртуальна машина
+punctuation: 撇号用 ’（U+2019）；引号用 «»

@@ -38,7 +38,31 @@ hardware-reset: Hardware-Reset
 mount: montéieren
 shared-library: gedeelt Bibliothéik；复数 gedeelt Bibliothéiken
 capture-mouse: d'Maus erfaassen；捕获鼠标按钮 = de Knäppchen „Maus erfaassen“  # https://lod.lu（erfaassen、Knäppchen）
-keys: Control-Tast、Optiounstast；同时写 2 个键 = d'Control-Tast an d'Optiounstast  # 参照 Apple 德语 https://support.apple.com/de-de/102650；Tast 见 https://lod.lu
+keys: Control-Tast、Optiounstast；同时写 2 个键 = d'Control-Tast an d'Optiounstast；Command = Kommandotast、Shift = Shift-Tast、Caps Lock = Caps-Lock-Tast、Escape = Escape-Tast；modifier keys = Sondertasten  # 参照 Apple 德语 https://support.apple.com/de-de/102650；Tast 见 https://lod.lu
 toolbar: Symbolleescht  # 参照 Apple 德语「Symbolleiste」
 settings: Astellungen  # https://lod.lu（Astellung = Option einer Software）
 classic-systems: klassesch Systemer
+rosetta: Rosetta  # 卢森堡语不变格
+cpu: Prozessor；CPU 核心 = Kär，复数 Kären  # 参照 Apple 德语「Prozessor」；与 intel-mac 的 Intel-Prozessor 一致
+# 以下是审校中出现 3 次以上、terms.yml 没有的界面术语（2026-11-05 补充）
+drive: Lafwierk；复数 Lafwierker；驱动器映像 = Lafwierksimage；可移动驱动器 = Wiessellafwierk；外部驱动器 = Externt Lafwierk  # https://lod.lu（Lafwierk）
+disk-image: Image（中性，d'Image）；disk image = Disk-Image；不用 Bild（图片）
+device: Apparat；复数 Apparater；USB-Apparat  # https://lod.lu（Apparat）
+file: Fichier；复数 Fichieren  # https://lod.lu（Fichier = digitale Datei）
+directory: Dossier（目录和文件夹同译）；共享目录 = gedeelten Dossier  # https://lod.lu（Dossier）
+data: Daten；数据丢失 = Dateverloscht  # https://lod.lu（Daten = digitale Daten）
+display: Display；复数 Displayen  # https://lod.lu（Display）
+memory: Aarbechtsspäicher（RAM）；storage = Späicher（存储空间），两者不同词
+input: Input；捕获输入 = Input erfaassen；输出 = Output
+recovery: Recovery；恢复模式 = Recovery-Modus；recovery IPSW = Recovery-IPSW  # 按 Apple 产品名 macOS Recovery；LOD 的 Erhuelung 是休养，不能用
+vm: VM（阴性：eng VM、d'VM、dës VM）；复数 VMs
+vm-actions: Start = Starten、Stop = Stoppen、Pause = Paus/pauséieren、Suspend = Suspendéieren、Resume = Weiderféieren、Restore = Restauréieren、Restart = Nei starten、Run = Ausféieren；向导标题 Start = Ufank
+vm-states: Gëtt gestart、Gestart、Gëtt gestoppt、Gestoppt、Gëtt pauséiert、Pauséiert、Suspendéiert、Gëtt weidergefouert、Gëtt restauréiert、Gëtt gespäichert
+stop-method: Request = Ufroen、Force = Forcéieren、Kill = Direkt stoppen；power down = Ausschalten ufroen
+delete-remove: Delete = Läschen、Remove = Ewechhuelen、Eject = Auswerfen、Extracting = Gëtt ausgepaakt  # https://lod.lu（ewechhuelen、auspaken）
+quit-close: Quit（退出 UTM）= Beendegen、Close（关闭窗口）= Zoumaachen  # 两者必须区分；beendegen 见 https://lod.lu
+shortcut-alias: Verknëppung（指向虚拟机的快捷方式）；和 App 名 Kurzbefehle 区分  # https://lod.lu（Verknëppung）
+icon: Symbol；Dock-Symbol；菜单栏 = Menüleescht  # 参照 Apple 德语「Symbol」「Menüleiste」
+path: Pad  # https://lod.lu（Pad = Pfad）
+gallery-library: Gallery = Galerie、UTM Library = UTM-Bibliothéik
+generic-default: Generic = Generesch、Default = Standard、Custom = Benotzerdefinéiert

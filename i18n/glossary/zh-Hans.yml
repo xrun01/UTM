@@ -53,3 +53,6 @@ account: 账户
 screenshot: 截图（不是快照 snapshot）
 restore: 恢复（恢复快照）；Resume = 继续
 gallery: 虚拟机下载页（UTM 官网的在线虚拟机下载页，不是 Library「资源库」）；UTM Gallery = UTM 虚拟机下载页
+# 以下是 75 种语言审校批次中出现 3 次以上、terms.yml 还没有的界面术语
+scan-code: 扫描码（键盘扫描码；不是「扫码」「扫描代码」）
+click: 点击（鼠标点击；同组不混用「单击」）

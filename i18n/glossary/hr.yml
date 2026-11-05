@@ -42,3 +42,23 @@ settings: postavke
 classic-systems: klasični sustavi
 cpu: CPU（保留；30 多种 CPU = više od 30 vrsta CPU-a；CPU 核心 = CPU jezgra）
 rosetta: Rosetta（按 Apple hr 变格：Rosettu、Rosette）  # https://support.apple.com/hr-hr/102527
+
+# 以下是 UTM 界面审校时新定的术语（terms.yml 中没有，待审条目中出现 3 次以上）
+drive: pogon；外部驱动器 = vanjski pogon，可移动驱动器 = izmjenjivi pogon
+disk-image: slika diska；驱动器映像 = slika pogona，ISO 映像 = ISO slika（不写 image 的图片义）
+display: zaslon；全屏 = cijeli zaslon  # https://support.apple.com/hr-hr/102650
+operating-system: operacijski sustav（不写 operativni sustav）
+host: host；主机 = host računalo，主机系统 = operacijski sustav hosta（不写 domaćin，和 host-only「Samo host」一致）
+directory: direktorij；共享目录 = dijeljeni direktorij（不写 imenik）
+kernel: kernel；内核映像 = slika kernela（不写 jezgra，jezgra 只用于 CPU 核心）
+path: putanja  # https://support.apple.com/hr-hr/102650（「traka putanja」）
+suspend: obustaviti；已挂起 = Obustavljeno，挂起状态 = obustavljeno stanje（和 pause「pauzirati」区分）
+pause: pauzirati；Pauzirano、Pauziranje
+capture-input: uhvatiti unos；捕获输入（名词）= hvatanje unosa（不写 snimanje，snimanje 是录制）
+scan-code: scan kod
+serial: serijski priključak（不写 serijski broj）
+recovery: oporavak；恢复模式 = način oporavka
+quit: zatvoriti（App 退出）  # https://support.apple.com/hr-hr/102650（「Command-Q: zatvaranje trenutačne aplikacije」）
+sleep: mirovanje  # https://support.apple.com/hr-hr/102650
+dock: Dock（专有名词，不写 dok）  # https://support.apple.com/hr-hr/102650
+optional: neobavezno；必填 = obavezno

@@ -54,3 +54,7 @@ gallery: galerie（UTM Gallery 网站 = galerie UTM；主窗口 UTM Library = Bi
 menu-bar: barre des menus；Dock 首字母大写  # https://support.apple.com/fr-fr/guide/mac-help/mchlp1446/mac
 recovery: récupération；macOS Recovery = Récupération macOS，recovery mode = mode de récupération，recovery IPSW = IPSW de récupération（不用 réinstallation）  # https://support.apple.com/fr-fr/102518
 force-kill: fin forcée du processus；Force kill = Forcer la fin du processus（和 Force shut down = Forcer l’arrêt 区分）
+# 下面是 needs_review 审校时补的界面术语，terms.yml 中还没有
+pause-suspend: Pause = mettre en pause（状态 En pause）；Suspend = suspendre（状态 Suspendue）；suspended state = état suspendu。两组不同词
+power-down: arrêt；request power down = demander un arrêt（不用 mise hors tension）
+keystroke: frappe；keystroke sequence = séquence de frappes

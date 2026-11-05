@@ -42,3 +42,27 @@ keys: Control-lykill、Option-lykill；同时写 2 个键 = Control- og Option-l
 toolbar: tækjastika
 settings: stillingar
 classic-systems: klassísk kerfi
+# 以下是审校 UI 文案时新定的界面术语（terms.yml 没有）。冰岛语没有 Apple 界面，按冰岛语软件界面的通行说法
+ui-style: 按钮、菜单项、开关、快捷指令动作名和动作说明用不定式（Ræsa、Eyða、Bæta við），不用命令式；状态标签用第 3 人称现在时（Ræsir、Stöðvar）
+drive: drif（复数 drif）；Removable Drive = Laust drif；External Drive = Ytra drif（不用 diskur）
+disk-image: diskmynd；drive image、image 都译 diskmynd，例如 ISO-diskmynd、ræsidiskmynd（单独的 mynd 读成图片）
+kernel-image: kjarnaskrá（不用 kjarnamynd）
+ramdisk: RAM-diskur；initial ramdisk = upphafs-RAM-diskur
+configuration: grunnstilling；configuration file = grunnstillingaskrá（stillingar 留给 settings，uppsetning 留给 installation）
+host: hýsill；host machine = hýsilvél（不用 gestgjafi、hýsingarvél）
+state: ástand（虚拟机状态）；status = staða；suspended state = biðstaða
+mode: stilling；recovery mode = endurheimtarstilling；full screen mode = fullskjásstilling（和 disposable-mode 一致）
+vm-power: Start = Ræsa；Stop = Stöðva；Pause = Gera hlé；Suspend = Setja í biðstöðu；Resume = Halda áfram；Restart = Endurræsa；Reset = Endurstilla；power down = lokun
+stop-method: Kill = Stöðvun ferlis；Request = Lokunarbeiðni；Force = Þvinguð lokun
+recovery-ipsw: IPSW-endurheimtarskrá；IPSW recovery image = IPSW-endurheimtardiskmynd
+directory: mappa（和 shared-folder 一致，不用 skrá）
+read-only: skrifvarið
+display: skjár；复数 skjáir
+download: hlaða niður；名词 niðurhal（不用 sækja，它用于 get）
+eject: Spýta út（和 Eyða、Afþjappar 区分）
+delete-remove: Delete = Eyða；Remove = Fjarlægja
+gallery-library: Gallery = gallerí（UTM-gallerí、Sýndarvélagallerí）；UTM Library = UTM-safn
+guest-agent: gestaumboðsforrit（不用 gestaþjónn，þjónn 是服务器；不用 umboðsmaður，是代理人）
+console: útstöð（UTM 的 console 是文本终端窗口，和 terminal 同词；不用 stjórnborð，冰岛语界面里是控制面板）；terminal = útstöð
+dock: Dock（macOS 功能名，不用 bryggja）
+capture-input: fanga inntak；名词 föngun inntaks

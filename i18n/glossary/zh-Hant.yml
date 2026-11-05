@@ -57,3 +57,12 @@ optional: 選填
 mac-address: MAC 位址  # https://support.apple.com/zh-tw/guide/mac-help/mchlp1066/mac（「IP 位址」）
 mouse-button: 左鍵、中鍵、右鍵
 suspend: 擱置；suspended = 已擱置；pause = 暫停（suspend 先保存状态再挂起，必须和 pause 区分）  # https://download.parallels.com/desktop/v18/docs/zh_TW.lproj/32827.htm（Parallels Desktop「動作」>「擱置」）
+# 以下是 75 语言批次（needs_review）中出现 3 次以上、terms.yml 还没有的界面术语
+quit: 結束；exit full screen = 結束全螢幕；graceful quit = 安全結束（不写「退出」）
+running: 執行；running VM = 執行中的虛擬機器（不写「運行」）
+power-down: 關機；Request Power Down = 請求關機（不写「斷電」「關閉電源」）
+connect: USB 裝置的 connect = 連線，disconnect = 中斷連線（和 USB 選單的「連線…」一致）
+device: 裝置（不写「設備」）
+scan-code: 掃描碼；keystrokes = 按鍵輸入（不写「擊鍵」）
+screenshot: 螢幕擷圖
+guest-account: 客體帳號（客體系統中的使用者帳號，不是 macOS 的「訪客」帳號）

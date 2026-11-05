@@ -43,3 +43,17 @@ keys: מקש Control、מקש Option  # https://support.apple.com/he-il/102650
 toolbar: סרגל הכלים  # https://support.apple.com/he-il/guide/mac-help/mchlp1225/mac
 settings: הגדרות
 classic-systems: מערכות קלאסיות
+# 以下是审校 needs_review 和缺译条目时新定的界面写法（terms.yml 没有这些术语）。
+# 语体：开关（Toggle）标签用祈使式（הצג、השתמש ב-）；按钮、菜单项、窗口和分组标题用名词形式（הוספה、שמירה）；快捷指令的动作名按 Apple 快捷指令用祈使式（שלח הקשות）。
+# 状态标签用阳性：进行中写 ב+名词（בהפעלה、בעצירה），完成态写分词或形容词（הופעל、נעצר、מושהה、מושעה）；带「…」的进度文字用阳性现在分词（מכין…）。
+drive: כונן；复数 כוננים；drive image = תמונת כונן
+display: תצוגה；复数 תצוגות
+device: התקן；复数 התקנים；USB 设备 = התקן USB（不用 מכשיר；只有指 Mac、iPhone 这类实体设备时用 מכשיר）
+disk-image: תמונת דיסק；boot image = תמונת אתחול
+directory: תיקייה；复数 תיקיות；shared directory = תיקייה משותפת（不用 ספרייה，避免和 shared-library 撞词）
+icon: צלמית；复数 צלמיות（不用 סמל）  # https://support.apple.com/he-il/guide/mac-help/mh35859/mac
+menu-bar: שורת התפריטים  # https://support.apple.com/he-il/guide/mac-help/mh35859/mac
+dock: Dock；ב-Dock（保留拉丁字母，不用 מזח、רציף）  # https://support.apple.com/he-il/guide/mac-help/mh35859/mac
+serial: יציאה טורית（串口设备；不用 סדרתי）
+vm: 英文写 VM 时保留 VM，按阳性变位：ה-VM הזה、VM פועל；复数也写 VM（不写 VMs、מחשבי VM）
+host-machine: 指运行 UTM 的本机时，machine 写 מחשב：במחשב שלך、במחשב זה

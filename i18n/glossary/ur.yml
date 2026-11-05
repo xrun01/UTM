@@ -45,3 +45,23 @@ keys: Control کِی، Option کِی（键名保留键帽上的英文）  # 「�
 toolbar: ٹول بار
 settings: سیٹنگ（不用 ترتیبات）  # https://support.apple.com/ur-in/guide/iphone/iph3dfd91de/ios（「سیٹنگ」）
 classic-systems: کلاسک سسٹم
+# 以下是审校待审条目时定下的界面术语（terms.yml 没有，在条目中出现 3 次以上）
+device: ڈیوائس；复数 ڈیوائسز（不用 آلہ、آلات）
+drive: ڈرائیو；复数 ڈرائیوز
+disk-image: ڈسک امیج；映像统一写 امیج（不用 تصویر、تصاویر，那是图片）
+directory: ڈائریکٹری；共享目录 = مشترکہ ڈائریکٹری（不写 ڈائرکٹری）
+display: ڈسپلے
+configuration: کنفیگریشن（不用 ترتیب）
+installation: انسٹالیشن（不用 تنصیب）
+state: حالت；挂起状态 = معطل حالت（不用 ریاست，ریاست 是国家）
+status: حیثیت
+path: پاتھ（不用 راستہ）
+full-screen: فل اسکرین
+keystroke: کِی اسٹروک；复数 کِی اسٹروکس（کِی 带 zer，和属格 کی 区分）
+mac-address: MAC ایڈریس（MAC 保留拉丁字母，不写 میک）
+hardware: ہارڈویئر
+default: ڈیفالٹ
+vm-actions: Start = شروع کریں，Run = چلائیں，Stop = روکیں，Pause = موقوف کریں，Suspend = معطل کریں，Resume = دوبارہ جاری کریں，Restart = دوبارہ شروع کریں，Restore = بحال کریں，Quit = باہر نکلیں，Close = بند کریں
+vm-states: Starting = شروع ہو رہی ہے，Started = چل رہی ہے，Stopped = رکی ہوئی，Paused = موقوف，Suspended = معطل，进行时统一写「… رہی ہے」
+delete-remove-eject: Delete = حذف کریں，Remove = ہٹائیں，Eject = نکالیں，Extracting = ڈی کمپریس ہو رہا ہے
+power-down: 关机类短标签（菜单项、停止方式选项、关机请求的错误信息）写 پاور آف کرنا：Request power down = پاور آف کرنے کی درخواست کریں，Force shut down = زبردستی پاور آف کریں。单独的 بند کریں 会被读成 Close（关窗口），不要用；带宾语的长句（گیسٹ سسٹم کو بند کرنا）可以沿用 shut-down

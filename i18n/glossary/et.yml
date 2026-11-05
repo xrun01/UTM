@@ -43,3 +43,23 @@ settings: seaded
 rosetta: Rosetta，按爱沙尼亚语加词尾：属格 Rosetta（Rosetta abil），部分格 Rosettat
 cpu: protsessor；CPU 核心 = protsessorituum；30 多种 CPU = üle 30 protsessoritüübi  # https://www.apple.com/ee/mac/compare/（「10-tuumaline protsessor」）
 classic-systems: klassikalised süsteemid
+
+# 以下是 App 界面常用、terms.yml 没有的术语（2026-11-05 审校 needs_review 和缺译条目时定下）
+# 界面写法：按钮、菜单项、开关、快捷指令标题用单数命令式（Lisa、Kustuta）；悬停提示和说明句用复数命令式（Lisage …）；状态标签用名词或分词。
+drive: draiv；驱动器映像 = draivitõmmis（不用 ketas、sõita）
+disk-image: kettatõmmis；映像统一用 tõmmis：ISO-tõmmis、alglaadimistõmmis、kerneli tõmmis（不用 pilt、kujutis：pilt 是图片）
+display: ekraan；多个显示器 = ekraanid
+directory: kataloog；共享目录 = jagatud kataloog（Shared Folder 仍用 jagatud kaust）
+kernel: kernel；Linux 内核 = Linuxi kernel（不用 tuum：tuum 已用于 CPU 核心）
+boot: alglaadimine；启动设备 = alglaadimisseade；引导程序 = alglaadur
+start-run: käivitama；按钮 Käivita，状态 Käivitamine、Käivitatud
+stop: peatama；按钮 Peata，状态 Peatamine、Peatatud
+pause: pausile panema；按钮 Pane pausile，状态 Pausile panek、Pausil（不用 peatama：那是 Stop）
+suspend: uinutama；按钮 Uinuta，状态 Uinutatud，挂起状态 = uinutatud olek（不用 peatatud；系统睡眠用 unerežiim）
+resume: jätkama；状态 Jätkamine（从快照恢复是 taastama、Taastamine）
+capture-input: sisendit hõivama；捕获输入 = sisendi hõivamine（不用 jäädvustama：那是拍照）
+read-only: kirjutuskaitstud（不用 ainult lugemiseks）
+eject: väljastama；按钮 Väljasta（和 Kustuta、Lahtipakkimine 区分）
+quit: väljuma；按钮 Välju，退出 UTM = UTM-ist väljumine
+storage: salvestusruum；内部存储 = sisemine salvestusruum（不用 sisemälu：那是内存 Memory = mälu）
+operation: toiming（不用 operatsioon）

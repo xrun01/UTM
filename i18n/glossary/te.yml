@@ -44,3 +44,38 @@ keys: కంట్రోల్ కీ、ఆప్షన్ కీ  # 未直接�
 toolbar: టూల్‌బార్  # 未查到 Apple 泰卢固语 Mac 写法
 settings: సెట్టింగ్‌లు  # https://support.apple.com/te-in/guide/iphone/iph079e1fe9d/27/ios/27
 classic-systems: క్లాసిక్ సిస్టమ్‌లు
+
+# 审校待审条目时新定的界面术语（出现 3 次以上，terms.yml 没有）
+host: హోస్ట్
+image: ఇమేజ్；disk image = డిస్క్ ఇమేజ్（不用 చిత్రం，చిత్రం 是图片）
+drive: డ్రైవ్；复数 డ్రైవ్‌లు
+device: పరికరం；复数 పరికరాలు
+display: డిస్‌ప్లే；复数 డిస్‌ప్లేలు
+directory: డైరెక్టరీ；shared directory = షేర్ చేసిన డైరెక్టరీ（和 shared-folder 写法一致，不用 భాగస్వామ్య）
+storage: నిల్వ；和 memory 区分
+memory: మెమరీ
+vm: VM（不音译）；词尾连写，例如 VMని、VMలు
+version: వెర్షన్（不用 సంస్కరణ）
+install: ఇన్‌స్టాల్ చేయడం；installation = ఇన్‌స్టాలేషన్
+import: దిగుమతి చేయడం
+enable: ఎనేబుల్ చేయడం；开关标签 Enable X = Xను ఎనేబుల్ చేయండి（不用 ప్రారంభించండి，那是 start 启动）；If enabled 句子沿用 ప్రారంభించబడితే
+disable: నిలిపివేయడం；Disabled = నిలిపివేయబడింది
+delete: తొలగించడం（永久删除）
+remove: తీసివేయడం（移除快捷方式、共享目录），和 delete 区分
+eject: ఎజెక్ట్ చేయడం，和 delete 区分
+read-only: చదవడానికి మాత్రమే
+recovery: రికవరీ；recovery mode = రికవరీ మోడ్
+save: సేవ్ చేయడం
+start: ప్రారంభించడం；状态 Starting = ప్రారంభమవుతోంది，Started = ప్రారంభమైంది
+stop: ఆపివేయడం；状态 Stopping = ఆగుతోంది，Stopped = ఆగిపోయింది（不用 నిలిపివేయడం，那是停用）
+pause: పాజ్ చేయడం；Paused = పాజ్ అయింది，Pausing = పాజ్ అవుతోంది
+suspend: సస్పెండ్ చేయడం；Suspended = సస్పెండ్ అయింది；suspended state = సస్పెండ్ చేయబడిన స్థితి（不用 తాత్కాలికంగా నిలిపివేయడం）
+resume: కొనసాగించడం；Resuming = తిరిగి కొనసాగుతోంది（不用 పునఃప్రారంభించడం，那是重启）
+restart: పునఃప్రారంభించడం
+restore: పునరుద్ధరించడం（从快照恢复）；Restoring = పునరుద్ధరించబడుతోంది，和 resume 区分
+kill: బలవంతంగా ముగించడం；Kill（停止方式选项）= ప్రాసెస్‌ను ముగించండి（不用 చంపడం）
+power-down: పవర్ డౌన్
+share: షేర్ చేయడం（不用 భాగస్వామ్యం）
+shortcut-file: సత్వరమార్గం（指向虚拟机文件的快捷方式，和 Shortcuts App 的 షార్ట్‌కట్స్ 区分）
+path: పాత్（不用 మార్గం）
+if-checked: టిక్ చేస్తే（复选框；不用 తనిఖీ చేయబడితే，那是「被检查」）

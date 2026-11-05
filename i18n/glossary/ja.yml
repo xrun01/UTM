@@ -50,3 +50,8 @@ serial: シリアルポート；Serial %lld = シリアルポート%lld
 read-only: 読み出しのみ
 capture-input: 入力をキャプチャ；input capture = 入力キャプチャ
 user: ユーザ；username = ユーザ名  # https://support.apple.com/ja-jp/guide/mac-help/mtusr001/mac（「ユーザとグループ」「ユーザアカウント」）
+import: 読み込む；按钮写「〜を読み込む」，分组标题写「読み込む〜」
+recovery: 復旧；recovery mode = 復旧モード，recovery IPSW = 復元 IPSW，IPSW recovery image = IPSW 復元イメージ
+power-down: 電源オフ；request power down = 電源オフを要求
+suspend: サスペンド；suspended state = サスペンド状態
+operating-system: オペレーティングシステム；guest operating system = ゲスト OS

@@ -44,3 +44,25 @@ keys: Control ڪيئي、Option ڪيئي（键名按键帽写，不意译）
 toolbar: ٽول بار
 settings: سيٽنگون；在设置里 = سيٽنگن ۾
 classic-systems: ڪلاسڪ سسٽم
+# 以下是审校待审条目时定下的界面术语（terms.yml 没有，在条目中出现 3 次以上）
+device: ڊوائيس；复数 ڊوائيسز（不写 ڊيوائس）
+drive: ڊرائيو；复数 ڊرائيوز
+disk-image: ڊسڪ اميج；映像统一写 اميج（不用 تصوير，那是图片）
+directory: ڊائريڪٽري；共享目录 = شيئر ٿيل ڊائريڪٽري（不写 ڊاريڪٽري，不用 حصيداري、گڏيل）
+display: ڊسپلي；复数 ڊسپليز
+configuration: ڪنفيگريشن（不用 ترتيب、ٺاھ جوڙ、تشڪيل）
+installation: انسٽاليشن（不用 تنصيب）
+host: ميزبان（宿主机、宿主系统）；网络模式和 Host 网络写 هوسٽ（见 host-only）
+recovery: رڪوري；恢复模式 = رڪوري موڊ（不用 بحالي、وصولي，和 Restore 的 بحال ڪريو 区分）
+state: حالت；挂起状态 = معطل حالت（不用 رياست，它是国家；不音译成 اسٽيٽ）
+status: اسٽيٽس（不用 حيثيت）
+size: سائيز（不用 ماپ、سائز）
+version: ورزن（不写 ورجن）
+support: سپورٽ（不用 سهڪار）
+path: رستو
+built-in: بلٽ ان（不用 تعمير ٿيل，它是建造的）
+shortcut-file: شارٽ ڪٽ（指向虚拟机的快捷方式；ڪٽ 用 ڪ，不用 ک）
+power-down: پاور بند ڪرڻ（不用 پاور ڊائون、بجلي بند）
+vm-actions: Start = شروع ڪريو，Run = هلايو，Stop = روڪيو，Pause = وقفو ڏيو，Suspend = معطل ڪريو，Resume = ٻيهر جاري ڪريو，Restart = ٻيهر شروع ڪريو，Restore = بحال ڪريو，Quit = ڇڏيو，Close = بند ڪريو，Edit = ترميم ڪريو，Change = تبديل ڪريو
+vm-states: Starting = شروع ٿي رهي آهي，Started = هلي رهي آهي，Stopped = رڪيل，Paused = وقفي ۾，Suspended = معطل，进行时统一写「… رهي آهي」
+delete-remove-eject: Delete = حذف ڪريو，Remove = هٽايو，Eject = ٻاهر ڪڍو，Extracting = ڊي ڪمپريس ٿي رهيو آهي，Kill = پروسيس ختم ڪريو

@@ -44,3 +44,29 @@ settings: gosodiadau
 rosetta: Rosetta
 cpu: CPU；30 多种 CPU = mwy na 30 math o CPU
 classic-systems: systemau clasurol
+# 以下是审校待审条目时新定的界面术语（terms.yml 没有，条目中出现 3 次以上）。
+drive: gyriant；复数 gyriannau；驱动器镜像 = delwedd gyriant（不用 dreif，不残留 Drive）
+disk-image: delwedd ddisg
+display: dangosydd；复数 dangosyddion（不用 arddangosfa）
+configuration: ffurfweddiad（不用 cyfluniad）
+save: cadw（不用 arbed）
+quit: gadael（不用 rhoi'r gorau iddi，那是「放弃」）
+cancel: diddymu
+start: cychwyn（启动按钮和 Start Virtual Machine）；新建向导首页标题 wizard.start.title = Dechrau
+boot: cychwyn；启动镜像 = delwedd gychwyn（不用 cist，那是「箱子」）
+stop: stopio（不用 atal，atal 留给 suspend）
+pause: seibio；状态 Wedi seibio、Wrthi'n seibio
+suspend: atal dros dro；挂起状态 = cyflwr atal dros dro（不用 crog、ataliedig）
+resume: ailddechrau；Restore（快照）= adfer；恢复模式 = modd adfer
+power-down: diffodd；请求关机 = gofyn am ddiffodd（不写 pŵer i lawr）
+remove: tynnu；delete = dileu；eject = alldaflu；解压（Extracting）= datgywasgu
+operation: gweithrediad（不用 llawdriniaeth，那是「外科手术」）
+capture-input: dal mewnbwn（不用 cipio）
+keystroke: trawiad bysell；复数 trawiadau bysell；修饰键 = bysellau addasu
+vm-shortcut: llwybr byr（指向 VM 存放位置的快捷方式）
+default: rhagosodiad；Generic = generig
+host: gwesteiwr；复数 gwesteiwyr
+download: lawrlwytho
+screenshot: sgrinlun；复数 sgrinluniau
+serial: cyfresol（串口，不用 cyfres）
+application: rhaglen（不用 cais，那是「请求」）

@@ -42,3 +42,22 @@ settings: pengaturan  # https://support.apple.com/id-id/guide/mac-help/mchlp1225
 classic-systems: sistem klasik
 cpu: CPU  # https://support.apple.com/id-id/guide/mac-help/welcome/mac（「aktivitas CPU」）
 rosetta: Rosetta  # https://support.apple.com/id-id/102527
+# 以下是 2026-11-05 审校 UTM 界面时补充的译法（terms.yml 中没有，待审条目中出现 3 次以上）
+image: citra；citra disk、citra drive、citra ISO、citra boot、citra kernel（不用 gambar；Apple 的「磁盘工具」写 image disk，为与 installer-image 统一，这里写 citra）  # https://support.apple.com/id-id/guide/disk-utility/dskutl11888/mac
+drive: drive；Drive Eksternal；drive yang Dapat Dilepas
+display: layar；Display、Displays（工具栏、菜单）= Layar
+host: host（不用 tuan rumah）；host macOS、mesin host
+input: input（不用 masukan）；Tangkap Input；input capture = penangkapan input
+keyboard: papan ketik；keyboard shortcuts = pintasan papan ketik  # https://support.apple.com/id-id/guide/disk-utility/dskutl11888/mac
+menu-bar: bar menu（不用 bilah menu）  # https://support.apple.com/id-id/guide/mac-help/welcome/mac
+dock: Dock  # https://support.apple.com/id-id/guide/mac-help/welcome/mac
+directory: direktori；shared directory = direktori bersama
+shortcut: pintasan（主窗口里指向别处虚拟机的快捷方式）；Remove = Hapus
+state: status；suspended state = status ditangguhkan；current state = status saat ini
+vm-actions: Start = Mulai、Run = Jalankan、Stop = Hentikan、Pause = Jeda、Suspend = Tangguhkan、Resume = Lanjutkan、Restart = Mulai Ulang、Restore = Pulihkan；向导标题 Start = Memulai
+vm-states: Sedang dimulai / Dimulai、Sedang dihentikan / Dihentikan、Sedang dijeda / Dijeda、Ditangguhkan、Sedang dilanjutkan、Sedang dipulihkan、Sedang disimpan
+power-down: mematikan；Request power down = Minta dimatikan；Force shut down = Matikan paksa；Force kill = Akhiri paksa（kill 不写 mematikan）
+install: instal（动词）、instalasi（名词，不用 pemasangan）
+setup: menyiapkan、penyiapan（不用 pengaturan，pengaturan 是 settings）
+scan-code: kode pindai
+custom: Khusus
