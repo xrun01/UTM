@@ -1,0 +1,46 @@
+# be 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。专有名词（Apple、Mac、macOS、Windows、Linux、QEMU、VM64、Rosetta）保留拉丁字母，不变格。
+# 来源：amalthea（VM64 官网）的 glossary/be.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 和 Microsoft 都没有白俄罗斯语页面（support.apple.com/be-by 返回英文，support.microsoft.com/be-by 跳转到俄语），rule 是 apple、microsoft 的术语按 ru 的官方写法直译，待母语者确认。
+virtual-machine: віртуальная машына
+guest: гасцявы；客户机系统 = гасцявая сістэма；客户机工具 = гасцявыя інструменты（不用 кліенцкі）
+emulate: эмуляваць；эмуляцыя（不用 імітаваць、мадэляванне）
+virtualize: віртуалізаваць；віртуалізацыя
+native: натыўны；接近原生的速度 = хуткасць, блізкая да натыўнай（不用 родны）
+architecture: архітэктура；CPU 架构 = архітэктура працэсара
+backend: бэкэнд；бэкэнд QEMU、бэкэнд Apple
+apple-silicon: чып Apple；Apple 芯片的 Mac = Mac з чыпам Apple（不用 Apple silicon、крэмній Apple）  # 无 be 页面，按 https://support.apple.com/ru-ru/116943 直译
+intel-mac: Mac з працэсарам Intel  # 无 be 页面，按 https://support.apple.com/ru-ru/116943 直译
+snapshot: здымак
+disposable-mode: аднаразовы рэжым
+shut-down: выключыць；выключэнне
+new-vm-wizard: майстар стварэння віртуальных машын
+installer-image: усталявальны вобраз（不用 установачны）
+license: ліцэнзія；自备许可证 = уласная ліцэнзія
+secure-boot: бяспечная загрузка  # support.microsoft.com/be-by 跳转到俄语页面，沿用原译，待确认
+or-later: або больш позняя версія；作宾语时用属格 або больш позняй версіі（不用 або вышэй）
+experimental: эксперыментальная функцыя
+auto-resolution: аўтаматычная налада раздзяляльнасці
+shared-clipboard: агульны буфер абмену；共享剪贴板（动作）= абагульваць буфер абмену
+shared-folder: агульная папка；共享文件夹（动作）= абагульваць папкі（不用 тэчка）
+sharing: Агульны доступ（不用 сумеснае выкарыстанне）
+shared-network: Агульная сетка
+host-only: Толькі хост
+bridged: Сеткавы мост
+emulated-vlan: Эмуляваная VLAN
+port-forwarding: пераадрасацыя партоў
+lan: лакальная сетка
+shortcuts: праграма Shortcuts（不用 цэтлікі）  # Apple 无 be 界面，待确认
+command-line-tool: інструмент каманднага радка
+clone: кланаваць
+fingerprint: адбітак ключа（不用 адбітак пальца）
+hardware-reset: апаратны скід
+mount: змантаваць（不用 усталяваць，它表示安装）
+shared-library: агульная бібліятэка
+capture-mouse: захапіць мыш；捕获鼠标按钮 = кнопка «Захапіць мыш»
+keys: клавіша Control、клавіша Option
+toolbar: панэль інструментаў
+settings: налады
+rosetta: Rosetta，不变格
+cpu: працэсар
+classic-systems: класічныя сістэмы
+# 标题、步骤标题、列表标签用名词结构（Запуск…、Стварэнне…），号召句（band）用祈使句。

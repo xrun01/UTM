@@ -1,0 +1,50 @@
+# ne 定下的译法。规则见 i18n/glossary/terms.yml。
+# 来源：amalthea（VM64 官网）的 glossary/ne.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 没有尼泊尔语网站和支持页（support.apple.com/ne-np 跳转到英文）。Microsoft 尼泊尔语支持页显示英文。
+# rule 是 apple、microsoft 的术语按尼泊尔语软件界面的通行说法定，Apple 产品名参照 hi 的 Apple 写法结构，均待母语者确认。
+# 数字一律用阿拉伯数字，不用天城文数字。
+virtual-machine: भर्चुअल मेसिन
+guest: गेस्ट；客户机系统 = गेस्ट प्रणाली，客户机工具 = गेस्ट टुल（不用 ग्राहक、क्लाइन्ट、अतिथि）
+emulate: इमुलेट गर्नु；इमुलेशन（不用 अनुकरण、सिमुलेट）
+virtualize: भर्चुअलाइज गर्नु；भर्चुअलाइजेशन
+native: नेटिभ；接近原生的速度 = लगभग नेटिभ गति（不用 स्वदेशी、देशी）
+architecture: आर्किटेक्चर（不用 संरचना、वास्तुकला）
+backend: ब्याकएन्ड；QEMU ब्याकएन्ड，Apple ब्याकएन्ड（不写 ब्याकइन्ड）
+apple-silicon: Apple silicon；Apple 芯片的 Mac = Apple silicon भएको Mac（不音译成 सिलिकन，不用 चिप）  # 无 Apple 尼泊尔语来源，参照 hi 的 Apple 写法 https://support.apple.com/hi-in/guide/mac-help/mchl82829c17/mac，待母语者确认
+intel-mac: Intel-आधारित Mac（不加英文复数 s）  # 无 Apple 尼泊尔语来源，参照 hi 的 Apple 写法 https://support.apple.com/hi-in/guide/mac-help/mchl338cf9a8/mac
+cpu: CPU（不音译）
+rosetta: Rosetta
+snapshot: स्न्यापसट（不写 स्न्यापशट）
+disposable-mode: डिस्पोजेबल मोड（不用 एक-शट、थ्रोअवे）
+shut-down: बन्द गर्नु；关机后 = बन्द गरेपछि
+new-vm-wizard: भर्चुअल मेसिन सिर्जना गर्ने विजार्ड
+installer-image: इन्स्टलर इमेज（不用 छवि，छवि 是图片）
+license: लाइसेन्स；自备许可证 = लाइसेन्स आफैँ लिनुपर्छ
+secure-boot: सुरक्षित बुट  # 无 Microsoft 尼泊尔语来源，沿用原译，待母语者确认
+or-later: वा पछिको संस्करण（不用 वा उच्च、वा माथिको）  # 无 Apple 尼泊尔语来源，待母语者确认
+experimental: प्रयोगात्मक सुविधा
+auto-resolution: स्वचालित रिजोल्युसन समायोजन
+shared-clipboard: साझा क्लिपबोर्ड；共享剪贴板（动作）= क्लिपबोर्ड साझेदारी गर्नु
+shared-folder: साझा फोल्डर；共享文件夹（动作）= फोल्डर साझेदारी गर्नु
+sharing: साझेदारी
+shared-network: साझा नेटवर्क
+host-only: होस्ट मात्र
+bridged: ब्रिज्ड（不用 ब्रिज）
+emulated-vlan: इमुलेटेड VLAN（不用 सिमुलेटेड VLAN）
+port-forwarding: पोर्ट फर्वार्डिङ
+lan: स्थानीय नेटवर्क（不用 ल्यान、LAN）
+shortcuts: सर्टकट；正文写 सर्टकट एप，和键盘快捷键区分  # 无 Apple 尼泊尔语来源，参照 hi、mr 的 Apple 写法，待母语者确认
+command-line-tool: कमान्ड-लाइन टुल
+clone: क्लोन गर्नु
+fingerprint: फिंगरप्रिन्ट
+hardware-reset: हार्डवेयर रिसेट
+mount: माउन्ट गर्नु
+shared-library: साझा लाइब्रेरी（不用 पुस्तकालय，पुस्तकालय 是实体图书馆）
+capture-mouse: माउस क्याप्चर गर्नु；捕获鼠标按钮 = माउस क्याप्चर बटन
+keys: Control कुञ्जी、Option कुञ्जी（键名保留键帽上的英文，不意译成 विकल्प）  # 无 Apple 尼泊尔语来源，待母语者确认
+toolbar: उपकरणपट्टी
+settings: सेटिङहरू
+classic-systems: क्लासिक प्रणाली
+device: यन्त्र（不用 उपकरण，उपकरण 也指「工具」）
+window: सञ्झ्याल（不用 विन्डो）
+save: बचत गर्नु

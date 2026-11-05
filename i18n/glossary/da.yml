@@ -1,0 +1,42 @@
+# da 定下的译法。规则见 i18n/glossary/terms.yml。
+# 来源：amalthea（VM64 官网）的 glossary/da.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+virtual-machine: virtuel maskine；复数 virtuelle maskiner
+guest: gæst；客户机系统 = gæstesystem，客户机工具 = gæsteværktøjer
+emulate: emulere；emulering
+virtualize: virtualisere；virtualisering
+native: native；接近原生的速度 = næsten native hastighed
+architecture: arkitektur
+backend: backend；复数 backends；QEMU-backend、Apple-backend
+apple-silicon: Apple Silicon（S 大写）；Apple 芯片的 Mac = Mac med Apple Silicon，复数 Mac-computere med Apple Silicon  # https://support.apple.com/da-dk/116943
+intel-mac: Mac med Intel-processor；复数 Mac-computere med Intel-processor  # https://support.apple.com/da-dk/116943
+snapshot: snapshot；复数 snapshots
+disposable-mode: engangstilstand
+shut-down: lukke ned；名词 nedlukning
+new-vm-wizard: guiden til nye virtuelle maskiner
+installer-image: installationsbillede
+license: licens
+secure-boot: sikker bootstart  # https://support.microsoft.com/da-dk/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: eller nyere  # https://support.apple.com/da-dk/102552（「macOS Ventura eller nyere」）
+experimental: eksperimentel funktion
+auto-resolution: automatisk justering af opløsningen
+shared-clipboard: delt udklipsholder；共享剪贴板（动作）= dele udklipsholderen；粘贴 = indsætte  # https://support.apple.com/da-dk/guide/mac-help/mchlp1012/mac
+shared-folder: delt mappe；共享文件夹（动作）= dele mapper
+sharing: Deling
+shared-network: Delt netværk
+host-only: Kun vært
+bridged: Brokoblet
+emulated-vlan: Emuleret VLAN
+port-forwarding: portvideresendelse
+lan: lokalt netværk
+shortcuts: Genveje  # https://support.apple.com/da-dk/guide/shortcuts-mac/welcome/mac
+command-line-tool: kommandolinjeværktøj
+clone: klone
+fingerprint: fingeraftryk
+hardware-reset: hardwarenulstilling
+mount: montere
+shared-library: delt bibliotek；复数 delte biblioteker
+capture-mouse: fange musen；捕获鼠标按钮 = knappen Fang mus
+keys: Ctrl-tasten、Alternativtasten；同时写 2 个键 = Ctrl- og Alternativtasten  # https://support.apple.com/da-dk/102650
+toolbar: værktøjslinje
+settings: indstillinger
+classic-systems: klassiske systemer

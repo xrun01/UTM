@@ -1,0 +1,44 @@
+# vi 定下的译法。规则见 i18n/glossary/terms.yml。
+# 来源：amalthea（VM64 官网）的 glossary/vi.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+virtual-machine: máy ảo
+guest: khách；客户机系统 = hệ điều hành khách；客户机工具 = công cụ khách
+emulate: giả lập（不用 mô phỏng，它是 simulate）
+virtualize: ảo hóa  # https://support.microsoft.com/vi-vn/windows/enable-virtualization-on-windows-c5578302-6e43-4b4b-a449-8ced115f58e1
+native: nguyên bản；接近原生的速度 = tốc độ gần như nguyên bản
+architecture: kiến trúc
+backend: backend；backend QEMU、backend Apple（不用 phụ trợ）
+apple-silicon: chip Apple silicon；Apple 芯片的 Mac = máy Mac dùng chip Apple silicon  # https://support.apple.com/vi-vn/116943
+intel-mac: máy Mac dùng bộ xử lý Intel  # https://support.apple.com/vi-vn/116943
+cpu: CPU  # Apple 越南语页面保留 CPU
+rosetta: Rosetta  # https://support.apple.com/vi-vn/102527
+snapshot: ảnh chụp nhanh
+disposable-mode: chế độ dùng một lần
+shut-down: tắt máy
+new-vm-wizard: trình hướng dẫn tạo máy ảo mới
+installer-image: ảnh đĩa cài đặt
+license: giấy phép；自备许可证 = có giấy phép của riêng mình  # https://support.microsoft.com/vi-vn/windows/activate-windows-c39005d4-95ee-b91e-b399-2820fda32227
+secure-boot: Khởi động an toàn  # https://support.microsoft.com/vi-vn/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: trở lên  # https://support.apple.com/vi-vn/102229（「iOS 14 trở lên」）
+experimental: tính năng thử nghiệm
+auto-resolution: tự động điều chỉnh độ phân giải
+shared-clipboard: bảng nhớ tạm；共享剪贴板 = chia sẻ bảng nhớ tạm；复制粘贴 = sao chép và dán  # https://support.apple.com/vi-vn/102430
+shared-folder: thư mục dùng chung；共享文件夹 = chia sẻ thư mục
+sharing: Chia sẻ
+shared-network: Mạng chia sẻ
+host-only: Chỉ máy chủ
+bridged: Cầu nối
+emulated-vlan: VLAN giả lập
+port-forwarding: chuyển tiếp cổng
+lan: mạng cục bộ  # https://support.apple.com/vi-vn/102229
+shortcuts: ứng dụng Phím tắt  # https://support.apple.com/vi-vn/guide/shortcuts-mac/welcome/mac
+command-line-tool: công cụ dòng lệnh
+clone: nhân bản（不用 sao chép，它是复制）
+fingerprint: dấu vân tay
+hardware-reset: thiết lập lại phần cứng
+mount: gắn (mount)
+shared-library: thư viện dùng chung
+capture-mouse: bắt chuột；捕获鼠标按钮 = nút Bắt chuột
+keys: phím Control、phím Option  # https://support.apple.com/vi-vn/102650
+toolbar: thanh công cụ
+settings: cài đặt
+classic-systems: hệ thống cổ điển

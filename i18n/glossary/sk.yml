@@ -1,0 +1,44 @@
+# sk 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。iPhone、iPad、Mac 按 Apple 斯洛伐克语变格（z iPhonu、iPadu、na Macoch）。
+# 来源：amalthea（VM64 官网）的 glossary/sk.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+virtual-machine: virtuálny počítač  # https://support.microsoft.com/sk-sk/windows/enable-virtualization-on-windows-c5578302-6e43-4b4b-a449-8ced115f58e1；不用 virtuálny stroj
+guest: hosťovský；客户机系统 = hosťovský systém；客户机工具 = nástroje pre hosťovský systém（不用 klientsky、hosťujúci）
+emulate: emulovať；emulácia（不用 simulovať）
+virtualize: virtualizovať；virtualizácia  # https://support.microsoft.com/sk-sk/windows/enable-virtualization-on-windows-c5578302-6e43-4b4b-a449-8ced115f58e1
+native: natívny；接近原生的速度 = takmer natívna rýchlosť
+architecture: architektúra
+cpu: procesor；CPU 架构 = architektúra procesora  # https://support.apple.com/sk-sk/116943（「procesory Intel」）
+backend: backend；backend QEMU、backend Apple
+apple-silicon: čip Apple Silicon；Apple 芯片的 Mac = Mac s čipom Apple Silicon  # https://support.apple.com/sk-sk/116943
+intel-mac: Mac s procesorom Intel  # https://support.apple.com/sk-sk/116943
+rosetta: Rosetta；间接格按 Apple 写 softvér Rosetta（nainštalovať softvér Rosetta、pomocou softvéru Rosetta）  # https://support.apple.com/sk-sk/102527
+snapshot: snímka
+disposable-mode: jednorazový režim
+shut-down: vypnúť；vypnutie
+new-vm-wizard: sprievodca novým virtuálnym počítačom
+installer-image: inštalačný obraz
+license: licencia；自备许可证 = vlastná licencia  # https://support.microsoft.com/sk-sk/windows/activate-windows-c39005d4-95ee-b91e-b399-2820fda32227
+secure-boot: zabezpečené spustenie  # https://support.microsoft.com/sk-sk/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: alebo novší（不用 vyšší）  # https://support.apple.com/sk-sk/102527（「macOS … alebo novší」）
+experimental: experimentálna funkcia
+auto-resolution: automatická úprava rozlíšenia
+shared-clipboard: zdieľaná schránka；粘贴 = vložiť（不用 prilepiť）  # Apple 斯洛伐克语菜单「Upraviť > Vložiť」
+shared-folder: zdieľaný priečinok
+sharing: zdieľanie
+shared-network: Zdieľaná sieť
+host-only: Len hostiteľ
+bridged: Premostená sieť
+emulated-vlan: Emulovaná VLAN
+port-forwarding: presmerovanie portov
+lan: lokálna sieť
+shortcuts: Skratky（apka Skratky）  # https://support.apple.com/sk-sk/guide/shortcuts-mac/welcome/mac
+command-line-tool: nástroj príkazového riadka
+clone: klonovať
+fingerprint: odtlačok（不写 odtlačok prsta）
+hardware-reset: hardvérový reset
+mount: pripojiť
+shared-library: zdieľaná knižnica
+capture-mouse: zachytiť myš；捕获鼠标按钮 = tlačidlo Zachytiť myš
+keys: kláves Control、kláves Option  # https://support.apple.com/sk-sk/102650
+toolbar: panel s nástrojmi
+settings: nastavenia  # https://support.apple.com/sk-sk/guide/mac-help/mchlp1225/mac（「Systémové nastavenia」）
+classic-systems: klasické systémy

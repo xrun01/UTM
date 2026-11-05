@@ -1,0 +1,49 @@
+# lt 定下的译法。规则见 i18n/glossary/terms.yml。
+# 来源：amalthea（VM64 官网）的 glossary/lt.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 的 lt 支持文章多为英文，macOS 界面也没有 lt 本地化。Apple 写法以 lt 版 Mac mini 入门手册和 apple.com/lt 为准。
+# 引号：按 Apple lt 的写法，产品名和公司名加 lt 引号「„…“」，版本号写在引号里：„Mac“、„macOS 13“、„Windows 11“、„Apple Inc.“。
+#   本站也给 „VM64“、„QEMU“、„Rosetta“、„AppleScript“、„CrystalFetch“、„App Store“、„iPhone“、„iPad“、„DirectX“、„Vulkan“、„OpenGL“ 加引号。
+#   界面元素名（网络模式、按钮、标签页）也加引号，例如 „Tiltinis ryšys“。
+#   技术缩写和架构名不加引号：USB、TPM、VLAN、IPSW、ISO、ROM、binfmt、ARM64、ARM32、x86、x86_64、x64、MIPS、PowerPC、RISC-V、68k。
+virtual-machine: virtualioji mašina（定指形式，不用 virtuali mašina）
+guest: svečias；客户机系统 = svečio sistema；客户机工具 = svečio įrankiai（不用 kliento）
+emulate: emuliuoti；emuliacija（不用 imituoti、modeliuoti）
+virtualize: virtualizuoti；virtualizacija（不用 virtualizavimas）
+native: natyvus；接近原生的速度 = beveik natyvus greitis（不用 vietinis、gimtasis、įprastas）
+architecture: architektūra；CPU 架构 = procesoriaus architektūra
+backend: variklis；„QEMU“ variklis、„Apple“ variklis（不用 backend、užpakalinė programa、vidinė programa）
+apple-silicon: „Apple“ lustas；Apple 芯片的 Mac = „Mac“ kompiuteris su „Apple“ lustu；在 Apple 芯片上 = „Apple“ luste（不用 Apple Silicon、Apple silicis）  # https://www.apple.com/lt/mac/compare/（「„Apple M4“ lustas」）
+intel-mac: „Mac“ kompiuteris su „Intel“ procesoriumi（不用 Intel Mac）  # https://www.apple.com/lt/mac/compare/（「Intel „Core i7“ procesoriaus」）
+snapshot: momentinė kopija（不用 momentinė nuotrauka）
+disposable-mode: vienkartinis režimas（不用 vieno kadro režimas、išmetimo režimas）
+shut-down: išjungti；išjungimas
+new-vm-wizard: naujos virtualiosios mašinos vedlys
+installer-image: diegimo atvaizdas（不用 diegimo vaizdas）
+license: licencija；自备许可证 = reikia savo licencijos  # https://support.microsoft.com/lt-lt/windows/activate-windows-c39005d4-95ee-b91e-b399-2820fda32227
+secure-boot: saugioji įkrova  # https://support.microsoft.com/lt-lt/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: arba naujesnė versija  # https://support.apple.com/lt-lt/102552（「„macOS Ventura“ arba naujesnę versiją」）
+experimental: eksperimentinė funkcija
+auto-resolution: automatinis skiriamosios gebos derinimas
+shared-clipboard: bendrinama iškarpinė；共享剪贴板（动作）= iškarpinės bendrinimas；复制和粘贴 = kopijuoti ir įklijuoti
+shared-folder: bendrinamas aplankas；共享文件夹（动作）= bendrinti aplankus
+sharing: Bendrinimas（不用动词 pasidalino）
+shared-network: Bendrinamas tinklas
+host-only: Tik pagrindinis kompiuteris
+bridged: Tiltinis ryšys
+emulated-vlan: Emuliuotas VLAN
+port-forwarding: prievadų peradresavimas
+lan: vietinis tinklas（不用 LAN）
+shortcuts: programa „Shortcuts“（App 名不翻译，不用 spartieji klavišai）  # https://support.apple.com/lt-lt/guide/mac-mini/welcome/mac（「Atidarykite programą „Shortcuts“」）
+command-line-tool: komandinės eilutės įrankis
+clone: klonuoti
+fingerprint: kontrolinis kodas（不用 piršto atspaudas）
+hardware-reset: aparatinės įrangos nustatymas iš naujo
+mount: sumontuoti（不用 prijungti，避免和连接 USB 设备混淆）
+shared-library: bendroji biblioteka
+capture-mouse: užfiksuoti pelę；捕获鼠标按钮 = mygtukas „Užfiksuoti pelę“（待确认 App 界面）
+keys: klavišas „Control“、klavišas „Option“；同时按 = klavišus „Control“ ir „Option“（不用 valdymo、parinkčių klavišas）  # https://support.apple.com/lt-lt/guide/mac-mini/welcome/mac（「paspauskite klaviatūros klavišą „Control“」）
+toolbar: įrankių juosta
+settings: nustatymai
+rosetta: „Rosetta“，不变格（naudojant „Rosetta“、įjunkite „Rosetta“）
+cpu: procesorius；CPU 核心 = procesoriaus branduolys；30 多种 CPU = daugiau nei 30 tipų procesorių
+classic-systems: klasikinės sistemos

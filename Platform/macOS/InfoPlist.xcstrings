@@ -5,16 +5,94 @@
       "comment" : "Privacy - Microphone Usage Description",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Toestemming word vereis vir enige virtuele masjien om vanaf die mikrofoon op te neem."
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "مطلوب إذن لأي جهاز افتراضي للتسجيل من الميكروفون."
           }
         },
+        "as" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "মাইক্ৰ'ফোনৰ পৰা ৰেকৰ্ড কৰিবলৈ যিকোনো ভাৰ্চুৱেল মেচিনৰ বাবে অনুমতিৰ প্ৰয়োজন।"
+          }
+        },
+        "az" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "İstənilən virtual maşının mikrofondan yazması üçün icazə tələb olunur."
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Для запісу з мікрафона любой віртуальнай машыне патрабуецца дазвол."
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Изисква се разрешение за всяка виртуална машина за запис от микрофона."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "মাইক্রোফোন থেকে রেকর্ড করার জন্য যেকোনো ভার্চুয়াল মেশিনের অনুমতি প্রয়োজন।"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Za bilo koju virtuelnu mašinu potrebna je dozvola za snimanje sa mikrofona."
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Cal permís per a qualsevol màquina virtual per gravar des del micròfon."
+          }
+        },
+        "ceb" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Gikinahanglan ang pagtugot alang sa bisan unsang virtual machine nga makarekord gikan sa mikropono."
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Povolení je vyžadováno pro jakýkoli virtuální počítač k nahrávání z mikrofonu."
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Mae angen caniatâd i unrhyw beiriant rhithwir recordio o'r meicroffon."
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Der kræves tilladelse til, at enhver virtuel maskine kan optage fra mikrofonen."
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Damit eine virtuelle Maschine über das Mikrofon aufnehmen kann, ist eine Berechtigung erforderlich."
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Απαιτείται άδεια για οποιαδήποτε εικονική μηχανή για εγγραφή από το μικρόφωνο."
           }
         },
         "en" : {
@@ -29,16 +107,94 @@
             "value" : "Se requiere permiso para que cualquier máquina virtual grabe desde el micrófono."
           }
         },
+        "et" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Iga virtuaalmasin vajab mikrofonist salvestamiseks luba."
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Edozein makina birtualentzako baimena behar da mikrofonotik grabatzeko."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "برای هر ماشین مجازی برای ضبط از میکروفون مجوز لازم است."
+          }
+        },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Lupa vaaditaan, jotta virtuaalikone voi tallentaa ääntä mikrofonista."
           }
         },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Kinakailangan ang pahintulot para sa anumang virtual machine na mag-record mula sa mikropono."
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Une autorisation est requise pour que toute machine virtuelle puisse enregistrer à partir du microphone."
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Requírese permiso para que calquera máquina virtual poida gravar desde o micrófono."
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "માઇક્રોફોનથી રેકોર્ડ કરવા માટે કોઈપણ વર્ચ્યુઅલ મશીન માટે પરવાનગી જરૂરી છે."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "נדרשת הרשאה עבור כל מכונה וירטואלית להקליט מהמיקרופון."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "किसी भी वर्चुअल मशीन को माइक्रोफ़ोन से रिकॉर्ड करने के लिए अनुमति की आवश्यकता होती है।"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Potrebno je dopuštenje za bilo koje virtualno računalo za snimanje s mikrofona."
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Bármely virtuális géphez engedély szükséges a mikrofonról történő rögzítéshez."
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ցանկացած վիրտուալ մեքենայի համար խոսափողից ձայնագրելու թույլտվություն է պահանջվում:"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Izin diperlukan agar mesin virtual apa pun dapat merekam dari mikrofon."
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Leyfi er krafist fyrir hvaða sýndarvél sem er til að taka upp úr hljóðnemanum."
           }
         },
         "it" : {
@@ -53,10 +209,118 @@
             "value" : "仮想マシンがマイクから録音するには、アクセス許可が必要です。"
           }
         },
+        "jv" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ijin dibutuhake kanggo mesin virtual apa wae kanggo ngrekam saka mikropon."
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ნებისმიერი ვირტუალური აპარატისთვის საჭიროა მიკროფონიდან ჩაწერის ნებართვა."
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Кез келген виртуалды машина микрофоннан жазу үшін рұқсат қажет."
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ការអនុញ្ញាតគឺទាមទារសម្រាប់ម៉ាស៊ីននិម្មិតណាមួយដើម្បីថតចេញពីមីក្រូហ្វូន។"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ಮೈಕ್ರೋಫೋನ್‌ನಿಂದ ರೆಕಾರ್ಡ್ ಮಾಡಲು ಯಾವುದೇ ವರ್ಚುವಲ್ ಯಂತ್ರಕ್ಕೆ ಅನುಮತಿಯ ಅಗತ್ಯವಿದೆ."
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "가상 머신에서 마이크를 통해 소리를 녹음하려면 권한이 부여되어야 합니다."
+          }
+        },
+        "lb" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Erlaabnis ass néideg fir all virtuell Maschinn aus dem Mikro opzehuelen."
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ການອະນຸຍາດແມ່ນຕ້ອງການສໍາລັບເຄື່ອງ virtual ເພື່ອບັນທຶກຈາກໄມໂຄຣໂຟນ."
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Bet kuriai virtualiai mašinai įrašyti iš mikrofono reikalingas leidimas."
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Lai ierakstītu no mikrofona, jebkurai virtuālajai mašīnai ir nepieciešama atļauja."
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Потребна е дозвола за која било виртуелна машина да снима од микрофон."
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "मायक्रोफोनवरून रेकॉर्ड करण्यासाठी कोणत्याही आभासी मशीनला परवानगी आवश्यक आहे."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Kebenaran diperlukan untuk mana-mana mesin maya untuk merakam daripada mikrofon."
+          }
+        },
+        "mt" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Huwa meħtieġ permess għal kwalunkwe magna virtwali biex tirrekordja mill-mikrofonu."
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "မိုက်ခရိုဖုန်းမှ မှတ်တမ်းတင်ရန် မည်သည့် virtual machine အတွက်မဆို ခွင့်ပြုချက် လိုအပ်ပါသည်။"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Tillatelse kreves for at enhver virtuell maskin skal ta opp fra mikrofonen."
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "कुनै पनि भर्चुअल मेसिनलाई माइक्रोफोनबाट रेकर्ड गर्न अनुमति चाहिन्छ।"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Voor elke virtuele machine is toestemming vereist om via de microfoon op te nemen."
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ଯେକ any ଣସି ଭର୍ଚୁଆଲ୍ ମେସିନ୍ ମାଇକ୍ରୋଫୋନ୍ ରୁ ରେକର୍ଡ କରିବା ପାଇଁ ଅନୁମତି ଆବଶ୍ୟକ |"
           }
         },
         "pl" : {
@@ -65,10 +329,118 @@
             "value" : "Aby każda maszyna wirtualna mogła nagrywać z mikrofonu, wymagane jest zezwolenie."
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "É necessária permissão para qualquer máquina virtual gravar do microfone."
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Este necesară permisiunea pentru orice mașină virtuală pentru a înregistra de la microfon."
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Для любой виртуальной машины требуется разрешение для записи с микрофона."
+          }
+        },
+        "sd" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "اجازت گهربل آهي ڪنهن به ورچوئل مشين لاءِ مائڪروفون کان رڪارڊ ڪرڻ لاءِ."
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "මයික්‍රෆෝනයෙන් පටිගත කිරීමට ඕනෑම අතථ්‍ය යන්ත්‍රයක් සඳහා අවසරය අවශ්‍ය වේ."
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Na nahrávanie z mikrofónu sa vyžaduje povolenie každého virtuálneho počítača."
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Vsak virtualni stroj potrebuje dovoljenje za snemanje iz mikrofona."
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Kërkohet leje që çdo makinë virtuale të regjistrojë nga mikrofoni."
+          }
+        },
+        "sr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Потребна је дозвола за било коју виртуелну машину за снимање са микрофона."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Tillstånd krävs för att en virtuell maskin ska kunna spela in från mikrofonen."
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Ruhusa inahitajika ili mashine yoyote ya mtandaoni irekodi kutoka kwa maikrofoni."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "மைக்ரோஃபோனில் இருந்து பதிவு செய்ய எந்த மெய்நிகர் இயந்திரத்திற்கும் அனுமதி தேவை."
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "మైక్రోఫోన్ నుండి రికార్డ్ చేయడానికి ఏదైనా వర్చువల్ మెషీన్ కోసం అనుమతి అవసరం."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "จำเป็นต้องได้รับอนุญาตสำหรับเครื่องเสมือนใด ๆ เพื่อบันทึกจากไมโครโฟน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Herhangi bir sanal makinenin mikrofondan kayıt yapması için izin gereklidir."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Щоб будь-яка віртуальна машина записувала з мікрофона, потрібен дозвіл."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "مائیکروفون سے ریکارڈ کرنے کے لیے کسی بھی ورچوئل مشین کو اجازت درکار ہوتی ہے۔"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Har qanday virtual mashina mikrofondan yozib olishi uchun ruxsat talab qilinadi."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Bất kỳ máy ảo nào cũng cần có quyền để ghi âm từ micrô."
           }
         },
         "zh-HK" : {
@@ -95,16 +467,88 @@
       "comment" : "Document type name",
       "extractionState" : "extracted_with_value",
       "localizations" : {
+        "af" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM virtuele masjien"
+          }
+        },
         "ar" : {
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "الجهاز الظاهري UTM"
           }
         },
+        "az" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM virtual maşın"
+          }
+        },
+        "be" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Віртуальная машына UTM"
+          }
+        },
+        "bg" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM виртуална машина"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM ভার্চুয়াল মেশিন"
+          }
+        },
+        "bs" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM virtuelna mašina"
+          }
+        },
+        "ca" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "màquina virtual UTM"
+          }
+        },
+        "ceb" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM virtual nga makina"
+          }
+        },
+        "cs" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "virtuální stroj UTM"
+          }
+        },
+        "cy" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "peiriant rhithwir UTM"
+          }
+        },
+        "da" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM virtuel maskine"
+          }
+        },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Virtuelle Maschine (UTM)"
+          }
+        },
+        "el" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Εικονική μηχανή UTM"
           }
         },
         "en" : {
@@ -119,16 +563,88 @@
             "value" : "Máquina virtual de UTM"
           }
         },
+        "et" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM-i virtuaalmasin"
+          }
+        },
+        "eu" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM makina birtuala"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ماشین مجازی UTM"
+          }
+        },
         "fi" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "UTM-virtuaalikone"
           }
         },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM virtual machine"
+          }
+        },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Machine virtuelle UTM"
+          }
+        },
+        "gl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Máquina virtual UTM"
+          }
+        },
+        "gu" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM વર્ચ્યુઅલ મશીન"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "מכונה וירטואלית של UTM"
+          }
+        },
+        "hr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM virtualni stroj"
+          }
+        },
+        "hu" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM virtuális gép"
+          }
+        },
+        "hy" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM վիրտուալ մեքենա"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "mesin virtual UTM"
+          }
+        },
+        "is" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM sýndarvél"
           }
         },
         "it" : {
@@ -143,10 +659,118 @@
             "value" : "UTM仮想マシン"
           }
         },
+        "jv" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "mesin virtual UTM"
+          }
+        },
+        "ka" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM ვირტუალური მანქანა"
+          }
+        },
+        "kk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM виртуалды машинасы"
+          }
+        },
+        "km" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ម៉ាស៊ីននិម្មិត UTM"
+          }
+        },
+        "kn" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM ವರ್ಚುವಲ್ ಯಂತ್ರ"
+          }
+        },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "UTM 가상 머신"
+          }
+        },
+        "lb" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM virtuell Maschinn"
+          }
+        },
+        "lo" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "ເຄື່ອງ virtual UTM"
+          }
+        },
+        "lt" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM virtuali mašina"
+          }
+        },
+        "lv" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM virtuālā mašīna"
+          }
+        },
+        "mk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM виртуелна машина"
+          }
+        },
+        "mr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM आभासी मशीन"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "mesin maya UTM"
+          }
+        },
+        "mt" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Magna virtwali UTM"
+          }
+        },
+        "my" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM virtual စက်"
+          }
+        },
+        "nb" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM virtuell maskin"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM भर्चुअल मेसिन"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM virtuele machine"
+          }
+        },
+        "or" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM ଭର୍ଚୁଆଲ୍ ମେସିନ୍ |"
           }
         },
         "pl" : {
@@ -155,10 +779,112 @@
             "value" : "Maszyna wirtualna UTM"
           }
         },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Máquina virtual UTM"
+          }
+        },
+        "ro" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "mașină virtuală UTM"
+          }
+        },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Виртуальная машина UTM"
+          }
+        },
+        "sd" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM ورچوئل مشين"
+          }
+        },
+        "si" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM අතථ්‍ය යන්ත්‍රය"
+          }
+        },
+        "sk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "virtuálny stroj UTM"
+          }
+        },
+        "sl" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM virtualni stroj"
+          }
+        },
+        "sq" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Makinë virtuale UTM"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM virtuell maskin"
+          }
+        },
+        "sw" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Mashine pepe ya UTM"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM மெய்நிகர் இயந்திரம்"
+          }
+        },
+        "te" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM వర్చువల్ మెషిన్"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "เครื่องเสมือน UTM"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM sanal makinesi"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Віртуальна машина UTM"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM ورچوئل مشین"
+          }
+        },
+        "uz" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "UTM virtual mashinasi"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "máy ảo UTM"
           }
         },
         "zh-HK" : {

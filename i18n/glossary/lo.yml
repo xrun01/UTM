@@ -1,0 +1,45 @@
+# lo 定下的译法。规则见 i18n/glossary/terms.yml。老挝语书写不用空格，U+200B 是合法的词边界标记，不要删除。
+# 来源：amalthea（VM64 官网）的 glossary/lo.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 没有老挝语网站（apple.com/la 是拉美站，support.apple.com/lo-la 跳转 en-us）；support.microsoft.com/lo-la 也跳转 en-us。rule 为 apple、microsoft 的术语按老挝语软件界面的通行说法。
+virtual-machine: ເຄື່ອງສະເໝືອນ（不用 ເຄື່ອງຈັກສະເໝືອນ、ເຄື່ອງ virtual）
+guest: ແຂກ；客户机系统 = ລະບົບປະຕິບັດການແຂກ；客户机工具 = ເຄື່ອງມືແຂກ（不用 ລູກຄ້າ，它是顾客）
+emulate: ຈຳລອງ；名词 ການຈຳລອງ
+virtualize: ການເຮັດໃຫ້ເປັນສະເໝືອນ（不用 ການຈຳລອງສະເໝືອນ，它和模拟 ຈຳລອງ 同根）
+native: 接近原生的速度 = ຄວາມໄວເກືອບເທົ່າການແລ່ນໂດຍກົງ（不用 ພື້ນເມືອງ，它是本土）
+architecture: ສະຖາປັດຕະຍະກຳ
+backend: ແບັກເອັນ；ແບັກເອັນ QEMU、ແບັກເອັນ Apple
+apple-silicon: ຊິບ Apple；Apple 芯片的 Mac = Mac ທີ່ໃຊ້ຊິບ Apple（不用 Apple silicon、Apple chip）
+intel-mac: Mac ທີ່ໃຊ້ຊິບ Intel（不写 Intel Macs）
+cpu: CPU；核心 = ແກນ
+rosetta: Rosetta
+snapshot: ສະແນັບຊັອດ（不用 ພາບຖ່າຍ，它是照片）
+disposable-mode: ໂໝດໃຊ້ຄັ້ງດຽວ
+shut-down: ປິດເຄື່ອງ
+new-vm-wizard: ຕົວຊ່ວຍສ້າງເຄື່ອງສະເໝືອນໃໝ່
+installer-image: ອິມເມຈຕິດຕັ້ງ（不用 ຮູບພາບການຕິດຕັ້ງ，它是安装图片）
+license: ໃບອະນຸຍາດ；自备许可证 = ຕ້ອງມີໃບອະນຸຍາດຂອງທ່ານເອງ
+secure-boot: Secure Boot（查不到 Windows 老挝语界面写法，保留英文）
+or-later: ຫຼືໃໝ່ກວ່າ（不用 ຫຼືສູງກວ່າ、ຫຼືຫຼັງຈາກນັ້ນ）
+experimental: ຄຸນສົມບັດທົດລອງ
+auto-resolution: ການປັບຄວາມລະອຽດໜ້າຈໍອັດຕະໂນມັດ
+shared-clipboard: ຄລິບບອດ；共享剪贴板 = ການແບ່ງປັນຄລິບບອດ；复制粘贴 = ສຳເນົາ ແລະວາງ
+shared-folder: ໂຟນເດີທີ່ແບ່ງປັນ；共享文件夹 = ແບ່ງປັນໂຟນເດີ
+sharing: ການແບ່ງປັນ
+shared-network: ເຄືອຂ່າຍທີ່ໃຊ້ຮ່ວມກັນ
+host-only: ໂຮສເທົ່ານັ້ນ
+bridged: ບຣິດຈ໌（不用 ຂົວ，它是桥梁）
+emulated-vlan: VLAN ຈຳລອງ
+port-forwarding: ການສົ່ງຕໍ່ພອດ
+lan: ເຄືອຂ່າຍທ້ອງຖິ່ນ（不写 LAN）
+shortcuts: ແອັບ Shortcuts（Apple 系统没有老挝语界面，App 名保留英文；不用 ທາງລັດ，它是快捷方式）
+command-line-tool: ເຄື່ອງມືເສັ້ນຄຳສັ່ງ
+clone: ໂຄລນ
+fingerprint: ລາຍນິ້ວມືກະແຈ（单写 ລາຍນິ້ວມື 是手指指纹）
+hardware-reset: ການຣີເຊັດຮາດແວ
+mount: ເມົາ (mount)（不用 ຕິດຕັ້ງ，它是安装）
+shared-library: ໄລບຣາຣີທີ່ໃຊ້ຮ່ວມກັນ（不用 ຫ້ອງສະໝຸດ，它是图书馆）
+capture-mouse: ຈັບເມົາສ໌；捕获鼠标按钮 = ປຸ່ມຈັບເມົາສ໌（鼠标用 ເມົາສ໌，不用 ໜູ）
+keys: ປຸ່ມ Control、ປຸ່ມ Option（键名保留英文，不意译）
+toolbar: ແຖບເຄື່ອງມື
+settings: ການຕັ້ງຄ່າ
+classic-systems: ລະບົບຄລາສສິກ

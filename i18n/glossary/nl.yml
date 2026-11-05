@@ -1,0 +1,42 @@
+# nl 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。称呼统一用 u。
+# 来源：amalthea（VM64 官网）的 glossary/nl.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+virtual-machine: virtuele machine
+guest: gast；客户机系统 = gastsysteem；客户机工具 = gasttools
+emulate: emuleren；emulatie
+virtualize: virtualiseren；virtualisatie
+native: native；接近原生的速度 = bijna-native snelheid
+architecture: architectuur
+backend: backend；QEMU-backend、Apple-backend
+apple-silicon: Apple silicon；Apple 芯片的 Mac = Mac met Apple silicon  # https://support.apple.com/nl-nl/116943
+intel-mac: Intel-Mac  # https://support.apple.com/nl-nl/116943（「Een Intel-Mac is geen Mac met Apple silicon」）
+snapshot: snapshot
+disposable-mode: wegwerpmodus
+shut-down: uitschakelen
+new-vm-wizard: assistent voor nieuwe virtuele machines
+installer-image: installatiekopie
+license: licentie；自备许可证 = eigen licentie
+secure-boot: Beveiligd opstarten  # https://support.microsoft.com/nl-nl/windows/windows-11-en-beveiligd-opstarten-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: of nieuwer  # https://support.apple.com/nl-nl/102552（「macOS Ventura of nieuwer」）
+experimental: experimentele functie
+auto-resolution: automatische aanpassing van de resolutie
+shared-clipboard: gedeeld klembord；共享剪贴板（动作）= het klembord delen
+shared-folder: gedeelde map
+sharing: Delen
+shared-network: Gedeeld netwerk
+host-only: Alleen host
+bridged: Overbrugd
+emulated-vlan: Geëmuleerd VLAN
+port-forwarding: port forwarding
+lan: lokaal netwerk
+shortcuts: Opdrachten  # https://support.apple.com/nl-nl/guide/shortcuts-mac/welcome/mac
+command-line-tool: opdrachtregeltool
+clone: klonen
+fingerprint: vingerafdruk
+hardware-reset: hardwarereset
+mount: mounten
+shared-library: gedeelde bibliotheek
+capture-mouse: muis vangen；捕获鼠标按钮 = knop Muis vangen（vastleggen 常被读成「记录」，主代理定稿）
+keys: Control-toets、Option-toets  # https://support.apple.com/nl-nl/102650
+toolbar: knoppenbalk  # Apple 荷兰语 macOS 菜单「Weergave > Pas knoppenbalk aan」
+settings: instellingen
+classic-systems: klassieke systemen

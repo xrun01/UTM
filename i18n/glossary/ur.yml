@@ -1,0 +1,47 @@
+# ur 定下的译法。规则见 i18n/glossary/terms.yml。
+# 来源：amalthea（VM64 官网）的 glossary/ur.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 有乌尔都语的 iPhone、iPad 使用手册（support.apple.com/ur-in），Mac 使用手册和快捷指令使用手册未本地化（显示英文）。
+# rule 是 apple 的术语，能在 iPhone 使用手册里核对的写出 URL，其余写「未查到」。Microsoft 乌尔都语支持页显示英文。
+# 拉丁字母名称夹在乌尔都文中间，不加 Bidi 控制字符。标题、按钮、列表标题末尾不加句号 ۔。
+virtual-machine: ورچوئل مشین
+guest: گیسٹ；客户机系统 = گیسٹ سسٹم，客户机工具 = گیسٹ ٹولز（不用 کلائنٹ）
+emulate: ایمولیٹ کرنا；ایمولیشن（不用 تقلید、تخروپن）
+virtualize: ورچوئلائز کرنا；ورچوئلائزیشن
+native: نیٹو；接近原生的速度 = تقریباً نیٹو رفتار（不用 مقامی，مقامی 是「本地」）
+architecture: آرکیٹیکچر（不用 فن تعمیر，فن تعمیر 是建筑艺术）
+backend: بیک اینڈ；QEMU بیک اینڈ，Apple بیک اینڈ
+apple-silicon: Apple چپ；Apple 芯片的 Mac = Apple چپ والا Mac（复数 Apple چپ والے Mac）  # 未查到 Apple 乌尔都语 Mac 写法，待母语者确认
+intel-mac: Intel پر مبنی Mac（不加英文复数 s）  # 未查到 Apple 乌尔都语写法，参照 Apple 英文 Intel-based Mac
+cpu: CPU（不音译成 سی پی یو，不加英文复数 s）
+rosetta: Rosetta
+snapshot: اسنیپ شاٹ（不写 سنیپ شاٹ）
+disposable-mode: ڈسپوزیبل موڈ（不用 ون شاٹ、تھرو وے）
+shut-down: بند کرنا；关机后 = بند ہونے کے بعد
+new-vm-wizard: ورچوئل مشین بنانے کا وزرڈ
+installer-image: انسٹالیشن امیج（不用 تصویر，تصویر 是图片）  # https://support.apple.com/ur-in/guide/iphone/iph220ea8dca/ios（「امیج」）
+license: لائسنس；自备许可证 = لائسنس آپ کو خود لینا ہوگا
+secure-boot: Secure Boot  # Microsoft 乌尔都语支持页未本地化，保留英文，待母语者确认
+or-later: یا بعد کا ورژن  # https://support.apple.com/ur-in/guide/iphone/iph505911a40/ios（「macOS 15 یا بعد کا ورژن」）
+experimental: تجرباتی فیچر
+auto-resolution: خودکار ریزولوشن ایڈجسٹمنٹ
+shared-clipboard: مشترکہ کلپ بورڈ；共享剪贴板（动作）= کلپ بورڈ شیئر کرنا  # https://support.apple.com/ur-in/guide/iphone/iph220ea8dca/ios（「کلپ بورڈ」）
+shared-folder: مشترکہ فولڈر；共享文件夹（动作）= فولڈر شیئر کرنا（不用 اشتراک کرنا）
+sharing: شیئرنگ  # https://support.apple.com/ur-in/guide/iphone/welcome/ios（「فیملی شیئرنگ」）
+shared-network: مشترکہ نیٹ ورک
+host-only: صرف میزبان
+bridged: برجڈ（不用 پل、برج）
+emulated-vlan: ایمولیٹڈ VLAN（不用 نقلی VLAN）
+port-forwarding: پورٹ فارورڈنگ
+lan: مقامی نیٹ ورک  # https://support.apple.com/ur-in/guide/iphone/iph220ea8dca/ios（「مقامی نیٹ ورکنگ」）
+shortcuts: شارٹ کٹ；正文写 شارٹ کٹ ایپ，和键盘快捷键区分  # https://support.apple.com/ur-in/guide/iphone/iph47e1c9d7d/ios（目录「شارٹ کٹ」）
+command-line-tool: کمانڈ لائن ٹول
+clone: کلون کرنا
+fingerprint: فنگر پرنٹ
+hardware-reset: ہارڈویئر ری سیٹ
+mount: ماؤنٹ کرنا
+shared-library: مشترکہ لائبریری
+capture-mouse: ماؤس کیپچر کرنا；捕获鼠标按钮 = ماؤس کیپچر بٹن（不用 پکڑنا）
+keys: Control کِی، Option کِی（键名保留键帽上的英文）  # 「کِی」参照 https://support.apple.com/ur-in/guide/iphone/welcome/ios（目录「ریکوری کِی」）；未查到 Apple 乌尔都语 Mac 键名，待母语者确认
+toolbar: ٹول بار
+settings: سیٹنگ（不用 ترتیبات）  # https://support.apple.com/ur-in/guide/iphone/iph3dfd91de/ios（「سیٹنگ」）
+classic-systems: کلاسک سسٹم

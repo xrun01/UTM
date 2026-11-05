@@ -1,0 +1,47 @@
+# eu 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。
+# 来源：amalthea（VM64 官网）的 glossary/eu.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 没有巴斯克语页面。rule 是 apple 的术语参照 Apple es-ES 的写法结构，改用巴斯克语说法，见 proposal.json 的 doubts。
+# 称呼：zu。专名和 VM64 加格尾时用连字符：Mac-ean（位格单数）、Mac-eko、Mac-ak（作格单数）、Mac-ek（作格复数）、Mac-etan、VM64-k、Windows-erako。
+# 标题：卡片标题、步骤标题、CTA 用动词原形（Exekutatu、Sortu、Deskargatu）。
+virtual-machine: makina birtuala
+guest: gonbidatua；客户机系统 = sistema gonbidatua；客户机工具 = gonbidatuaren tresnak（不用 bezero）
+emulate: emulatu；emulazioa（不用 simulatu、imitatu）
+virtualize: birtualizatu；birtualizazioa
+native: natiboa；接近原生的速度 = abiadura ia natiboa（不用 jatorrizko）
+architecture: arkitektura；CPU 架构 = PUZ arkitektura
+backend: backend（不加连字符变格：backenda、backendarekin）；QEMU 后端 = QEMU backenda，Apple 后端 = Apple backenda
+apple-silicon: Apple txipa；Apple 芯片的 Mac = Apple txipa duen Mac（复数 Apple txipa duten Mac-ak；不用 Apple silizioa）  # 参照 es-ES：https://support.apple.com/es-es/116943
+intel-mac: Intel prozesadorea duen Mac（复数 Intel prozesadorea duten Mac-ak）  # 参照 es-ES：https://support.apple.com/es-es/116943
+snapshot: bat-bateko argazkia（不单用 argazkia）  # GNOME Boxes eu 写 bat-batekoa，见 doubts
+disposable-mode: erabili eta botatzeko modua
+shut-down: itzali；itzaltzean
+new-vm-wizard: makina birtualak sortzeko morroia
+installer-image: instalazio-irudia
+license: lizentzia；自备许可证 = lizentzia propioa behar duzu
+secure-boot: Secure Boot  # support.microsoft.com/eu-es 回落到西班牙语页面，没有查到 Windows eu 界面写法，见 doubts
+or-later: edo berriagoa
+experimental: eginbide esperimentala
+auto-resolution: bereizmenaren doikuntza automatikoa
+shared-clipboard: arbel partekatua；共享剪贴板 = arbela partekatu
+shared-folder: karpeta partekatua
+sharing: Partekatzea
+shared-network: Sare partekatua
+host-only: Ostalaria soilik
+bridged: Zubia
+emulated-vlan: VLAN emulatua
+port-forwarding: atakak birbideratzea（不用 portu，portu 是港口）
+lan: sare lokala（不用 LAN）
+shortcuts: Lasterbideak  # Apple 没有 eu 页面，参照 es-ES 的 App 名 Atajos，见 doubts
+command-line-tool: komando-lerroko tresna
+clone: klonatu
+fingerprint: hatz-marka
+hardware-reset: hardwarea berrezartzea
+mount: muntatu
+shared-library: liburutegi partekatua
+capture-mouse: sagua harrapatu；捕获鼠标按钮 = Harrapatu sagua botoia
+keys: Control tekla、Option tekla（按 Mac 键帽上的字，不用 Kontrol、Aukera）  # 见 doubts
+toolbar: tresna-barra
+settings: ezarpenak
+rosetta: Rosetta
+cpu: PUZ
+classic-systems: sistema klasikoak

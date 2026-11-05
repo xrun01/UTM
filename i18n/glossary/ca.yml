@@ -1,0 +1,46 @@
+# ca 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。
+# 来源：amalthea（VM64 官网）的 glossary/ca.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# 称呼：vosaltres（Executeu、Baixeu、vostre），沿用现有译文。Apple ca 用 tu，见 proposal.json 的 doubts。
+# 标题：卡片标题、要求条目名用不定式；页面主标题、步骤标题、CTA 用 vosaltres 祈使句；按钮和导航用不定式。
+virtual-machine: màquina virtual
+guest: convidat；客户机系统 = sistema convidat；客户机工具 = eines de convidat（不用 client）
+emulate: emular；emulació（不用 simular）
+virtualize: virtualitzar；virtualització
+native: natiu；接近原生的速度 = velocitat gairebé nativa
+architecture: arquitectura；CPU 架构 = arquitectura de CPU
+backend: backend；QEMU 后端 = backend QEMU，Apple 后端 = backend d'Apple
+apple-silicon: xip d'Apple；Apple 芯片的 Mac = Mac amb xip d'Apple（不用 silici d'Apple、Apple silicon）  # https://support.apple.com/ca-es/guide/mac-help/mchl82829c17/mac
+intel-mac: Mac amb Intel（复数 els Mac amb Intel）  # https://support.apple.com/ca-es/guide/mac-help/mchl338cf9a8/mac
+snapshot: instantània
+disposable-mode: mode d'un sol ús
+shut-down: apagar；en apagar-les
+new-vm-wizard: assistent de creació de màquines virtuals
+installer-image: imatge d'instal·lació
+license: llicència；自备许可证 = necessiteu una llicència pròpia
+secure-boot: arrencada segura  # support.microsoft.com/ca-es 回落到西班牙语页面，按 Windows ca 界面通行写法，见 doubts
+or-later: o posterior（不用 o superior）  # https://apps.apple.com/es/app/xcode/id497799835?l=ca（「Cal la versió macOS 26.6 o posterior」）
+experimental: funció experimental
+auto-resolution: ajust automàtic de la resolució
+shared-clipboard: porta-retalls compartit；共享剪贴板 = compartir el porta-retalls
+shared-folder: carpeta compartida
+sharing: Ús compartit
+shared-network: Xarxa compartida
+host-only: Només amfitrió
+bridged: Pont
+emulated-vlan: VLAN emulada
+port-forwarding: reenviament de ports
+lan: xarxa local（不用 LAN）
+shortcuts: Dreceres  # https://support.apple.com/ca-es/guide/shortcuts-mac/welcome/mac
+command-line-tool: eina de línia d'ordres
+clone: clonar
+fingerprint: empremta digital
+hardware-reset: restabliment del maquinari
+mount: muntar
+shared-library: biblioteca compartida
+capture-mouse: capturar el ratolí；捕获鼠标按钮 = botó Capturar el ratolí
+keys: tecla Control、tecla Opció  # https://support.apple.com/ca-es/guide/mac-help/mchlp2580/mac
+toolbar: barra d'eines
+settings: configuració  # Apple ca 写 Configuració del Sistema：https://support.apple.com/ca-es/guide/mac-help/mchlp1225/mac
+rosetta: Rosetta
+cpu: CPU
+classic-systems: sistemes clàssics

@@ -1,0 +1,46 @@
+# my 定下的译法。规则见 i18n/glossary/terms.yml。缅甸语可以用 U+200B 标记词边界，不要删除。缅甸语行高大，标题不要过长。
+# 来源：amalthea（VM64 官网）的 glossary/my.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 没有缅甸语网站（apple.com/mm 404，support.apple.com/my-mm 跳转 en-us）；Windows 没有缅甸语界面（support.microsoft.com/my-mm 跳转 en-us）。rule 为 apple、microsoft 的术语按缅甸语软件界面的通行说法。
+virtual-machine: ဗာချွယ်စက်（不用 အတုအယောင်စက်，它是假冒的机器）
+guest: ဧည့်သည်；客户机系统 = ဧည့်သည်လည်ပတ်မှုစနစ်；客户机工具 = ဧည့်သည်ကိရိယာများ（不用 ဖောက်သည်、ကလိုင်းယင့်、client）
+emulate: အတုယူ；名词 အတုယူခြင်း
+virtualize: ဗာချွယ်လိုက်ဇေးရှင်း（音译。缅甸语没有通行的意译；和 အတုယူ 不同词根）
+native: 接近原生的速度 = မူရင်းအမြန်နှုန်းနီးပါး（不用 ဇာတိ，它是出生地）
+architecture: ဗိသုကာ；CPU 架构 = CPU ဗိသုကာ（不用 ဗိသုကာလက်ရာ，它是建筑作品）
+backend: backend；QEMU backend、Apple backend（不用 နောက်ခံ，它是背景）
+apple-silicon: Apple ချစ်ပ်；Apple 芯片的 Mac = Apple ချစ်ပ်ပါသော Mac（不用 Apple ဆီလီကွန်、Apple silicon）
+intel-mac: Intel ချစ်ပ်ပါသော Mac（不写 Intel Macs）
+cpu: CPU；核心 = core
+rosetta: Rosetta
+snapshot: လျှပ်တစ်ပြက်မှတ်တမ်း（不用 လျှပ်တစ်ပြက်ပုံ，它是快拍照片）
+disposable-mode: တစ်ခါသုံးမုဒ်
+shut-down: စက်ပိတ်
+new-vm-wizard: ဗာချွယ်စက်အသစ် ဖန်တီးရေးလမ်းညွှန်
+installer-image: ထည့်သွင်းရေး အင်မေ့ချ်ဖိုင်（不用 တပ်ဆင်ပုံ，它是安装图样）
+license: လိုင်စင်；自备许可证 = ကိုယ်ပိုင်လိုင်စင် လိုအပ်သည်
+secure-boot: Secure Boot（Windows 没有缅甸语界面，保留英文）
+or-later: နှင့်အထက်（不用 သို့မဟုတ် နောက်ပိုင်း，它读成「之后」）
+experimental: စမ်းသပ်အင်္ဂါရပ်
+auto-resolution: ဖန်သားပြင် ရီဆိုလူးရှင်း အလိုအလျောက်ချိန်ညှိခြင်း；分辨率 = ဖန်သားပြင် ရီဆိုလူးရှင်း（不用 ကြည်လင်ပြတ်သားမှု，它是清晰度）
+shared-clipboard: ကလစ်ဘုတ်；共享剪贴板 = ကလစ်ဘုတ်မျှဝေခြင်း；复制粘贴 = ကူးယူပြီး ကူးထည့်
+shared-folder: မျှဝေထားသော ဖိုင်တွဲ；共享文件夹 = ဖိုင်တွဲမျှဝေခြင်း
+sharing: မျှဝေခြင်း
+shared-network: မျှဝေကွန်ရက်
+host-only: အိမ်ရှင်စက်သီးသန့်
+bridged: တံတားဆက်
+emulated-vlan: အတုယူ VLAN
+port-forwarding: ပို့တ်ထပ်ဆင့်ပို့ခြင်း
+lan: ဒေသတွင်းကွန်ရက်（不写 LAN）
+shortcuts: Shortcuts အက်ပ်（Apple 系统没有缅甸语界面，App 名保留英文；不用 ဖြတ်လမ်း，它是快捷方式）
+command-line-tool: အမိန့်ပေးစာကြောင်း ကိရိယာ
+clone: ပုံတူပွား
+fingerprint: သော့လက်ဗွေ（单写 လက်ဗွေ 是手指指纹）
+hardware-reset: ဟာ့ဒ်ဝဲ ပြန်လည်သတ်မှတ်ခြင်း
+mount: mount လုပ်（不用 တပ်ဆင်，它是安装）
+shared-library: shared library（不用 မျှဝေထားသောစာကြည့်တိုက်，它是共享阅览室）
+capture-mouse: မောက်စ်ဖမ်း；捕获鼠标按钮 = မောက်စ်ဖမ်းခလုတ်
+keys: Control ကီး、Option ကီး
+toolbar: ကိရိယာဘား
+settings: ဆက်တင်များ
+classic-systems: ဂန္တဝင်စနစ်
+# 标题写法：功能标题、步骤标题用 -ခြင်း 名词结构；按钮、链接用 -ရန်；都不加句号 ။

@@ -1,0 +1,46 @@
+# sd 定下的译法。规则见 i18n/glossary/terms.yml。
+# 来源：amalthea（VM64 官网）的 glossary/sd.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 和 Microsoft 都没有信德语支持页（support.apple.com/sd-pk 返回 404，support.microsoft.com/sd-arab-pk 跳转到 en-us）。rule 是 apple、microsoft 的术语按信德语软件界面的通行说法定，待母语者确认。
+# sd 只修语义错误、术语错误、漏译、文字系统错误，不修不通顺。拉丁字母名称直接夹在信德文中，不加 Bidi 控制字符。
+virtual-machine: ورچوئل مشين（不用 مجازي مشين）
+guest: مهمان；客户机系统 = مهمان سسٽم，客户机工具 = مهمان ٽولز（不用 ڪلائنٽ、ڪسٽمر、گيسٽ）
+emulate: ايموليٽ ڪرڻ；ايموليشن（不用 نقل、متحرڪ、تخليق）
+virtualize: ورچوئلائيز ڪرڻ；ورچوئلائيزيشن
+native: ڏيهي；接近原生的速度 = تقريبن ڏيهي رفتار（不用 مقامي，它是本地）  # 待母语者确认
+architecture: آرڪيٽيڪچر（不用 فن تعمير，它是建筑艺术）
+backend: بيڪ اينڊ；QEMU بيڪ اينڊ，Apple بيڪ اينڊ（不用 پس منظر，它是背景）
+apple-silicon: Apple چپ；Apple 芯片的 Mac = Apple چپ وارو Mac  # 无 Apple 信德语来源
+intel-mac: Intel Mac；不加英文复数 s  # 无 Apple 信德语来源
+cpu: CPU（不音译成 سي پي يو）
+rosetta: Rosetta
+snapshot: سنيپ شاٽ
+disposable-mode: ڊسپوزيبل موڊ  # 待母语者确认
+shut-down: بند ٿيڻ；关机后 = بند ٿيڻ کان پوءِ
+new-vm-wizard: ورچوئل مشين ٺاهڻ جو مددگار（不写 نئون مددگار）
+installer-image: انسٽاليشن اميج（不用 تصوير，它是图片）
+license: لائسنس；自备许可证 = پنهنجو لائسنس آڻڻ جي ضرورت آهي
+secure-boot: محفوظ بوٽ  # 无 Microsoft 信德语来源，保留意译，待母语者确认
+or-later: يا بعد ۾；「需要」句写 macOS 13 يا بعد ۾ گهربل آهي  # 无 Apple 信德语来源
+experimental: تجرباتي خاصيت
+auto-resolution: خودڪار ريزوليوشن ايڊجسٽمينٽ
+shared-clipboard: شيئر ٿيل ڪلپ بورڊ；共享剪贴板（动作）= ڪلپ بورڊ شيئر ڪرڻ
+shared-folder: شيئر ٿيل فولڊر；共享文件夹（动作）= فولڊر شيئر ڪرڻ
+sharing: شيئرنگ（不用 حصيداري）
+shared-network: شيئر ٿيل نيٽ ورڪ
+host-only: صرف هوسٽ
+bridged: برجڊ（不用 پل、پلڊ）
+emulated-vlan: ايموليٽڊ VLAN
+port-forwarding: پورٽ فارورڊنگ
+lan: مقامي نيٽ ورڪ（不写 LAN）
+shortcuts: شارٽ ڪٽ ايپ；加 ايپ，和键盘快捷键区分  # 无 Apple 信德语来源
+command-line-tool: ڪمانڊ لائن ٽول
+clone: ڪلون ڪرڻ
+fingerprint: آڱرين جا نشان
+hardware-reset: هارڊويئر ري سيٽ
+mount: مائونٽ ڪرڻ
+shared-library: شيئر ڪيل لائبريري
+capture-mouse: مائوس ڪيپچر ڪرڻ；捕获鼠标按钮 = مائوس ڪيپچر بٽڻ
+keys: Control ڪيئي、Option ڪيئي（键名按键帽写，不意译）
+toolbar: ٽول بار
+settings: سيٽنگون；在设置里 = سيٽنگن ۾
+classic-systems: ڪلاسڪ سسٽم

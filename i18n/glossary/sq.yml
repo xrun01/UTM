@@ -1,0 +1,46 @@
+# sq 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。正文称呼统一用 ju（命令式 -ni），界面按钮用短命令式（Shkarko、Mbyll）。
+# 来源：amalthea（VM64 官网）的 glossary/sq.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 和 Microsoft 都没有阿尔巴尼亚语页面（support.apple.com/sq-al、support.microsoft.com/sq-al 都跳转到英文），rule 是 apple、microsoft 的术语参照 de、it 的结构，或用阿尔巴尼亚语软件的通行说法。
+# Mac 变格加连字符：Mac-u、Mac-ut、Mac-un。复数写 kompjuterët Mac。「X 虚拟机」写成 makinë virtuale X。
+virtual-machine: makinë virtuale；复数 makina virtuale
+guest: mysafir；客户机系统 = sistem mysafir；客户机工具 = veglat e mysafirit
+emulate: emuloj；emulim
+virtualize: virtualizoj；virtualizim
+native: vendas；接近原生的速度 = shpejtësi pothuajse vendase
+architecture: arkitekturë
+backend: backend；backend-i Apple；复数 backend-e
+apple-silicon: çip Apple；Apple 芯片的 Mac = Mac me çip Apple（照 de、it 的 Apple 结构）
+intel-mac: Mac me procesor Intel；复数 kompjuterët Mac me procesor Intel（照 de、it 的 Apple 结构）
+snapshot: snapshot；snapshot-i、复数 snapshot-e、snapshot-et
+disposable-mode: modaliteti njëpërdorimësh
+shut-down: fik；fikje
+new-vm-wizard: asistenti për makina virtuale të reja
+installer-image: imazh instalimi
+license: licencë；自备许可证 = ju duhet licenca juaj
+secure-boot: Secure Boot（没有查到 Windows 阿尔巴尼亚语界面的写法）
+or-later: ose më i ri
+experimental: veçori eksperimentale
+auto-resolution: rregullimi automatik i rezolucionit
+shared-clipboard: kujtesa e përbashkët e fragmenteve；共享剪贴板（动作）= ndaj kujtesën e fragmenteve（Microsoft 阿尔巴尼亚语界面的剪贴板）
+shared-folder: dosje e përbashkët；复数 dosjet e përbashkëta
+sharing: Ndarja
+shared-network: Rrjet i përbashkët
+host-only: Vetëm host
+bridged: Me urë
+emulated-vlan: VLAN i emuluar
+port-forwarding: përcjellja e portave
+lan: rrjet lokal
+shortcuts: Shortcuts（macOS 没有阿尔巴尼亚语界面，App 显示英文名）
+command-line-tool: vegla e rreshtit të komandave
+clone: klonoj
+fingerprint: gjurmë gishti
+hardware-reset: rivendosje e harduerit
+mount: montoj
+shared-library: bibliotekë e përbashkët；复数 bibliotekat e përbashkëta
+capture-mouse: kap miun；捕获鼠标按钮 = butoni Kap miun
+keys: tasti Control、tasti Option（按 Mac 键帽）
+toolbar: shiriti i veglave
+settings: cilësimet
+rosetta: Rosetta（不变格）
+cpu: CPU
+classic-systems: sisteme klasike
