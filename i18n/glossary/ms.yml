@@ -42,3 +42,41 @@ settings: seting（不用 tetapan）  # https://support.apple.com/ms-my/guide/ma
 classic-systems: sistem klasik
 cpu: CPU  # https://support.apple.com/ms-my/guide/mac-help/welcome/mac（「aktiviti CPU」）
 rosetta: Rosetta  # Apple 马来语页面不翻译 Rosetta：https://support.apple.com/ms-my/102527
+# 以下是 terms.yml 里没有、在待审条目中出现 3 次以上的界面术语
+button-style: 按钮、菜单项、工具栏项、快捷指令动作名用动词原形（Tambah、Padam、Batal、Simpan、Teruskan）；分组标题用名词；大小写跟英文一致（英文每词大写时，马来语实词首字母大写）
+status-labels: 进行中的状态用 me- 动词（Memulakan、Menjeda、Menyimpan）；完成的状态用 di- 被动形式（Dimulakan、Dijeda、Digantung、Dihentikan）
+vm: 英文写 VM 时保留 VM；马来语语序 VM macOS（不写 macOS VM）
+drive: pemacu；可移动驱动器 = pemacu boleh tanggal；外部驱动器 = pemacu luaran；驱动程序 driver = pemacu peranti（和 drive 区分）
+disk-image: imej cakera；drive image = imej pemacu
+image: imej（imej ISO、imej kernel、imej but）；中心词在前：Imej %@
+boot: but（But、imej but、peranti but、But UEFI）；bootloader = pemuat but；Secure Boot 保留英文
+kernel: kernel（imej kernel、Kernel Linux）
+configuration: konfigurasi
+directory: direktori（shared directory = direktori kongsi，不用 dikongsi）；folder 保留 folder（folder kongsi）
+display: paparan（Display 和 Displays 都写 Paparan）
+memory: memori；RAM 保留
+storage: storan
+core: teras（CPU 核心）
+start-run: Start = Mulakan（Mulakan、Memulakan、Dimulakan）；Run = Jalankan；向导首页标题 wizard.start.title = Permulaan
+pause: jeda（Jeda、Dijeda、Menjeda）
+suspend: gantung（Gantung、Digantung、keadaan digantung）；和 jeda 必须区分
+resume: sambung semula（Sambung Semula、Menyambung Semula）；restore = pulihkan（Pulihkan、Memulihkan）
+state: keadaan（Simpan Keadaan、Keadaan Semasa）；不用 negeri（州）
+save: simpan
+delete: padam（Padam、Padamkan）；remove = alih keluar；eject = keluarkan；extract = nyahmampat（Menyahmampat…）
+quit: keluar（Keluar，退出 App）  # Apple 马来语 Force Quit = Paksa Keluar
+restart: mulakan semula；reset = set semula
+power-down: matikan kuasa（Minta Matikan Kuasa、permintaan matikan kuasa）
+kill-request-force: 停止方式 3 个选项 = Minta、Paksa、Tamatkan；Force kill = Tamatkan paksa；kill 不用 bunuh、matikan
+capture-input: tangkap input（Tangkap Input），和 capture-mouse 一致
+keystroke: ketukan kekunci；Send Key = Hantar Kekunci
+modifier-keys: kekunci pengubah suai；Mac 键名保留键帽写法（Command、Control、Option、Shift、Caps Lock、Escape）
+scan-code: kod imbasan
+serial: port bersiri（Serial、Serial (TTY)、Serial %lld）；不用 siri（系列）
+vm-shortcut: pintasan（UTM 列表里指向别处虚拟机的条目）
+recovery-mode: mod pemulihan；recovery IPSW = IPSW pemulihan
+default-generic: Default = Lalai；Generic = Generik；两者必须区分
+gallery-library: Gallery = Galeri（Galeri UTM，官网下载页）；UTM Library = Pustaka UTM（主窗口）
+operation: operasi
+host: hos（mesin hos、Rangkaian Hos、'Hos'）
+dock: Dock（保留 Apple 组件名，不写 dok）

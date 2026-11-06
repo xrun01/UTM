@@ -1,7 +1,7 @@
 # mt 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。
 # 来源：amalthea（VM64 官网）的 glossary/mt.yml，commit b724790。去掉了官网专用的 ui-* 术语。
 # Apple 和 Microsoft 在马耳他只有英文站（support.apple.com/mt-mt、apple.com/mt、support.microsoft.com/mt-mt 都是英文内容），rule 是 apple、microsoft 的术语按英文写法的结构，用马耳他语通行说法。
-virtual-machine: magna virtwali；复数 magni virtwali
+virtual-machine: magna virtwali（阴性）；复数 magni virtwali。英文的 VM 也译成 magna virtwali，不用缩写
 guest: mistieden；客户机系统 = sistema mistiedna，复数 sistemi mistiedna；客户机工具 = l-għodod tal-mistieden
 emulate: emula（第 3 人称 jemula、temula）；emulazzjoni
 virtualize: ivvirtwalizza；virtwalizzazzjoni
@@ -10,7 +10,7 @@ architecture: arkitettura
 backend: backend；复数 backends；il-backend QEMU、il-backend Apple
 apple-silicon: ċippa Apple；复数 ċipep Apple；Apple 芯片的 Mac = Mac b'ċippa Apple，复数 kompjuters Mac b'ċippa Apple  # 无马耳他语 Apple 页面，结构参照 https://support.apple.com/en-mt/116943（Mac with Apple silicon）
 intel-mac: Mac b'proċessur Intel；复数 kompjuters Mac b'proċessur Intel  # 结构参照 https://support.apple.com/en-mt/116943（Mac with an Intel processor）
-snapshot: snapshot；复数 snapshots
+snapshot: snapshot（阳性：is-snapshot、dan is-snapshot）；复数 snapshots。不用 stampa（照片）
 disposable-mode: modalità ta' użu wieħed
 shut-down: titfi；名词 it-tifi
 new-vm-wizard: l-assistent għal magni virtwali ġodda
@@ -43,3 +43,32 @@ settings: settings（is-settings）
 rosetta: Rosetta
 cpu: CPU；CPU 核心 = qalba，复数 qlub
 classic-systems: sistemi klassiċi
+drive: drive（阳性：id-drive、drive ġdid）；复数 drives；Drive Image = Immaġni tad-Drive；External Drive = Drive Estern；Removable Drive = Drive li Jista' Jitneħħa（可以被移除，不写 li jitneħħa）。不用 sewqan（驾驶）、drajv
+image: immaġni；复数 immaġnijiet；disk image = immaġni tad-diska；boot image = immaġni tal-ibbutjar。不写 immaġini
+boot: ibbutja（动词）；l-ibbutjar（名词）；Boot Device = Apparat tal-Ibbutjar；UEFI Boot = Ibbutjar UEFI
+recovery: rkupru；recovery mode = modalità ta' rkupru；recovery IPSW = IPSW ta' rkupru；Run Recovery = Ħaddem ir-Rkupru
+kernel: kernel（阳性）；kernel image = immaġni tal-kernel。不用 qalba，qalba 是 CPU 核心
+display: skrin；复数 skrins；Displays = Skrins；full screen = skrin sħiħ
+data: data（阴性：id-data）。不用 dejta
+save: issejvja；saved = issejvjat；unsaved = mhux issejvjat；Save State = Issejvja l-Istat
+delete: ħassar（永久删除）
+remove: neħħi（只移除，不删除数据）。必须和 delete 区分
+eject: Oħroġ id-Diska（弹出驱动器；单写 oħroġ 和 quit 同词，必须带宾语）；Extracting… = Qed jiġi estratt…
+run: ħaddem（运行虚拟机）。不用 mexxi，mexxi 是 Move
+move: mexxi
+quit: oħroġ（退出 App）；quitting = il-ħruġ
+host: ospitant（名词）；ospitanti（形容词：il-magna ospitanti、is-sistema operattiva ospitanti）；Host Networks = Netwerks tal-Ospitant。网络模式名 Host Only 仍写 Host Biss
+interface: interfaċċja（阴性）；Bridge Interface = Interfaċċja tal-Bridge。不写 interface
+hardware: ħardwer（同 hardware-reset 的写法）
+screenshot: stampa tal-iskrin；复数 stampi tal-iskrin
+dock: Dock（Apple 名称，不用 baċir）
+keystroke: tagħfis tat-tasti；keystroke sequence = sekwenza ta' tagħfis tat-tasti；Send Key = Ibgħat Tasta
+shortcut-alias: shortcut（阳性：ix-shortcut）。指主窗口里虚拟机的快捷方式，和 App 名 Shortcuts 不同
+power: Enerġija（工具栏）；power down = it-tifi；Request power down = Itlob it-tifi；power button = il-buttuna tal-enerġija
+stop-method: Request = Itlob；Force = Sfurza；Kill = Ittermina；Force kill = Ittermina bil-forza；Force shut down = Itfi bil-forza
+vm-state: 进行中写「Qed + 第 3 人称阴性动词」，例如 Qed tibda、Qed tieqaf、Qed tippawża；完成写阴性形容词，例如 Mibdija、Mwaqqfa、Ippawżata、Sospiża
+pause: ippawża。必须和 stop（waqqaf）、suspend（issospendi）区分
+resume: kompli；Resuming = Qed tkompli。Restore = Irrestawra，Restoring = Qed tiġi rrestawrata
+default: Predefinit；Generic = Ġeneriku
+gallery: Gallerija（UTM 官网的在线虚拟机下载页）；UTM Library = Librerija UTM
+console: konsola

@@ -42,3 +42,13 @@ keys: tecla Control、tecla Option  # https://support.apple.com/pt-br/102650
 toolbar: barra de ferramentas
 settings: ajustes  # Apple 巴西葡语写 Ajustes do Sistema：https://support.apple.com/pt-br/guide/mac-help/mchlp1225/mac
 classic-systems: sistemas clássicos
+# 以下不是 terms.yml 的术语，是待审条目中出现 3 次以上的界面术语
+drive: unidade；外部驱动器 = unidade externa，可移动驱动器 = unidade removível
+display: tela；复数 telas（Display、Displays 工具栏项和设置分组）
+host: host；主机 = máquina host
+directory: diretório；共享目录 = diretório compartilhado（Shared Folder 另写 pasta compartilhada）
+boot: inicialização；启动映像 = imagem de inicialização，Secure Boot = Inicialização Segura
+scan-code: código de varredura（不用 digitalização）
+keystrokes: pressionamentos de teclas
+stop-method: Request = Solicitar desligamento，Force = Forçar desligamento，Kill = Forçar encerramento（与菜单项 Request power down、Force shut down、Force kill 同译）
+vm-state: Iniciada、Parada、Pausada、Suspensa（指 máquina virtual，阴性）；进行中写 Iniciando、Parando、Pausando、Retomando、Restaurando、Salvando

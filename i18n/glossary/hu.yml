@@ -36,9 +36,36 @@ hardware-reset: hardveres alaphelyzetbe állítás
 mount: felcsatol（不用 csatlakoztat，那是连接设备）
 shared-library: megosztott könyvtár
 capture-mouse: egér rögzítése；捕获鼠标按钮 = Egér rögzítése gomb（待确认 App 界面）
-keys: Control billentyű、Option billentyű（Apple 修饰键列表写「Alt (Option)」，待确认）  # https://support.apple.com/hu-hu/102650
+keys: Control billentyű、Option billentyű；修饰键选项写 Command (⌘)、Option (⌥)、Control (⌃)、Shift (⇧)、Caps Lock (⇪)、Esc (⎋)（Apple 修饰键列表写「Alt (Option)」「Esc (Escape)」，正文写「az Option helyett」）  # https://support.apple.com/hu-hu/102650
 toolbar: eszköztár
 settings: beállítások
 rosetta: Rosetta，宾格 Rosettát（不加连字符）
 cpu: processzor；CPU 架构 = processzorarchitektúra；CPU 核心 = processzormag  # https://support.apple.com/hu-hu/guide/activity-monitor/actmntr43452/mac（「Processzor」）
 classic-systems: klasszikus rendszerek
+# 以下是 terms.yml 里没有、在待审条目中出现 3 次以上的界面术语
+register: 用敬称 Ön 的祈使式（Válassza ki、Kattintson），不用 te 形式；和 Apple 匈牙利语一致
+button-style: 按钮、菜单项、工具栏项、复选框、帮助提示和快捷指令动作名用 -ás/-és 动名词短语（Mentés、Törlés、Megnyitás…、A virtuális gép indítása），和 Apple 匈牙利语 macOS 一致；完整句子的说明可以用敬称祈使式
+status-labels: 完成状态用副词分词（Elindítva、Leállítva、Szüneteltetve、Felfüggesztve）；进行中状态用「… folyamatban」（Indítás folyamatban）；带「…」的进度提示用动名词（Előkészítés…、Kibontás…）
+drive: meghajtó；可移动驱动器 = cserélhető meghajtó；外部驱动器 = külső meghajtó
+disk-image: lemezkép（disk image、drive image、ISO/IMG/CD/DVD/软盘映像都用这个，例如 ISO-lemezkép）；kernel image = kernelkép；不用单独的 kép（图片）
+display: kijelző；复数 kijelzők  # https://support.apple.com/hu-hu/102650（「A Kijelzők beállításainak megnyitása」）
+memory: memória；RAM 保留
+storage: tárhely
+directory: mappa（shared directory = megosztott mappa）；不用 könyvtár，避免和 shared-library 的 megosztott könyvtár 同词
+host: gazdagép（运行 UTM 的 Mac）
+pause: szüneteltet（Szüneteltetés、Szüneteltetve）
+suspend: felfüggeszt（Felfüggesztés、Felfüggesztve、felfüggesztett állapot）；和 szüneteltet 必须区分
+resume: folytat（Folytatás）；restore = visszaállít（Visszaállítás）；两者必须区分
+reset: alaphelyzetbe állít；重置虚拟机 = Hardveres alaphelyzetbe állítás（单写 Alaphelyzetbe állítás 像恢复出厂）；不用 visszaállít，避免和 restore 同词
+stop: leállít（Leállítás、Leállítva）；power down = kikapcsolás（Kikapcsolás kérése）
+stop-methods: 快捷指令停止方式 Request = Kérés、Force = Kényszerítés、Kill = Megszüntetés（强制结束进程）
+save: ment（Mentés、Állapot mentése）
+delete: töröl（Törlés）；remove = eltávolít（Eltávolítás）；eject = kiad（Kiadás）；extract = kibont（Kibontás…）
+capture-input: bemenet rögzítése，和 capture-mouse 一致
+modifier-keys: módosítóbillentyű；复数 módosítóbillentyűk
+serial: soros port（Soros port %lld）；不译成 sorozat
+vm-shortcut: parancsikon（UTM 列表里指向别处虚拟机的条目）
+recovery-mode: helyreállítási mód
+quit: kilép（Kilépés，退出 App）；restart = újraindítás
+dock: Dock（Dock-ikon）
+scan-code: scankód（PC AT-scankód），不用 szkennelési kód

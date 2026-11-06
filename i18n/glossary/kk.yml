@@ -1,7 +1,7 @@
 # kk 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。专有名词（Apple、Mac、macOS、Windows、Linux、QEMU、VM64、Rosetta）保留拉丁字母，需要格词尾时加中心词（Mac компьютері、Rosetta бағдарламасы）。
 # 来源：amalthea（VM64 官网）的 glossary/kk.yml，commit b724790。去掉了官网专用的 ui-* 术语。
 # support.apple.com/kk-kz 只有导航是哈萨克语，正文是英文；support.microsoft.com/kk-kz 跳转到俄语。rule 是 apple、microsoft 的术语按哈萨克语软件界面的通行说法写，待母语者确认。
-virtual-machine: виртуалды машина（不用 виртуалды құрылғы）
+virtual-machine: виртуалды машина（不用 виртуалды құрылғы、виртуалды компьютер；英文的缩写 VM 也写全称，哈萨克语界面没有通用缩写）
 guest: қонақ；客户机系统 = қонақ жүйе；客户机工具 = қонақ құралдары（不用 клиент）
 emulate: эмуляциялау；эмуляция（不用 имитациялау、симуляция）
 virtualize: виртуалдандыру；名词同形（不用 виртуализация）
@@ -44,3 +44,35 @@ rosetta: Rosetta，需要格词尾时写 Rosetta бағдарламасы
 cpu: процессор
 classic-systems: классикалық жүйелер
 # 标题、步骤标题、列表标签和链接用动名词（-у），号召句（band）用祈使句。Mac 作硬件时写 Mac компьютері，不写 Mac жүйесі。
+# 以下术语不在 terms.yml，2026-11-05 审校 App 文案时定下（各在待审条目中出现 3 次以上）
+drive: диск；Drives = Дискілер（不用 Drive 原文）
+disk-image: диск кескіні；image 单独出现时写 кескін（不用 сурет）
+removable-drive: Алынбалы диск；External Drive = Сыртқы диск（两者不能同词）
+storage: сақтау орны；internal storage = ішкі сақтау орны（不用 жад，жад 是 Memory）
+memory: жад；RAM = жедел жад
+ramdisk: RAM-диск；initial ramdisk = бастапқы RAM-диск（不用 жедел диск、рамдиск）
+uncompressed: қысылмаған（不用 сығылмаған）
+shared-directory: ортақ каталог；directory = каталог，folder = қалта
+share-action: Бөлісу（系统分享按钮）；共享目录功能用 ортақ пайдалану
+shortcut-vm: таңбаша（指向虚拟机的快捷方式）
+host: хост；host machine = хост компьютері
+display: дисплей；Displays = Дисплейлер
+boot: жүктеу；boot image = жүктеу кескіні
+recovery: қалпына келтіру；recovery mode = қалпына келтіру режимі
+capture-input: енгізуді ұстау（不用 түсіру，它是拍摄）
+key: перне；modifier key = модификатор пернесі（不用 кілт，它是钥匙）
+delete: жою
+remove: алып тастау（和 Delete 区分）
+eject: шығару
+extract: тарқату；Extracting… = Тарқатылуда…（和 Eject 区分）
+pause: кідірту；Paused = Кідіртілген；Pausing = Кідіртілуде
+suspend: ұйықтату；Suspended = Ұйықтатылған；suspended state = ұйықтатылған күй（和 Pause、Stop 区分）
+stop: тоқтату；Stopped = Тоқтатылған
+kill: процесті аяқтау；Force kill = мәжбүрлеп аяқтау（不用 өлтіру）
+reset: ысыру（和 Restore 的 қалпына келтіру 区分）
+restore: қалпына келтіру；Restoring = Қалпына келтірілуде
+resume: жалғастыру；Resuming = Жалғастырылуда
+start: Іске қосу（按钮）；向导首页标题 wizard.start.title = Бастау
+foreground: алдыңғы план（不用 алдыңғы қатар）
+dock: Dock（Apple 名称，保留拉丁字母）
+# 按钮、菜单项、工具栏提示、开关、快捷指令操作标题用动名词（-у）；快捷指令操作说明、帮助说明用祈使句（-ңыз）。状态标签：已完成用形动词（-ған/-ген），进行中用 -уда/-уде。

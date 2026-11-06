@@ -40,3 +40,30 @@ keys: Kontroll-tangenten、Alternativtangenten；同时写 2 个键 = Kontroll- 
 toolbar: verktygsfält
 settings: inställningar
 classic-systems: klassiska system
+rosetta: Rosetta  # https://support.apple.com/sv-se/102527
+cpu: CPU；CPU Cores = CPU-kärnor；Core = kärna
+# 以下不在 terms.yml，在 needs_review 和缺译批次中反复出现，由改稿代理定下（2026-11）
+# 称呼用 du。引号用 ”…”（U+201D）。按钮和菜单项用祈使式（Radera、Hämta），状态标签用现在时动词或过去分词（Startar、Startad）。
+drive: disk（不用 enhet，enhet 留给 device）；Drives = Diskar；External Drive = Extern disk，Removable Drive = Flyttbar disk（两者不能同词）
+image: avbildning（与 installationsavbildning 一致，不用 bild）；disk image、drive image = diskavbildning；boot image = startavbildning；kernel image = kärnavbildning
+device: enhet；USB-enhet
+display: skärm；Displays = Skärmar；monitor 也写 skärm
+download: hämta；名词 hämtning（不用 ladda ner）
+delete-remove: Delete = Radera；Remove = Ta bort；Eject = Mata ut
+pause-suspend: Pause = Pausa，Paused = Pausad；Suspend = Försätt i viloläge，Suspended = I viloläge，suspend state、suspended state = (sparat) viloläge；Stop = Stoppa（三者不能同词）；Mac 睡眠按 Apple 写 gå i vila
+restore-resume: Restore（从快照恢复）= Återskapa，Restoring = Återskapar；Resume = Återuppta，Resuming = Återupptar；Reset = Återställ；regenerate = generera nya
+recovery: återställningsläge（macOS-återställning）；Run Recovery = Kör i återställningsläge
+kill: tvångsavsluta（不用 döda）；停止方式 3 个选项：Request = Begär，Force = Tvinga，Kill = Tvångsavsluta
+state: tillstånd（不用 status、läge）
+operation: åtgärd（不用 operation、drift）
+memory-storage: Memory = Minne；Storage = Lagring；internal storage = intern lagring（不用 internminne）
+boot: start；Boot Arguments = Startargument，Boot Device = Startenhet，UEFI Boot = UEFI-start，Bootloader = Starthanterare
+kernel: kärna（Linux-kärna）；ramdisk = RAM-disk
+host: värd；host machine = värddator
+hardware: hårdvara（与 hårdvaruåterställning 一致）
+serial: seriell port（Serial %lld = Seriell port %lld）
+input: inmatning（不用 indata）；Capture Input = Fånga inmatning；input capture = infångning av inmatning；音频 Input/Output = Ingång/Utgång
+icon: symbol（Visa symbol i Dock、Visa symbol i menyraden）
+keys-extra: Command = Kommando，Shift = Skift，Caps Lock = Skiftlås，Escape = Esc；modifier key = modifieringstangent；keyboard shortcuts = kortkommandon；Left/Middle/Right（鼠标按钮）= Vänsterknapp/Mittenknapp/Högerknapp
+vm-shortcut: genväg（指向别处虚拟机的快捷方式，小写；Apple 的 App 名是 Genvägar）
+gallery-library: Gallery = galleri（UTM-galleriet、Galleri för virtuella maskiner）；UTM Library = UTM-bibliotek（两者不能同词）

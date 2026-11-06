@@ -44,3 +44,37 @@ settings: instellings
 rosetta: Rosetta
 cpu: SVE；复数 SVE's
 classic-systems: klassieke stelsels
+# 以下是 terms.yml 里没有、在待审条目中出现 3 次以上的界面术语
+button-style: 按钮、菜单项、工具栏项、复选框和快捷指令动作名用祈使式（Kanselleer、Stoor、Vee uit、Voeg by、Gaan voort）；分组标题用名词；句首大写，其余小写
+status-labels: 进行中的状态用「<动词> tans」（Start tans、Pouseer tans）；带「…」的进度提示同样写法（Bereken tans huidige grootte…）
+vm: 英文写 VM 时保留 VM，复数 VM's
+drive: skyf；复数 skywe；可移动驱动器 = verwyderbare skyf；外部驱动器 = eksterne skyf。不用 aandrywer、aandrywing
+disk-image: skyfbeeld（disk image 和 drive image 都用这个）
+image: beeld（ISO-beeld、kernelbeeld、selflaaibeeld、IPSW-herstelbeeld）；不用 prent（图片）
+boot: selflaai（Selflaai、selflaaibeeld、selflaaitoestel、Selflaaier = bootloader）；Secure Boot 保留英文
+kernel: kernel（Linux-kernel、kernelbeeld）；不用 kern，因为 kern 是 CPU 核心
+configuration: konfigurasie；不用 opstelling（opstel 留给 set up）
+directory: vouer（directory 和 folder 都用这个，和 gedeelde vouer 一致）；不用 gids
+display: skerm；复数 skerms
+memory: geheue；RAM 保留
+storage: berging
+start-run: Start = start（Start、Start tans、Gestart）；Run = laat loop（Laat loop、Laat geselekteerde VM loop）；向导首页标题 wizard.start.title = Begin
+pause: pouseer（Pouseer、Gepouseer、Pouseer tans）
+suspend: opskort（Skort op、Opgeskort、opgeskorte toestand）；和 pouseer 必须区分
+resume: hervat（Hervat、Hervat tans）；restore = herstel（Herstel、Herstel tans）
+state: toestand（opgeskorte toestand、Stoor toestand）；不用 staat、status
+save: stoor
+delete: uitvee（Vee uit）；remove = verwyder；eject = uitskiet（Skiet uit）；extract = uitpak（Pak tans uit…）
+quit: verlaat（Verlaat，退出 App）；restart = herbegin；reset = terugstel（Stel terug）
+kill-request-force: 停止方式 3 个选项 = Versoek、Dwing、Beëindig；Force kill = Beëindig geforseerd
+capture-input: invoer vasvang（按钮 Vang invoer），和 capture-mouse 一致；不用 vaslegging、opname（录制）
+keystroke: sleutelaanslag；复数 sleutelaanslae（和 keys 的 sleutel 一致；不用荷兰语 toetsaanslagen）
+modifier-keys: wysigersleutels；Mac 键名保留键帽写法（Command、Control、Option、Shift、Caps Lock、Escape）
+scan-code: skandeerkode；复数 skandeerkodes
+serial: seriële poort
+vm-shortcut: kortpad（UTM 列表里指向别处虚拟机的条目）
+recovery-mode: herstelmodus
+default-generic: Default = verstek；Generic = generies；两者必须区分
+gallery-library: Gallery = galery（UTM-galery，官网下载页）；UTM Library = UTM-biblioteek（主窗口）
+operation: bewerking；不用 operasie
+driver: drywer；复数 drywers（不用 bestuurder）

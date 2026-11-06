@@ -62,3 +62,11 @@ mouse-button: Izquierdo、Derecho、Central（修饰 botón，用阳性）
 ok-button: Aceptar
 kill: 菜单项 Force kill = Forzar salida；正文 kill = forzar el cierre（不用 matar）；快捷指令停止方式选项 Kill（原 Killing）= Terminar proceso，和 Force = Forzar 区分  # https://support.apple.com/es-mx/102586
 browse: Explorar…（文件选择按钮；不用 Buscar，Buscar 是「搜索」）
+# 以下是 needs_review 审校（75 种语言轮次）定下的界面术语
+menu-bar: barra de menús（Apple es-MX 写法；不写 barra de menú）
+dock: Dock（Apple 名称，不译成 muelle；Show dock icon = Mostrar ícono del Dock）
+icon: ícono（Apple es-MX 写法；已审校的单独标签 Icon = Icono 保持原状）
+disk-image: imagen de disco（不写 imagen del disco）
+power: Encendido/apagado（显示窗口的电源菜单和工具栏项；单写 Encendido 会读成状态；Power Down = apagado）
+sleep: reposo（Mac 睡眠；不用 suspensión，suspensión 只对应 Suspend）
+help-text: 提示文字（.help）、开关标签、快捷指令的说明用不定式，例如 Arrancar en modo de recuperación.；不用 usted 命令式

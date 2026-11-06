@@ -42,3 +42,29 @@ keys: kláves Control、kláves Option  # https://support.apple.com/sk-sk/102650
 toolbar: panel s nástrojmi
 settings: nastavenia  # https://support.apple.com/sk-sk/guide/mac-help/mchlp1225/mac（「Systémové nastavenia」）
 classic-systems: klasické systémy
+
+# 审校 needs_review 和缺译时新定的界面术语（terms.yml 没有，待审条目中出现 3 次以上）
+vm-abbrev: 英文的 VM 一律写全 virtuálny počítač（斯洛伐克语界面不通用缩写 VM）；快捷指令搜索关键词 vm 保留
+drive: jednotka；可移动驱动器 = vymeniteľná jednotka；外部驱动器 = externá jednotka；驱动器镜像 = obraz jednotky
+disk-image: obraz disku（disk 只用于 disk 和 disk image）
+image: obraz（镜像文件）；不用 obrázok（图片）
+boot: spustenie / spúšťací（Boot 设置页 = Spustenie，启动镜像 = spúšťací obraz）；bootloader = zavádzač
+display: displej；复数 displeje
+memory: pamäť（和 storage 区分）
+storage: úložisko；内部存储 = interné úložisko
+pause: pozastaviť；pozastavený；pozastavuje sa
+suspend: uspať；uspaný；挂起状态 = stav uspania（和 pause 区分）
+resume: pokračovať；pokračuje sa；继续运行 = pokračovať v behu（和 restore 区分）
+restore: obnoviť；obnovuje sa（从快照恢复）
+stop: zastaviť；zastavený；zastavuje sa
+kill: násilne ukončiť（不用 zabiť）
+delete: odstrániť（永久删除）
+remove: odobrať（移除快捷方式、设备、共享目录，和 delete 区分）
+clear: vymazať（清空字段）
+vm-shortcut: odkaz（虚拟机的快捷方式；不用 skratka，避免和 Skratky 混淆）
+shared-directory: zdieľaný adresár（directory = adresár，folder = priečinok）
+guest-account: účet v hosťovskom systéme（不用 účet hosťa，会读成访客账户）
+dock: Dock；在 Dock 中 = v Docku  # Apple 斯洛伐克语界面写法
+menu-bar: panel s ponukami
+serial: sériový port（不用 seriál）
+ui-verb-form: 按钮、菜单项、帮助提示、设置项用不定式（Spustiť、Uložiť）；快捷指令动作描述用第 3 人称（Spustí virtuálny počítač.）；状态标签用「动词 + sa」或形容词（Spúšťa sa、Spustený）

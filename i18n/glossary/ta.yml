@@ -45,3 +45,51 @@ keys: கண்ட்ரோல் கீ、ஆப்ஷன் கீ  # Apple �
 toolbar: கருவிப்பட்டி  # 未查到 Apple 泰米尔语写法，沿用原译（Windows 泰米尔语界面的通行说法）
 settings: அமைப்புகள்  # https://support.apple.com/ta-in/guide/iphone/iph079e1fe9d/27/ios/27
 classic-systems: கிளாசிக் சிஸ்டம்
+
+# 审校待审条目时新定的界面术语（出现 3 次以上，terms.yml 没有）
+# macOS 没有泰米尔语界面，系统里的名称（Finder、Dock、Virtual Machine Accessories）按用户看到的英文原样保留
+drive: இயக்ககம்（不用 இயக்கி，இயக்கி 是驱动程序 driver；不用 ஓட்டு）
+driver: இயக்கி
+image: இமேஜ்；disk image = வட்டு இமேஜ்，drive image = இயக்கக இமேஜ்，boot image = துவக்க இமேஜ்（不用 படம்、படிமம்）
+boot: துவக்கம்（名词）、துவக்கு（动词）；recovery mode = மீட்பு பயன்முறை。启动 App（launch）写 தொடங்கு，不用 துவக்கம்
+configuration: உள்ளமைவு（不用 கட்டமைப்பு，கட்டமைப்பு 是 architecture）
+operating-system: இயக்க முறைமை（不用 இயங்குதளம்）；guest operating system 按 guest 写 விருந்தினர் சிஸ்டம்
+platform: தளம்
+host: ஹோஸ்ட்
+device: சாதனம்
+display: டிஸ்ப்ளே；Displays = டிஸ்ப்ளேக்கள்
+directory: கோப்பகம்；shared directory = பகிர்ந்த கோப்பகம்（不用 அடைவு、பகிரப்பட்ட கோப்பகம்）
+memory: நினைவகம்；RAM 原样写 RAM（不用 ரேம்）
+storage: சேமிப்பகம்（和 memory 区分）
+vm: VM（拉丁字母，格词尾直接连写：VMஐ、VMகள்、VMஇன்）
+install: நிறுவு；installation = நிறுவல்；installer = நிறுவி
+import: இறக்குமதி செய்
+delete: நீக்கு（永久删除）
+remove: அகற்று（移除快捷方式、共享目录），和 delete 区分
+eject: வெளியேற்று
+read-only: படிக்க மட்டும்
+start: தொடங்கு；状态 Starting = தொடங்கப்படுகிறது，Started = தொடங்கப்பட்டது；向导标题 Start = தொடக்கம்
+stop: நிறுத்து；Stopping = நிறுத்தப்படுகிறது，Stopped = நிறுத்தப்பட்டது
+pause: இடைநிறுத்து；Pausing = இடைநிறுத்தப்படுகிறது，Paused = இடைநிறுத்தப்பட்டது
+suspend: சஸ்பெண்ட் செய்；Suspended = சஸ்பெண்ட் செய்யப்பட்டது；suspended state = சஸ்பெண்ட் நிலை（不用 இடைநிறுத்தப்பட்ட நிலை，和 pause 区分）
+resume: மீண்டும் தொடர்；Resuming = மீண்டும் தொடரப்படுகிறது（不用 மீண்டும் தொடங்கு，那是重新开始）
+restart: மறுதொடக்கம் செய்
+restore: மீட்டெடு；Restoring = மீட்டெடுக்கப்படுகிறது（从快照恢复）
+reset: மீட்டமை
+kill: முடிவுறுத்து；force kill = கட்டாயமாக முடிவுறுத்து（不用 அழி、கொல்）
+save-state: நிலையைச் சேமி（不用 மாநிலம்，மாநிலம் 是行政区「邦」）
+power-down: பவர் டவுன்；power button = பவர் பட்டன்
+button: பட்டன்（不用 பொத்தான்）
+key: கீ；modifier key = மாடிஃபையர் கீ；keystroke = கீ அழுத்தம்（不用 விசை；keyboard 仍写 விசைப்பலகை）
+capture-input: உள்ளீட்டைக் கேப்சர் செய்；input capture = உள்ளீட்டுக் கேப்சர்（不用 பிடி，和 capture-mouse 一致）
+serial: சீரியல் போர்ட்（不用 தொடர்，தொடர் 是「继续、系列」）
+interface: இடைமுகம்；network interface = நெட்வொர்க் இடைமுகம்（不用 பிணையம்）
+network: நெட்வொர்க்
+share: பகிர்；virtiofs share（名词）= பகிர்வு
+shortcut: குறுக்குவழி（指向虚拟机的快捷方式，和 shortcuts 快捷指令 சுருக்கவழிகள் 区分）
+removable: கழற்றக்கூடிய（不用 நீக்கக்கூடிய，நீக்கு 是 delete）；external drive = வெளிப்புற இயக்ககம்
+generic: பொதுவான（和 default இயல்புநிலை 区分）
+optional: (விரும்பினால்)；required = (தேவை)
+automatic: தானியங்கு（和 auto-resolution 一致，不用 தானியங்கி）
+built-in: உள்ளமைந்த（不用 உள்ளமைக்கப்பட்ட，那是「已配置的」，和 configuration 同词根）
+keyboard-shortcut: விசைப்பலகைக் குறுக்குவழி

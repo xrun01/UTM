@@ -45,3 +45,37 @@ settings: mipangilio
 classic-systems: mifumo ya zamani
 cpu: CPU；核心 = kiini，复数 viini
 rosetta: Rosetta
+# 以下是 terms.yml 里没有、在待审条目中出现 3 次以上的界面术语（本轮审校定下，待母语者确认）
+vm: mashine pepe（英文的 VM 也写 mashine pepe，复数同形：mashine pepe zote；运行中 = inayoendeshwa，复数 zinazoendeshwa，不用 inayoendesha）
+button-style: 按钮、菜单项、工具栏项、复选框和快捷指令动作名用祈使式（Ongeza、Ghairi、Hifadhi、Futa、Ondoa、Endelea、Washa …）；分组标题用名词
+status-labels: 虚拟机状态用 Ina-/Ime- 加被动式（Inaanzishwa、Imeanzishwa、Inasimamishwa、Imesimamishwa、Inasitishwa、Imesitishwa、Inarejeshwa、Inahifadhiwa）；Resuming = Inaendelea
+drive: kiendeshi，复数 viendeshi（不用 hifadhi，hifadhi 是 Save 和 Storage；不用 gari）；可移动驱动器 = kiendeshi kinachoweza kuondolewa；外部驱动器 = kiendeshi cha nje
+image: faili（disk image = faili ya diski；drive image = faili ya kiendeshi；ISO image = faili ya ISO；kernel image = faili ya kernel；boot image = faili ya kuwasha；IPSW recovery image = faili ya uokoaji ya IPSW；不用 picha、taswira，它们是「图片」）
+screenshot: picha ya skrini
+operating-system: mfumo endeshi，复数 mifumo endeshi（和 guest 的「mfumo endeshi mgeni」一致；不用 mfumo wa uendeshaji）
+host: mwenyeji（host 系统 = mfumo endeshi wa mwenyeji；不用 seva pangishi、mpangishi）
+configuration: usanidi（settings 才是 mipangilio）
+memory: kumbukumbu；RAM 保留
+storage: hifadhi；internal storage = hifadhi ya ndani
+display: onyesho，复数 maonyesho
+terminal: terminal（不用 kituo，kituo 是「站点」）；console = kiweko
+boot: kuwasha（名词 uwashaji）；Boot 设置分类 = Uwashaji；Start 按钮 = Anzisha，两者区分
+recovery-mode: hali ya uokoaji；recovery IPSW = IPSW ya uokoaji（不用 kurejesha，rejesha 留给 Restore）
+start-stop: Start = Anzisha；Run = Endesha；Stop = Simamisha；Restart = Anzisha Upya；Reset = Weka Upya
+pause: sitisha（Sitisha、Imesitishwa、Inasitishwa）
+suspend: simamisha kwa muda（Simamisha kwa Muda、Imesimamishwa kwa Muda；suspended state = hali iliyosimamishwa kwa muda）；不用 ahirisha（推迟）；和 sitisha、simamisha 必须区分
+resume: endelea（Endelea、Inaendelea；Resume Virtual Machine = Endelea Kuendesha Mashine Pepe）；restore = rejesha（Rejesha、Inarejeshwa）
+kill: komesha（Force kill = Komesha kwa lazima）；停止方式 3 个选项 = Omba、Lazimisha、Komesha
+quit: ondoka（退出 App；Quit 按钮 = Ondoka；句中 = kuondoka kwenye UTM）；close = funga
+save: hifadhi（Save State = Hifadhi Hali）
+delete: futa；remove = ondoa；eject = toa；Extracting… = Inafungua faili iliyobanwa…
+import: leta（不用 ingiza，ingizo 是 input）
+input: ingizo；output = towe（不用 pato）；capture input = nasa ingizo
+enable: washa；disable = lemaza，Disabled = Imelemazwa
+folder: folda（directory 也译 folda，和 shared-folder 一致；不用 saraka）
+icon: aikoni（不用 ikoni）
+modifier-keys: vitufe vya kirekebishaji；单个 = kitufe cha kirekebishaji；keystroke = mbofyo wa kitufe，复数 mibofyo ya vitufe；sequence = mfuatano
+serial: mlango wa serial（不用 msururu、mfululizo）
+vm-shortcut: njia ya mkato（UTM 列表里指向别处虚拟机的条目）
+gallery: Matunzio（UTM Gallery = Matunzio ya UTM）；UTM Library = Maktaba ya UTM
+apple-names: Dock、Finder 保留英文（不用 kituo、Kitafuta）

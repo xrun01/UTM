@@ -47,3 +47,26 @@ settings: nustatymai
 rosetta: „Rosetta“，不变格（naudojant „Rosetta“、įjunkite „Rosetta“）
 cpu: procesorius；CPU 核心 = procesoriaus branduolys；30 多种 CPU = daugiau nei 30 tipų procesorių
 classic-systems: klasikinės sistemos
+
+# App 界面术语（2026-11-05 审校 App 译文时新定，terms.yml 中没有）
+# 引号：App 中产品名和公司名加「„…“」，例如 „UTM“、„macOS“、„Mac“、„Apple“、„Windows“、„Linux“、„Rosetta“、„Finder“。句中提到界面元素名时也加（见文件头）。
+#   独立的按键名（Command (⌘)、Option (⌥)）作选项标签时不加引号；句中按 keys 的写法加。
+# 界面写法：按钮、菜单项、开关、工具栏的提示（无句号）用不定式（Pridėti、Rodyti…）；带句号的说明文字可以用祈使式（Pasirinkite…）。
+vm: VM（阴性，按 virtualioji mašina 变格：šią VM、veikiančią VM、VM bus sustabdyta）
+drive: diskas；keičiamasis diskas（removable）、išorinis diskas（external）
+disk-image: disko atvaizdas；ISO 映像 = ISO atvaizdas；内核映像 = branduolio atvaizdas（image 一律用 atvaizdas，和 installer-image 一致，不用 vaizdas）
+host: pagrindinis kompiuteris（不用 priegloba，和 host-only 一致）
+directory: katalogas；共享目录 = bendrinamas katalogas（folder 是 aplankas，两者区分）
+boot: įkrova；启动映像 = įkrovos atvaizdas；启动设备 = įkrovos įrenginys  # 和 secure-boot 的 saugioji įkrova 一致
+display: ekranas；显示器（复数）= ekranai
+memory-storage: atmintis（RAM）；saugykla（storage，内部存储 = vidinė saugykla）。两者不能同词
+vm-actions: Paleisti（Start/Run）、Sustabdyti（Stop）、Pristabdyti（Pause）、Tęsti（Resume）、Užmigdyti（Suspend，保存状态后挂起）、Paleisti iš naujo（Restart）、Nustatyti iš naujo（Reset）
+vm-states: Paleista、Paleidžiama、Sustabdyta、Stabdoma、Pristabdyta、Pristabdoma、Tęsiama、Užmigdyta、Išsaugoma、Atkuriama（Restoring，和 Tęsiama 区分）
+suspend-state: užmigdymo būsena（不用 sustabdymo būsena，避免和 Stop 混淆）
+stop-method: Išjungimo užklausa（Request）、Priverstinis išjungimas（Force）、Priverstinis nutraukimas（Kill）；kill 动词 = priverstinai nutraukti
+quit: išeiti（退出 App，išeiti iš „UTM“）
+eject-delete-remove: Išstumti（Eject）、Ištrinti（Delete）、Pašalinti（Remove）、Išskleidžiama…（Extracting…）
+shortcut-alias: nuoroda（指向 VM 文件的快捷方式，不是 spartusis klavišas）
+serial: nuoseklusis prievadas（不用 serija、serijos numeris）
+optional-required: (neprivaloma)、(privaloma)（不用 pasirinktinai，避免和 Custom 混淆）
+custom-generic-default: Tinkintas（Custom）、Standartinis（Generic）、Numatytasis（Default）

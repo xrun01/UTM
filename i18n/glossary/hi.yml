@@ -42,3 +42,32 @@ keys: कंट्रोल की、ऑप्शन की  # https://support.a
 toolbar: टूलबार  # https://support.apple.com/hi-in/guide/mac-help/mchl82829c17/mac
 settings: सेटिंग्ज़  # https://support.apple.com/hi-in/guide/mac-help/mh15217/mac
 classic-systems: क्लासिक सिस्टम
+
+# 审校待审条目时新定的界面术语（出现 3 次以上，terms.yml 没有）
+host: होस्ट（不用 मेजबान）
+image: इमेज（阴性；disk image = डिस्क इमेज，不用 छवि）
+drive: ड्राइव（阴性）
+device: डिवाइस（不用 उपकरण）
+display: डिस्प्ले
+directory: डायरेक्टरी；shared directory = शेयर्ड डायरेक्टरी（不用 निर्देशिका）
+storage: स्टोरेज；和 memory 区分
+memory: मेमोरी
+vm: VM（不音译成 वीएम，按 वर्चुअल मशीन 用阴性）
+install: इंस्टॉल करना；installation = इंस्टॉलेशन（不用 स्थापित करना）
+import: इंपोर्ट करना（不用 आयात）
+delete: डिलीट करना（永久删除）
+remove: हटाना（移除快捷方式、共享目录），和 delete 区分
+read-only: रीड-ओनली
+recovery: रिकवरी；recovery mode = रिकवरी मोड
+save: सहेजना；save state = स्थिति सहेजना
+start: शुरू करना；状态 Starting = शुरू हो रही है，Started = चालू
+stop: रोकना；状态 Stopping = रुक रही है，Stopped = बंद
+pause: पॉज़ करना；Paused = पॉज़ है（和 Stop 区分）
+suspend: सस्पेंड करना；Suspended = सस्पेंड है；suspended state = सस्पेंड की गई स्थिति（和 pause 区分）
+resume: जारी रखना；状态 Resuming = जारी रखी जा रही है（不用 जारी की जा रही है，是 जारी करना「签发」的被动式；不用 फिर से शुरू करना 或 फिर से चालू करना，会读成重启）
+restart: रीस्टार्ट करना
+restore: रीस्टोर करना（从快照恢复，和 resume 区分）
+kill: समाप्त करना；force kill = बलपूर्वक समाप्त करना
+overwrite: ओवरराइट करना
+share: शेयर करना
+power-down: पावर डाउन（不用 बिजली बंद，那是断电）

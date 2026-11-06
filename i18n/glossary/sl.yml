@@ -42,3 +42,27 @@ keys: tipka Control、tipka Option  # https://support.apple.com/sl-si/guide/mac-
 toolbar: orodna vrstica  # https://support.apple.com/sl-si/guide/mac-help/mchlp1225/mac
 settings: nastavitve  # https://support.apple.com/sl-si/guide/mac-help/mchlp1225/mac（「Nastavitve sistema」）
 classic-systems: klasični sistemi
+
+# 本轮审校新增：terms.yml 还没有、在界面中出现 3 次以上的术语（2026-11-05）
+# 斯洛文尼亚语完整词后的省略号前加空格：Odpri …、Pripravljanje …（省略号用 U+2026）。引号用 »…«。
+vm-abbr: navidezni računalnik（英文 VM 缩写也写全称，斯洛文尼亚语界面不通用 VM）
+drive: pogon；新建驱动器 = nov pogon
+disk-image: slika diska；驱动器映像 = slika pogona；映像 = slika
+removable-drive: izmenljivi pogon（Windows 斯洛文尼亚语 izmenljivi disk）；外部驱动器 = zunanji pogon
+eject: izvrzi（不和 izbriši、razširjanje 同词）
+display: zaslon；显示器编号 = številka zaslona
+directory: imenik；共享目录 = imenik v skupni rabi
+storage: shramba；内部存储 = notranja shramba（pomnilnik 只用于 memory）
+memory: pomnilnik
+boot: zagon；启动映像 = zagonska slika；引导加载程序 = zagonski nalagalnik
+recovery-mode: način za obnovitev；恢复 IPSW = obnovitveni IPSW
+host: gostitelj；主机系统 = gostiteljski operacijski sistem
+screenshot: posnetek zaslona（和 snapshot = posnetek 用「zaslona」区分）
+stop: ustaviti；Stop = Ustavi，Stopped = Ustavljeno（zaustaviti 只用于 shut down）
+pause: začasno ustaviti；Pause = Začasno ustavi，Paused = Začasno ustavljeno
+suspend: mirovanje；Suspend = Preklopi v mirovanje，Suspended = V mirovanju，挂起状态 = stanje mirovanja
+force-kill: prisilno končati（结束进程）；Kill 选项 = Končanje procesa
+status: stanje
+serial: zaporedna vrata（串口，不是 serijska številka）
+capture-input: zajeti vnos；捕获输入 = zajem vnosa；input 统一译 vnos
+keystroke: pritisk tipke；修饰键 = modifikatorska tipka；扫描码 = koda skeniranja

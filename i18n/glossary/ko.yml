@@ -56,3 +56,11 @@ delete: 삭제（删除数据或列表项）；Remove = 제거（只移除引用
 removable: 이동식（Removable Drive = 이동식 드라이브）。不用「제거 가능」，它读成「可以删除」
 operating-system: 운영 체제（中间空格）
 eject: 꺼내기
+
+# needs_review 审校（75 种语言批次）时新定的界面术语
+vm: 가상 머신（缩写 VM 也写「가상 머신」，已审校译文都不用缩写）
+menu-bar: 메뉴 막대（不用「메뉴 표시줄」「메뉴 바」）  # https://support.apple.com/ko-kr/guide/mac-help/mchlp1446/mac
+restart: 재시작（Restart = 재시작、Restarts the VM = 가상 머신을 재시작합니다）
+custom: 사용자 지정（不用「사용자 정의」）
+express-install: 빠른 설치（Express (Fully Automatic) = 빠른 설치(완전 자동)）
+asif: Apple 분할 이미지（Apple Sparse Image Format = Apple 분할 이미지 형식）  # https://support.apple.com/ko-kr/guide/disk-utility/dskutl11888/mac

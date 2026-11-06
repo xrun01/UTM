@@ -7,7 +7,7 @@ emulate: ຈຳລອງ；名词 ການຈຳລອງ
 virtualize: ການເຮັດໃຫ້ເປັນສະເໝືອນ（不用 ການຈຳລອງສະເໝືອນ，它和模拟 ຈຳລອງ 同根）
 native: 接近原生的速度 = ຄວາມໄວເກືອບເທົ່າການແລ່ນໂດຍກົງ（不用 ພື້ນເມືອງ，它是本土）
 architecture: ສະຖາປັດຕະຍະກຳ
-backend: ແບັກເອັນ；ແບັກເອັນ QEMU、ແບັກເອັນ Apple
+backend: ແບັກເອັນ；ແບັກເອັນ QEMU；Apple Virtualization 后端 = ແບັກເອັນການເຮັດໃຫ້ເປັນສະເໝືອນຂອງ Apple（和 Apple Virtualization 条目一致）
 apple-silicon: ຊິບ Apple；Apple 芯片的 Mac = Mac ທີ່ໃຊ້ຊິບ Apple（不用 Apple silicon、Apple chip）
 intel-mac: Mac ທີ່ໃຊ້ຊິບ Intel（不写 Intel Macs）
 cpu: CPU；核心 = ແກນ
@@ -43,3 +43,48 @@ keys: ປຸ່ມ Control、ປຸ່ມ Option（键名保留英文，不意�
 toolbar: ແຖບເຄື່ອງມື
 settings: ການຕັ້ງຄ່າ
 classic-systems: ລະບົບຄລາສສິກ
+# 以下是 terms.yml 里没有、在待审条目中出现 3 次以上的界面术语
+button-style: 按钮、菜单项、工具栏项和快捷指令动作名用动词原形（ເພີ່ມ、ລຶບ、ບັນທຶກ、ສືບຕໍ່）；分组标题用名词（ການບູດ、ການແບ່ງປັນ）；称呼统一用 ທ່ານ，不用 ເຈົ້າ
+status-labels: 进行中的状态写「ກຳລັງ + 动词」（ກຳລັງເລີ່ມ、ກຳລັງຢຸດຊົ່ວຄາວ）；完成的状态写「动词 + ແລ້ວ」（ເລີ່ມແລ້ວ、ໂຈະແລ້ວ）
+orthography: 新译用 ໜ、ໝ、ຫຼ 的标准写法（ຂະໜາດ、ໃໝ່、ດາວໂຫຼດ）；ຫນ、ຫມ、ໃຫມ່ 必须改；已有的 ຫລ（ລົ້ມເຫລວ）是可接受的旧写法，不单独改。U+200B 只能放在词边界，不能插在辅音和声调符号之间
+vm: 英文写 VM 时保留 VM，不加复数 s
+drive: ໄດຣຟ໌（不写 ໄດ、drive）；可移动驱动器 = ໄດຣຟ໌ແບບຖອດໄດ້；外部驱动器 = ໄດຣຟ໌ພາຍນອກ
+disk: ດິສກ໌（不用 ແຜ່ນ，它是「片、光盘」）；保存到磁盘 = ບັນທຶກລົງດິສກ໌
+image: ອິມເມຈ（disk image = ອິມເມຈດິສກ໌，drive image = ອິມເມຈໄດຣຟ໌，boot image = ອິມເມຈບູດ）；不用 ຮູບ、ຮູບພາບ（图片）
+boot: ບູດ（Boot 分组 = ການບູດ，Boot Device = ອຸປະກອນບູດ，Bootloader = ບູດໂຫຼດເດີ）；Secure Boot 保留英文
+kernel: ເຄີເນລ（不用 ແກ່ນ，它是果核；ແກນ 是 CPU 核心）
+configuration: ການກຳນົດຄ່າ；和 settings 的 ການຕັ້ງຄ່າ 区分
+directory: ໂຟນເດີ（directory 和 folder 都用这个，和 shared-folder 一致）；不用 ໄດເລກະທໍລີ、ບັນຊີລາຍການ
+display: ຈໍສະແດງຜົນ（Display、Displays）；monitor = ຈໍພາບ
+window: ໜ້າຕ່າງ（不用 ປ່ອງຢ້ຽມ）
+memory: ໜ່ວຍຄວາມຈຳ；RAM 保留
+storage: ບ່ອນເກັບຂໍ້ມູນ
+host: ໂຮສ（host machine = ເຄື່ອງໂຮສ）；不用 ເຈົ້າພາບ（宴会主人）、ເຄື່ອງແມ່ຂ່າຍ（服务器）
+terminal: ເທີມິນັລ（不用 ສະຖານີ，它是车站）；console = ຄອນໂຊນ
+start-run: Start = ເລີ່ມ（ເລີ່ມ、ກຳລັງເລີ່ມ、ເລີ່ມແລ້ວ）；Run = ແລ່ນ；向导首页标题 wizard.start.title = ເລີ່ມຕົ້ນ
+pause: ຢຸດຊົ່ວຄາວ（ຢຸດຊົ່ວຄາວ、ກຳລັງຢຸດຊົ່ວຄາວ、ຢຸດຊົ່ວຄາວແລ້ວ）；Stop = ຢຸດ；两者必须区分
+suspend: ໂຈະ（ໂຈະ、ໂຈະແລ້ວ、ສະຖານະທີ່ຖືກໂຈະ）；不用 ລະງັບ；和 pause 必须区分
+resume: ສືບຕໍ່（ສືບຕໍ່、ກຳລັງສືບຕໍ່）；restore = ກູ້ຄືນ（ກູ້ຄືນ、ກຳລັງກູ້ຄືນ）
+recovery-mode: ໂໝດກູ້ຄືນ；recovery IPSW = IPSW ກູ້ຄືນ；不用 ການຟື້ນຕົວ（康复）
+state: ສະຖານະ（不用 ສະຖານະພາບ、ລັດ）
+save: ບັນທຶກ
+delete: ລຶບ；remove = ເອົາອອກ；eject = ດີດອອກ；extract = ແຕກໄຟລ໌（ກຳລັງແຕກໄຟລ໌…）
+quit: ອອກ（退出 App，不用 ເຊົາ）；close = ປິດ；restart = ຣີສະຕາດ；reset = ຣີເຊັດ；power down = ປິດເຄື່ອງ
+kill-request-force: 停止方式 3 个选项 = ຮ້ອງຂໍ、ບັງຄັບ、ສິ້ນສຸດ；Force kill = ບັງຄັບສິ້ນສຸດ；kill 不用 ຂ້າ（杀人）
+capture-input: ຈັບການປ້ອນຂໍ້ມູນ，和 capture-mouse 的 ຈັບ 一致；不用 ບັນທຶກ（记录）、ຈັບພາບ（截图）
+keystroke: ການກົດແປ້ນພິມ；keyboard = ແປ້ນພິມ；keyboard shortcuts = ປຸ່ມລັດແປ້ນພິມ
+modifier-keys: ປຸ່ມປັບປ່ຽນ (modifier)（不用 ປຸ່ມປັບແຕ່ງ，它是自定义键；不用 ປຸ່ມຕົວແກ້ໄຂ，它是编辑器按钮）；Mac 键名保留键帽写法（Command、Control、Option、Shift、Caps Lock、Escape）
+coherence-mode: ໂໝດ Coherence（功能名保留英文；不用 ໂໝດຜະສານ，它是图像混合模式）
+scan-code: ລະຫັດສະແກນ
+serial: ພອດອະນຸກົມ（不用 ລໍາດັບ，它是顺序）
+vm-shortcut: ທາງລັດ（UTM 列表里指向别处虚拟机的条目）
+default-generic: Default = ຄ່າເລີ່ມຕົ້ນ；Generic = ທົ່ວໄປ；两者必须区分
+gallery-library: Gallery = ແກເລີຣີ（ແກເລີຣີ UTM，官网下载页）；UTM Library = ຄັງ UTM（主窗口）；两者必须区分
+operation: ການດຳເນີນການ
+driver: ໄດຣເວີ
+interface: ອິນເຕີເຟສ（网卡 = ອິນເຕີເຟສເຄືອຂ່າຍ，磁盘接口 = ອິນເຕີເຟສດິສກ໌）；不用 ສ່ວນຕິດຕໍ່、ການໂຕ້ຕອບ
+optional-required: (optional) = (ບໍ່ບັງຄັບ)；(required) = (ຈຳເປັນ)；不用 ທາງເລືອກ（选项）、ຕ້ອງການ（想要）
+audio-io: 音频设备选项 Input = ຂາເຂົ້າ，Output = ຂາອອກ；输入设置（键盘鼠标）= ການປ້ອນຂໍ້ມູນ
+platform: ແພລດຟອມ（不用 ເວທີ，它是舞台）
+version: 软件版本写 ເວີຊັນ，不混用 ລຸ້ນ；硬件型号写 ລຸ້ນຮາດແວ
+macos-names: Dock、Finder 保留英文（Apple 没有老挝语界面）

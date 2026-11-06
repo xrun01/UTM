@@ -36,9 +36,27 @@ hardware-reset: donanım sıfırlama
 mount: dosya sistemine bağlamak（不单写 bağlamak，避免和连接设备混淆）
 shared-library: paylaşılan kitaplık
 capture-mouse: fareyi yakalamak；捕获鼠标按钮 = Fareyi Yakala düğmesi（待确认 App 界面）
-keys: Kontrol tuşu、Option tuşu  # https://support.apple.com/tr-tr/102650（「Kontrol (veya Ctrl)」「Option (veya Alt)」）
+keys: Kontrol tuşu、Option tuşu、Komut tuşu、Shift、Caps Lock、Esc  # https://support.apple.com/tr-tr/102650（「Kontrol (veya Ctrl)」「Option (veya Alt)」「Komut (veya Cmd)」「Esc (Escape)」）
 toolbar: araç çubuğu
 settings: ayarlar
 rosetta: Rosetta，按土耳其语用撇号加词尾：Rosetta'yı、Rosetta'nın
 cpu: CPU；CPU 架构 = CPU mimarisi；CPU 核心 = CPU çekirdeği  # https://support.apple.com/tr-tr/guide/activity-monitor/actmntr43452/mac（界面标签写「CPU」）
 classic-systems: klasik sistemler
+# 以下是待审条目中出现 3 次以上的界面术语（terms.yml 没有），本轮审校定下
+device: cihaz（不用 aygıt；全部条目统一）
+drive: sürücü；驱动器映像 = sürücü görüntüsü
+image: görüntü（磁盘映像、启动映像；不用 resim、görsel、imaj）
+format: biçim；映像格式 = görüntü biçimi
+configuration: yapılandırma（不用 konfigürasyon）
+install: yüklemek；名词「安装」作标题时 = kurulum（Kurulum Yöntemi、Kurulum Kılavuzu）
+host: ana bilgisayar；主机网络 = Ana Bilgisayar Ağları
+display: ekran；多个显示器 = Ekranlar
+input: giriş；捕获输入 = Girişi Yakala
+pause: duraklatmak；Paused = Duraklatıldı
+suspend: askıya almak；Suspended = Askıya alındı（和 pause 不同词）
+resume: sürdürmek；Resuming = Sürdürülüyor（不用 devam ettirmek；和 Restore = Geri Yükle 区分）
+kill: sonlandırmak；Force kill = Zorla sonlandır
+directory: dizin；folder = klasör（英文分开用，译文也分开）
+vm-shortcut: kısayol（UTM 里指向别处虚拟机的快捷方式；和 Kestirmeler App、klavye kestirmesi 区分）
+cancel-button: Vazgeç（按钮）；OK = Tamam
+macos-suffix: macOS'i、macOS'in（按 Apple 读音加词尾）  # https://support.apple.com/tr-tr/102655（「macOS'i」）

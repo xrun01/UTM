@@ -44,3 +44,27 @@ settings: mga setting
 classic-systems: mga klasikong system
 cpu: CPU
 rosetta: Rosetta  # https://support.apple.com/en-ph/102527
+
+# 界面术语：审校 UTM 时新定，terms.yml 还没有。是否补进 terms.yml 由主代理决定。
+drive: drive；复数 mga drive；以大小命名的驱动器 = %@ na Drive（不用 magmaneho）
+image: image；disk image、drive image、boot image、kernel image、ISO image（不用 imahe、larawan，和 installer-image 同规则）
+display: display；复数 mga display
+directory: direktoryo；共享目录 = shared directory（不用 nakabahaging direktoryo，和 shared-folder 同规则）
+configuration: configuration（不用 pagsasaayos）
+state: estado；挂起状态 = naka-suspend na estado
+status: status（不用 katayuan）
+device: device；复数 mga device
+path: path（不用 landas）
+enable: 按钮 = Paganahin；状态 = naka-enable、naka-disable；if enabled = Kung naka-enable
+start: 按钮 = Simulan；状态 = Nagsisimula、Nagsimula；向导首页标题 = Simula
+stop: 按钮 = Ihinto（不用 itigil）；状态 = Humihinto、Nakahinto
+pause: 按钮 = I-pause；状态 = Nagpo-pause、Naka-pause
+suspend: 按钮 = I-suspend；状态 = Naka-suspend（和 pause 区分，不用 nasuspinde）
+resume: 按钮 = Ipagpatuloy；状态 = Nagpapatuloy
+restore: 从快照恢复 = Ibalik；状态 = Ibinabalik（和 resume 区分）
+quit: 退出 UTM = Umalis；kapag umalis sa UTM（不用 huminto，huminto 是 stop）
+kill: 强制结束进程 = patayin；Force kill = Sapilitang patayin；停止方式 = Hilingin、Pilitin、Patayin
+memory: Memory（和 storage 区分）
+storage: storage
+capture-input: i-capture ang input；名词 = pag-capture ng input（不用 makuha、pagkuha）
+recovery: recovery；recovery mode、recovery IPSW、IPSW recovery image（不用 pagbawi）

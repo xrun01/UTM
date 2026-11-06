@@ -48,3 +48,48 @@ classic-systems: क्लासिक प्रणाली
 device: यन्त्र（不用 उपकरण，उपकरण 也指「工具」）
 window: सञ्झ्याल（不用 विन्डो）
 save: बचत गर्नु
+
+# 审校待审条目时新定的界面术语（出现 3 次以上，terms.yml 没有）
+host: होस्ट
+image: इमेज；disk image = डिस्क इमेज，drive image = ड्राइभ इमेज（不用 छवि，छवि 是图片）
+drive: ड्राइभ
+display: डिस्प्ले
+directory: डाइरेक्टरी；shared directory = साझा डाइरेक्टरी（不用 निर्देशिका）
+storage: भण्डारण；和 memory 区分
+memory: मेमोरी
+vm: VM（不音译）
+data: डाटा（不写 डेटा）
+install: स्थापना गर्नु；installer = इन्स्टलर（不用 स्थापनाकर्ता，那是安装人员）
+import: आयात गर्नु
+delete: मेटाउनु（永久删除）
+remove: हटाउनु（移除快捷方式、共享目录），和 delete 区分
+read-only: पढ्ने मात्र（不加连字符）
+recovery: रिकभरी；recovery mode = रिकभरी मोड
+start: सुरु गर्नु；状态 Starting = सुरु हुँदै，Started = सुरु भएको
+stop: रोक्नु；状态 Stopping = रोकिँदै，Stopped = रोकिएको
+pause: पज गर्नु；Paused = पज गरिएको，Pausing = पज हुँदै（和 Stop 区分）
+suspend: निलम्बन गर्नु；Suspended = निलम्बित，suspended state = निलम्बित अवस्था（和 pause 区分）
+resume: पुनः सुचारु गर्नु；Resuming = पुनः सुचारु हुँदै（不用 पुनः सुरु गर्नु，那是重启）
+restart: पुनः सुरु गर्नु
+restore: पुनर्स्थापना गर्नु；Restoring = पुनर्स्थापना हुँदै（从快照恢复，和 resume 区分）
+again: पुनः（用天城文止音符 ः U+0903，不用 ASCII 冒号写成 पुन:）
+kill: अन्त्य गर्नु；force kill = बलपूर्वक अन्त्य गर्नु（不用 मार्नु）
+force: बलपूर्वक（不用 बल、जबरजस्ती）
+overwrite: अधिलेखन गर्नु
+share: साझेदारी गर्नु（动作）；share（名词）= साझेदारी（不用 सेयर）
+power-down: पावर डाउन
+state: अवस्था（虚拟机状态、快照状态；不用 राज्य、स्थिति）
+status: स्थिति（Status 标签、Get Virtual Machine Status）
+position: स्थान（鼠标坐标；和 status 的 स्थिति 区分）
+operation: सञ्चालन（不用 अपरेशन）
+invalid: अमान्य（不用 अवैध）
+icon: आइकन（不用 प्रतिमा）
+path: पथ（不用 मार्ग）
+size: आकार（不用 साइज）；resize = आकार बदल्नु
+app: एप（不用 अनुप्रयोग）
+keystroke: किस्ट्रोक（不用 कुञ्जी स्ट्रोक）
+serial: सिरियल（串口设备；不用 क्रमिक，那是序号）
+update: अद्यावधिक गर्नु（不用 अपडेट）
+corrupt: बिग्रनु、बिगार्नु（数据损坏；不用 भ्रष्ट、भ्रष्टाचार，那是贪污腐败）
+you: तपाईं（标准拼法；不写 तपाइँ、तपाईँ）
+macos-ui-names: Finder、Dock、Virtual Machine Accessories、Device Support 保留英文（macOS 没有尼泊尔语界面，用户看到的是英文名）

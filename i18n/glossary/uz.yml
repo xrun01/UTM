@@ -44,3 +44,37 @@ rosetta: Rosetta；词尾用连字符：Rosetta-ni
 cpu: protsessor
 classic-systems: klassik tizimlar
 # 标题、步骤标题、列表标签和链接用动名词（-ish），号召句（band）用祈使句。
+# 以下是待审条目中出现 3 次以上的界面术语（terms.yml 没有），本轮审校定下
+case-style: 界面文案用句首大写；按钮、菜单项、工具栏项、快捷指令动作名、设置开关和工具栏提示用动名词 -ish（Saqlash、Bekor qilish、Tanlangan VM-ni klonlash）；快照页按钮提示和说明句用 -ing 祈使句（Bu snapshotni o'chirib tashlang）
+suffix: 专有名词和缩写保留拉丁字母，词尾一律用连字符：VM-ni、VM-lar、UTM-ga、Mac-da、macOS-ni、IPSW-ni、JIT-ni、Linux-da、Apple-dan（不用 VMni、UTM ga、Mac’da）
+apostrophe: o'、g' 和分隔符都写 ASCII '（ma'lumot、o'chirish），不用 ‘ ’ ʻ ʼ
+drive: disk；驱动器映像 = disk tasviri；可移动驱动器 = olinadigan disk；外部驱动器 = tashqi disk（不用 haydovchi、drayv）
+driver: drayver（Virtiofs drayverlari）
+image: tasvir；磁盘映像 = disk tasviri；启动映像 = yuklanadigan tasvir；内核映像 = yadro tasviri（不用 rasm）
+boot: yuklash；引导程序 = yuklovchi；启动设备 = yuklash qurilmasi
+download: yuklab olish（和 boot 的 yuklash 区分）
+display: ekran；Displays = Ekranlar（不用 displey）；分辨率 = ekran ruxsati
+memory: operativ xotira（RAM）
+storage: saqlash joyi；内部存储 = ichki saqlash joyi；USB 大容量存储 = USB saqlash qurilmasi（和 memory 区分）
+host: xost；主机 = xost kompyuter；this machine、your machine = kompyuter
+directory: katalog；folder = papka（不用 jild）
+data: ma'lumotlar
+delete: o'chirib tashlash；remove = olib tashlash；eject = chiqarish；extracting = arxiv ochilmoqda（4 者不同词；shut down 按 terms.yml 是 o'chirish）
+stop: to'xtatish；Stopped = To'xtatilgan；Stopping = To'xtatilmoqda
+pause: pauza qilish；Paused = Pauzada；Pausing = Pauza qilinmoqda（不用 to'xtatib turish，它和 stop 同词根）
+suspend: uyqu rejimiga o'tkazish；Suspended = Uyqu rejimida；suspended state = uyqu rejimi holati
+resume: davom ettirish；Resuming = Davom ettirilmoqda；restore = tiklash；Restoring = Tiklanmoqda；recovery mode = tiklash rejimi
+start: ishga tushirish（按钮）；run 同；wizard.start.title = Boshlash
+power-down: quvvatni o'chirish；power button = quvvat tugmasi；Power 菜单 = Quvvat
+kill: majburiy tugatish；停止方式 3 个选项 = O'chirish so'rovi、Majburiy o'chirish、Majburiy tugatish
+capture: ushlash；捕获输入 = Kiritishni ushlash（不用 yozib olish、suratga olish）
+input: kiritish（键盘鼠标输入）；音频 Input/Output = kirish/chiqish
+copy: nusxalash；move = ko'chirish；duplicate = nusxalash
+default: standart；generic = universal（不用 umumiy，它是 shared 的译法）
+serial: ketma-ket port（串口设备，不是 seriya raqami）
+key: tugma；修饰键 = modifikator tugmasi；击键 = tugma bosishlar；键名不翻译：Command、Option、Shift、Escape、Caps Lock
+icon: belgi；Dock 原样保留：Dock belgisi；menu bar = menyu paneli
+optional: ixtiyoriy
+read-only: faqat o'qish uchun
+app: ilova
+gallery: galereya；UTM Library = UTM kutubxonasi

@@ -44,3 +44,20 @@ settings: cilësimet
 rosetta: Rosetta（不变格）
 cpu: CPU
 classic-systems: sisteme klasike
+
+# 不在 terms.yml、但在待审条目中出现 3 次以上的界面术语（2026-11-05 审校时定下）
+vm: VM（只在英文写 VM 时用）；变格加连字符：VM-ja、VM-në、VM-së，复数 VM-të、VM-ve
+drive: disk；disku、复数 disqe、disqet；drive image = imazh disku；removable drive = disk i lëvizshëm；external drive = disk i jashtëm
+directory: dosje（和 shared-folder 一致，不用 drejtori、direktori）
+storage: hapësirë ruajtëse（和 memory = memorie 区分）
+host-machine: kompjuter pritës；host OS = sistemi operativ pritës；网络模式和列表名里用 host（Vetëm host、Rrjetet e hostit）
+boot: nisje；boot image = imazhi i nisjes；Boot from … = Nis nga …
+recovery: rikuperim；recovery mode = modaliteti i rikuperimit
+input-capture: kap hyrjen；名词 kapja e hyrjes（不用 regjistroj，它是「录制」）
+keystrokes: shtypje tastesh；sequence of keystrokes = sekuencë shtypjesh tastesh；modifier keys = tastet modifikuese
+display: ekran；复数 ekranet
+path: shteg；shtegu
+shortcut-alias: shkurtore（指向虚拟机的快捷方式，不是 Shortcuts App）
+vm-states: Start = Nis、Stop = Ndalo、Pause = Pauzo、Suspend = Pezullo、Resume = Vazhdo（不用 rifilloj，会读成重新开始）、Restore = Rikthe、Reset = Rivendos、Restart = Rinis；状态：E nisur、E ndalur、Në pauzë、E pezulluar；进行中：Po niset、Po ndalet、Po pauzohet、Po vazhdohet、Po rikthehet、Po ruhet
+stop-methods: Request = Kërkesë për fikje、Force = Fikje e detyruar、Kill = Përfundim i procesit；kill（动词）= përfundoj me forcë（不用 vras）
+data-corruption: dëmtim i të dhënave（不用 korrupsion）

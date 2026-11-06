@@ -43,3 +43,29 @@ settings: iestatījumi
 rosetta: Rosetta，不变格（izmantojot Rosetta、ieslēdziet Rosetta）
 cpu: procesors；CPU 核心 = procesora kodols；30 多种 CPU = vairāk nekā 30 veidu procesori
 classic-systems: klasiskās sistēmas
+
+# 界面术语：待审条目中出现 3 次以上、terms.yml 没有的词（2026-11-05 审校定稿）。按钮、开关、工具提示用不定式
+drive: disks；Drives = Diski；Removable Drive = Noņemams disks；External Drive = Ārējs disks（不用 diskdzinis）
+disk-image: diska attēls；Boot Image = Sāknēšanas attēls
+display: displejs；Displays = Displeji
+host: resursdators；Host Networks = Resursdatora tīkli（不用 saimniekdators）
+boot: sāknēt；sāknēšana；Bootloader = Sāknēšanas ielādētājs
+storage: krātuve；internal storage = iekšējā krātuve（Memory = atmiņa，两者不能同词）
+start: Startēt（按钮）；Started = Startēta；新建向导首页标题 = Sākums
+stop: Apturēt；Stopped = Apturēta（Pause、Suspend 不用 apturēt）
+pause: Pauzēt；Paused = Pauzēta
+suspend: Iemidzināt；Suspended = Iemidzināta；suspended state = iemidzināšanas stāvoklis
+resume: Atsākt；Resuming = Notiek atsākšana（Restore = Atjaunot，Restoring = Notiek atjaunošana）
+vm-state: 进行中的状态写 Notiek …，例如 Notiek startēšana、Notiek apturēšana、Notiek saglabāšana
+kill: piespiedu kārtā pārtraukt（进程）；Force kill = Pārtraukt piespiedu kārtā（不用 iznīcināt，读成销毁）
+quit: Iziet；Quitting UTM = Izejot no UTM
+eject: Izstumt（Delete = Dzēst，Remove = Noņemt，Extracting… = Notiek izpakošana…）
+capture-input: notvert ievadi；input capture = ievades notveršana（不用 tvert、uztvert、uzņemt）
+keystroke: taustiņsitiens；Send Keystrokes = Sūtīt taustiņsitienus
+serial: seriālais ports（不用 sērija）
+interface: saskarne（网卡、磁盘接口；不用 interfeiss）
+kernel: kodols；Kernel Image = Kodola attēls
+select: atlasīt；Please select … = Lūdzu, atlasiet …
+shortcut-alias: saīsne（主窗口中指向外部虚拟机的快捷方式）
+share-sheet: Kopīgot（用系统共享面板分享虚拟机；共享文件夹用 koplietot）
+directory: mape（shared directory 和 shared folder 同译 koplietota mape）

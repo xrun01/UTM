@@ -45,3 +45,28 @@ classic-systems: sistem klasik
 cpu: CPU；核心 = inti
 rosetta: Rosetta
 # 「运行」不是 terms.yml 的术语，全站统一：nglakokake；（系统）运行 = mlaku（不用 mbukak，mbukak 是「打开」）
+
+# 以下是 2026-11-05 审校 UTM 界面时补充的译法（terms.yml 中没有，待审条目中出现 3 次以上）。是否补进 terms.yml 由主代理决定。
+image: citra；citra disk、citra drive、citra ISO、citra boot、citra kernel（不用 gambar，gambar 是图片；和 installer-image 同规则）
+screenshot: gambar layar（不用 screenshot、jepretan）
+drive: drive；Drive Eksternal；Drive sing Bisa Dicopot；以大小命名的驱动器 = Drive %@
+display: layar；Display、Displays（设置、工具栏、菜单）= Layar
+host: host（不用 inang）；host macOS、mesin host
+state: kahanan（不用 negara、status）；挂起状态 = kahanan sing ditundha；当前状态 = kahanan saiki；Status 字段 = Status
+valid: valid；invalid = ora valid（不用 ora bener，bener 是「正确」）
+file: file（不用 berkas）
+memory-storage: Memory = Memori；Storage = Panyimpenan
+default-generic: Default = Gawan；Generic = Umum
+delete-remove-eject: Delete = Busak；Remove = Copot（移除快捷方式、设备、共享目录，不删数据）；Eject = Wetokake；Extracting… = Ngekstrak…
+vm-actions: Start = Wiwiti、Run = Lakokake、Stop = Mandhegake、Pause = Jeda（不用 ngaso）、Suspend = Tundha、Resume = Terusake、Restart = Wiwiti Maneh、Restore = Pulihake；向导首页标题 = Wiwitan
+vm-states: Lagi diwiwiti / Wis diwiwiti、Lagi dimandhegake / Mandheg、Lagi dijeda / Dijeda、Ditundha、Lagi diterusake、Lagi dipulihake、Lagi disimpen
+power-down: 关机 = mateni；Request power down = Jaluk dipateni；Force shut down = Peksa mateni；Force kill = Peksa pungkasi；停止方式 = Jaluk、Peksa、Pungkasi（kill 不写 mateni，stop 不写 mungkasi）
+quit: 退出 UTM = metu（不用 mandheg，mandheg 是 stop）
+shortcut: trabasan（主窗口里指向别处虚拟机的快捷方式；和 App 名 Pintasan 区分）；keyboard shortcuts = pintasan papan ketik
+keyboard: papan ketik；keystroke = ketukan tombol；scan code = kode pindai；modifier key = tombol pangowah
+serial: Port Serial（串口，不用 seri）
+path: jalur（不用 dalan）
+icon-dock: ikon（不用 lambang）；Dock、bar menu
+custom: Khusus
+command: prentah（不用 printah）
+download: undhuh；ngundhuh（不用 download、ndownload）

@@ -43,3 +43,34 @@ settings: parametrlər
 rosetta: Rosetta，用连字符加词尾：Rosetta-nı
 cpu: CPU；CPU 核心 = CPU nüvəsi
 classic-systems: klassik sistemlər
+# 以下是待审条目中出现 3 次以上的界面术语（terms.yml 没有），本轮审校定下
+case-style: 界面文案用句首大写（Yeni virtual maşın yarat），专有名词除外；菜单项、按钮用不带人称的命令式（Sil、Ləğv et），提示和开关用 -in 命令式（Silin）
+vm-suffix: VM 按读音 ve-em 加词尾：VM-i、VM-in、VM-ə、VM-də、VM-dən、VM-lər（不用 VM-ni、VM-nin）；UTM 同理：UTM-i、UTM-in、UTM-ə、UTM-dən
+drive: disk；驱动器映像 = disk obrazı；可移动驱动器 = çıxarıla bilən disk；外部驱动器 = xarici disk（不用 sürücü，它是「司机」）
+driver: drayver（Virtiofs drayverləri；不用 sürücü）
+image: obraz；磁盘映像 = disk obrazı；启动映像 = yükləmə obrazı（不用 şəkil、görüntü）
+boot: yükləmə；引导程序 = yükləyici；UEFI 启动 = UEFI yükləmə
+download: endirmək；Download = Endir（不用 yükləmək，它和启动 yükləmə 同词）
+display: ekran；多个显示器 = Ekranlar（不用 displey）
+memory: operativ yaddaş（RAM）
+storage: yaddaş sahəsi；内部存储 = daxili yaddaş；USB 大容量存储 = USB kütləvi yaddaş qurğusu（和 memory 区分）
+host: host；主机网络 = Host şəbəkələri
+directory: kataloq；folder = qovluq（英文分开用，译文也分开）
+data: məlumatlar（不用 data）
+stop: dayandırmaq；Stopped = Dayandırılıb
+pause: fasilə vermək；Paused = Fasilədə（和 stop 不同词）
+suspend: yuxu rejiminə keçirmək；Suspended = Yuxu rejimində；suspended state = yuxu rejimi vəziyyəti（和 pause、stop 不同词）
+resume: davam etdirmək；Resuming = Davam etdirilir；restore = bərpa etmək；Restoring = Bərpa olunur
+start: başlatmaq；Start = Başlat；run = işə salmaq；wizard.start.title = Başlanğıc
+power-down: söndürmə；Request power down = Söndürmə sorğusu göndər；power button = qidalanma düyməsi；Power 菜单 = Qidalanma
+kill: məcburi sonlandırmaq；停止方式 3 个选项 = Söndürmə sorğusu、Məcburi söndürmə、Məcburi sonlandırma（不用 öldürmək）
+capture: tutmaq；捕获输入 = Daxiletməni tut（不用 çəkmək）
+input: daxiletmə（键盘鼠标输入）；音频 Input/Output = giriş/çıxış
+remove: kənarlaşdırmaq（移除快捷方式、共享目录）；delete = silmək；eject = çıxartmaq；extracting = arxiv açılır（三者不同词）
+copy: kopyalamaq；move = daşımaq（不用 köçürmək，它在 az 界面中是「复制」）
+default: standart；generic = ümumi（两者不同词）
+serial: ardıcıl port（串口设备，不是序列号）
+key: düymə；修饰键 = modifikator düymələri；键名不翻译：Command、Option、Shift、Escape、Caps Lock
+icon: ikona；Dock 原样保留：Dock ikonası
+optional: istəyə bağlı（不用土耳其语 isteğe bağlı）
+read-only: yalnız oxumaq üçün

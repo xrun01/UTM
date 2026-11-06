@@ -53,3 +53,10 @@ network-interface: verkkoliitäntä（网卡；Interface 选择器 = Verkkoliit�
 serial: sarjaportti（串口设备；Serial = Sarjaportti、Serial (TTY) = Sarjaportti (TTY)；不用 sarjanumero，那是序列号）
 eject: poistaa näkyvistä（弹出驱动器；Eject = Poista näkyvistä；不单写 Poista，它和 Delete/Remove 同词）  # https://support.apple.com/fi-fi/102650（「Komento-E: poista valittu levy tai taltio näkyvistä」）
 audio-input-output: äänitulo、äänilähtö（音频设备；Input Only = Vain äänitulo、Output Only = Vain äänilähtö）  # https://support.apple.com/fi-fi/guide/mac-help/mchlp2567/mac
+configuration: kokoonpano（虚拟机的配置；configuration file = kokoonpanotiedosto；不用 konfiguraatio；配置动作 Automatic Hardware Configuration 仍写 määritys）
+power-down: sammutuspyyntö（向客户机发送关机请求；Request Power Down = Pyydä sammutusta；不用 virrankatkaisu，它读作「断电」）
+kill: prosessin lopetus（强制结束虚拟机进程；kill the VM = lopettaa virtuaalikoneen prosessin；不用 tappaa）
+suspended-state: lepotilan tallennettu tila（Suspend 保存的状态；save suspend state = tallentaa tila lepotilaa varten）
+terminal: terminaali（Built-in Terminal = Sisäänrakennettu terminaali；不用 pääte）
+menu-bar: valikkorivi（不用 valikkopalkki）  # https://support.apple.com/fi-fi/guide/mac-help/mchlp1446/mac（「Työpöytä, valikkorivi ja Dock」）
+dock: Dock（Dock icon = Dock-kuvake；不译成 telakka）  # https://support.apple.com/fi-fi/guide/mac-help/mchlp1446/mac
