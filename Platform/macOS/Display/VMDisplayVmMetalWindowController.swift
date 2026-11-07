@@ -17,6 +17,9 @@ import IOSurface
 class VMDisplayVmMetalWindowController: VMDisplayWindowController, VMMetalViewInputDelegate, UTMVmBridgeDelegate {
     var metalView: VMMetalView!
     private var renderer: VMIOSurfaceMetalRenderer?
+    private var layerPresenter: VMIOSurfaceLayerPresenter?
+    private var resizeWorkItem: DispatchWorkItem?
+    private var lastCapsLockOn: Bool = false
     @Setting("UseCmdOptForCapture") private var isUseCmdOptForCapture: Bool = false
 
     var shouldUseCmdOptForCapture: Bool {
@@ -30,8 +33,7 @@ class VMDisplayVmMetalWindowController: VMDisplayWindowController, VMMetalViewIn
             window?.title = appleVM.config.information.name
         }
         if let win = window {
-            let targetSize = NSSize(width: 1024, height: 768)
-            win.contentAspectRatio = targetSize
+            let targetSize = NSSize(width: 1280, height: 800)
             win.contentMinSize = NSSize(width: 640, height: 480)
             let frame = win.frameRect(forContentRect: CGRect(origin: win.frame.origin, size: targetSize))
             win.setFrame(frame, display: true)
@@ -43,16 +45,23 @@ class VMDisplayVmMetalWindowController: VMDisplayWindowController, VMMetalViewIn
         metalView.autoresizingMask = [.width, .height]
         metalView.device = MTLCreateSystemDefaultDevice()
         metalView.framebufferOnly = false
+        metalView.isPaused = true
+        metalView.enableSetNeedsDisplay = true
         metalView.inputDelegate = self
         if let dev = metalView.device {
             renderer = VMIOSurfaceMetalRenderer(device: dev)
             metalView.delegate = renderer
+        } else {
+            let presenter = VMIOSurfaceLayerPresenter()
+            presenter.attach(to: metalView)
+            layerPresenter = presenter
         }
         displayView.addSubview(metalView)
         UTMVmBridge.shared.delegate = self
         if let surface = UTMVmBridge.shared.currentIOSurface {
             renderer?.updateIOSurface(surface)
-            metalView.needsDisplay = true
+            layerPresenter?.updateSurface(surface)
+            metalView.needsDisplay = (renderer != nil)
         }
     }
 
@@ -64,19 +73,34 @@ class VMDisplayVmMetalWindowController: VMDisplayWindowController, VMMetalViewIn
         screenshotView.isHidden = true
         metalView.isHidden = false
         UTMVmBridge.shared.delegate = self
+        UTMPasteboard.general.requestPollingMode(forHashable: ObjectIdentifier(self))
         if let surface = UTMVmBridge.shared.currentIOSurface {
             renderer?.updateIOSurface(surface)
-            metalView.needsDisplay = true
+            layerPresenter?.updateSurface(surface)
+            metalView.needsDisplay = (renderer != nil)
         }
         syncDynamicResolution()
         window?.makeFirstResponder(metalView)
+    }
+
+    override func close() {
+        UTMPasteboard.general.releasePollingMode(forHashable: ObjectIdentifier(self))
+        super.close()
+    }
+
+    private func updateMainWindowVisibilityForCoherence(windows: [UTMVmCoherenceWindowInfo]) {
+        if UTMVmBridge.shared.isCoherenceMode && UTMVmBridge.shared.isCoherenceReady && !windows.isEmpty {
+            window?.orderOut(nil)
+        } else {
+            window?.makeKeyAndOrderFront(nil)
+        }
     }
 
     func toggleCoherenceMode() {
         let nextMode = !UTMVmBridge.shared.isCoherenceMode
         UTMVmBridge.shared.dispatch(.setCoherence(enabled: nextMode))
         if nextMode {
-            window?.orderOut(nil)
+            updateMainWindowVisibilityForCoherence(windows: UTMVmBridge.shared.coherenceWindows)
         } else {
             window?.makeKeyAndOrderFront(nil)
             syncDynamicResolution()
@@ -93,12 +117,22 @@ class VMDisplayVmMetalWindowController: VMDisplayWindowController, VMMetalViewIn
         UTMVmBridge.shared.dispatch(.updateDisplay(size: pixelSize, scaleFactor: scale, dpi: dpi))
     }
 
+    private func scheduleDebouncedResolutionSync() {
+        metalView?.needsDisplay = true
+        resizeWorkItem?.cancel()
+        let item = DispatchWorkItem { [weak self] in
+            self?.syncDynamicResolution()
+        }
+        resizeWorkItem = item
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(200), execute: item)
+    }
+
     func windowDidResize(_ notification: Notification) {
-        syncDynamicResolution()
+        scheduleDebouncedResolutionSync()
     }
 
     func windowDidChangeBackingProperties(_ notification: Notification) {
-        syncDynamicResolution()
+        scheduleDebouncedResolutionSync()
     }
 
     func windowDidEnterFullScreen(_ notification: Notification) {
@@ -111,12 +145,50 @@ class VMDisplayVmMetalWindowController: VMDisplayWindowController, VMMetalViewIn
 
     // MARK: - VMMetalViewInputDelegate
 
+    private func currentModifierMask() -> UInt32 {
+        let flags = NSEvent.modifierFlags
+        var mask: UInt32 = 0
+        if flags.contains(.shift) { mask |= 1 }
+        if flags.contains(.control) { mask |= 2 }
+        if flags.contains(.option) { mask |= 4 }
+        if flags.contains(.command) { mask |= 8 }
+        return mask
+    }
+
+    private func currentGuestPixelSize() -> CGSize {
+        if let surface = UTMVmBridge.shared.currentIOSurface {
+            let w = CGFloat(IOSurfaceGetWidth(surface))
+            let h = CGFloat(IOSurfaceGetHeight(surface))
+            if w > 0, h > 0 {
+                return CGSize(width: w, height: h)
+            }
+        }
+        let scale = window?.backingScaleFactor ?? 1.0
+        let viewBounds = metalView?.bounds.size ?? displayView.bounds.size
+        return CGSize(width: max(640, round(viewBounds.width * scale)),
+                      height: max(480, round(viewBounds.height * scale)))
+    }
+
+    private func activeContentRect(in bounds: CGSize) -> CGRect {
+        renderer?.contentRect(in: bounds)
+            ?? layerPresenter?.contentRect(in: bounds)
+            ?? VMMetalView.aspectFitContentRect(for: currentGuestPixelSize(), in: bounds)
+    }
+
     func mouseMove(absolutePoint: CGPoint, buttonMask: CSInputButton) {
         let bounds = metalView.bounds.size
         guard bounds.width > 0, bounds.height > 0 else { return }
-        let normX = max(0.0, min(1.0, absolutePoint.x / bounds.width))
-        let normY = max(0.0, min(1.0, 1.0 - (absolutePoint.y / bounds.height)))
-        UTMVmBridge.shared.dispatch(.sendMouseAbsolute(normalizedPoint: CGPoint(x: normX, y: normY), buttons: buttonMask.rawValue))
+        let content = activeContentRect(in: bounds)
+        let normPoint = VMMetalView.normalizedTopLeftPoint(for: absolutePoint, in: bounds, contentRect: content)
+        UTMVmBridge.shared.dispatch(.sendMouseAbsolute(normalizedPoint: normPoint, buttons: buttonMask.rawValue))
+    }
+
+    func handleDragDropURLs(_ urls: [URL], at point: CGPoint) -> Bool {
+        guard !urls.isEmpty else { return false }
+        let bounds = metalView.bounds.size
+        let content = activeContentRect(in: bounds)
+        let guestPoint = VMMetalView.guestPixelPoint(for: point, in: bounds, contentRect: content, guestSize: currentGuestPixelSize())
+        return UTMVmBridge.shared.dispatch(.dragDropFiles(filePaths: urls.map(\.path), guestPoint: guestPoint)).ok
     }
 
     func mouseMove(relativePoint: CGPoint, buttonMask: CSInputButton) {
@@ -140,18 +212,21 @@ class VMDisplayVmMetalWindowController: VMDisplayWindowController, VMMetalViewIn
     }
 
     func keyDown(scanCode: Int) {
-        UTMVmBridge.shared.dispatch(.sendKey(scanCode: UInt16(truncatingIfNeeded: scanCode), isKeyDown: true, modifiers: 0))
+        UTMVmBridge.shared.dispatch(.sendKey(scanCode: UInt16(truncatingIfNeeded: scanCode), isKeyDown: true, modifiers: currentModifierMask()))
     }
 
     func keyUp(scanCode: Int) {
-        UTMVmBridge.shared.dispatch(.sendKey(scanCode: UInt16(truncatingIfNeeded: scanCode), isKeyDown: false, modifiers: 0))
+        UTMVmBridge.shared.dispatch(.sendKey(scanCode: UInt16(truncatingIfNeeded: scanCode), isKeyDown: false, modifiers: currentModifierMask()))
     }
 
     func syncCapsLock(with modifier: NSEvent.ModifierFlags?) {
         guard let modifier = modifier else { return }
         let isCapsOn = modifier.contains(.capsLock)
-        let modRaw = UInt32(truncatingIfNeeded: modifier.rawValue)
-        UTMVmBridge.shared.dispatch(.sendKey(scanCode: 0x39, isKeyDown: isCapsOn, modifiers: modRaw))
+        guard isCapsOn != lastCapsLockOn else { return }
+        lastCapsLockOn = isCapsOn
+        let modMask = currentModifierMask()
+        UTMVmBridge.shared.dispatch(.sendKey(scanCode: 0x3a, isKeyDown: true, modifiers: modMask))
+        UTMVmBridge.shared.dispatch(.sendKey(scanCode: 0x3a, isKeyDown: false, modifiers: modMask))
     }
 
     func captureMouse() {
@@ -171,7 +246,8 @@ class VMDisplayVmMetalWindowController: VMDisplayWindowController, VMMetalViewIn
 
     func vmBridge(_ bridge: UTMVmBridge, didUpdate surface: IOSurfaceRef, width: UInt, height: UInt) {
         renderer?.updateIOSurface(surface)
-        metalView?.needsDisplay = true
+        layerPresenter?.updateSurface(surface)
+        metalView?.needsDisplay = (renderer != nil)
         VMCoherenceWindowManager.shared.updateSharedIOSurface(surface, totalSize: CGSize(width: CGFloat(width), height: CGFloat(height)))
     }
 
@@ -181,11 +257,13 @@ class VMDisplayVmMetalWindowController: VMDisplayWindowController, VMMetalViewIn
 
     func vmBridge(_ bridge: UTMVmBridge, didUpdateCoherenceWindows windows: [UTMVmCoherenceWindowInfo]) {
         VMCoherenceWindowManager.shared.syncWindows(windows)
+        updateMainWindowVisibilityForCoherence(windows: windows)
     }
 
     func vmBridge(_ bridge: UTMVmBridge, didReceiveGuestClipboardString text: String) {
         NSPasteboard.general.clearContents()
         NSPasteboard.general.setString(text, forType: .string)
+        UTMPasteboard.general.markGuestClipboardApplied()
     }
 
     func vmBridge(_ bridge: UTMVmBridge, didReclaimBalloonBytes reclaimedBytes: UInt64, targetMemoryBytes: UInt64) {
@@ -195,7 +273,9 @@ class VMDisplayVmMetalWindowController: VMDisplayWindowController, VMMetalViewIn
     }
 
     func vmBridgeDidStop(_ bridge: UTMVmBridge, errorMessage: String?) {
+        UTMPasteboard.general.releasePollingMode(forHashable: ObjectIdentifier(self))
         VMCoherenceWindowManager.shared.closeAllWindows()
+        window?.makeKeyAndOrderFront(nil)
         if let errorMessage = errorMessage {
             showErrorAlert(errorMessage)
         }

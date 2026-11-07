@@ -45,6 +45,8 @@ typedef NS_ENUM(uint32_t, UTMVmToolgateOpcode) {
 @property (nonatomic, readonly, getter=isRunning) BOOL running;
 @property (nonatomic, readonly, getter=isPaused) BOOL paused;
 @property (nonatomic, readonly, getter=isCoherenceMode) BOOL coherenceMode;
+@property (nonatomic, readonly, getter=isCoherenceReady) BOOL coherenceReady;
+@property (nonatomic, readonly) NSArray<UTMVmCoherenceWindowInfo *> *coherenceWindows;
 @property (nonatomic, readonly, nullable) IOSurfaceRef currentIOSurface;
 @property (nonatomic, readonly, nullable) UTMVmConfig *activeConfig;
 @property (nonatomic, readonly) uint64_t reclaimedBalloonBytes;
@@ -88,9 +90,9 @@ typedef NS_ENUM(uint32_t, UTMVmToolgateOpcode) {
 - (void)updateSharedFolders:(NSArray<UTMVmSharedFolderConfig *> *)folders;
 - (uint64_t)reclaimBalloonMemoryBytes:(uint64_t)targetBytes;
 - (BOOL)captureCurrentScreenPNGToPath:(NSString *)pngPath error:(NSError * _Nullable * _Nullable)error;
-- (void)updateDisplayFromCGImage:(CGImageRef)cgImage;
 
 - (void)syncHostClipboardString:(NSString *)text;
+- (void)pollHostPasteboardIfNeeded;
 - (BOOL)handleDragDropFileURLs:(NSArray<NSURL *> *)urls atGuestPoint:(CGPoint)point;
 - (void)syncHostTimeWithTimeZone:(NSString *)timeZoneName offsetSeconds:(NSInteger)offsetSeconds;
 

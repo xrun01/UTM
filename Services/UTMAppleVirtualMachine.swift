@@ -162,6 +162,10 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
         }
     }
     
+    private var guestToolsId: String {
+        "guest-tools"
+    }
+    
     @MainActor func buildVmBridgeConfig() -> UTMVmConfig {
         let vmCfg = UTMVmConfig()
         vmCfg.vmUUID = config.information.uuid.uuidString
@@ -190,7 +194,8 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
                 vmCfg.bridgedInterfaceIdentifier = firstNet.bridgeInterface
             }
         }
-        var diskList: [UTMVmDiskConfig] = config.drives.compactMap { (drive) -> UTMVmDiskConfig? in
+        var hasAssignedSystemDisk = false
+        var diskList: [UTMVmDiskConfig] = config.drives.enumerated().compactMap { (index, drive) -> UTMVmDiskConfig? in
             guard let imgURL = drive.imageURL else { return nil }
             let d = UTMVmDiskConfig()
             d.identifier = drive.id
@@ -198,29 +203,56 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
             d.isReadOnly = drive.isReadOnly
             d.isOptical = drive.isExternal
             d.sizeBytes = UInt64(max(0, drive.sizeMib)) * 1024 * 1024
+            if drive.isExternal {
+                if drive.id == guestToolsId {
+                    d.role = .guestToolsIso
+                    d.bootOrder = 100
+                } else if drive.id.hasPrefix("unattend") {
+                    d.role = .unattendedIso
+                    d.bootOrder = 90
+                } else {
+                    d.role = .bootIso
+                    d.bootOrder = index + 1
+                }
+            } else if !hasAssignedSystemDisk {
+                hasAssignedSystemDisk = true
+                d.role = .systemDisk
+                d.bootOrder = 0
+            } else {
+                d.role = .dataDisk
+                d.bootOrder = index + 10
+            }
             return d
         }
         if config.system.boot.operatingSystem == .windows {
-            let primaryDiskPath = diskList.first(where: { !$0.isOptical && !$0.imagePath.lowercased().hasSuffix(".iso") })?.imagePath
+            let primaryDisk = diskList.first(where: { $0.role == .systemDisk })
+            let primaryDiskPath = primaryDisk?.imagePath
             let isGptInit = UTMVmConfig.isDiskInitializedGpt(atPath: primaryDiskPath)
             if !isGptInit {
                 vmCfg.unattendedInstallEnabled = true
-                let hasInstallIso = diskList.contains { d in
-                    let lower = (d.imagePath as NSString).lastPathComponent.lowercased()
-                    return (d.isOptical || lower.hasSuffix(".iso")) && !lower.contains("unattend") && !lower.contains("guesttools")
-                }
+                let hasInstallIso = diskList.contains { $0.role == .bootIso }
                 if !hasInstallIso, let autoIsoURL = UTMVmConfig.detectDefaultWindowsIsoInDownloads() {
                     let isoDisk = UTMVmDiskConfig()
                     isoDisk.identifier = "auto-win-iso"
                     isoDisk.imagePath = autoIsoURL.path
                     isoDisk.isReadOnly = true
                     isoDisk.isOptical = true
+                    isoDisk.role = .bootIso
+                    isoDisk.bootOrder = 0
                     diskList.insert(isoDisk, at: 0)
                 }
+                primaryDisk?.bootOrder = 1
+                for d in diskList where d.role == .bootIso {
+                    d.bootOrder = 0
+                    if let bootIsoPath = UTMVmConfig.prepareBootIso(forPath: d.imagePath, primaryDiskPath: primaryDiskPath, targetDirectory: pathUrl.path) {
+                        d.imagePath = bootIsoPath
+                    }
+                }
             } else {
-                diskList.removeAll { d in
-                    let lower = (d.imagePath as NSString).lastPathComponent.lowercased()
-                    return lower.contains("unattend")
+                diskList.removeAll { $0.role == .unattendedIso }
+                primaryDisk?.bootOrder = 0
+                for (offset, d) in diskList.enumerated() where d.role == .bootIso {
+                    d.bootOrder = offset + 1
                 }
             }
         }
@@ -341,9 +373,9 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
                     try await attachExternalDrives()
                 }
             } else {
-                snapshotUnsupportedError = UTMAppleVirtualMachineError.operationNotAvailable
+                snapshotUnsupportedError = isDisposible ? UTMAppleVirtualMachineError.cannotSaveInDisposibleMode : nil
                 if isRestoring {
-                    try? await deleteSnapshot()
+                    try await restoreSnapshot()
                 }
             }
             Task { @MainActor in
@@ -602,7 +634,7 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
             vmQueue.async {
                 guard let apple = self.apple else {
-                    continuation.resume(throwing: UTMAppleVirtualMachineError.operationNotAvailable)
+                    continuation.resume()
                     return
                 }
                 apple.saveMachineStateTo(url: url) { error in
@@ -646,7 +678,11 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
             await recordUsbDevicesForSave()
         }
         try await _saveSnapshot(url: vmSavedStateURL)
-        _ = UTMVmBridge.shared.dispatch(.saveLiveSnapshot(statePath: vmSavedStateURL.appendingPathExtension("vmstate").path, diskPaths: [], cloneSuffix: ""))
+        let statePath = (self.apple == nil) ? vmSavedStateURL.path : vmSavedStateURL.appendingPathExtension("vmstate").path
+        let saveRes = UTMVmBridge.shared.dispatch(.saveLiveSnapshot(statePath: statePath, diskPaths: [], cloneSuffix: ""))
+        if self.apple == nil && !saveRes.ok {
+            throw NSError(domain: "com.utmapp.UTMVmBridge", code: Int(saveRes.statusCode), userInfo: [NSLocalizedDescriptionKey: saveRes.errorMessage ?? "Failed to save snapshot"])
+        }
         await registryEntry.setIsSuspended(true)
         #endif
     }
@@ -663,6 +699,10 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
         // a state that is gone already is still let go of below
         if FileManager.default.fileExists(atPath: vmSavedStateURL.path) {
             try FileManager.default.removeItem(at: vmSavedStateURL)
+        }
+        let vmstateURL = vmSavedStateURL.appendingPathExtension("vmstate")
+        if FileManager.default.fileExists(atPath: vmstateURL.path) {
+            try? FileManager.default.removeItem(at: vmstateURL)
         }
         if #available(macOS 27, *) {
             try? await releaseSuspendSnapshot(savedStateURL: vmSavedStateURL)
@@ -709,7 +749,7 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
             vmQueue.async {
                 guard let apple = self.apple else {
-                    continuation.resume(throwing: UTMAppleVirtualMachineError.operationNotAvailable)
+                    continuation.resume()
                     return
                 }
                 apple.restoreMachineStateFrom(url: url) { error in
@@ -735,16 +775,22 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
         guard let vmSavedStateURL = await config.system.boot.vmSavedStateURL else {
             throw UTMAppleVirtualMachineError.operationNotAvailable
         }
-        if state == .started {
+        if self.apple != nil && state == .started {
             try await stop(usingMethod: .force)
         }
-        guard state == .stopped || state == .starting else {
+        guard self.apple == nil || state == .stopped || state == .starting else {
             throw UTMAppleVirtualMachineError.operationNotAvailable
         }
         state = .restoring
         do {
             try await _restoreSnapshot(url: vmSavedStateURL)
-            _ = UTMVmBridge.shared.dispatch(.restoreLiveSnapshot(statePath: vmSavedStateURL.appendingPathExtension("vmstate").path))
+            let statePath = (self.apple == nil && FileManager.default.fileExists(atPath: vmSavedStateURL.path))
+                ? vmSavedStateURL.path
+                : vmSavedStateURL.appendingPathExtension("vmstate").path
+            let restoreRes = UTMVmBridge.shared.dispatch(.restoreLiveSnapshot(statePath: statePath))
+            if self.apple == nil && !restoreRes.ok {
+                throw NSError(domain: "com.utmapp.UTMVmBridge", code: Int(restoreRes.statusCode), userInfo: [NSLocalizedDescriptionKey: restoreRes.errorMessage ?? "Failed to restore snapshot"])
+            }
             try await _resume()
             _ = UTMVmBridge.shared.dispatch(.resume)
         } catch {
@@ -790,19 +836,17 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
     @discardableResult @MainActor
     func takeScreenshot() async -> Bool {
         screenshot = screenshotDelegate?.screenshot
-        if apple != nil, let cgImage = screenshot?.image.cgImage(forProposedRect: nil, context: nil, hints: nil) {
-            UTMVmBridge.shared.updateDisplay(from: cgImage)
-        }
         let reclaimedBytes = UTMVmBridge.shared.reclaimedBalloonBytes
         if reclaimedBytes > 0 {
             let totalBytes = UInt64(config.system.memorySize) * 1024 * 1024
             let targetBytes = totalBytes > reclaimedBytes ? max(1024 * 1024 * 1024, totalBytes - reclaimedBytes) : (totalBytes / 2)
             vmQueue.async { [weak self] in
-                guard let balloon = self?.apple?.memoryBalloonDevices.first as? VZVirtioTraditionalMemoryBalloonDevice else {
-                    return
-                }
-                if balloon.targetVirtualMachineMemorySize != targetBytes {
-                    balloon.targetVirtualMachineMemorySize = targetBytes
+                if let balloon = self?.apple?.memoryBalloonDevices.first as? VZVirtioTraditionalMemoryBalloonDevice {
+                    if balloon.targetVirtualMachineMemorySize != targetBytes {
+                        balloon.targetVirtualMachineMemorySize = targetBytes
+                    }
+                } else {
+                    _ = UTMVmBridge.shared.dispatch(.reclaimBalloonMemory(targetBytes: reclaimedBytes))
                 }
             }
         }
@@ -1297,29 +1341,38 @@ extension UTMAppleVirtualMachine {
         self.removableDrives = removableDrives
     }
 
-    private var guestToolsId: String {
-        "guest-tools"
-    }
-
     var hasGuestToolsAttached: Bool {
-        removableDrives.keys.contains(guestToolsId)
+        if removableDrives.keys.contains(guestToolsId) {
+            return true
+        }
+        if let mountedPath = UTMVmBridge.shared.mountedGuestToolsIsoPath, !mountedPath.isEmpty {
+            return true
+        }
+        return false
     }
 
     func attachGuestTools(_ imageURL: URL) async throws {
-        try await detachDrive(id: guestToolsId)
         let scopedAccess = imageURL.startAccessingSecurityScopedResource()
         defer {
             if scopedAccess {
                 imageURL.stopAccessingSecurityScopedResource()
             }
         }
-        let attachment = try VZDiskImageStorageDeviceAttachment(url: imageURL, readOnly: true)
-        try await attachDrive(attachment, imageURL: imageURL, id: guestToolsId)
-        _ = UTMVmBridge.shared.dispatch(.mountGuestToolsIso(isoPath: imageURL.path))
+        if self.apple != nil {
+            try await detachDrive(id: guestToolsId)
+            let attachment = try VZDiskImageStorageDeviceAttachment(url: imageURL, readOnly: true)
+            try await attachDrive(attachment, imageURL: imageURL, id: guestToolsId)
+        }
+        let mountRes = UTMVmBridge.shared.dispatch(.mountGuestToolsIso(isoPath: imageURL.path))
+        if self.apple == nil && !mountRes.ok {
+            throw NSError(domain: "com.utmapp.UTMVmBridge", code: Int(mountRes.statusCode), userInfo: [NSLocalizedDescriptionKey: mountRes.errorMessage ?? "Failed to mount GuestTools.iso"])
+        }
     }
 
     func detachGuestTools() async throws {
-        try await detachDrive(id: guestToolsId)
+        if self.apple != nil {
+            try await detachDrive(id: guestToolsId)
+        }
     }
 }
 

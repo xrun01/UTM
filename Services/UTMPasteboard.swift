@@ -60,14 +60,21 @@ typealias SystemPasteboardType = NSPasteboard.PasteboardType
     
     private func onTimerTick() {
         let newCount = systemPasteboard.changeCount
-        if newCount > changeCount {
-            if hasContents() {
-                if let text = systemPasteboard.string(forType: .string), !text.isEmpty {
-                    UTMVmBridge.shared.dispatch(.syncClipboard(text: text))
-                }
-            }
+        guard newCount != changeCount else {
+            return
         }
         changeCount = newCount
+        guard hasContents() else {
+            return
+        }
+        UTMVmBridge.shared.pollHostPasteboardIfNeeded()
+        if let text = systemPasteboard.string(forType: .string), !text.isEmpty {
+            UTMVmBridge.shared.dispatch(.syncClipboard(text: text))
+        }
+    }
+
+    @objc func markGuestClipboardApplied() {
+        changeCount = systemPasteboard.changeCount
     }
 
     @objc func hasContents() -> Bool {

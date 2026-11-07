@@ -40,6 +40,8 @@ final class VMCoherenceAppWindow: NSWindow, NSWindowDelegate {
         metalView.autoresizingMask = [.width, .height]
         metalView.device = MTLCreateSystemDefaultDevice()
         metalView.framebufferOnly = false
+        metalView.isPaused = true
+        metalView.enableSetNeedsDisplay = true
         if let dev = metalView.device {
             renderer = VMIOSurfaceMetalRenderer(device: dev)
             metalView.delegate = renderer

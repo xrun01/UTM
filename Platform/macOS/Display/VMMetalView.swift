@@ -84,9 +84,46 @@ class VMMetalView: MTKView {
 
     override func viewDidMoveToWindow() {
         super.viewDidMoveToWindow()
-        registerForDraggedTypes([.fileURL, .string, .tiff, .png])
+        registerForDraggedTypes([.fileURL])
     }
 
+    /// 计算等比缩放在视图尺寸内的有效内容区域（扣除上下或左右黑边内边距）
+    static func aspectFitContentRect(for sourceSize: CGSize, in viewBounds: CGSize) -> CGRect {
+        guard viewBounds.width > 0, viewBounds.height > 0, sourceSize.width > 0, sourceSize.height > 0 else {
+            return CGRect(origin: .zero, size: viewBounds)
+        }
+        let srcAspect = sourceSize.width / sourceSize.height
+        let dstAspect = viewBounds.width / viewBounds.height
+        if srcAspect > dstAspect {
+            let fitH = viewBounds.width / srcAspect
+            return CGRect(x: 0, y: (viewBounds.height - fitH) * 0.5, width: viewBounds.width, height: fitH)
+        } else {
+            let fitW = viewBounds.height * srcAspect
+            return CGRect(x: (viewBounds.width - fitW) * 0.5, y: 0, width: fitW, height: viewBounds.height)
+        }
+    }
+
+    /// 将视图坐标（左下角为原点）转换为扣除黑边后的左上角原点归一化坐标 [0.0, 1.0]
+    static func normalizedTopLeftPoint(for viewPoint: CGPoint, in viewBounds: CGSize, contentRect: CGRect) -> CGPoint {
+        let rect = (contentRect.width > 0 && contentRect.height > 0) ? contentRect : CGRect(origin: .zero, size: viewBounds)
+        guard rect.width > 0, rect.height > 0 else {
+            return .zero
+        }
+        let relX = (viewPoint.x - rect.origin.x) / rect.width
+        let relY = 1.0 - ((viewPoint.y - rect.origin.y) / rect.height)
+        return CGPoint(x: max(0.0, min(1.0, relX)), y: max(0.0, min(1.0, relY)))
+    }
+
+    /// 将视图坐标转换为客户机像素坐标（左上角原点）
+    static func guestPixelPoint(for viewPoint: CGPoint, in viewBounds: CGSize, contentRect: CGRect, guestSize: CGSize) -> CGPoint {
+        let norm = normalizedTopLeftPoint(for: viewPoint, in: viewBounds, contentRect: contentRect)
+        let gw = max(1.0, guestSize.width)
+        let gh = max(1.0, guestSize.height)
+        return CGPoint(x: round(norm.x * gw), y: round(norm.y * gh))
+    }
+
+    /// 客户机硬件光标原生呈现入口：接收 VirtIO GPU 位图、尺寸、热点与可见性，
+    /// 由 VmDisplayHost 或 VmInputHost 在主机线程投递，无宿主端软件光标合成
     func updateGuestCursor(rgbaData: Data?, size: CGSize, hotSpot: CGPoint, visible: Bool) {
         isGuestCursorVisible = visible
         if let rgbaData = rgbaData, size.width > 0, size.height > 0 {
@@ -363,7 +400,6 @@ class VMMetalView: MTKView {
         guard dx != 0 || dy != 0 else { return }
         logger.trace("scroll: dx=\(dx), dy=\(dy), precise=\(event.hasPreciseScrollingDeltas)")
         let mask = NSEvent.pressedMouseButtons.inputButtons()
-        UTMVmBridge.shared.dispatch(.sendMouseScroll(deltaX: dx, deltaY: dy, isPrecise: event.hasPreciseScrollingDeltas, phase: UInt32(event.phase.rawValue)))
         inputDelegate?.mouseScrollPrecise(dx: dx, dy: dy, isPrecise: event.hasPreciseScrollingDeltas, phase: event.phase, buttonMask: mask)
     }
 
@@ -374,17 +410,14 @@ class VMMetalView: MTKView {
     override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
         let pasteboard = sender.draggingPasteboard
         let dropPoint = convert(sender.draggingLocation, from: nil)
-        if let urls = pasteboard.readObjects(forClasses: [NSURL.self], options: [.urlReadingFileURLsOnly: true]) as? [URL], !urls.isEmpty {
-            if let handled = inputDelegate?.handleDragDropURLs(urls, at: dropPoint), handled {
-                return true
-            }
-            return UTMVmBridge.shared.dispatch(.dragDropFiles(filePaths: urls.map(\.path), guestPoint: dropPoint)).ok
+        guard let urls = pasteboard.readObjects(forClasses: [NSURL.self], options: [.urlReadingFileURLsOnly: true]) as? [URL], !urls.isEmpty else {
+            return false
         }
-        if let text = pasteboard.string(forType: .string), !text.isEmpty {
-            UTMVmBridge.shared.dispatch(.syncClipboard(text: text))
-            return true
+        if let delegate = inputDelegate {
+            return delegate.handleDragDropURLs(urls, at: dropPoint)
         }
-        return false
+        let guestPoint = Self.guestPixelPoint(for: dropPoint, in: bounds.size, contentRect: CGRect(origin: .zero, size: bounds.size), guestSize: bounds.size)
+        return UTMVmBridge.shared.dispatch(.dragDropFiles(filePaths: urls.map(\.path), guestPoint: guestPoint)).ok
     }
 
     override func acceptsFirstMouse(for event: NSEvent?) -> Bool {
