@@ -55,6 +55,8 @@ jobs:
       - name: Checkout UTM repository
         uses: actions/checkout@v7
         with:
+          repository: xrun01/UTM
+          token: ${{ secrets.GH_TOKEN }}
           path: git/UTM
       - name: Checkout vm repository
         uses: actions/checkout@v7
@@ -93,6 +95,8 @@ jobs:
       - name: Checkout UTM repository
         uses: actions/checkout@v7
         with:
+          repository: xrun01/UTM
+          token: ${{ secrets.GH_TOKEN }}
           path: git/UTM
       - name: Checkout vm repository
         uses: actions/checkout@v7
@@ -129,8 +133,6 @@ jobs:
           path: UTM.app.tar.zst
           compression-level: 0
 
-  # 本地化检查不需要 Windows 客户机工具：用空的驱动目录构建 app，只为得到提取结果
-  # 不依赖 build-win-guest，这样 Windows 构建失败时，本地化仍能在每个 PR 上得到验证
   check-localizations:
     name: Check Localizations
     runs-on: macos-latest
@@ -143,6 +145,8 @@ jobs:
       - name: Checkout UTM repository
         uses: actions/checkout@v7
         with:
+          repository: xrun01/UTM
+          token: ${{ secrets.GH_TOKEN }}
           path: git/UTM
       - name: Checkout vm repository
         uses: actions/checkout@v7
