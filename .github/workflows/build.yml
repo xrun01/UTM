@@ -13,6 +13,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 jobs:
   build-win-guest:
     name: Build Windows Guest Tools
@@ -40,7 +43,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: git/vm/engine/build/GuestTools
-          key: win-guest-${{ runner.os }}-${{ hashFiles('git/vm/engine/GuestTools/**', 'git/vm/engine/include/GuestTools/**', 'git/vm/script/**') }}
+          key: win-guest-${{ runner.os }}-${{ hashFiles('git/vm/guest/**', 'git/vm/engine/include/**', 'git/vm/script/**') }}
       - name: Restore Cached Build Timestamps
         if: steps.cache-win-guest.outputs.cache-hit == 'true'
         shell: bash
@@ -90,8 +93,8 @@ jobs:
           path: |
             git/vm/engine/build/VmApp
             git/vm/engine/build/MonitorArm
-            git/vm/src/headless/vm-mcp/target
-          key: mac-engine-${{ runner.os }}-${{ hashFiles('git/vm/engine/VmApp/**', 'git/vm/engine/MonitorArm/**', 'git/vm/engine/include/**', 'git/vm/src/**', 'git/vm/script/**') }}
+            git/vm/rs/mcp/target
+          key: mac-engine-${{ runner.os }}-${{ hashFiles('git/vm/engine/VmApp/**', 'git/vm/engine/MonitorArm/**', 'git/vm/engine/include/**', 'git/vm/rs/**', 'git/vm/script/**') }}
       - name: Restore Cached Engine Timestamps
         if: steps.cache-mac-engine.outputs.cache-hit == 'true'
         run: |

@@ -195,7 +195,7 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
         if let firstDisplay = config.displays.first {
             let rawW = firstDisplay.widthInPixels
             let rawH = firstDisplay.heightInPixels
-            if rawW <= 1280 && rawH <= 800 {
+            if firstDisplay.isDynamicResolution || (rawW == 1920 && rawH == 1200) || (rawW <= 1280 && rawH <= 800) {
                 vmCfg.initialDisplaySize = CGSize(width: 1280, height: 800)
                 vmCfg.initialScaleFactor = screenScale
             } else {
@@ -227,10 +227,11 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
             d.isOptical = drive.isExternal
             d.sizeBytes = UInt64(max(0, drive.sizeMib)) * 1024 * 1024
             if drive.isExternal {
-                if drive.id == guestToolsId {
+                let lowerName = imgURL.lastPathComponent.lowercased()
+                if drive.id == guestToolsId || lowerName.contains("guesttools") {
                     d.role = .guestToolsIso
                     d.bootOrder = 100
-                } else if drive.id.hasPrefix("unattend") {
+                } else if drive.id.hasPrefix("unattend") || lowerName.hasPrefix("autounattend") || lowerName.hasPrefix("unattend") {
                     d.role = .unattendedIso
                     d.bootOrder = 90
                 } else {

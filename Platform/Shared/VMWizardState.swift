@@ -389,7 +389,7 @@ struct AlertMessage: Identifiable {
             hasDisplay = hasDisplay || (operatingSystem == .Linux) || (operatingSystem == .Windows)
         }
         if hasDisplay {
-            config.displays = [UTMAppleConfigurationDisplay(width: 1920, height: 1200)]
+            config.displays = [UTMAppleConfigurationDisplay(width: 1280, height: 800, ppi: 192)]
             config.virtualization.audio = .inputOutput
             config.virtualization.keyboard = .generic
             config.virtualization.pointer = .mouse
