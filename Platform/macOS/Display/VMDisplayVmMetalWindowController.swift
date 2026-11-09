@@ -139,8 +139,8 @@ class VMDisplayVmMetalWindowController: VMDisplayWindowController, VMMetalViewIn
         let scale = win.backingScaleFactor
         let viewBounds = metalView?.bounds.size ?? displayView.bounds.size
         // 对齐 WDDM dispatchKmddWddmEntry 64 字节（16 像素）行距步幅与 EDID 偶数像素高，消除任意拖拽窗口时的黑边与模式拒绝
-        let alignedW = CGFloat((max(640, Int(round(viewBounds.width * scale))) + 7) & ~15)
-        let alignedH = CGFloat((max(480, Int(round(viewBounds.height * scale))) + 1) & ~1)
+        let alignedW = CGFloat((max(640, Int(round(viewBounds.width))) + 7) & ~15)
+        let alignedH = CGFloat((max(480, Int(round(viewBounds.height))) + 1) & ~1)
         let pixelSize = CGSize(width: alignedW, height: alignedH)
         let dpi = UInt32(96.0 * scale)
         UTMVmBridge.shared.dispatch(.updateDisplay(size: pixelSize, scaleFactor: scale, dpi: dpi))

@@ -20,7 +20,7 @@ final class VMIOSurfaceLayerPresenter: NSObject {
 
     override init() {
         super.init()
-        contentLayer.contentsGravity = .resizeAspect
+        contentLayer.contentsGravity = .resize
         contentLayer.backgroundColor = NSColor.black.cgColor
         contentLayer.magnificationFilter = .linear
         contentLayer.minificationFilter = .linear
@@ -53,18 +53,6 @@ final class VMIOSurfaceLayerPresenter: NSObject {
 
     /// 源画面在视图坐标中的等比缩放矩形，与 VMIOSurfaceMetalRenderer.contentRect 语义一致
     func contentRect(in viewBounds: CGSize) -> CGRect {
-        guard viewBounds.width > 0, viewBounds.height > 0,
-              let surface = currentSurface else {
-            return CGRect(origin: .zero, size: viewBounds)
-        }
-        let srcW = max(1.0, CGFloat(IOSurfaceGetWidth(surface)))
-        let srcH = max(1.0, CGFloat(IOSurfaceGetHeight(surface)))
-        let scale = min(viewBounds.width / srcW, viewBounds.height / srcH)
-        let fitW = srcW * scale
-        let fitH = srcH * scale
-        return CGRect(x: (viewBounds.width - fitW) * 0.5,
-                      y: (viewBounds.height - fitH) * 0.5,
-                      width: fitW,
-                      height: fitH)
+        return CGRect(origin: .zero, size: viewBounds)
     }
 }

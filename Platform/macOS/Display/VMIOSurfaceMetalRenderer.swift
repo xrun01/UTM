@@ -111,18 +111,7 @@ final class VMIOSurfaceMetalRenderer: NSObject, MTKViewDelegate {
     }
 
     func contentRect(in viewBounds: CGSize) -> CGRect {
-        guard viewBounds.width > 0, viewBounds.height > 0,
-              let tex = currentTexture else {
-            return CGRect(origin: .zero, size: viewBounds)
-        }
-        let srcW = max(1.0, CGFloat(tex.width) * cropNormalizedRect.width)
-        let srcH = max(1.0, CGFloat(tex.height) * cropNormalizedRect.height)
-        let scale = min(viewBounds.width / srcW, viewBounds.height / srcH)
-        let fitW = srcW * scale
-        let fitH = srcH * scale
-        let offX = (viewBounds.width - fitW) * 0.5
-        let offY = (viewBounds.height - fitH) * 0.5
-        return CGRect(x: offX, y: offY, width: fitW, height: fitH)
+        return CGRect(origin: .zero, size: viewBounds)
     }
 
     func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
@@ -157,14 +146,7 @@ final class VMIOSurfaceMetalRenderer: NSObject, MTKViewDelegate {
                let smp = samplerState {
                 let dstW = Double(drawable.texture.width)
                 let dstH = Double(drawable.texture.height)
-                let srcW = max(1.0, Double(srcTexture.width) * Double(cropNormalizedRect.width))
-                let srcH = max(1.0, Double(srcTexture.height) * Double(cropNormalizedRect.height))
-                let scale = min(dstW / srcW, dstH / srcH)
-                let vpW = max(1.0, srcW * scale)
-                let vpH = max(1.0, srcH * scale)
-                let vpX = (dstW - vpW) * 0.5
-                let vpY = (dstH - vpH) * 0.5
-                enc.setViewport(MTLViewport(originX: vpX, originY: vpY, width: vpW, height: vpH, znear: 0.0, zfar: 1.0))
+                enc.setViewport(MTLViewport(originX: 0.0, originY: 0.0, width: dstW, height: dstH, znear: 0.0, zfar: 1.0))
                 enc.setRenderPipelineState(pso)
                 var crop = SIMD4<Float>(
                     Float(cropNormalizedRect.origin.x),
