@@ -130,6 +130,18 @@ final class VMIOSurfaceMetalRenderer: NSObject, MTKViewDelegate {
     }
 
     func draw(in view: MTKView) {
+        let backingScale = view.window?.backingScaleFactor ?? NSScreen.main?.backingScaleFactor ?? 2.0
+        if view.layer?.contentsScale != backingScale {
+            view.layer?.contentsScale = backingScale
+        }
+        let expectedDrawableSize = CGSize(
+            width: max(1.0, round(view.bounds.width * backingScale)),
+            height: max(1.0, round(view.bounds.height * backingScale))
+        )
+        if abs(view.drawableSize.width - expectedDrawableSize.width) > 1.0 ||
+           abs(view.drawableSize.height - expectedDrawableSize.height) > 1.0 {
+            view.drawableSize = expectedDrawableSize
+        }
         guard let drawable = view.currentDrawable,
               let rpd = view.currentRenderPassDescriptor,
               let commandBuffer = commandQueue?.makeCommandBuffer() else {

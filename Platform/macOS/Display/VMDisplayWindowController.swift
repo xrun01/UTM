@@ -596,7 +596,7 @@ extension VMDisplayWindowController {
 
 // MARK: - Computer wakeup
 extension VMDisplayWindowController {
-    @objc func didWake(_ notification: NSNotification) {
+    @objc dynamic func didWake(_ notification: NSNotification) {
         // do something in subclass
     }
 }

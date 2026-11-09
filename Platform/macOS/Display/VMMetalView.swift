@@ -215,18 +215,27 @@ class VMMetalView: MTKView {
         NSCursor.tryUnhide()
     }
     
+    private func syncUncapturedMouseLocation(with event: NSEvent) {
+        guard !isMouseCaptured else { return }
+        let converted = convert(event.locationInWindow, from: nil)
+        inputDelegate?.mouseMove(absolutePoint: converted, buttonMask: NSEvent.pressedMouseButtons.inputButtons())
+    }
+
     override func mouseDown(with event: NSEvent) {
         logger.trace("mouse down: \(event.buttonNumber)")
+        syncUncapturedMouseLocation(with: event)
         inputDelegate?.mouseDown(button: .left, mask: NSEvent.pressedMouseButtons.inputButtons())
     }
     
     override func rightMouseDown(with event: NSEvent) {
         logger.trace("right mouse down: \(event.buttonNumber)")
+        syncUncapturedMouseLocation(with: event)
         inputDelegate?.mouseDown(button: .right, mask: NSEvent.pressedMouseButtons.inputButtons())
     }
     
     override func otherMouseDown(with event: NSEvent) {
         logger.trace("other mouse down: \(event.buttonNumber)")
+        syncUncapturedMouseLocation(with: event)
         switch event.buttonNumber {
         case 2: inputDelegate?.mouseDown(button: .middle, mask: NSEvent.pressedMouseButtons.inputButtons())
         case 3: inputDelegate?.mouseDown(button: .side, mask: NSEvent.pressedMouseButtons.inputButtons())
@@ -237,16 +246,19 @@ class VMMetalView: MTKView {
     
     override func mouseUp(with event: NSEvent) {
         logger.trace("mouse up: \(event.buttonNumber)")
+        syncUncapturedMouseLocation(with: event)
         inputDelegate?.mouseUp(button: .left, mask: NSEvent.pressedMouseButtons.inputButtons())
     }
     
     override func rightMouseUp(with event: NSEvent) {
         logger.trace("right mouse up: \(event.buttonNumber)")
+        syncUncapturedMouseLocation(with: event)
         inputDelegate?.mouseUp(button: .right, mask: NSEvent.pressedMouseButtons.inputButtons())
     }
     
     override func otherMouseUp(with event: NSEvent) {
         logger.trace("other mouse up: \(event.buttonNumber)")
+        syncUncapturedMouseLocation(with: event)
         switch event.buttonNumber {
         case 2: inputDelegate?.mouseUp(button: .middle, mask: NSEvent.pressedMouseButtons.inputButtons())
         case 3: inputDelegate?.mouseUp(button: .side, mask: NSEvent.pressedMouseButtons.inputButtons())

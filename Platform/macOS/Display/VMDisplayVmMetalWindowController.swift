@@ -27,22 +27,9 @@ class VMDisplayVmMetalWindowController: VMDisplayWindowController, VMMetalViewIn
     }
 
     override func windowDidLoad() {
-        super.windowDidLoad()
-        if let appleVM = vm as? UTMAppleVirtualMachine {
-            appleVM.screenshotDelegate = self
-            window?.title = appleVM.config.information.name
-        }
-        if let win = window {
-            let targetSize = NSSize(width: 1280, height: 800)
-            win.contentMinSize = NSSize(width: 640, height: 480)
-            let frame = win.frameRect(forContentRect: CGRect(origin: win.frame.origin, size: targetSize))
-            win.setFrame(frame, display: true)
-            if ProcessInfo.processInfo.environment["UTM_HEADLESS_TEST"] != "1" {
-                win.center()
-            }
-        }
         metalView = VMMetalView(frame: displayView.bounds)
-        metalView.autoresizingMask = [.width, .height]
+        metalView.translatesAutoresizingMaskIntoConstraints = false
+        metalView.autoResizeDrawable = true
         metalView.device = MTLCreateSystemDefaultDevice()
         metalView.framebufferOnly = false
         metalView.isPaused = true
@@ -57,6 +44,27 @@ class VMDisplayVmMetalWindowController: VMDisplayWindowController, VMMetalViewIn
             layerPresenter = presenter
         }
         displayView.addSubview(metalView)
+        NSLayoutConstraint.activate([
+            metalView.topAnchor.constraint(equalTo: displayView.topAnchor),
+            metalView.bottomAnchor.constraint(equalTo: displayView.bottomAnchor),
+            metalView.leadingAnchor.constraint(equalTo: displayView.leadingAnchor),
+            metalView.trailingAnchor.constraint(equalTo: displayView.trailingAnchor)
+        ])
+        super.windowDidLoad()
+        if let appleVM = vm as? UTMAppleVirtualMachine {
+            appleVM.screenshotDelegate = self
+            window?.title = appleVM.config.information.name
+        }
+        if let win = window {
+            let targetSize = NSSize(width: 1280, height: 800)
+            win.contentMinSize = NSSize(width: 640, height: 480)
+            let frame = win.frameRect(forContentRect: CGRect(origin: win.frame.origin, size: targetSize))
+            win.setFrame(frame, display: true)
+            if ProcessInfo.processInfo.environment["UTM_HEADLESS_TEST"] != "1" {
+                win.center()
+            }
+        }
+        syncDrawableScale()
         UTMVmBridge.shared.delegate = self
         if let surface = UTMVmBridge.shared.currentIOSurface {
             renderer?.updateIOSurface(surface)
@@ -70,8 +78,10 @@ class VMDisplayVmMetalWindowController: VMDisplayWindowController, VMMetalViewIn
         if let appleVM = vm as? UTMAppleVirtualMachine {
             window?.title = appleVM.config.information.name
         }
+        setControl([.drives, .sharedFolder], isEnabled: true)
         screenshotView.isHidden = true
         metalView.isHidden = false
+        syncDrawableScale()
         UTMVmBridge.shared.delegate = self
         UTMPasteboard.general.requestPollingMode(forHashable: ObjectIdentifier(self))
         if let surface = UTMVmBridge.shared.currentIOSurface {
@@ -107,17 +117,37 @@ class VMDisplayVmMetalWindowController: VMDisplayWindowController, VMMetalViewIn
         }
     }
 
+    private func syncDrawableScale() {
+        guard let view = metalView else { return }
+        let scale = window?.backingScaleFactor ?? NSScreen.main?.backingScaleFactor ?? 2.0
+        if view.layer?.contentsScale != scale {
+            view.layer?.contentsScale = scale
+        }
+        let bounds = view.bounds.size
+        if bounds.width > 0 && bounds.height > 0 {
+            let targetDrawable = CGSize(width: max(1.0, round(bounds.width * scale)),
+                                        height: max(1.0, round(bounds.height * scale)))
+            if view.drawableSize != targetDrawable {
+                view.drawableSize = targetDrawable
+            }
+        }
+    }
+
     private func syncDynamicResolution() {
         guard let win = window else { return }
+        syncDrawableScale()
         let scale = win.backingScaleFactor
         let viewBounds = metalView?.bounds.size ?? displayView.bounds.size
-        let pixelSize = CGSize(width: max(640, round(viewBounds.width * scale)),
-                               height: max(480, round(viewBounds.height * scale)))
+        // 对齐 WDDM dispatchKmddWddmEntry 64 字节（16 像素）行距步幅与 EDID 偶数像素高，消除任意拖拽窗口时的黑边与模式拒绝
+        let alignedW = CGFloat((max(640, Int(round(viewBounds.width * scale))) + 7) & ~15)
+        let alignedH = CGFloat((max(480, Int(round(viewBounds.height * scale))) + 1) & ~1)
+        let pixelSize = CGSize(width: alignedW, height: alignedH)
         let dpi = UInt32(96.0 * scale)
         UTMVmBridge.shared.dispatch(.updateDisplay(size: pixelSize, scaleFactor: scale, dpi: dpi))
     }
 
     private func scheduleDebouncedResolutionSync() {
+        syncDrawableScale()
         metalView?.needsDisplay = true
         resizeWorkItem?.cancel()
         let item = DispatchWorkItem { [weak self] in
@@ -191,16 +221,39 @@ class VMDisplayVmMetalWindowController: VMDisplayWindowController, VMMetalViewIn
         return UTMVmBridge.shared.dispatch(.dragDropFiles(filePaths: urls.map(\.path), guestPoint: guestPoint)).ok
     }
 
+    private func currentNormalizedMousePoint() -> CGPoint {
+        guard let view = metalView, let win = window else {
+            return CGPoint(x: 0.5, y: 0.5)
+        }
+        let bounds = view.bounds.size
+        guard bounds.width > 0, bounds.height > 0 else {
+            return CGPoint(x: 0.5, y: 0.5)
+        }
+        let localPt = view.convert(win.mouseLocationOutsideOfEventStream, from: nil)
+        let content = activeContentRect(in: bounds)
+        return VMMetalView.normalizedTopLeftPoint(for: localPt, in: bounds, contentRect: content)
+    }
+
     func mouseMove(relativePoint: CGPoint, buttonMask: CSInputButton) {
         UTMVmBridge.shared.dispatch(.sendMouseDelta(delta: CGVector(dx: relativePoint.x, dy: relativePoint.y), buttons: buttonMask.rawValue))
     }
 
     func mouseDown(button: CSInputButton, mask: CSInputButton) {
-        UTMVmBridge.shared.dispatch(.sendMouseDelta(delta: .zero, buttons: mask.union(button).rawValue))
+        let buttons = mask.union(button).rawValue
+        if metalView?.isMouseCaptured == true {
+            UTMVmBridge.shared.dispatch(.sendMouseDelta(delta: .zero, buttons: buttons))
+        } else {
+            UTMVmBridge.shared.dispatch(.sendMouseAbsolute(normalizedPoint: currentNormalizedMousePoint(), buttons: buttons))
+        }
     }
 
     func mouseUp(button: CSInputButton, mask: CSInputButton) {
-        UTMVmBridge.shared.dispatch(.sendMouseDelta(delta: .zero, buttons: mask.subtracting(button).rawValue))
+        let buttons = mask.subtracting(button).rawValue
+        if metalView?.isMouseCaptured == true {
+            UTMVmBridge.shared.dispatch(.sendMouseDelta(delta: .zero, buttons: buttons))
+        } else {
+            UTMVmBridge.shared.dispatch(.sendMouseAbsolute(normalizedPoint: currentNormalizedMousePoint(), buttons: buttons))
+        }
     }
 
     func mouseScroll(dy: CGFloat, buttonMask: CSInputButton) {
@@ -231,15 +284,211 @@ class VMDisplayVmMetalWindowController: VMDisplayWindowController, VMMetalViewIn
 
     func captureMouse() {
         metalView?.captureMouse()
+        captureMouseToolbarButton?.state = .on
     }
 
     func releaseMouse() {
         metalView?.releaseMouse()
+        captureMouseToolbarButton?.state = .off
     }
 
     func didUseNumericPad() {
         UTMVmBridge.shared.dispatch(.sendKey(scanCode: 0x45, isKeyDown: true, modifiers: 0))
         UTMVmBridge.shared.dispatch(.sendKey(scanCode: 0x45, isKeyDown: false, modifiers: 0))
+    }
+
+    // MARK: - 工具栏与菜单栏桥接动作
+
+    override func captureMouseButtonPressed(_ sender: Any) {
+        if metalView?.isMouseCaptured == true {
+            releaseMouse()
+        } else {
+            captureMouse()
+        }
+    }
+
+    override func resizeConsoleButtonPressed(_ sender: Any) {
+        syncDynamicResolution()
+    }
+
+    override func didWake(_ notification: NSNotification) {
+        super.didWake(notification)
+        let tz = TimeZone.current
+        UTMVmBridge.shared.dispatch(.syncHostTime(timeZoneName: tz.identifier, offsetSeconds: tz.secondsFromGMT()))
+        syncDynamicResolution()
+    }
+
+    override func updateDrivesMenu(_ menu: NSMenu) {
+        menu.autoenablesItems = false
+        let toolsItem = NSMenuItem(
+            title: NSLocalizedString("Install Windows Guest Tools…", comment: "VMDisplayVmMetalWindowController"),
+            action: #selector(mountBundledGuestToolsIso(_:)),
+            keyEquivalent: ""
+        )
+        toolsItem.target = self
+        if let mounted = UTMVmBridge.shared.mountedGuestToolsIsoPath, !mounted.isEmpty {
+            toolsItem.state = .on
+        }
+        menu.addItem(toolsItem)
+        guard let appleVM = vm as? UTMAppleVirtualMachine else { return }
+        let drives = appleVM.config.drives.filter(\.isExternal)
+        if !drives.isEmpty {
+            menu.addItem(.separator())
+            for drive in drives {
+                let item = NSMenuItem()
+                item.title = drive.imageURL?.lastPathComponent
+                    ?? NSLocalizedString("CD/DVD (empty)", comment: "VMDisplayVmMetalWindowController")
+                item.isEnabled = false
+                menu.addItem(item)
+            }
+        }
+    }
+
+    @objc private func mountBundledGuestToolsIso(_ sender: Any) {
+        var candidates: [String] = []
+        if let resDir = Bundle.main.resourcePath {
+            candidates.append((resDir as NSString).appendingPathComponent("GuestTools.iso"))
+        }
+        candidates.append((FileManager.default.currentDirectoryPath as NSString).appendingPathComponent("git/UTM/lib/GuestTools.iso"))
+        candidates.append((FileManager.default.currentDirectoryPath as NSString).appendingPathComponent("git/vm/engine/build/GuestTools/GuestTools.iso"))
+        guard let isoPath = candidates.first(where: { FileManager.default.isReadableFile(atPath: $0) }) else {
+            showErrorAlert("GuestTools.iso not found in application bundle.")
+            return
+        }
+        let res = UTMVmBridge.shared.dispatch(.mountGuestToolsIso(isoPath: isoPath))
+        if !res.ok, let msg = res.errorMessage {
+            showErrorAlert(msg)
+        }
+    }
+
+    override func updateSharedFolderMenu(_ menu: NSMenu) {
+        menu.autoenablesItems = false
+        guard let appleVM = vm as? UTMAppleVirtualMachine else { return }
+        let entry = appleVM.registryEntry
+        for i in entry.sharedDirectories.indices {
+            let sharedDirectory = entry.sharedDirectories[i]
+            let item = NSMenuItem(title: sharedDirectory.url.lastPathComponent, action: nil, keyEquivalent: "")
+            let submenu = NSMenu()
+            submenu.autoenablesItems = false
+            let ro = NSMenuItem(
+                title: NSLocalizedString("Read Only", comment: "VMDisplayVmMetalWindowController"),
+                action: #selector(flipReadOnlyShare(_:)),
+                keyEquivalent: ""
+            )
+            ro.target = self
+            ro.tag = i
+            ro.state = sharedDirectory.isReadOnly ? .on : .off
+            submenu.addItem(ro)
+            let remove = NSMenuItem(
+                title: NSLocalizedString("Remove…", comment: "VMDisplayVmMetalWindowController"),
+                action: #selector(removeShare(_:)),
+                keyEquivalent: ""
+            )
+            remove.target = self
+            remove.tag = i
+            submenu.addItem(remove)
+            item.submenu = submenu
+            menu.addItem(item)
+        }
+        let add = NSMenuItem(
+            title: NSLocalizedString("Add…", comment: "VMDisplayVmMetalWindowController"),
+            action: #selector(addShare(_:)),
+            keyEquivalent: ""
+        )
+        add.target = self
+        menu.addItem(add)
+    }
+
+    private func syncSharedFoldersToBridge() {
+        guard let appleVM = vm as? UTMAppleVirtualMachine else { return }
+        let folders: [UTMVmSharedFolderConfig] = appleVM.registryEntry.sharedDirectories.map { share in
+            let cfg = UTMVmSharedFolderConfig()
+            cfg.shareName = share.url.lastPathComponent
+            cfg.hostPath = share.url.path
+            cfg.isReadOnly = share.isReadOnly
+            return cfg
+        }
+        UTMVmBridge.shared.dispatch(.updateSharedFolders(folders: folders))
+    }
+
+    @objc private func addShare(_ sender: AnyObject) {
+        guard let win = window, let appleVM = vm as? UTMAppleVirtualMachine else { return }
+        let openPanel = NSOpenPanel()
+        openPanel.title = NSLocalizedString("Select Shared Folder", comment: "VMDisplayVmMetalWindowController")
+        openPanel.canChooseDirectories = true
+        openPanel.canChooseFiles = false
+        openPanel.beginSheetModal(for: win) { [weak self] response in
+            guard response == .OK, let url = openPanel.url else { return }
+            if let sharedDirectory = try? UTMRegistryEntry.File(url: url) {
+                appleVM.registryEntry.sharedDirectories.append(sharedDirectory)
+                self?.syncSharedFoldersToBridge()
+            }
+        }
+    }
+
+    @objc private func flipReadOnlyShare(_ sender: AnyObject) {
+        guard let item = sender as? NSMenuItem,
+              let appleVM = vm as? UTMAppleVirtualMachine,
+              appleVM.registryEntry.sharedDirectories.indices.contains(item.tag) else { return }
+        appleVM.registryEntry.sharedDirectories[item.tag].isReadOnly.toggle()
+        syncSharedFoldersToBridge()
+    }
+
+    @objc private func removeShare(_ sender: AnyObject) {
+        guard let item = sender as? NSMenuItem,
+              let appleVM = vm as? UTMAppleVirtualMachine,
+              appleVM.registryEntry.sharedDirectories.indices.contains(item.tag) else { return }
+        appleVM.registryEntry.sharedDirectories.remove(at: item.tag)
+        syncSharedFoldersToBridge()
+    }
+
+    override func updateKeyboardShortcutMenu(_ menu: NSMenu) {
+        menu.autoenablesItems = false
+        let shortcuts: [(String, Int)] = [
+            ("Ctrl+Alt+Del", 1),
+            ("Ctrl+Shift+Esc", 2),
+            ("Win+R", 3),
+            ("Win+E", 4),
+            ("Win+L", 5),
+            ("Alt+F4", 6),
+            ("Alt+Tab", 7)
+        ]
+        for (title, tag) in shortcuts {
+            let item = NSMenuItem(title: title, action: #selector(sendKeyCombo(_:)), keyEquivalent: "")
+            item.target = self
+            item.tag = tag
+            menu.addItem(item)
+        }
+    }
+
+    private func sendScanCodeCombo(_ codes: [UInt16], modifiers: UInt32) {
+        for code in codes {
+            UTMVmBridge.shared.dispatch(.sendKey(scanCode: code, isKeyDown: true, modifiers: modifiers))
+        }
+        for code in codes.reversed() {
+            UTMVmBridge.shared.dispatch(.sendKey(scanCode: code, isKeyDown: false, modifiers: 0))
+        }
+    }
+
+    @objc private func sendKeyCombo(_ sender: NSMenuItem) {
+        switch sender.tag {
+        case 1: // Ctrl+Alt+Del
+            sendScanCodeCombo([0x1d, 0x38, 0xe053], modifiers: 6)
+        case 2: // Ctrl+Shift+Esc
+            sendScanCodeCombo([0x1d, 0x2a, 0x01], modifiers: 3)
+        case 3: // Win+R
+            sendScanCodeCombo([0xe05b, 0x13], modifiers: 8)
+        case 4: // Win+E
+            sendScanCodeCombo([0xe05b, 0x12], modifiers: 8)
+        case 5: // Win+L
+            sendScanCodeCombo([0xe05b, 0x26], modifiers: 8)
+        case 6: // Alt+F4
+            sendScanCodeCombo([0x38, 0x3e], modifiers: 4)
+        case 7: // Alt+Tab
+            sendScanCodeCombo([0x38, 0x0f], modifiers: 4)
+        default:
+            break
+        }
     }
 
     // MARK: - UTMVmBridgeDelegate
@@ -284,15 +533,38 @@ class VMDisplayVmMetalWindowController: VMDisplayWindowController, VMMetalViewIn
 
 extension VMDisplayVmMetalWindowController: UTMScreenshotProvider {
     var screenshot: UTMVirtualMachineScreenshot? {
-        guard let view = metalView,
-              let rep = view.bitmapImageRepForCachingDisplay(in: view.bounds) else {
+        guard let surface = UTMVmBridge.shared.currentIOSurface else {
             return nil
         }
-        view.cacheDisplay(in: view.bounds, to: rep)
-        guard let cgImg = rep.cgImage else {
+        IOSurfaceLock(surface, .readOnly, nil)
+        defer { IOSurfaceUnlock(surface, .readOnly, nil) }
+        let width = IOSurfaceGetWidth(surface)
+        let height = IOSurfaceGetHeight(surface)
+        let bytesPerRow = IOSurfaceGetBytesPerRow(surface)
+        let baseAddr = IOSurfaceGetBaseAddress(surface)
+        guard width > 0, height > 0, bytesPerRow >= width * 4 else {
             return nil
         }
-        let img = NSImage(cgImage: cgImg, size: view.bounds.size)
+        let byteCount = bytesPerRow * height
+        let data = Data(bytes: baseAddr, count: byteCount)
+        guard let provider = CGDataProvider(data: data as CFData),
+              let colorSpace = CGColorSpace(name: CGColorSpace.sRGB),
+              let cgImg = CGImage(
+                  width: width,
+                  height: height,
+                  bitsPerComponent: 8,
+                  bitsPerPixel: 32,
+                  bytesPerRow: bytesPerRow,
+                  space: colorSpace,
+                  bitmapInfo: CGBitmapInfo(rawValue: CGImageAlphaInfo.noneSkipFirst.rawValue | CGBitmapInfo.byteOrder32Little.rawValue),
+                  provider: provider,
+                  decode: nil,
+                  shouldInterpolate: true,
+                  intent: .defaultIntent
+              ) else {
+            return nil
+        }
+        let img = NSImage(cgImage: cgImg, size: NSSize(width: width, height: height))
         return UTMVirtualMachineScreenshot(wrapping: img)
     }
 }

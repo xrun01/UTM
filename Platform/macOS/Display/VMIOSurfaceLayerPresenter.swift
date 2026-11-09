@@ -42,6 +42,7 @@ final class VMIOSurfaceLayerPresenter: NSObject {
     /// 更新当前呈现的 IOSurface，传 nil 清空画面
     func updateSurface(_ surface: IOSurfaceRef?) {
         currentSurface = surface
+        contentLayer.contents = nil
         contentLayer.contents = surface
     }
 

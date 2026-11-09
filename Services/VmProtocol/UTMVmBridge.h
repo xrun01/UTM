@@ -53,6 +53,7 @@ typedef NS_ENUM(uint32_t, UTMVmToolgateOpcode) {
 @property (nonatomic, readonly, nullable) void *monitorDispatchTable;
 @property (nonatomic, readonly) uint32_t monitorProtocolVersion;
 @property (nonatomic, readonly) uint32_t monitorRegisteredSegments;
+@property (nonatomic, readonly, nullable) NSString *monitorConsoleTail;
 @property (nonatomic, readonly) uint32_t loadedFirmwareBytes;
 @property (nonatomic, readonly, nullable) NSString *mountedGuestToolsIsoPath;
 @property (nonatomic, readonly) uint64_t toolgateProcessedRequestCount;

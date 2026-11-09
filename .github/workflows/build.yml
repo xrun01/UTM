@@ -26,12 +26,16 @@ jobs:
           arch: x64_arm64
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
+      - name: Ensure LLVM and Zstd
+        shell: bash
+        run: |
+          [ -f "/c/Program Files/LLVM/bin/llvm-dlltool.exe" ] || which llvm-dlltool || choco install llvm -y --no-progress
+          which zstd || choco install zstd -y --no-progress
       - name: Build Windows 11 ARM64 Guest Modules
         run: bun git/vm/script/winGuestBuild.js
       - name: Pack Windows Guest Tools with Zstd
         shell: bash
         run: |
-          which zstd || choco install zstd -y --no-progress
           tar -C git/vm/engine/build/GuestTools/stage -cf - . | zstd -19 -T0 -o win-guest-tools.tar.zst
       - name: Upload Windows Guest Tools Artifact
         uses: actions/upload-artifact@v7
@@ -65,6 +69,8 @@ jobs:
           which ninja || brew install ninja
           which zstd || brew install zstd
       - name: Build macOS VM SDK
+        env:
+          XVM_JOBS: "8"
         run: |
           bun git/vm/script/build.js
           tar -C git/UTM/lib -cf - libvmkit.a libMonitorArm.dylib efia64.bin vm-mcp | zstd -19 -T0 -o mac-vm-sdk.tar.zst

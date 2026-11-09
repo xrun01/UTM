@@ -179,9 +179,32 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
         vmCfg.useGenericVirtualization = config.system.boot.operatingSystem == .macOS
         vmCfg.audioOutputEnabled = config.virtualization.hasAudio
         vmCfg.audioInputEnabled = config.virtualization.hasAudioInput
+        if let execDir = Bundle.main.executableURL?.deletingLastPathComponent().path {
+            let bundledMonitor = (execDir as NSString).appendingPathComponent("libMonitorArm.dylib")
+            if FileManager.default.isReadableFile(atPath: bundledMonitor) {
+                vmCfg.monitorDylibPath = bundledMonitor
+            }
+        }
+        if let resDir = Bundle.main.resourcePath {
+            let bundledEfi = (resDir as NSString).appendingPathComponent("efia64.bin")
+            if FileManager.default.isReadableFile(atPath: bundledEfi) {
+                vmCfg.efiFirmwarePath = bundledEfi
+            }
+        }
+        let screenScale = Double(NSScreen.main?.backingScaleFactor ?? 2.0)
         if let firstDisplay = config.displays.first {
-            vmCfg.initialDisplaySize = CGSize(width: firstDisplay.widthInPixels, height: firstDisplay.heightInPixels)
-            vmCfg.initialScaleFactor = firstDisplay.pixelsPerInch >= 192 ? 2.0 : 1.0
+            let rawW = firstDisplay.widthInPixels
+            let rawH = firstDisplay.heightInPixels
+            if rawW <= 1280 && rawH <= 800 {
+                vmCfg.initialDisplaySize = CGSize(width: 1280, height: 800)
+                vmCfg.initialScaleFactor = screenScale
+            } else {
+                vmCfg.initialDisplaySize = CGSize(width: rawW, height: rawH)
+                vmCfg.initialScaleFactor = 1.0
+            }
+        } else {
+            vmCfg.initialDisplaySize = CGSize(width: 1280, height: 800)
+            vmCfg.initialScaleFactor = screenScale
         }
         if let firstNet = config.networks.first {
             switch firstNet.mode {
