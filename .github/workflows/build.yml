@@ -40,7 +40,7 @@ jobs:
           which zstd || choco install zstd -y --no-progress
       - name: Cache Windows Guest Tools Build
         id: cache-win-guest
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: git/vm/engine/build/GuestTools
           key: win-guest-${{ runner.os }}-${{ hashFiles('git/vm/guest/**', 'git/vm/engine/include/**', 'git/vm/script/**') }}
@@ -88,13 +88,12 @@ jobs:
           which zstd || brew install zstd
       - name: Cache macOS VM Engine Build
         id: cache-mac-engine
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           path: |
             git/vm/engine/build/VmApp
             git/vm/engine/build/MonitorArm
-            git/vm/rs/mcp/target
-          key: mac-engine-${{ runner.os }}-${{ hashFiles('git/vm/engine/VmApp/**', 'git/vm/engine/MonitorArm/**', 'git/vm/engine/include/**', 'git/vm/rs/**', 'git/vm/script/**') }}
+          key: mac-engine-${{ runner.os }}-${{ hashFiles('git/vm/engine/VmApp/**', 'git/vm/engine/MonitorArm/**', 'git/vm/engine/include/**', 'git/vm/bridge/**', 'git/vm/headless/**', 'git/vm/script/**') }}
       - name: Restore Cached Engine Timestamps
         if: steps.cache-mac-engine.outputs.cache-hit == 'true'
         run: |
