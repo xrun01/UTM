@@ -1,0 +1,64 @@
+# hr 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。
+# 来源：amalthea（VM64 官网）的 glossary/hr.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+virtual-machine: virtualni stroj（不写 virtualno računalo）
+guest: gostujući；客户机系统 = gostujući sustav；客户机工具 = alati za gostujući sustav
+emulate: emulirati；emulacija（不写 simulirati）
+virtualize: virtualizirati；virtualizacija
+native: izvorni；接近原生的速度 = gotovo izvorna brzina
+architecture: arhitektura；CPU 架构 = CPU arhitektura
+backend: backend；QEMU 后端 = QEMU backend，Apple 后端 = Apple backend（不写 pozadina）
+apple-silicon: čip Apple Silicon；Apple 芯片的 Mac = Mac računalo s čipom Apple Silicon  # https://support.apple.com/hr-hr/102527
+intel-mac: Mac računalo s Intelovim procesorom  # https://support.apple.com/hr-hr/116943（「Mac s Intelovim procesorom」）
+snapshot: snimka；复数 snimke
+disposable-mode: jednokratni način rada
+shut-down: isključivanje
+new-vm-wizard: čarobnjak za stvaranje virtualnih strojeva
+installer-image: instalacijska slika
+license: licenca；自备许可证 = vlastita licenca
+secure-boot: sigurno pokretanje  # https://support.microsoft.com/hr-hr/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: ili noviji  # https://support.apple.com/hr-hr/102552（「macOS Ventura ili noviji」）
+experimental: eksperimentalna značajka
+auto-resolution: automatsko prilagođavanje rezolucije
+shared-clipboard: dijeljeni međuspremnik；共享剪贴板（动作）= dijeljenje međuspremnika  # https://support.apple.com/hr-hr/102650
+shared-folder: dijeljena mapa
+sharing: dijeljenje
+shared-network: Dijeljena mreža
+host-only: Samo host
+bridged: Premoštena mreža
+emulated-vlan: Emulirani VLAN
+port-forwarding: prosljeđivanje portova
+lan: lokalna mreža（不写 LAN）
+shortcuts: aplikacija Prečaci  # https://support.apple.com/hr-hr/guide/shortcuts-mac/welcome/mac
+command-line-tool: alat naredbenog retka
+clone: klonirati
+fingerprint: otisak（不写 otisak prsta）
+hardware-reset: resetiranje hardvera
+mount: montirati
+shared-library: dijeljena biblioteka
+capture-mouse: uhvatiti miš；捕获鼠标按钮 = gumb „Uhvati miš”
+keys: tipka Control、tipka Option  # https://support.apple.com/hr-hr/102650
+toolbar: alatna traka
+settings: postavke
+classic-systems: klasični sustavi
+cpu: CPU（保留；30 多种 CPU = više od 30 vrsta CPU-a；CPU 核心 = CPU jezgra）
+rosetta: Rosetta（按 Apple hr 变格：Rosettu、Rosette）  # https://support.apple.com/hr-hr/102527
+
+# 以下是 UTM 界面审校时新定的术语（terms.yml 中没有，待审条目中出现 3 次以上）
+drive: pogon；外部驱动器 = vanjski pogon，可移动驱动器 = izmjenjivi pogon
+disk-image: slika diska；驱动器映像 = slika pogona，ISO 映像 = ISO slika（不写 image 的图片义）
+display: zaslon；全屏 = cijeli zaslon  # https://support.apple.com/hr-hr/102650
+operating-system: operacijski sustav（不写 operativni sustav）
+host: host；主机 = host računalo，主机系统 = operacijski sustav hosta（不写 domaćin，和 host-only「Samo host」一致）
+directory: direktorij；共享目录 = dijeljeni direktorij（不写 imenik）
+kernel: kernel；内核映像 = slika kernela（不写 jezgra，jezgra 只用于 CPU 核心）
+path: putanja  # https://support.apple.com/hr-hr/102650（「traka putanja」）
+suspend: obustaviti；已挂起 = Obustavljeno，挂起状态 = obustavljeno stanje（和 pause「pauzirati」区分）
+pause: pauzirati；Pauzirano、Pauziranje
+capture-input: uhvatiti unos；捕获输入（名词）= hvatanje unosa（不写 snimanje，snimanje 是录制）
+scan-code: scan kod
+serial: serijski priključak（不写 serijski broj）
+recovery: oporavak；恢复模式 = način oporavka
+quit: zatvoriti（App 退出）  # https://support.apple.com/hr-hr/102650（「Command-Q: zatvaranje trenutačne aplikacije」）
+sleep: mirovanje  # https://support.apple.com/hr-hr/102650
+dock: Dock（专有名词，不写 dok）  # https://support.apple.com/hr-hr/102650
+optional: neobavezno；必填 = obavezno

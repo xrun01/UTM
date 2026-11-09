@@ -1,0 +1,68 @@
+# zh-Hant 定下的译法（来自官网的 zh-TW.yml）。键是 i18n/glossary/terms.yml 的术语 id。用台湾用词，不只是简转繁。
+virtual-machine: 虛擬機器
+guest: 客體；客户机系统 = 客體作業系統；客户机工具 = 客體工具  # https://learn.microsoft.com/zh-tw/virtualization/hyper-v-on-windows/about/（「客體作業系統」）；「客體工具」待母语者确认
+emulate: 模擬
+virtualize: 虛擬化
+native: 原生
+architecture: 架構
+backend: 後端
+apple-silicon: Apple 晶片；Apple 芯片的 Mac = 配備 Apple 晶片的 Mac  # https://support.apple.com/zh-tw/116943
+intel-mac: 配備 Intel 處理器的 Mac  # https://support.apple.com/zh-tw/116943
+snapshot: 快照
+disposable-mode: 一次性模式
+shut-down: 關機
+new-vm-wizard: 新增虛擬機器精靈  # Windows Hyper-V 台湾的写法；待确认是否改用 Apple 的「輔助程式」
+installer-image: 安裝映像檔
+license: 授權；自备许可证 = 自備授權
+secure-boot: 安全開機  # https://support.microsoft.com/zh-tw/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+experimental: 實驗性功能
+auto-resolution: 自動調整解析度
+or-later: 或以上版本  # https://www.apple.com/tw/final-cut-pro/specs/（「macOS 15.6 或以上版本」）
+shared-clipboard: 共享剪貼板；复制 = 拷貝，粘贴 = 貼上  # https://support.apple.com/zh-tw/guide/mac-help/mchl70368996/mac
+shared-folder: 共享檔案夾；folder/directory = 檔案夾  # https://support.apple.com/zh-tw/guide/mac-help/mh17131/mac
+sharing: 共享
+shared-network: 共享網路
+host-only: 僅主機
+bridged: 橋接
+emulated-vlan: 模擬 VLAN
+port-forwarding: 連接埠轉送
+lan: 區域網路
+shortcuts: 「捷徑」  # https://support.apple.com/zh-tw/guide/shortcuts-mac/welcome/mac
+command-line-tool: 命令列工具
+clone: 複製（UTM 的 Clone 和 Duplicate 是同一操作 data.clone，同用「複製」；Copy = 拷貝）
+fingerprint: 指紋
+hardware-reset: 硬體重設
+mount: 掛載
+shared-library: 共用函式庫（用「共用」，和共享功能区分）
+capture-mouse: 擷取滑鼠；捕获鼠标按钮 = 「擷取滑鼠」按鈕
+keys: Control 鍵、Option 鍵  # https://support.apple.com/zh-tw/102650
+toolbar: 工具列
+settings: 設定
+classic-systems: 經典系統
+rosetta: Rosetta  # https://support.apple.com/zh-tw/102527
+cpu: CPU  # https://www.apple.com/tw/macbook-air/specs/（「8 核心 CPU」）
+# 以下是补译批次中出现 3 次以上、terms.yml 还没有的界面术语
+mouse: 滑鼠
+key: 按鍵；keystrokes = 按鍵輸入；modifier key = 修飾鍵；keyboard shortcuts = 鍵盤快速鍵  # https://support.apple.com/zh-tw/102650
+power: 電源
+# 以下是复审批次中出现 3 次以上、terms.yml 还没有的界面术语
+drive: 磁碟機；drive image = 磁碟機映像檔；disk image = 磁碟映像檔
+image: 映像檔（不写「映像檔案」「映像」）
+display: 顯示器；Displays（工具列）= 顯示器
+configuration: 組態（不写「設定檔」）
+boot: 開機；Boot ISO Image = 可開機的 ISO 映像檔
+recovery: 復原；recovery mode = 復原模式；restore = 回復  # https://support.apple.com/zh-tw/102518（「macOS 復原」「從時光機回復」）
+serial: 序列埠
+optional: 選填
+mac-address: MAC 位址  # https://support.apple.com/zh-tw/guide/mac-help/mchlp1066/mac（「IP 位址」）
+mouse-button: 左鍵、中鍵、右鍵
+suspend: 擱置；suspended = 已擱置；pause = 暫停（suspend 先保存状态再挂起，必须和 pause 区分）  # https://download.parallels.com/desktop/v18/docs/zh_TW.lproj/32827.htm（Parallels Desktop「動作」>「擱置」）
+# 以下是 75 语言批次（needs_review）中出现 3 次以上、terms.yml 还没有的界面术语
+quit: 結束；exit full screen = 結束全螢幕；graceful quit = 安全結束（不写「退出」）
+running: 執行；running VM = 執行中的虛擬機器（不写「運行」）
+power-down: 關機；Request Power Down = 請求關機（不写「斷電」「關閉電源」）
+connect: USB 裝置的 connect = 連線，disconnect = 中斷連線（和 USB 選單的「連線…」一致）
+device: 裝置（不写「設備」）
+scan-code: 掃描碼；keystrokes = 按鍵輸入（不写「擊鍵」）
+screenshot: 螢幕擷圖
+guest-account: 客體帳號（客體系統中的使用者帳號，不是 macOS 的「訪客」帳號）

@@ -1,0 +1,75 @@
+# ceb 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。
+# 来源：amalthea（VM64 官网）的 glossary/ceb.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 没有宿务语的网站和支持页（菲律宾用 support.apple.com/en-ph 英文版）。
+# Windows 没有宿务语界面，support.microsoft.com/ceb-ph 返回 404。
+# rule 是 apple、microsoft 的术语，参照 glossary/fil.yml 按英文写法，再按宿务语语法加 nga、mga。待母语者确认。
+# ceb 只修前 4 类问题，不修「不通顺」。
+virtual-machine: virtual machine；复数 mga virtual machine；QEMU virtual machine、macOS virtual machine（不用 virtual nga makina）
+guest: guest；客户机系统 = guest operating system；客户机工具 = guest tools（不用 kliyente、bisita）
+emulate: i-emulate；emulation（不用 sundon、sundog、simulate）
+virtualize: virtualization
+native: native；接近原生的速度 = halos native nga tulin（不用 lumad）
+architecture: arkitektura
+backend: backend；QEMU backend、Apple backend
+apple-silicon: Apple silicon；Apple 芯片的 Mac = Mac nga adunay Apple silicon（不用 Apple chip）  # https://support.apple.com/en-ph/116943
+intel-mac: Intel-based nga Mac（不写 Intel Macs）  # https://support.apple.com/en-ph/116943（「Intel-based Mac」）
+snapshot: snapshot；复数 mga snapshot
+disposable-mode: disposable mode（不用 one-shot mode、throwaway mode）
+shut-down: pagpalong（不用 pagsira，pagsira 是 UI 的「关闭」）
+new-vm-wizard: wizard para sa bag-ong virtual machine
+installer-image: installer image（不用 imahe）
+license: lisensya
+secure-boot: Secure Boot  # Windows 没有宿务语界面，已列入 doubts
+or-later: o mas bag-o（不用 o mas taas pa、o sa ulahi、o labi pa）
+experimental: eksperimental nga feature
+auto-resolution: awtomatikong pag-adjust sa resolution
+shared-clipboard: gipaambit nga clipboard；共享剪贴板（动作）= pagpaambit sa clipboard；粘贴 = i-paste、idikit
+shared-folder: gipaambit nga folder
+sharing: Pagpaambit（不用 ipakigbahin、gipaambit）
+shared-network: Shared Network
+host-only: Host Only
+bridged: Bridged（不用 tulay）
+emulated-vlan: Emulated VLAN（不用 simulated VLAN）
+port-forwarding: port forwarding
+lan: local network（不用 LAN）
+shortcuts: Shortcuts（App 名；不用 mga shortcut）  # https://support.apple.com/en-ph/guide/shortcuts-mac/welcome/mac
+command-line-tool: command-line tool
+clone: i-clone
+fingerprint: fingerprint
+hardware-reset: pag-reset sa hardware
+mount: i-mount
+shared-library: shared library
+capture-mouse: makuha ang mouse；捕获鼠标按钮 = Capture Mouse button
+keys: Control key、Option key  # https://support.apple.com/en-ph/102650
+toolbar: toolbar
+settings: mga setting
+classic-systems: mga klasiko nga sistema
+cpu: CPU
+rosetta: Rosetta  # https://support.apple.com/en-ph/102527
+# 以下是本轮审校新定的界面术语（terms.yml 没有，在待审条目中出现 3 次以上）。待主代理决定是否补进 terms.yml。
+drive: drive；复数 mga drive（不用 pagdrayb、pagmaneho，二者是「开车」）
+image: image；disk image、drive image、ISO image、boot image、kernel image、recovery image（不用 imahe、hulagway，hulagway 是图片）
+device: device；复数 mga device（不用 aparato）
+configuration: configuration（指配置本身；配置的动作写 pag-configure）
+directory: direktoryo；共享目录 = gipaambit nga direktoryo
+display: display；复数 mga display
+data: datos（不用 data）
+state: kahimtang；保存的状态 = na-save nga kahimtang；挂起状态 = gisuspinde nga kahimtang（不用 estado）
+status: kahimtang
+save: i-save；未保存 = wala ma-save（不用 luwas、maluwas、tipig）
+delete: papason；按钮 Papasa（不用 kuhaa、i-delete）
+remove: tangtangon；按钮 Tangtanga（不用 kuhaa，kuhaa 也是「获取」）
+eject: i-eject
+install: i-install；名词 pag-install（不用 instalar）
+recovery: recovery；recovery mode、recovery IPSW（不用 pagbawi）
+restore: ibalik；状态 Restoring = Nagbalik（不用 pasig-uli）
+path: path（不用 dalan、agianan）
+read-only: basahon lang（不用 read only）
+memory: memorya
+storage: storage（不用 pagtipig，pagtipig 也是「保存」）
+error: sayop（不用 sayup）
+if-enabled: Kung naka-enable（不用 Kung mahimo，那是「如果可以」）
+dock: Dock（Apple 的 Dock，不用 pantalan，pantalan 是港口）
+stop-pause-suspend: Stop = ihunong；Pause = i-pause（Paused = Naka-pause）；Suspend = isuspinde（Suspended = Gisuspinde）
+stop-method: Request = Paghangyo；Force = Pagpuwersa；Kill = Pagpatay
+gallery-library: Gallery = Galeriya；UTM Library = Librarya sa UTM

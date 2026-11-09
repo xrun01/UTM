@@ -1,0 +1,65 @@
+# et 定下的译法。规则见 i18n/glossary/terms.yml。
+# 来源：amalthea（VM64 官网）的 glossary/et.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 的 et 支持文章多为英文，macOS 界面也没有 et 本地化。Apple 写法以 et 版 Mac mini 入门手册和 apple.com/ee 为准。
+virtual-machine: virtuaalmasin（不用 virtuaalne masin）
+guest: külaline；客户机系统 = külalissüsteem；客户机工具 = külalistööriistad（不用 kliendi）
+emulate: emuleerima；emuleerimine（不用 simuleerima、emulatsioon）
+virtualize: virtualiseerima；virtualiseerimine
+native: natiivne；接近原生的速度 = peaaegu natiivne kiirus（不用 kodumaine、pärismaine、algkiirus）
+architecture: arhitektuur；CPU 架构 = protsessoriarhitektuur
+backend: taustaprogramm；QEMU taustaprogramm、Apple'i taustaprogramm
+apple-silicon: Apple'i kiip；Apple 芯片的 Mac = Apple'i kiibiga Mac；在 Apple 芯片上 = Apple'i kiibil（不用 Apple'i räni、Apple Silicon）  # https://www.apple.com/ee/mac/compare/（「Apple M4 kiip」）
+intel-mac: Inteli protsessoriga Mac（不用 Intel Mac）  # https://www.apple.com/ee/mac/compare/（「Intel Core i7 protsessor」）
+snapshot: hetktõmmis
+disposable-mode: ühekordse kasutuse režiim（不用 äraviskamisrežiim、ühe võtte režiim）
+shut-down: välja lülitama；väljalülitamine（不用 sulgemine：那是关闭窗口）
+new-vm-wizard: uue virtuaalmasina viisard
+installer-image: installitõmmis（不用 installipilt：pilt 是图片）
+license: litsents；自备许可证 = vaja on oma litsentsi  # https://support.microsoft.com/et-ee/windows/activate-windows-c39005d4-95ee-b91e-b399-2820fda32227
+secure-boot: turvaline algkäivitus  # https://support.microsoft.com/et-ee/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: või uuem；句中 = või uuemat versiooni  # https://support.apple.com/et-ee/102552（「macOS Venturas või uuemas versioonis」）
+experimental: eksperimentaalne funktsioon
+auto-resolution: eraldusvõime automaatne kohandamine
+shared-clipboard: ühine lõikelaud；共享剪贴板（动作）= lõikelaua jagamine；复制和粘贴 = kopeerima ja kleepima（不用 lõikepuhver）
+shared-folder: jagatud kaust；共享文件夹（动作）= kaustu jagama
+sharing: Jagamine（不用形容词 jagatud）
+shared-network: Jagatud võrk
+host-only: Ainult host
+bridged: Sillatud
+emulated-vlan: Emuleeritud VLAN
+port-forwarding: pordisuunamine
+lan: kohtvõrk
+shortcuts: rakendus Shortcuts（App 名不翻译）  # https://support.apple.com/et-ee/guide/mac-mini/welcome/mac（「Avage rakendus Shortcuts」）
+command-line-tool: käsureatööriist
+clone: kloonima
+fingerprint: sõrmejälg（密钥指纹，同 sertifikaadi sõrmejälg）
+hardware-reset: riistvara lähtestamine
+mount: haakima（不用 ühendama，避免和连接 USB 设备混淆）
+shared-library: jagatud teek
+capture-mouse: hiirt hõivama；捕获鼠标按钮 = nupp Hõiva hiir（待确认 App 界面）
+keys: Control-klahv、Option-klahv；同时按 = Control- ja Option-klahv（不用 valikuklahv）  # https://support.apple.com/et-ee/guide/mac-mini/welcome/mac（「klahvi Control」「Command-klahvi」）
+toolbar: tööriistariba
+settings: seaded
+rosetta: Rosetta，按爱沙尼亚语加词尾：属格 Rosetta（Rosetta abil），部分格 Rosettat
+cpu: protsessor；CPU 核心 = protsessorituum；30 多种 CPU = üle 30 protsessoritüübi  # https://www.apple.com/ee/mac/compare/（「10-tuumaline protsessor」）
+classic-systems: klassikalised süsteemid
+
+# 以下是 App 界面常用、terms.yml 没有的术语（2026-11-05 审校 needs_review 和缺译条目时定下）
+# 界面写法：按钮、菜单项、开关、快捷指令标题用单数命令式（Lisa、Kustuta）；悬停提示和说明句用复数命令式（Lisage …）；状态标签用名词或分词。
+drive: draiv；驱动器映像 = draivitõmmis（不用 ketas、sõita）
+disk-image: kettatõmmis；映像统一用 tõmmis：ISO-tõmmis、alglaadimistõmmis、kerneli tõmmis（不用 pilt、kujutis：pilt 是图片）
+display: ekraan；多个显示器 = ekraanid
+directory: kataloog；共享目录 = jagatud kataloog（Shared Folder 仍用 jagatud kaust）
+kernel: kernel；Linux 内核 = Linuxi kernel（不用 tuum：tuum 已用于 CPU 核心）
+boot: alglaadimine；启动设备 = alglaadimisseade；引导程序 = alglaadur
+start-run: käivitama；按钮 Käivita，状态 Käivitamine、Käivitatud
+stop: peatama；按钮 Peata，状态 Peatamine、Peatatud
+pause: pausile panema；按钮 Pane pausile，状态 Pausile panek、Pausil（不用 peatama：那是 Stop）
+suspend: uinutama；按钮 Uinuta，状态 Uinutatud，挂起状态 = uinutatud olek（不用 peatatud；系统睡眠用 unerežiim）
+resume: jätkama；状态 Jätkamine（从快照恢复是 taastama、Taastamine）
+capture-input: sisendit hõivama；捕获输入 = sisendi hõivamine（不用 jäädvustama：那是拍照）
+read-only: kirjutuskaitstud（不用 ainult lugemiseks）
+eject: väljastama；按钮 Väljasta（和 Kustuta、Lahtipakkimine 区分）
+quit: väljuma；按钮 Välju，退出 UTM = UTM-ist väljumine
+storage: salvestusruum；内部存储 = sisemine salvestusruum（不用 sisemälu：那是内存 Memory = mälu）
+operation: toiming（不用 operatsioon）

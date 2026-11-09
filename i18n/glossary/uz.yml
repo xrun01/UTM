@@ -1,0 +1,80 @@
+# uz 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。用拉丁字母，o'、g' 用 ASCII 撇号 '。专有名词（Apple、Mac、macOS、Windows、Linux、QEMU、VM64、Rosetta）保留拉丁字母，词尾用连字符：Mac-da、Rosetta-ni。
+# 来源：amalthea（VM64 官网）的 glossary/uz.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# support.apple.com/uz-uz 和 support.microsoft.com/uz-latn-uz 都返回英文。rule 是 apple、microsoft 的术语按乌兹别克语软件界面的通行说法写，待母语者确认。
+virtual-machine: virtual mashina
+guest: mehmon；客户机系统 = mehmon tizim；客户机工具 = mehmon vositalari（不用 mijoz）
+emulate: emulyatsiya qilmoq；emulyatsiya（不用 taqlid、simulyatsiya）
+virtualize: virtualizatsiya qilmoq；virtualizatsiya
+native: nativ；接近原生的速度 = nativga yaqin tezlik（不用 mahalliy，它是「本地的」）  # 待确认
+architecture: arxitektura；CPU 架构 = protsessor arxitekturasi
+backend: backend；QEMU backendi、Apple backendi
+apple-silicon: Apple chipi；Apple 芯片的 Mac = Apple chipli Mac（不用 Apple silicon、Apple silikon）  # https://support.apple.com/uz-uz/116943 返回英文，查不到官方写法
+intel-mac: Intel protsessorli Mac  # 同上
+snapshot: snapshot；复数 snapshotlar（不用 surat、oniy tasvir）  # 待确认
+disposable-mode: bir martalik rejim（不用 tashlab yuborish rejimi）
+shut-down: o'chirish
+new-vm-wizard: virtual mashina yaratish ustasi（不用 yangi usta）
+installer-image: o'rnatish tasviri（不用 rasm）  # 沿用原译，待确认
+license: litsenziya；自备许可证 = o'z litsenziyangiz
+secure-boot: Secure Boot（保留拉丁字母）  # support.microsoft.com/uz-latn-uz 返回英文，沿用原译，待确认
+or-later: yoki undan keyingi versiyasi（不用 yoki undan yuqori）
+experimental: eksperimental funksiya（不用 xususiyat）
+auto-resolution: ekran ruxsatini avtomatik sozlash（ruxsat 必须带 ekran，否则读成「许可」）
+shared-clipboard: umumiy almashuv buferi；共享剪贴板（动作）= almashuv buferini ulashish（不用 clipboard、almashish xotirasi）
+shared-folder: umumiy papka；共享文件夹（动作）= papkalarni ulashish
+sharing: Ulashish（不用 almashish、baham ko'rish、birgalikda）
+shared-network: Umumiy tarmoq
+host-only: Faqat xost
+bridged: Tarmoq ko'prigi
+emulated-vlan: Emulyatsiya qilingan VLAN
+port-forwarding: portlarni yo'naltirish
+lan: lokal tarmoq（不用 LAN）
+shortcuts: Shortcuts ilovasi（不用 Yorliqlar）  # Apple 无 uz 界面，待确认
+command-line-tool: buyruq qatori vositasi
+clone: klonlash
+fingerprint: kalit izi（不用 barmoq izi）  # 待确认
+hardware-reset: apparatni asl holatiga qaytarish
+mount: fayl tizimiga ulash（不用 o'rnatish，它表示安装）
+shared-library: umumiy kutubxona
+capture-mouse: sichqonchani ushlash；捕获鼠标按钮 = “Sichqonchani ushlash” tugmasi
+keys: Control tugmasi、Option tugmasi（键名不翻译）
+toolbar: asboblar paneli
+settings: sozlamalar
+rosetta: Rosetta；词尾用连字符：Rosetta-ni
+cpu: protsessor
+classic-systems: klassik tizimlar
+# 标题、步骤标题、列表标签和链接用动名词（-ish），号召句（band）用祈使句。
+# 以下是待审条目中出现 3 次以上的界面术语（terms.yml 没有），本轮审校定下
+case-style: 界面文案用句首大写；按钮、菜单项、工具栏项、快捷指令动作名、设置开关和工具栏提示用动名词 -ish（Saqlash、Bekor qilish、Tanlangan VM-ni klonlash）；快照页按钮提示和说明句用 -ing 祈使句（Bu snapshotni o'chirib tashlang）
+suffix: 专有名词和缩写保留拉丁字母，词尾一律用连字符：VM-ni、VM-lar、UTM-ga、Mac-da、macOS-ni、IPSW-ni、JIT-ni、Linux-da、Apple-dan（不用 VMni、UTM ga、Mac’da）
+apostrophe: o'、g' 和分隔符都写 ASCII '（ma'lumot、o'chirish），不用 ‘ ’ ʻ ʼ
+drive: disk；驱动器映像 = disk tasviri；可移动驱动器 = olinadigan disk；外部驱动器 = tashqi disk（不用 haydovchi、drayv）
+driver: drayver（Virtiofs drayverlari）
+image: tasvir；磁盘映像 = disk tasviri；启动映像 = yuklanadigan tasvir；内核映像 = yadro tasviri（不用 rasm）
+boot: yuklash；引导程序 = yuklovchi；启动设备 = yuklash qurilmasi
+download: yuklab olish（和 boot 的 yuklash 区分）
+display: ekran；Displays = Ekranlar（不用 displey）；分辨率 = ekran ruxsati
+memory: operativ xotira（RAM）
+storage: saqlash joyi；内部存储 = ichki saqlash joyi；USB 大容量存储 = USB saqlash qurilmasi（和 memory 区分）
+host: xost；主机 = xost kompyuter；this machine、your machine = kompyuter
+directory: katalog；folder = papka（不用 jild）
+data: ma'lumotlar
+delete: o'chirib tashlash；remove = olib tashlash；eject = chiqarish；extracting = arxiv ochilmoqda（4 者不同词；shut down 按 terms.yml 是 o'chirish）
+stop: to'xtatish；Stopped = To'xtatilgan；Stopping = To'xtatilmoqda
+pause: pauza qilish；Paused = Pauzada；Pausing = Pauza qilinmoqda（不用 to'xtatib turish，它和 stop 同词根）
+suspend: uyqu rejimiga o'tkazish；Suspended = Uyqu rejimida；suspended state = uyqu rejimi holati
+resume: davom ettirish；Resuming = Davom ettirilmoqda；restore = tiklash；Restoring = Tiklanmoqda；recovery mode = tiklash rejimi
+start: ishga tushirish（按钮）；run 同；wizard.start.title = Boshlash
+power-down: quvvatni o'chirish；power button = quvvat tugmasi；Power 菜单 = Quvvat
+kill: majburiy tugatish；停止方式 3 个选项 = O'chirish so'rovi、Majburiy o'chirish、Majburiy tugatish
+capture: ushlash；捕获输入 = Kiritishni ushlash（不用 yozib olish、suratga olish）
+input: kiritish（键盘鼠标输入）；音频 Input/Output = kirish/chiqish
+copy: nusxalash；move = ko'chirish；duplicate = nusxalash
+default: standart；generic = universal（不用 umumiy，它是 shared 的译法）
+serial: ketma-ket port（串口设备，不是 seriya raqami）
+key: tugma；修饰键 = modifikator tugmasi；击键 = tugma bosishlar；键名不翻译：Command、Option、Shift、Escape、Caps Lock
+icon: belgi；Dock 原样保留：Dock belgisi；menu bar = menyu paneli
+optional: ixtiyoriy
+read-only: faqat o'qish uchun
+app: ilova
+gallery: galereya；UTM Library = UTM kutubxonasi

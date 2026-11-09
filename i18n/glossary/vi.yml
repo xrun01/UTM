@@ -1,0 +1,65 @@
+# vi 定下的译法。规则见 i18n/glossary/terms.yml。
+# 来源：amalthea（VM64 官网）的 glossary/vi.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+virtual-machine: máy ảo
+guest: khách；客户机系统 = hệ điều hành khách；客户机工具 = công cụ khách
+emulate: giả lập（不用 mô phỏng，它是 simulate）
+virtualize: ảo hóa  # https://support.microsoft.com/vi-vn/windows/enable-virtualization-on-windows-c5578302-6e43-4b4b-a449-8ced115f58e1
+native: nguyên bản；接近原生的速度 = tốc độ gần như nguyên bản
+architecture: kiến trúc
+backend: backend；backend QEMU、backend Apple（不用 phụ trợ）
+apple-silicon: chip Apple silicon；Apple 芯片的 Mac = máy Mac dùng chip Apple silicon  # https://support.apple.com/vi-vn/116943
+intel-mac: máy Mac dùng bộ xử lý Intel  # https://support.apple.com/vi-vn/116943
+cpu: CPU  # Apple 越南语页面保留 CPU
+rosetta: Rosetta  # https://support.apple.com/vi-vn/102527
+snapshot: ảnh chụp nhanh
+disposable-mode: chế độ dùng một lần
+shut-down: tắt máy
+new-vm-wizard: trình hướng dẫn tạo máy ảo mới
+installer-image: ảnh đĩa cài đặt
+license: giấy phép；自备许可证 = có giấy phép của riêng mình  # https://support.microsoft.com/vi-vn/windows/activate-windows-c39005d4-95ee-b91e-b399-2820fda32227
+secure-boot: Khởi động an toàn  # https://support.microsoft.com/vi-vn/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: trở lên  # https://support.apple.com/vi-vn/102229（「iOS 14 trở lên」）
+experimental: tính năng thử nghiệm
+auto-resolution: tự động điều chỉnh độ phân giải
+shared-clipboard: bảng nhớ tạm；共享剪贴板 = chia sẻ bảng nhớ tạm；复制粘贴 = sao chép và dán  # https://support.apple.com/vi-vn/102430
+shared-folder: thư mục dùng chung；共享文件夹 = chia sẻ thư mục
+sharing: Chia sẻ
+shared-network: Mạng chia sẻ
+host-only: Chỉ máy chủ
+bridged: Cầu nối
+emulated-vlan: VLAN giả lập
+port-forwarding: chuyển tiếp cổng
+lan: mạng cục bộ  # https://support.apple.com/vi-vn/102229
+shortcuts: ứng dụng Phím tắt  # https://support.apple.com/vi-vn/guide/shortcuts-mac/welcome/mac
+command-line-tool: công cụ dòng lệnh
+clone: nhân bản（不用 sao chép，它是复制）
+fingerprint: dấu vân tay
+hardware-reset: thiết lập lại phần cứng
+mount: gắn (mount)
+shared-library: thư viện dùng chung
+capture-mouse: bắt chuột；捕获鼠标按钮 = nút Bắt chuột
+keys: phím Control、phím Option  # https://support.apple.com/vi-vn/102650
+toolbar: thanh công cụ
+settings: cài đặt
+classic-systems: hệ thống cổ điển
+
+# 审校待审条目时新定的界面术语（terms.yml 里没有，在条目中出现 3 次以上）
+drive: ổ đĩa；可移动驱动器 = ổ đĩa rời；外部驱动器 = ổ đĩa ngoài
+disk-image: ảnh đĩa（不用 hình ảnh，它是图片）；驱动器映像 = ảnh ổ đĩa；启动映像 = ảnh khởi động；内核映像 = ảnh nhân；ISO 映像 = ảnh ISO
+kernel: nhân；Linux 内核 = nhân Linux（不用 hạt nhân，它是原子核）
+file: tệp（不用 tập tin）
+display: màn hình
+host: máy chủ（与 host-only 的 Chỉ máy chủ 一致）
+recovery: phục hồi；恢复模式 = chế độ phục hồi（与 Restore 的 khôi phục 区分）
+restore: khôi phục（从快照恢复）
+suspend: tạm ngừng；挂起状态 = trạng thái tạm ngừng（与 Pause 的 tạm dừng 区分）  # Microsoft 越南语 suspend 写 tạm ngừng
+remove: gỡ bỏ（与 Delete 的 xóa 区分）；eject = đẩy ra
+vm-shortcut: lối tắt（指向虚拟机的快捷方式，不用 phím tắt，它是键盘快捷键）
+capture-input: bắt thiết bị đầu vào（不写 bắt đầu vào，bắt đầu 是「开始」）
+operation: thao tác（不用 hoạt động，它是活动）
+storage: lưu trữ；内部存储 = bộ lưu trữ trong（与 Memory 的 bộ nhớ 区分）
+gallery: Bộ sưu tập（官网下载页，与 UTM Library 的 Thư viện 区分）
+console: console（串口终端，不用 bảng điều khiển，它读作控制面板）
+engine: Engine（不用 công cụ，它读作工具，并和 công cụ khách 混淆）
+generic-device: tiêu chuẩn；通用鼠标 = Chuột tiêu chuẩn（不用 chung，它读作共享）
+os-settings-section: 「Linux Settings」这类系统名分组标题写 Cấu hình Linux（Cài đặt Linux 读作安装 Linux）

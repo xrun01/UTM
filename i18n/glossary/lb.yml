@@ -1,0 +1,68 @@
+# lb 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。
+# 来源：amalthea（VM64 官网）的 glossary/lb.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 没有卢森堡语页面（support.apple.com/lb-lu 显示英文），rule 是 apple 的术语参照 Apple 德语写法，再按卢森堡语 2019 年正字法写。
+# 词形按 https://lod.lu 核对。名词复数和 n 规则（Eifeler Regel）按 LOD 的词形。
+virtual-machine: virtuell Maschinn；复数 virtuell Maschinnen；与格 enger virtueller Maschinn；带系统名 = virtuell Windows-Maschinn、virtuell macOS-Maschinn
+guest: Gaascht；客户机系统 = Gaaschtsystem，客户机工具 = Gaascht-Tools  # https://lod.lu（Gaascht）
+emulate: emuléieren；Emulatioun
+virtualize: virtualiséieren；Virtualiséierung
+native: nativ；接近原生的速度 = bal nativ Geschwindegkeet
+architecture: Architektur
+backend: Backend；QEMU-Backend、Apple-Backend
+apple-silicon: Apple-Chip；Apple 芯片的 Mac = Mac mat Apple-Chip，复数 Mac-Computere mat Apple-Chip  # 参照 https://support.apple.com/de-de/116943
+intel-mac: Mac mat Intel-Prozessor；复数 Mac-Computere mat Intel-Prozessor  # 参照 https://support.apple.com/de-de/116943
+snapshot: Snapshot；复数 Snapshots
+disposable-mode: Wegwerfmodus  # 参照 de；LOD 没有收录对应词，待母语者确认
+shut-down: ausschalten；名词 Ausschalten  # https://lod.lu（ausschalten）
+new-vm-wizard: Assistent fir nei virtuell Maschinnen
+installer-image: Installatiounsimage
+license: Lizenz；自备许可证 = eege Lizenz  # https://lod.lu（Lizenz）
+secure-boot: Secure Boot  # support.microsoft.com/lb-lu 跳到法语页，法语页保留 Secure Boot：https://support.microsoft.com/lb-lu/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: oder méi nei  # 参照 Apple 德语「oder neuer」：https://support.apple.com/de-de/102552
+experimental: experimentell Funktioun
+auto-resolution: automatesch Upassung vun der Opléisung  # https://lod.lu（Opléisung = Bildschirmauflösung）
+shared-clipboard: gemeinsam Tëschenoflag；粘贴 = asetzen  # 参照 Apple 德语「gemeinsame Zwischenablage」「einsetzen」；LOD 没有收录 Zwischenablage，待母语者确认
+shared-folder: gedeelten Dossier；复数 gedeelt Dossieren；共享文件夹（动作）= Dossiere deelen  # https://lod.lu（Dossier = digitaler Ordner；deelen = gemeinsam nutzen）
+sharing: Deelen
+shared-network: Gedeelt Netzwierk
+host-only: Nëmmen Host
+bridged: Netzwierkbréck
+emulated-vlan: Emuléiert VLAN
+port-forwarding: Portweiderleedung  # https://lod.lu（weiderleeden）
+lan: lokaalt Netzwierk；与格 am lokalen Netzwierk
+shortcuts: Kurzbefehle  # Apple 德语 App 名：https://support.apple.com/de-de/guide/shortcuts-mac/welcome/mac；卢森堡的 Mac 没有卢森堡语界面
+command-line-tool: Kommandozeilentool
+clone: klonen  # https://lod.lu（klonen）
+fingerprint: Fangerofdrock；复数 Fangerofdréck  # https://lod.lu
+hardware-reset: Hardware-Reset
+mount: montéieren
+shared-library: gedeelt Bibliothéik；复数 gedeelt Bibliothéiken
+capture-mouse: d'Maus erfaassen；捕获鼠标按钮 = de Knäppchen „Maus erfaassen“  # https://lod.lu（erfaassen、Knäppchen）
+keys: Control-Tast、Optiounstast；同时写 2 个键 = d'Control-Tast an d'Optiounstast；Command = Kommandotast、Shift = Shift-Tast、Caps Lock = Caps-Lock-Tast、Escape = Escape-Tast；modifier keys = Sondertasten  # 参照 Apple 德语 https://support.apple.com/de-de/102650；Tast 见 https://lod.lu
+toolbar: Symbolleescht  # 参照 Apple 德语「Symbolleiste」
+settings: Astellungen  # https://lod.lu（Astellung = Option einer Software）
+classic-systems: klassesch Systemer
+rosetta: Rosetta  # 卢森堡语不变格
+cpu: Prozessor；CPU 核心 = Kär，复数 Kären  # 参照 Apple 德语「Prozessor」；与 intel-mac 的 Intel-Prozessor 一致
+# 以下是审校中出现 3 次以上、terms.yml 没有的界面术语（2026-11-05 补充）
+drive: Lafwierk；复数 Lafwierker；驱动器映像 = Lafwierksimage；可移动驱动器 = Wiessellafwierk；外部驱动器 = Externt Lafwierk  # https://lod.lu（Lafwierk）
+disk-image: Image（中性，d'Image）；disk image = Disk-Image；不用 Bild（图片）
+device: Apparat；复数 Apparater；USB-Apparat  # https://lod.lu（Apparat）
+file: Fichier；复数 Fichieren  # https://lod.lu（Fichier = digitale Datei）
+directory: Dossier（目录和文件夹同译）；共享目录 = gedeelten Dossier  # https://lod.lu（Dossier）
+data: Daten；数据丢失 = Dateverloscht  # https://lod.lu（Daten = digitale Daten）
+display: Display；复数 Displayen  # https://lod.lu（Display）
+memory: Aarbechtsspäicher（RAM）；storage = Späicher（存储空间），两者不同词
+input: Input；捕获输入 = Input erfaassen；输出 = Output
+recovery: Recovery；恢复模式 = Recovery-Modus；recovery IPSW = Recovery-IPSW  # 按 Apple 产品名 macOS Recovery；LOD 的 Erhuelung 是休养，不能用
+vm: VM（阴性：eng VM、d'VM、dës VM）；复数 VMs
+vm-actions: Start = Starten、Stop = Stoppen、Pause = Paus/pauséieren、Suspend = Suspendéieren、Resume = Weiderféieren、Restore = Restauréieren、Restart = Nei starten、Run = Ausféieren；向导标题 Start = Ufank
+vm-states: Gëtt gestart、Gestart、Gëtt gestoppt、Gestoppt、Gëtt pauséiert、Pauséiert、Suspendéiert、Gëtt weidergefouert、Gëtt restauréiert、Gëtt gespäichert
+stop-method: Request = Ufroen、Force = Forcéieren、Kill = Direkt stoppen；power down = Ausschalten ufroen
+delete-remove: Delete = Läschen、Remove = Ewechhuelen、Eject = Auswerfen、Extracting = Gëtt ausgepaakt  # https://lod.lu（ewechhuelen、auspaken）
+quit-close: Quit（退出 UTM）= Beendegen、Close（关闭窗口）= Zoumaachen  # 两者必须区分；beendegen 见 https://lod.lu
+shortcut-alias: Verknëppung（指向虚拟机的快捷方式）；和 App 名 Kurzbefehle 区分  # https://lod.lu（Verknëppung）
+icon: Symbol；Dock-Symbol；菜单栏 = Menüleescht  # 参照 Apple 德语「Symbol」「Menüleiste」
+path: Pad  # https://lod.lu（Pad = Pfad）
+gallery-library: Gallery = Galerie、UTM Library = UTM-Bibliothéik
+generic-default: Generic = Generesch、Default = Standard、Custom = Benotzerdefinéiert

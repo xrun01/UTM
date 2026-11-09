@@ -1,0 +1,54 @@
+# pt-BR 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。
+# 来源：amalthea（VM64 官网）的 glossary/pt.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# 地区：巴西葡萄牙语（pt-BR），现有译文就是巴西用法（aplicativo、baixar、tela、mouse、você）。Apple 写法按 support.apple.com/pt-br。
+# 称呼：você。
+virtual-machine: máquina virtual
+guest: convidado；客户机系统 = sistema convidado；客户机工具 = ferramentas de convidado
+emulate: emular；emulação（不用 simular）
+virtualize: virtualizar；virtualização
+native: nativo；接近原生的速度 = velocidade quase nativa
+architecture: arquitetura；CPU 架构 = arquitetura de CPU
+backend: back-end；QEMU 后端 = back-end QEMU，Apple 后端 = back-end da Apple
+apple-silicon: Apple Silicon；Apple 芯片的 Mac = Mac com Apple Silicon，复数 computadores Mac com Apple Silicon  # https://support.apple.com/pt-br/116943
+intel-mac: Mac com processador Intel；复数 computadores Mac com processador Intel  # https://support.apple.com/pt-br/116943
+snapshot: instantâneo  # 见 doubts
+disposable-mode: modo descartável
+shut-down: desligar；desligamento
+new-vm-wizard: assistente de criação de máquinas virtuais
+installer-image: imagem de instalação
+license: licença；自备许可证 = licença própria
+secure-boot: Inicialização Segura  # https://support.microsoft.com/pt-br/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: ou posterior  # https://apps.apple.com/br/app/xcode/id497799835（「Requer o macOS 26.6 ou posterior」）
+experimental: recurso experimental
+auto-resolution: ajuste automático da resolução
+shared-clipboard: área de transferência compartilhada；共享剪贴板 = compartilhar a área de transferência（不用 prancheta）
+shared-folder: pasta compartilhada
+sharing: Compartilhamento
+shared-network: Rede compartilhada
+host-only: Somente host
+bridged: Ponte
+emulated-vlan: VLAN emulada
+port-forwarding: encaminhamento de porta  # 见 doubts
+lan: rede local（不用 LAN）
+shortcuts: Atalhos  # https://support.apple.com/pt-br/guide/shortcuts-mac/welcome/mac
+command-line-tool: ferramenta de linha de comando
+clone: clonar
+fingerprint: impressão digital
+hardware-reset: redefinição de hardware
+mount: montar
+shared-library: biblioteca compartilhada
+capture-mouse: capturar o mouse；捕获鼠标按钮 = botão Capturar Mouse
+keys: tecla Control、tecla Option  # https://support.apple.com/pt-br/102650
+toolbar: barra de ferramentas
+settings: ajustes  # Apple 巴西葡语写 Ajustes do Sistema：https://support.apple.com/pt-br/guide/mac-help/mchlp1225/mac
+classic-systems: sistemas clássicos
+# 以下不是 terms.yml 的术语，是待审条目中出现 3 次以上的界面术语
+drive: unidade；外部驱动器 = unidade externa，可移动驱动器 = unidade removível
+display: tela；复数 telas（Display、Displays 工具栏项和设置分组）
+host: host；主机 = máquina host
+directory: diretório；共享目录 = diretório compartilhado（Shared Folder 另写 pasta compartilhada）
+boot: inicialização；启动映像 = imagem de inicialização，Secure Boot = Inicialização Segura
+scan-code: código de varredura（不用 digitalização）
+keystrokes: pressionamentos de teclas
+stop-method: Request = Solicitar desligamento，Force = Forçar desligamento，Kill = Forçar encerramento（与菜单项 Request power down、Force shut down、Force kill 同译）
+vm-state: Iniciada、Parada、Pausada、Suspensa（指 máquina virtual，阴性）；进行中写 Iniciando、Parando、Pausando、Retomando、Restaurando、Salvando

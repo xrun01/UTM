@@ -98,7 +98,7 @@ struct VMAppleRemovableDrivesView: View {
                             // Eject button
                             if diskImage.isExternal && diskImage.imageURL != nil {
                                 Button(action: { clearRemovableImage(diskImage) }, label: {
-                                    Label("Clear", systemImage: "eject")
+                                    Label("Eject", systemImage: "eject")
                                 })
                             }
                         } label: {

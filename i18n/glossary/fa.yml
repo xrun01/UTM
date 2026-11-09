@@ -1,0 +1,73 @@
+# fa 定下的译法。规则见 i18n/glossary/terms.yml。
+# 来源：amalthea（VM64 官网）的 glossary/fa.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 和 Microsoft 都没有波斯语网站和支持页（support.apple.com/fa-ir 显示英文），rule 是 apple、microsoft 的术语按波斯语软件界面的通行说法定。
+# 正文按波斯语正字法用 U+200C（零宽不连字）连接 می‌、‌ها、‌شده 等词缀。
+virtual-machine: ماشین مجازی
+guest: مهمان；客户机系统 = سیستم‌عامل مهمان，客户机工具 = ابزارهای مهمان
+emulate: شبیه‌سازی کردن；شبیه‌سازی
+virtualize: مجازی‌سازی کردن；مجازی‌سازی
+native: بومی；接近原生的速度 = سرعتی نزدیک به سرعت بومی
+architecture: معماری
+backend: بک‌اند；بک‌اند QEMU，بک‌اند Apple（不用 باطن、پشتیبان）
+apple-silicon: تراشه Apple；Apple 芯片的 Mac = Mac با تراشه Apple  # 无 Apple 波斯语来源，待母语者确认
+intel-mac: Mac با پردازنده Intel  # 无 Apple 波斯语来源，参照 ar「جهاز Mac مزود بمعالج Intel」
+cpu: CPU
+rosetta: Rosetta
+snapshot: اسنپ‌شات（不用 عکس فوری）
+disposable-mode: حالت یک‌بارمصرف
+shut-down: خاموش کردن；关机后 = پس از خاموش شدن
+new-vm-wizard: دستیار ساخت ماشین مجازی
+installer-image: ایمیج نصب（不用 تصویر نصب）
+license: مجوز；自备许可证 = باید مجوز آن را خودتان تهیه کنید
+secure-boot: Secure Boot  # 无 Microsoft 波斯语来源，保留英文
+or-later: یا جدیدتر
+experimental: قابلیت آزمایشی
+auto-resolution: تنظیم خودکار وضوح تصویر
+shared-clipboard: کلیپ‌بورد مشترک；共享剪贴板（动作）= اشتراک‌گذاری کلیپ‌بورد
+shared-folder: پوشه مشترک；共享文件夹（动作）= اشتراک‌گذاری پوشه
+sharing: اشتراک‌گذاری
+shared-network: شبکه مشترک
+host-only: فقط میزبان
+bridged: پل
+emulated-vlan: VLAN شبیه‌سازی‌شده
+port-forwarding: هدایت پورت
+lan: شبکه محلی
+shortcuts: برنامه Shortcuts  # 无 Apple 波斯语 App 名；میانبرها 会读成键盘快捷键
+command-line-tool: ابزار خط فرمان
+clone: کلون کردن（不用 شبیه‌سازی，和模拟冲突）
+fingerprint: اثر انگشت
+hardware-reset: بازنشانی سخت‌افزاری
+mount: مانت کردن
+shared-library: کتابخانه اشتراکی
+capture-mouse: گرفتن ماوس；捕获鼠标按钮 = دکمه گرفتن ماوس
+keys: کلید Control، کلید Option
+toolbar: نوار ابزار
+settings: تنظیمات
+classic-systems: سیستم‌عامل‌های کلاسیک
+# 以下是 2026-11 审校时新定的界面术语（terms.yml 中没有）
+image: ایمیج（磁盘、启动、内核映像文件；Disk Image = ایمیج دیسک，Boot Image = ایمیج بوت，不写 تصویر）
+drive: درایو；Removable Drive = درایو جداشدنی，External Drive = درایو خارجی
+directory: پوشه（和 shared-folder 同译：Shared Directory = پوشه مشترک；不写 فهرست、دایرکتوری）
+display: نمایشگر；Displays = نمایشگرها
+start: شروع；Starting = در حال شروع，Started = شروع‌شده；向导标题 wizard.start.title = آغاز（和按钮区分）
+run: اجرا；restart = راه‌اندازی مجدد；reset = بازنشانی
+pause: مکث；Paused = مکث‌شده，Pausing = در حال مکث（和 suspend、stop 区分）
+suspend: تعلیق；Suspended = تعلیق‌شده，suspended state = حالت تعلیق
+stop: توقف；Stopped = متوقف‌شده，Stopping = در حال توقف
+resume: ازسرگیری；Resuming = در حال ازسرگیری（和 restore 区分）
+restore: بازگردانی（从快照恢复）；Restoring = در حال بازگردانی；recovery mode = حالت بازیابی
+delete: حذف（永久删除）；remove = برداشتن（移除快捷方式、共享目录、设备）；eject = خارج کردن；Extracting… = در حال استخراج…
+kill: خاتمه اجباری；停止方式：Request = درخواست توقف，Force = توقف اجباری，Kill = خاتمه اجباری
+capture-input: گرفتن ورودی（和 capture-mouse 一致；不写 ضبط，ضبط 是「录制」）
+serial: درگاه سریال（不只写 سریال，会读成序列号）
+shortcut: میانبر（指向别处虚拟机的快捷方式，不是快捷指令 App）；Keyboard shortcuts = میانبرهای صفحه‌کلید
+memory: حافظه；storage = فضای ذخیره‌سازی（internal storage = فضای ذخیره‌سازی داخلی），两者区分
+screenshot: اسکرین‌شات
+keystroke: ضربه کلید；Keystrokes = ضربه‌های کلید；modifier key = کلید تغییردهنده
+custom: سفارشی；generic = عمومی；default = پیش‌فرض（三者区分）
+gallery: گالری；UTM Library = کتابخانه UTM（两者区分）
+host-machine: دستگاه（宿主 Mac 写 دستگاه 或 دستگاه میزبان，不写 ماشین，避免和 ماشین مجازی 混淆）
+units: GiB、MiB 保留单位符号，不写 گیگابایت（那是 GB）
+dock: داک（نماد داک）
+vm-short: 不用缩写 VM，写 ماشین مجازی；数词后名词用单数：%lld ماشین مجازی
+punctuation: 引号用 «»；问号用 ؟；逗号用 ،；按钮、菜单项、开关用名词短语（فعال کردن …、حذف …），不用「…کنید」

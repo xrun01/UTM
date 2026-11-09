@@ -1,0 +1,75 @@
+# sr 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。正文用西里尔字母，专有名词保留拉丁字母。
+# 来源：amalthea（VM64 官网）的 glossary/sr.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 没有 sr 本地化（没有 support.apple.com/sr-*），rule 是 apple 的术语按 sr 软件界面的通行说法写。
+# Mac 不变格，写 Mac рачунар 后变 рачунар；Windows、Linux、macOS 需要变格时加连字符，例如 Windows-а。
+virtual-machine: виртуелна машина
+guest: гостујући；客户机系统 = гостујући систем；客户机工具 = алати за гостујући систем
+emulate: емулирати；емулација
+virtualize: виртуелизовати；виртуелизација
+native: нативни；接近原生的速度 = брзина блиска нативној
+architecture: архитектура；CPU 架构 = архитектура процесора
+backend: бекенд（不写 бацкенд）；QEMU 后端 = QEMU бекенд，Apple 后端 = Apple бекенд
+apple-silicon: Apple чип；Apple 芯片的 Mac = Mac рачунар са Apple чипом
+intel-mac: Mac рачунар са Intel процесором
+snapshot: снимак；复数 снимци
+disposable-mode: једнократни режим
+shut-down: искључивање
+new-vm-wizard: чаробњак за креирање виртуелних машина
+installer-image: инсталациона слика
+license: лиценца；自备许可证 = сопствена лиценца
+secure-boot: безбедно покретање система  # https://support.microsoft.com/sr-latn-rs/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: или новији（macOS 12 или новији）
+experimental: експериментална функција
+auto-resolution: аутоматско прилагођавање резолуције
+shared-clipboard: дељени међуспремник；共享剪贴板（动作）= дељење међуспремника
+shared-folder: дељена фасцикла
+sharing: дељење
+shared-network: Дељена мрежа
+host-only: Само хост
+bridged: Премошћена мрежа
+emulated-vlan: Емулирани VLAN
+port-forwarding: прослеђивање портова
+lan: локална мрежа（不写 ЛАН）
+shortcuts: апликација Shortcuts（Apple 没有 sr 译名，保留 App 名；不写 пречице，会读成键盘快捷键）
+command-line-tool: алат командне линије
+clone: клонирати
+fingerprint: отисак（不写 отисак прста）
+hardware-reset: хардверско ресетовање
+mount: монтирати
+shared-library: дељена библиотека
+capture-mouse: ухватити миш；捕获鼠标按钮 = дугме „Ухвати миш“
+keys: тастер Control、тастер Option
+toolbar: трака са алаткама
+settings: подешавања
+classic-systems: класични системи
+cpu: процесор（不写 ЦПУ）；30 多种 CPU = више од 30 типова процесора；CPU 核心 = процесорско језгро
+rosetta: Rosetta（拉丁字母不变格；作宾语时加同位语，写 алат Rosetta）
+
+# 审校 needs_review 和缺译时新定的界面术语（terms.yml 没有，待审条目中出现 3 次以上）
+vm-abbrev: 英文的 VM 一律写全 виртуелна машина（sr 界面不通用缩写 ВМ）；快捷指令搜索关键词 vm 写 вм
+drive: диск（不混用 диск јединица）；可移动驱动器 = преносиви диск，外部驱动器 = спољни диск
+image: слика（磁盘或安装镜像）；磁盘镜像 = слика диска，启动镜像 = слика за покретање；ISO、IMG、CD/DVD 保留拉丁字母
+boot: покретање（Boot 设置页 = Покретање）；bootloader = покретач система
+display: екран；复数 екрани
+directory: директоријум；共享目录 = дељени директоријум（folder 仍是 фасцикла）
+memory: меморија；RAM 保留拉丁字母；storage = складиште（内部存储 = интерно складиште），两者区分
+pause: паузирати；Pause = Паузирај，Paused = Паузирано，Pausing = Паузира се
+suspend: суспендовати；Suspend = Суспендуј，Suspended = Суспендовано，挂起状态 = суспендовано стање（和 pause 区分）
+resume: наставити；Resume = Настави，Resuming = Наставља се，继续运行 = наставити рад
+restore: вратити；Restore = Врати，Restoring = Враћа се（从快照恢复，和 resume 区分）
+status-labels: 状态标签用「动词 + се」（Покреће се、Зауставља се）或中性过去分词（Покренуто、Заустављено）
+delete: избрисати（永久删除）；remove = уклонити；eject = избацити；clear = очистити；Extracting… = Распакивање…
+kill: принудно прекинути（不用 убити）；停止方式：Kill = Прекид процеса，Force = Принудно искључивање，Request = Захтев за искључење
+serial: серијски порт（不写 серија）
+interface: мрежни интерфејс（桥接网卡）
+shortcut: пречица（指向别处虚拟机的快捷方式，不是快捷指令 App）
+screenshot: снимак екрана
+capture-input: ухватити унос；名词 хватање уноса（不用 снимати，那是「录制」）
+scan-code: скен-код
+guest-account: налог у гостујућем систему（不写 налог госта，会读成访客账户）
+host: хост（不写 домаћин）
+dock: Dock，变格加连字符：у Dock-у
+finder: Finder，变格加连字符：у Finder-у
+units: ГБ、ГиБ、МиБ
+quotes: 引号用 „…“
+ui-verb-form: 按钮、菜单项、工具提示、设置项、快捷指令动作标题用第 2 人称单数命令式（Покрени、Сачувај）；对话框和说明里对用户的指示用敬称复数（Изаберите …）

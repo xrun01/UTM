@@ -1,0 +1,80 @@
+# af 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。称呼统一用 jy。
+# 来源：amalthea（VM64 官网）的 glossary/af.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 和 Microsoft 都没有南非语页面（support.apple.com/af-za、support.microsoft.com/af-za 都跳转到英文），rule 是 apple、microsoft 的术语参照 nl 的结构，或用南非语软件的通行说法。
+# 「X 虚拟机」写成 virtuele X-masjien，例如 virtuele QEMU-masjien、virtuele macOS-masjien。
+virtual-machine: virtuele masjien；复数 virtuele masjiene
+guest: gas；客户机系统 = gasstelsel；客户机工具 = gasnutsgoed
+emulate: emuleer；emulasie
+virtualize: virtualiseer；virtualisering
+native: inheems；接近原生的速度 = byna-inheemse spoed
+architecture: argitektuur
+backend: backend；QEMU-backend、Apple-backend
+apple-silicon: Apple silicon；Apple 芯片的 Mac = Mac met Apple silicon；复数 Macs met Apple silicon（照 nl 结构）
+intel-mac: Intel-Mac；复数 Intel-Macs（照 nl 结构）
+snapshot: momentopname；复数 momentopnames
+disposable-mode: weggooimodus
+shut-down: afskakel；afskakeling
+new-vm-wizard: assistent vir nuwe virtuele masjiene
+installer-image: installasiebeeld
+license: lisensie；自备许可证 = jou eie lisensie
+secure-boot: Secure Boot（没有查到 Windows 南非语界面的写法）
+or-later: of nuwer（照 nl 的 of nieuwer）
+experimental: eksperimentele funksie
+auto-resolution: outomatiese aanpassing van die resolusie
+shared-clipboard: gedeelde knipbord；共享剪贴板（动作）= die knipbord deel
+shared-folder: gedeelde vouer
+sharing: Deling
+shared-network: Gedeelde netwerk
+host-only: Slegs gasheer
+bridged: Oorbrug
+emulated-vlan: Geëmuleerde VLAN
+port-forwarding: poortaansturing
+lan: plaaslike netwerk
+shortcuts: Shortcuts（macOS 没有南非语界面，App 显示英文名）
+command-line-tool: opdragreëlhulpmiddel
+clone: kloon
+fingerprint: vingerafdruk
+hardware-reset: hardeware-terugstelling
+mount: monteer
+shared-library: gedeelde biblioteek；复数 gedeelde biblioteke
+capture-mouse: muis vasvang；捕获鼠标按钮 = knoppie Vang muis
+keys: Control-sleutel、Option-sleutel（按 Mac 键帽）
+toolbar: nutsbalk
+settings: instellings
+rosetta: Rosetta
+cpu: SVE；复数 SVE's
+classic-systems: klassieke stelsels
+# 以下是 terms.yml 里没有、在待审条目中出现 3 次以上的界面术语
+button-style: 按钮、菜单项、工具栏项、复选框和快捷指令动作名用祈使式（Kanselleer、Stoor、Vee uit、Voeg by、Gaan voort）；分组标题用名词；句首大写，其余小写
+status-labels: 进行中的状态用「<动词> tans」（Start tans、Pouseer tans）；带「…」的进度提示同样写法（Bereken tans huidige grootte…）
+vm: 英文写 VM 时保留 VM，复数 VM's
+drive: skyf；复数 skywe；可移动驱动器 = verwyderbare skyf；外部驱动器 = eksterne skyf。不用 aandrywer、aandrywing
+disk-image: skyfbeeld（disk image 和 drive image 都用这个）
+image: beeld（ISO-beeld、kernelbeeld、selflaaibeeld、IPSW-herstelbeeld）；不用 prent（图片）
+boot: selflaai（Selflaai、selflaaibeeld、selflaaitoestel、Selflaaier = bootloader）；Secure Boot 保留英文
+kernel: kernel（Linux-kernel、kernelbeeld）；不用 kern，因为 kern 是 CPU 核心
+configuration: konfigurasie；不用 opstelling（opstel 留给 set up）
+directory: vouer（directory 和 folder 都用这个，和 gedeelde vouer 一致）；不用 gids
+display: skerm；复数 skerms
+memory: geheue；RAM 保留
+storage: berging
+start-run: Start = start（Start、Start tans、Gestart）；Run = laat loop（Laat loop、Laat geselekteerde VM loop）；向导首页标题 wizard.start.title = Begin
+pause: pouseer（Pouseer、Gepouseer、Pouseer tans）
+suspend: opskort（Skort op、Opgeskort、opgeskorte toestand）；和 pouseer 必须区分
+resume: hervat（Hervat、Hervat tans）；restore = herstel（Herstel、Herstel tans）
+state: toestand（opgeskorte toestand、Stoor toestand）；不用 staat、status
+save: stoor
+delete: uitvee（Vee uit）；remove = verwyder；eject = uitskiet（Skiet uit）；extract = uitpak（Pak tans uit…）
+quit: verlaat（Verlaat，退出 App）；restart = herbegin；reset = terugstel（Stel terug）
+kill-request-force: 停止方式 3 个选项 = Versoek、Dwing、Beëindig；Force kill = Beëindig geforseerd
+capture-input: invoer vasvang（按钮 Vang invoer），和 capture-mouse 一致；不用 vaslegging、opname（录制）
+keystroke: sleutelaanslag；复数 sleutelaanslae（和 keys 的 sleutel 一致；不用荷兰语 toetsaanslagen）
+modifier-keys: wysigersleutels；Mac 键名保留键帽写法（Command、Control、Option、Shift、Caps Lock、Escape）
+scan-code: skandeerkode；复数 skandeerkodes
+serial: seriële poort
+vm-shortcut: kortpad（UTM 列表里指向别处虚拟机的条目）
+recovery-mode: herstelmodus
+default-generic: Default = verstek；Generic = generies；两者必须区分
+gallery-library: Gallery = galery（UTM-galery，官网下载页）；UTM Library = UTM-biblioteek（主窗口）
+operation: bewerking；不用 operasie
+driver: drywer；复数 drywers（不用 bestuurder）

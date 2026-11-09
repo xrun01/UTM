@@ -1,0 +1,70 @@
+# sk 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。iPhone、iPad、Mac 按 Apple 斯洛伐克语变格（z iPhonu、iPadu、na Macoch）。
+# 来源：amalthea（VM64 官网）的 glossary/sk.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+virtual-machine: virtuálny počítač  # https://support.microsoft.com/sk-sk/windows/enable-virtualization-on-windows-c5578302-6e43-4b4b-a449-8ced115f58e1；不用 virtuálny stroj
+guest: hosťovský；客户机系统 = hosťovský systém；客户机工具 = nástroje pre hosťovský systém（不用 klientsky、hosťujúci）
+emulate: emulovať；emulácia（不用 simulovať）
+virtualize: virtualizovať；virtualizácia  # https://support.microsoft.com/sk-sk/windows/enable-virtualization-on-windows-c5578302-6e43-4b4b-a449-8ced115f58e1
+native: natívny；接近原生的速度 = takmer natívna rýchlosť
+architecture: architektúra
+cpu: procesor；CPU 架构 = architektúra procesora  # https://support.apple.com/sk-sk/116943（「procesory Intel」）
+backend: backend；backend QEMU、backend Apple
+apple-silicon: čip Apple Silicon；Apple 芯片的 Mac = Mac s čipom Apple Silicon  # https://support.apple.com/sk-sk/116943
+intel-mac: Mac s procesorom Intel  # https://support.apple.com/sk-sk/116943
+rosetta: Rosetta；间接格按 Apple 写 softvér Rosetta（nainštalovať softvér Rosetta、pomocou softvéru Rosetta）  # https://support.apple.com/sk-sk/102527
+snapshot: snímka
+disposable-mode: jednorazový režim
+shut-down: vypnúť；vypnutie
+new-vm-wizard: sprievodca novým virtuálnym počítačom
+installer-image: inštalačný obraz
+license: licencia；自备许可证 = vlastná licencia  # https://support.microsoft.com/sk-sk/windows/activate-windows-c39005d4-95ee-b91e-b399-2820fda32227
+secure-boot: zabezpečené spustenie  # https://support.microsoft.com/sk-sk/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: alebo novší（不用 vyšší）  # https://support.apple.com/sk-sk/102527（「macOS … alebo novší」）
+experimental: experimentálna funkcia
+auto-resolution: automatická úprava rozlíšenia
+shared-clipboard: zdieľaná schránka；粘贴 = vložiť（不用 prilepiť）  # Apple 斯洛伐克语菜单「Upraviť > Vložiť」
+shared-folder: zdieľaný priečinok
+sharing: zdieľanie
+shared-network: Zdieľaná sieť
+host-only: Len hostiteľ
+bridged: Premostená sieť
+emulated-vlan: Emulovaná VLAN
+port-forwarding: presmerovanie portov
+lan: lokálna sieť
+shortcuts: Skratky（apka Skratky）  # https://support.apple.com/sk-sk/guide/shortcuts-mac/welcome/mac
+command-line-tool: nástroj príkazového riadka
+clone: klonovať
+fingerprint: odtlačok（不写 odtlačok prsta）
+hardware-reset: hardvérový reset
+mount: pripojiť
+shared-library: zdieľaná knižnica
+capture-mouse: zachytiť myš；捕获鼠标按钮 = tlačidlo Zachytiť myš
+keys: kláves Control、kláves Option  # https://support.apple.com/sk-sk/102650
+toolbar: panel s nástrojmi
+settings: nastavenia  # https://support.apple.com/sk-sk/guide/mac-help/mchlp1225/mac（「Systémové nastavenia」）
+classic-systems: klasické systémy
+
+# 审校 needs_review 和缺译时新定的界面术语（terms.yml 没有，待审条目中出现 3 次以上）
+vm-abbrev: 英文的 VM 一律写全 virtuálny počítač（斯洛伐克语界面不通用缩写 VM）；快捷指令搜索关键词 vm 保留
+drive: jednotka；可移动驱动器 = vymeniteľná jednotka；外部驱动器 = externá jednotka；驱动器镜像 = obraz jednotky
+disk-image: obraz disku（disk 只用于 disk 和 disk image）
+image: obraz（镜像文件）；不用 obrázok（图片）
+boot: spustenie / spúšťací（Boot 设置页 = Spustenie，启动镜像 = spúšťací obraz）；bootloader = zavádzač
+display: displej；复数 displeje
+memory: pamäť（和 storage 区分）
+storage: úložisko；内部存储 = interné úložisko
+pause: pozastaviť；pozastavený；pozastavuje sa
+suspend: uspať；uspaný；挂起状态 = stav uspania（和 pause 区分）
+resume: pokračovať；pokračuje sa；继续运行 = pokračovať v behu（和 restore 区分）
+restore: obnoviť；obnovuje sa（从快照恢复）
+stop: zastaviť；zastavený；zastavuje sa
+kill: násilne ukončiť（不用 zabiť）
+delete: odstrániť（永久删除）
+remove: odobrať（移除快捷方式、设备、共享目录，和 delete 区分）
+clear: vymazať（清空字段）
+vm-shortcut: odkaz（虚拟机的快捷方式；不用 skratka，避免和 Skratky 混淆）
+shared-directory: zdieľaný adresár（directory = adresár，folder = priečinok）
+guest-account: účet v hosťovskom systéme（不用 účet hosťa，会读成访客账户）
+dock: Dock；在 Dock 中 = v Docku  # Apple 斯洛伐克语界面写法
+menu-bar: panel s ponukami
+serial: sériový port（不用 seriál）
+ui-verb-form: 按钮、菜单项、帮助提示、设置项用不定式（Spustiť、Uložiť）；快捷指令动作描述用第 3 人称（Spustí virtuálny počítač.）；状态标签用「动词 + sa」或形容词（Spúšťa sa、Spustený）

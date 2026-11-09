@@ -1,0 +1,79 @@
+# mr 定下的译法。规则见 i18n/glossary/terms.yml。
+# 来源：amalthea（VM64 官网）的 glossary/mr.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 有马拉地语的 iPhone、iPad 使用手册（support.apple.com/mr-in），Mac 使用手册和快捷指令使用手册未本地化（显示英文）。
+# rule 是 apple 的术语，能在 iPhone 使用手册里核对的写出 URL，其余参照 hi 的 Apple 写法结构，写「未查到」。Microsoft 马拉地语支持页显示英文。
+# 「虚拟机」在马拉地语里按中性名词变格：ते चालवते、व्हर्च्युअल मशीन वापरू शकते。
+virtual-machine: व्हर्च्युअल मशीन（不用 आभासी मशीन、वर्च्युअल मशीन）
+guest: गेस्ट；客户机系统 = गेस्ट सिस्टीम，客户机工具 = गेस्ट टूल्स（不用 क्लायंट、अतिथी）
+emulate: इम्युलेट करणे；इम्युलेशन（不用 अनुकरण、सिम्युलेशन）
+virtualize: व्हर्च्युअलाइझ करणे；व्हर्च्युअलायझेशन（不用 आभासीकरण）
+native: नेटिव्ह；接近原生的速度 = जवळजवळ नेटिव्ह वेग（不用 मूळ、स्थानिक）
+architecture: आर्किटेक्चर
+backend: बॅकएंड；QEMU बॅकएंड，Apple बॅकएंड
+apple-silicon: Apple silicon；Apple 芯片的 Mac = Apple silicon असलेला Mac（不音译成 सिलिकॉन，不用 चिप）  # 未查到 Apple 马拉地语 Mac 写法，参照 hi 的 Apple 写法 https://support.apple.com/hi-in/guide/mac-help/mchl82829c17/mac，待母语者确认
+intel-mac: Intel-आधारित Mac（不加英文复数 s）  # 未查到 Apple 马拉地语写法，参照 hi 的 Apple 写法 https://support.apple.com/hi-in/guide/mac-help/mchl338cf9a8/mac
+cpu: CPU（不音译）
+rosetta: Rosetta
+snapshot: स्नॅपशॉट
+disposable-mode: डिस्पोजेबल मोड（不用 एक-शॉट、वन-शॉट、थ्रोअवे）
+shut-down: शट डाउन करणे；关机后 = शट डाउन केल्यानंतर
+new-vm-wizard: व्हर्च्युअल मशीन तयार करण्याचा विझार्ड
+installer-image: इन्स्टॉलर इमेज（不用 प्रतिमा，प्रतिमा 是图片）  # 「इमेज」「इन्स्टॉल」参照 https://support.apple.com/mr-in/guide/iphone/iph220ea8dca/ios
+license: परवाना；自备许可证 = परवाना तुम्हाला स्वतः घ्यावा लागेल
+secure-boot: सुरक्षित बूट  # Microsoft 马拉地语支持页未本地化，沿用原译，待母语者确认
+or-later: किंवा नंतरचे व्हर्जन  # https://support.apple.com/mr-in/guide/iphone/iph505911a40/ios（「macOS 15 किंवा नंतरचे व्हर्जन」）
+experimental: प्रायोगिक फीचर
+auto-resolution: रिझोल्यूशन आपोआप समायोजित होणे
+shared-clipboard: शेअर केलेला क्लिपबोर्ड；共享剪贴板（动作）= क्लिपबोर्ड शेअर करणे（不用 सामायिक）  # https://support.apple.com/mr-in/guide/iphone/iph220ea8dca/ios（「क्लिपबोर्ड」）
+shared-folder: शेअर केलेले फोल्डर；共享文件夹（动作）= फोल्डर शेअर करणे
+sharing: शेअरिंग  # https://support.apple.com/mr-in/guide/iphone/welcome/ios（「कौटुंबिक शेअरिंग」）
+shared-network: शेअर्ड नेटवर्क
+host-only: फक्त होस्ट
+bridged: ब्रिज्ड（不用 ब्रिज）
+emulated-vlan: इम्युलेटेड VLAN（不用 सिम्युलेटेड VLAN）
+port-forwarding: पोर्ट फॉरवर्डिंग
+lan: स्थानिक नेटवर्क  # https://support.apple.com/mr-in/guide/iphone/iph220ea8dca/ios（「स्थानिक नेटवर्किंग」）
+shortcuts: शॉर्टकट；正文写 शॉर्टकट ॲप，和键盘快捷键区分  # https://support.apple.com/mr-in/guide/iphone/iph47e1c9d7d/ios（目录「शॉर्टकट」）
+command-line-tool: कमांड-लाइन टूल
+clone: क्लोन करणे
+fingerprint: फिंगरप्रिंट
+hardware-reset: हार्डवेअर रीसेट
+mount: माउंट करणे
+shared-library: शेअर्ड लायब्ररी
+capture-mouse: माउस कॅप्चर करणे；捕获鼠标按钮 = माउस कॅप्चर बटण（不用 पकडणे）
+keys: Control की、Option की（键名保留键帽上的英文，不音译）  # 「की」参照 https://support.apple.com/mr-in/guide/iphone/welcome/ios（目录「रिकव्हरी की」）
+toolbar: टूलबार
+settings: सेटिंग（不用 सेटिंग्ज）  # https://support.apple.com/mr-in/guide/iphone/welcome/ios（「सेटिंग ॲप」）
+classic-systems: क्लासिक सिस्टीम
+system: सिस्टीम（不用 सिस्टम、प्रणाली）  # https://support.apple.com/mr-in/guide/iphone/iph220ea8dca/ios（「किमान सिस्टीम आवश्यकता」）
+install: इन्स्टॉल करणे（不用 इंस्टॉल、स्थापित करणे）
+save: जतन करणे（不用 वाचवणे、सेव्ह）
+version: व्हर्जन（不用 आवृत्ती）
+# 以下是 terms.yml 没有、但待审条目中出现 3 次以上的界面术语（2026-11-05 审校时新定）。
+# Apple 马拉地语写法参照 https://support.apple.com/mr-in/guide/iphone/welcome/ios 的目录（हटवणे、काढून टाकणे、इम्पोर्ट、डिव्हाइस、आयकॉन、डिफॉल्ट、कस्टम、अपडेट、रीस्टार्ट）。
+image: इमेज（磁盘映像、启动映像；不用 प्रतिमा）
+drive: ड्राइव्ह（阳性）
+device: डिव्हाइस（不用 उपकरण）  # https://support.apple.com/mr-in/guide/iphone/welcome/ios
+directory: डिरेक्टरी（阴性；共享目录 = शेअर केलेली डिरेक्टरी；不用 निर्देशिका、डिरेक्ट्री）
+display: डिस्प्ले
+import: इम्पोर्ट करणे（不用 आयात करणे、इंपोर्ट）  # https://support.apple.com/mr-in/guide/iphone/welcome/ios（「संपर्क इम्पोर्ट करणे」）
+recovery: रिकव्हरी；恢复模式 = रिकव्हरी मोड（不用 पुनर्प्राप्ती）
+delete: हटवणे（永久删除）  # https://support.apple.com/mr-in/guide/iphone/welcome/ios（「ईमेल हटवणे」）
+remove: काढून टाकणे（移除快捷方式、共享目录；和 हटवणे 区分）  # 同上（「ॲप काढून टाकणे किंवा हटवणे」）
+eject: इजेक्ट करणे（弹出驱动器；和 हटवणे、एक्स्ट्रॅक्ट 区分）
+pause: पॉझ करणे；状态 पॉझ झाले、पॉझ होत आहे（不用 विराम；和 suspend 区分）
+suspend: निलंबित करणे；挂起状态 = निलंबित स्थिती（保存状态后挂起；和 pause 区分）
+resume: पुढे सुरू करणे；状态 पुढे सुरू होत आहे（继续运行；不用 पुन्हा सुरू करणे，它字面是「再次开始」，会读成重启；和 restore、restart 区分）
+restore: रिस्टोअर करणे（从快照恢复；不用 पुनर्संचयित）
+restart: रीस्टार्ट करणे  # https://support.apple.com/mr-in/guide/iphone/welcome/ios
+kill: संपवणे（结束虚拟机进程；不用 नष्ट करणे，नष्ट 是「销毁」）
+memory: मेमरी（内存 RAM；和 storage 区分）
+storage: स्टोरेज
+default: डिफॉल्ट（不用 डीफॉल्ट）  # https://support.apple.com/mr-in/guide/iphone/welcome/ios（「डिफॉल्ट ॲप」）
+custom: कस्टम（不用 सानुकूल）  # 同上（「कस्टम लॉक स्क्रीन」）
+icon: आयकॉन（不用 चिन्ह）  # 同上（「स्टेटस आयकॉन्स」）
+update: अपडेट करणे（不用 अद्यतनित करणे）  # 同上（「ॲप अपडेट करणे」）
+path: पाथ（文件路径；不用 मार्ग、पथ）
+read-only: फक्त वाचनीय（不用 केवळ-वाचनीय）
+installation: इन्स्टॉलेशन（名词；不用 स्थापना）
+status: स्थिती（不用 स्टेटस）

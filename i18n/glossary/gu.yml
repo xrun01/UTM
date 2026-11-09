@@ -1,0 +1,81 @@
+# gu 定下的译法。规则见 i18n/glossary/terms.yml。
+# 来源：amalthea（VM64 官网）的 glossary/gu.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 有古吉拉特语的 iPhone 和 iPad 使用手册。Mac 使用手册只有界面是古吉拉特语，正文是英文。rule 是 apple 的术语，能在 iPhone、iPad 使用手册里核对的写出 URL，其余写「未查到」。
+# 拉丁字母名称后的后置词按 Apple 写法直接连写：Macમાં、iPhoneનો、Linuxમાં；પર 分开写：Mac પર  # https://support.apple.com/gu-in/guide/iphone/iph505911a40/27/ios/27
+virtual-machine: વર્ચ્યુઅલ મશીન（中性名词，复数 વર્ચ્યુઅલ મશીનો）
+guest: ગેસ્ટ；客户机系统 = ગેસ્ટ સિસ્ટમ，客户机工具 = ગેસ્ટ ટૂલ（不用 ક્લાયંટ，那是客户端）
+emulate: ઇમ્યુલેટ કરવું；ઇમ્યુલેશન（不用 અનુકરણ、સિમ્યુલેશન）
+virtualize: વર્ચ્યુઅલાઈઝ કરવું；વર્ચ્યુઅલાઈઝેશન
+native: નેટિવ；接近原生的速度 = લગભગ નેટિવ ઝડપ（不用 મૂળ，મૂળ 是「原始、根本」）
+architecture: આર્કિટેક્ચર
+backend: બેકએન્ડ；QEMU બેકએન્ડ，Apple બેકએન્ડ
+apple-silicon: Apple silicon；Apple 芯片的 Mac = Apple silicon ધરાવતું Mac  # 未查到 Apple 古吉拉特语 Mac 写法，参照 Apple 印地语写法保留拉丁字母，待母语者确认
+intel-mac: Intel-આધારિત Mac  # 未查到 Apple 古吉拉特语写法，参照 Apple 英文 Intel-based Mac
+cpu: CPU（不音译，不加英文复数 s）
+rosetta: Rosetta
+snapshot: સ્નેપશોટ
+disposable-mode: ડિસ્પોઝેબલ મોડ
+shut-down: શટ ડાઉન કરવું；名词 શટ ડાઉન  # 未查到 Apple 古吉拉特语 Mac 写法
+new-vm-wizard: વર્ચ્યુઅલ મશીન બનાવવાનું વિઝાર્ડ
+installer-image: ઇન્સ્ટોલર ઇમેજ（不用 છબી，છબી 是图片）
+license: લાઇસન્સ；自备许可证 = તમારું પોતાનું લાઇસન્સ જરૂરી છે
+secure-boot: સિક્યોર બૂટ  # Microsoft 古吉拉特语支持页未本地化，沿用原译，待母语者确认
+or-later: અથવા તેના પછીનું વર્ઝન  # https://support.apple.com/gu-in/guide/iphone/iph505911a40/27/ios/27（「macOS 15 અથવા તેના પછીનું વર્ઝન」）
+experimental: પ્રાયોગિક ફીચર
+auto-resolution: ઑટોમૅટિક રિઝોલ્યુશન ઍડજસ્ટમેન્ટ
+shared-clipboard: શેર કરેલું ક્લિપબોર્ડ；共享剪贴板（动作）= ક્લિપબોર્ડ શેર કરવું  # https://support.apple.com/gu-in/guide/iphone/iph220ea8dca/27/ios/27（「ક્લિપબોર્ડ」）
+shared-folder: શેર કરેલું ફોલ્ડર；共享文件夹（动作）= ફોલ્ડર શેર કરવું
+sharing: શેરિંગ
+shared-network: શેર્ડ નેટવર્ક
+host-only: ફક્ત હોસ્ટ
+bridged: બ્રિજ્ડ
+emulated-vlan: ઇમ્યુલેટેડ VLAN
+port-forwarding: પોર્ટ ફોરવર્ડિંગ
+lan: લોકલ નેટવર્ક（不用英文缩写 LAN）
+shortcuts: શૉર્ટકટ；正文写 શૉર્ટકટ ઍપ，和键盘快捷键区分  # https://support.apple.com/gu-in/guide/iphone/iph47e1c9d7d/27/ios/27（「શૉર્ટકટ ઍપ」）
+command-line-tool: કમાન્ડ-લાઇન ટૂલ
+clone: ક્લોન કરવું
+fingerprint: ફિંગરપ્રિન્ટ
+hardware-reset: હાર્ડવેર રીસેટ
+mount: માઉન્ટ કરવું
+shared-library: શેર્ડ લાઇબ્રેરી（不用 શેર કરેલ લાઇબ્રેરી，避免和「共享」功能混淆）
+capture-mouse: માઉસ કૅપ્ચર કરવું；捕获鼠标按钮 = માઉસ કૅપ્ચર બટન（不用 કબજે）
+keys: કંટ્રોલ કી、ઑપ્શન કી  # https://support.apple.com/gu-in/guide/ipad/ipad9a246749/ipados（「કંટ્રોલ અને ઑપ્શન કી」）
+toolbar: ટૂલબાર  # https://support.apple.com/gu-in/guide/ipad/ipad7796380e/ipados（「ટૂલબાર કસ્ટમાઇઝ કરો」）
+settings: સેટિંગ્સ  # https://support.apple.com/gu-in/guide/iphone/iph60ba71065/27/ios/27
+classic-systems: ક્લાસિક સિસ્ટમ
+# 版本统一写 વર્ઝન（Apple 写法），不用 સંસ્કરણ
+
+# 2026-11-05 审校新增：待审条目中出现 3 次以上、terms.yml 没有的界面术语
+image: ઇમેજ（磁盘、启动、内核映像；不用 છબી，不写 ઈમેજ）
+drive: ડ્રાઇવ（阴性：નવી ડ્રાઇવ；不写 ડ્રાઈવ）
+device: ઉપકરણ；复数 ઉપકરણો
+directory: ડિરેક્ટરી（阴性）；共享目录 = શેર કરેલી ડિરેક્ટરી（不用 ડાયરેક્ટરી、નિર્દેશિકા、વહેંચાયેલ）
+boot: બૂટ；બૂટ કરો（和 secure-boot 的 બૂટ 一致，不写 બુટ）
+configuration: રૂપરેખાંકન（不用 ગોઠવણી）
+recovery: પુનઃપ્રાપ્તિ；恢复模式 = પુનઃપ્રાપ્તિ મોડ
+import: આયાત કરો
+delete: કાઢી નાખો（永久删除；不用 ડિલીટ કરો）
+remove: દૂર કરો（移除，和 delete 区分）
+eject: ઇજેક્ટ કરો（和 delete、extract 区分）
+restart: પુનઃપ્રારંભ કરો
+resume: ફરી ચાલુ કરો（不用 ફરી શરૂ કરો，那会读成重新开始）
+restore: પુનઃસ્થાપિત કરો（从快照恢复）
+pause: થોભાવો；状态 થોભાવેલું
+suspend: સસ્પેન્ડ કરો；状态 સસ્પેન્ડ કરેલું
+stop: રોકો；状态 Stopped = બંધ
+state: સ્થિતિ（虚拟机状态、快照状态）
+status: સ્ટેટસ  # https://support.apple.com/gu-in/guide/iphone/iph60ba71065/27/ios/27（「iPhone સ્ટેટસ આઇકન」）
+position: સ્થાન（鼠标位置，和 state 的 સ્થિતિ 区分）
+read-only: ફક્ત વાંચવા માટે
+supported: સમર્થિત（不用 સપોર્ટેડ）
+size: કદ；调整大小 = કદ બદલો（不用 માપ）
+quit: બહાર નીકળો（退出 UTM，和 close 的 બંધ કરો 区分）
+save: સાચવો
+access: ઍક્સેસ  # https://support.apple.com/gu-in/guide/iphone/iph60ba71065/27/ios/27（「ફીચર ઍક્સેસ કરો」）
+shortcut: શૉર્ટકટ（虚拟机快捷方式，拼法和 shortcuts 一致）
+command-key: કમાંડ；Shift = શિફ્ટ；Caps Lock = Caps લૉક  # https://support.apple.com/gu-in/guide/ipad/ipad9a246749/ipados
+screenshot: સ્ક્રીનશૉટ  # https://support.apple.com/gu-in/guide/iphone/iph60ba71065/27/ios/27（「સ્ક્રીનશૉટ લો」）
+icon: આઇકન（不用 ચિહ્ન、આયકન）
+operation: ઑપરેશન
+account: એકાઉન્ટ；客户机账户 = ગેસ્ટ એકાઉન્ટ

@@ -1,0 +1,81 @@
+# sw 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。
+# 来源：amalthea（VM64 官网）的 glossary/sw.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 没有斯瓦希里语的官网和支持页（support.apple.com/sw-ke、sw-tz 只显示英文）。
+# Microsoft 支持页 support.microsoft.com/sw-ke 也只显示英文。
+# rule 是 apple、microsoft 的术语，按 Apple、Microsoft 英文写法，再按斯瓦希里语语法组织。待母语者确认。
+virtual-machine: mashine pepe（单复数同形；不用 mashine ya kawaida、mashine ya mtandaoni、VM）
+guest: mgeni；客户机系统 = mfumo endeshi mgeni；客户机工具 = zana za mgeni（不用 mteja，mteja 是客户端）
+emulate: kuiga；uigaji
+virtualize: virtualization（不用 uboreshaji，uboreshaji 是「改进」）
+native: asili；接近原生的速度 = kasi inayokaribia ya asili
+architecture: usanifu；CPU 架构 = usanifu wa CPU
+backend: backend；backend ya QEMU、backend ya Apple（不用 nyuma、hali ya nyuma）
+apple-silicon: Apple silicon；Apple 芯片的 Mac = Mac yenye Apple silicon，复数 Mac zenye Apple silicon  # https://support.apple.com/sw-ke/116943（只有英文）
+intel-mac: Mac inayotumia Intel，复数 Mac zinazotumia Intel（不写 Intel Macs）  # https://support.apple.com/sw-ke/116943（只有英文）
+snapshot: snapshot（不用 picha、vijipicha、muhtasari）
+disposable-mode: hali ya matumizi ya mara moja
+shut-down: kuzima；关机后 = baada ya kuzimwa
+new-vm-wizard: mwongozo wa kuunda mashine pepe
+installer-image: faili ya usakinishaji（不用 picha）
+license: leseni
+secure-boot: Secure Boot  # support.microsoft.com/sw-ke 只有英文，已列入 doubts
+or-later: au toleo jipya zaidi（不用 au baadaye、au zaidi）
+experimental: kipengele cha majaribio
+auto-resolution: kurekebisha resolution ya skrini kiotomatiki（不用 azimio「决议」；mwonekano 是「外观、显示」，不表示分辨率）
+shared-clipboard: ubao wa kunakili unaoshirikiwa；共享剪贴板（动作）= kushiriki ubao wa kunakili；粘贴 = bandika
+shared-folder: folda inayoshirikiwa，复数 folda zinazoshirikiwa
+sharing: Kushiriki
+shared-network: Mtandao Unaoshirikiwa
+host-only: Mwenyeji Pekee（不用 seva pangishi）
+bridged: Daraja
+emulated-vlan: VLAN Iliyoigwa
+port-forwarding: usambazaji wa mlango
+lan: mtandao wa ndani（不用 LAN）
+shortcuts: Shortcuts（App 名；不用 njia za mkato）  # Apple 没有斯瓦希里语页面
+command-line-tool: zana ya mstari wa amri
+clone: kuunda nakala
+fingerprint: alama ya kidole
+hardware-reset: uwekaji upya wa maunzi
+mount: kupachika（不用 kuweka）
+shared-library: maktaba inayoshirikiwa，复数 maktaba zinazoshirikiwa
+capture-mouse: kunasa kipanya；捕获鼠标按钮 = kitufe cha Nasa Kipanya（鼠标用 kipanya，不用 panya）
+keys: kitufe cha Control、kitufe cha Option（不翻译键名）  # Apple 没有斯瓦希里语页面
+toolbar: upau wa vidhibiti
+settings: mipangilio
+classic-systems: mifumo ya zamani
+cpu: CPU；核心 = kiini，复数 viini
+rosetta: Rosetta
+# 以下是 terms.yml 里没有、在待审条目中出现 3 次以上的界面术语（本轮审校定下，待母语者确认）
+vm: mashine pepe（英文的 VM 也写 mashine pepe，复数同形：mashine pepe zote；运行中 = inayoendeshwa，复数 zinazoendeshwa，不用 inayoendesha）
+button-style: 按钮、菜单项、工具栏项、复选框和快捷指令动作名用祈使式（Ongeza、Ghairi、Hifadhi、Futa、Ondoa、Endelea、Washa …）；分组标题用名词
+status-labels: 虚拟机状态用 Ina-/Ime- 加被动式（Inaanzishwa、Imeanzishwa、Inasimamishwa、Imesimamishwa、Inasitishwa、Imesitishwa、Inarejeshwa、Inahifadhiwa）；Resuming = Inaendelea
+drive: kiendeshi，复数 viendeshi（不用 hifadhi，hifadhi 是 Save 和 Storage；不用 gari）；可移动驱动器 = kiendeshi kinachoweza kuondolewa；外部驱动器 = kiendeshi cha nje
+image: faili（disk image = faili ya diski；drive image = faili ya kiendeshi；ISO image = faili ya ISO；kernel image = faili ya kernel；boot image = faili ya kuwasha；IPSW recovery image = faili ya uokoaji ya IPSW；不用 picha、taswira，它们是「图片」）
+screenshot: picha ya skrini
+operating-system: mfumo endeshi，复数 mifumo endeshi（和 guest 的「mfumo endeshi mgeni」一致；不用 mfumo wa uendeshaji）
+host: mwenyeji（host 系统 = mfumo endeshi wa mwenyeji；不用 seva pangishi、mpangishi）
+configuration: usanidi（settings 才是 mipangilio）
+memory: kumbukumbu；RAM 保留
+storage: hifadhi；internal storage = hifadhi ya ndani
+display: onyesho，复数 maonyesho
+terminal: terminal（不用 kituo，kituo 是「站点」）；console = kiweko
+boot: kuwasha（名词 uwashaji）；Boot 设置分类 = Uwashaji；Start 按钮 = Anzisha，两者区分
+recovery-mode: hali ya uokoaji；recovery IPSW = IPSW ya uokoaji（不用 kurejesha，rejesha 留给 Restore）
+start-stop: Start = Anzisha；Run = Endesha；Stop = Simamisha；Restart = Anzisha Upya；Reset = Weka Upya
+pause: sitisha（Sitisha、Imesitishwa、Inasitishwa）
+suspend: simamisha kwa muda（Simamisha kwa Muda、Imesimamishwa kwa Muda；suspended state = hali iliyosimamishwa kwa muda）；不用 ahirisha（推迟）；和 sitisha、simamisha 必须区分
+resume: endelea（Endelea、Inaendelea；Resume Virtual Machine = Endelea Kuendesha Mashine Pepe）；restore = rejesha（Rejesha、Inarejeshwa）
+kill: komesha（Force kill = Komesha kwa lazima）；停止方式 3 个选项 = Omba、Lazimisha、Komesha
+quit: ondoka（退出 App；Quit 按钮 = Ondoka；句中 = kuondoka kwenye UTM）；close = funga
+save: hifadhi（Save State = Hifadhi Hali）
+delete: futa；remove = ondoa；eject = toa；Extracting… = Inafungua faili iliyobanwa…
+import: leta（不用 ingiza，ingizo 是 input）
+input: ingizo；output = towe（不用 pato）；capture input = nasa ingizo
+enable: washa；disable = lemaza，Disabled = Imelemazwa
+folder: folda（directory 也译 folda，和 shared-folder 一致；不用 saraka）
+icon: aikoni（不用 ikoni）
+modifier-keys: vitufe vya kirekebishaji；单个 = kitufe cha kirekebishaji；keystroke = mbofyo wa kitufe，复数 mibofyo ya vitufe；sequence = mfuatano
+serial: mlango wa serial（不用 msururu、mfululizo）
+vm-shortcut: njia ya mkato（UTM 列表里指向别处虚拟机的条目）
+gallery: Matunzio（UTM Gallery = Matunzio ya UTM）；UTM Library = Maktaba ya UTM
+apple-names: Dock、Finder 保留英文（不用 kituo、Kitafuta）

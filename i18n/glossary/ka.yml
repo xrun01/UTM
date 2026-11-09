@@ -1,0 +1,68 @@
+# ka 定下的译法。规则见 i18n/glossary/terms.yml。Apple 和 Microsoft 都没有 ka 页面（support.apple.com/ka-ge、support.microsoft.com/ka-ge 回退到英文），apple、microsoft 规则的术语按格鲁吉亚语软件界面的通行说法。
+# 来源：amalthea（VM64 官网）的 glossary/ka.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# 专有名词保留拉丁字母，用连字符加词尾：Mac-ზე、Mac-ის、Mac-ები、Apple Inc.-ის。引号用 „…“。
+virtual-machine: ვირტუალური მანქანა（不用 ვირტუალური აპარატი）
+guest: სტუმარი；客户机系统 = სტუმარი სისტემა；客户机工具 = სტუმრის ხელსაწყოები（不用 კლიენტი）
+emulate: ემულაცია；ემულირებული（不用 სიმულაცია）
+virtualize: ვირტუალიზაცია
+native: ნატიური；接近原生的速度 = ნატიურთან მიახლოებული სიჩქარე（不用 მშობლიური，待母语者确认）
+architecture: არქიტექტურა；CPU 架构 = CPU-ის არქიტექტურა
+backend: ძრავა；QEMU-ს ძრავა、Apple-ის ძრავა（不用 სარეზერვო სისტემა，待母语者确认）
+apple-silicon: Apple-ის ჩიპი；Apple 芯片的 Mac = Apple-ის ჩიპიანი Mac（不用 სილიკონი、Apple silicon）
+intel-mac: Intel-ის პროცესორიანი Mac
+snapshot: სნეპშოტი
+disposable-mode: ერთჯერადი რეჟიმი
+shut-down: გამორთვა
+new-vm-wizard: ვირტუალური მანქანის შექმნის ოსტატი
+installer-image: საინსტალაციო იმიჯი（不用 სურათი；ანაბეჭდი 已用于指纹）
+license: ლიცენზია
+secure-boot: Secure Boot（Microsoft 没有 ka 页面，待确认）
+or-later: ან უფრო ახალი ვერსია（不用 უფრო მაღალი、უფრო გვიან）
+experimental: ექსპერიმენტული ფუნქცია（不用 თვისება）
+auto-resolution: გარჩევადობის ავტომატური მორგება
+shared-clipboard: გაზიარებული გაცვლის ბუფერი；共享剪贴板（动作）= გაცვლის ბუფერის გაზიარება
+shared-folder: გაზიარებული საქაღალდე（不用 საზიარო）
+sharing: გაზიარება
+shared-network: Mac-ის ქსელის გაზიარება（不用 საერთო ქსელი，它会读成「公共网络」）
+host-only: მხოლოდ ჰოსტი
+bridged: ხიდი
+emulated-vlan: ემულირებული VLAN
+port-forwarding: პორტების გადამისამართება
+lan: ლოკალური ქსელი（不用 LAN）
+shortcuts: Shortcuts（macOS 没有 ka 界面，保留 App 原名；不用 მალსახმობები）
+command-line-tool: ბრძანების სტრიქონის ხელსაწყო
+clone: კლონირება
+fingerprint: ციფრული ანაბეჭდი（不用 თითის ანაბეჭდი）
+hardware-reset: აპარატული გადაყენება（不用 ტექნიკის გადატვირთვა）
+mount: დამონტირება（不用 დაინსტალირება，避免和安装混淆）
+shared-library: გაზიარებული ბიბლიოთეკა
+capture-mouse: მაუსის მიტაცება；捕获鼠标按钮 = „მაუსის მიტაცება“ ღილაკი（不用 დაჭერა，它也表示「按下」；待确认 App 界面）
+keys: Control კლავიში、Option კლავიში（键名不翻译）
+toolbar: ხელსაწყოთა ზოლი
+settings: პარამეტრები
+rosetta: Rosetta，用连字符加词尾：Rosetta-ს
+cpu: CPU；CPU 核心 = CPU ბირთვი
+classic-systems: კლასიკური სისტემები
+# 以下是审校界面文案时新定的术语（terms.yml 没有，待审条目中出现 3 次以上）。
+drive: დისკი；可移动驱动器 = მოსახსნელი დისკი、外部驱动器 = გარე დისკი（不用 იმოძრავეთ、დისკწამყვანი）
+image: იმიჯი；磁盘映像 = დისკის იმიჯი（不用 სურათი、გამოსახულება，它们是图片）
+install: ინსტალაცია、დაინსტალირება（不用 დაყენება；set up 译 მომართვა，两者分开）
+host: ჰოსტი；主机操作系统 = ჰოსტის ოპერაციული სისტემა（不用 მასპინძელი）
+memory: მეხსიერება；RAM = ოპერატიული მეხსიერება
+storage: საცავი（必须和 memory 区分）
+display: ეკრანი；Displays = ეკრანები
+directory: საქაღალდე（和 shared-folder 一致，不用 დირექტორია）
+path: გზა
+screenshot: ეკრანის ანაბეჭდი（不用 ეკრანის სურათი；指纹固定写 ციფრული ანაბეჭდი）
+icon: ხატულა（不用 ხატი）
+start: გაშვება（启动虚拟机）；向导标题 Start = დაწყება
+stop: გაჩერება；Stopped = გაჩერებულია
+pause: პაუზა；Paused = პაუზაზეა、Pausing = პაუზაზე დგება
+suspend: შეჩერება；Suspended = შეჩერებულია（必须和 stop、pause 区分）
+resume: გაგრძელება（不用 განახლება，它是「更新」）
+restore: აღდგენა（必须和 resume 区分）
+kill: იძულებით შეწყვეტა；停止方式 Request / Force / Kill = გამორთვის მოთხოვნა / იძულებითი გამორთვა / პროცესის შეწყვეტა（不用 მოკვლა）
+remove: მოცილება；delete = წაშლა；eject = ამოღება；extracting = ამოარქივება
+default: ნაგულისხმევი；generic = ზოგადი；custom = მორგებული
+serial: სერიული პორტი（不用 სერიალი）
+app: აპლიკაცია（不用 აპი）

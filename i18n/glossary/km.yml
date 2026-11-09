@@ -1,0 +1,76 @@
+# km 定下的译法。规则见 i18n/glossary/terms.yml。高棉语书写不用空格，U+200B 是合法的词边界标记，不要删除。
+# 来源：amalthea（VM64 官网）的 glossary/km.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 没有高棉语网站（apple.com/kh 404，support.apple.com/km-kh 跳转 en-us）；support.microsoft.com/km-kh 也跳转 en-us。rule 为 apple、microsoft 的术语按高棉语软件界面的通行说法。
+virtual-machine: ម៉ាស៊ីននិម្មិត
+guest: ភ្ញៀវ；客户机系统 = ប្រព័ន្ធប្រតិបត្តិការភ្ញៀវ；客户机工具 = ឧបករណ៍ម៉ាស៊ីនភ្ញៀវ（不用 អតិថិជន，它是客户端）
+emulate: ត្រាប់តាម；名词 ការត្រាប់តាម（不用 ក្លែងធ្វើ，它有「伪造」的意思）
+virtualize: និម្មិតកម្ម；「使用虚拟化运行」= ដំណើរការដោយនិម្មិតកម្ម（不单写形容词 និម្មិត）
+native: ដើម；接近原生的速度 = ល្បឿនជិតនឹងល្បឿនដើម
+architecture: ស្ថាបត្យកម្ម；CPU 架构 = ស្ថាបត្យកម្ម CPU
+backend: backend（借词）；backend QEMU、backend Apple（不用 ផ្នែកខាងក្រោយ，它字面是「后面的部分」；不用 កម្មវិធីខាងក្រោយ）
+apple-silicon: បន្ទះឈីប Apple；Apple 芯片的 Mac = Mac ដែលប្រើបន្ទះឈីប Apple（不用 Apple silicon、បន្ទះសៀគ្វី Apple）
+intel-mac: Mac ដែលប្រើបន្ទះឈីប Intel（不写 Intel Macs）
+cpu: CPU（不写 ស៊ីភីយូ）；核心 = ស្នូល
+rosetta: Rosetta
+snapshot: កំណត់ត្រាស្ថានភាព（不用 រូបថត，它是照片）
+disposable-mode: របៀបប្រើតែម្ដង
+shut-down: បិទម៉ាស៊ីន
+new-vm-wizard: អ្នកជំនួយការបង្កើតម៉ាស៊ីននិម្មិតថ្មី
+installer-image: ឯកសាររូបភាពដំឡើង（不单写 រូបភាពដំឡើង，它可读成安装图片）
+license: អាជ្ញាប័ណ្ណ；自备许可证 = ត្រូវមានអាជ្ញាប័ណ្ណផ្ទាល់ខ្លួន
+secure-boot: Secure Boot（查不到 Windows 高棉语界面写法，保留英文）
+or-later: ឬថ្មីជាងនេះ（不用 ឬខ្ពស់ជាងនេះ）
+experimental: មុខងារពិសោធន៍
+auto-resolution: ការកែតម្រូវចំនួនភីកសែលអេក្រង់ដោយស្វ័យប្រវត្តិ；分辨率 = ចំនួនភីកសែលអេក្រង់（不用 គុណភាពបង្ហាញ，它是显示质量）
+shared-clipboard: ក្ដារតម្បៀតខ្ទាស់；共享剪贴板 = ការចែករំលែកក្ដារតម្បៀតខ្ទាស់；复制粘贴 = ចម្លង និងបិទភ្ជាប់
+shared-folder: ថតឯកសារដែលបានចែករំលែក；文件夹 = ថតឯកសារ（不单写 ថត，它也是拍摄、录制）
+sharing: ការចែករំលែក
+shared-network: បណ្ដាញចែករំលែក
+host-only: តែម៉ាស៊ីនមេ
+bridged: ស្ពាន
+emulated-vlan: VLAN ត្រាប់តាម
+port-forwarding: ការបញ្ជូនបន្តច្រក
+lan: បណ្ដាញមូលដ្ឋាន
+shortcuts: កម្មវិធី Shortcuts（Apple 系统没有高棉语界面，App 名保留英文；不用 ផ្លូវកាត់，它是键盘快捷键）
+command-line-tool: ឧបករណ៍បន្ទាត់ពាក្យបញ្ជា
+clone: ក្លូន
+fingerprint: ស្នាមម្រាមដៃកូនសោ（单写 ស្នាមម្រាមដៃ 是手指指纹）
+hardware-reset: ការកំណត់ផ្នែករឹងឡើងវិញ
+mount: ម៉ោន（不用 ដំឡើង，它是安装）
+shared-library: បណ្ណាល័យរួម（不用 បណ្ណាល័យចែករំលែក，易和共享功能混淆）
+capture-mouse: ចាប់កណ្ដុរ；捕获鼠标按钮 = ប៊ូតុងចាប់កណ្ដុរ
+keys: គ្រាប់ចុច Control、គ្រាប់ចុច Option（键名保留英文，不意译）
+toolbar: របារឧបករណ៍
+settings: ការកំណត់
+classic-systems: ប្រព័ន្ធបុរាណ
+
+# 审校待审条目时新定的界面术语（出现 3 次以上，terms.yml 没有；2026-11-05）
+vm: VM（拉丁字母，不加复数 s，不写 VMs）
+drive: ដ្រាយ（不写 ដ្រាយវ៍；不用 ថាស，ថាស 是 disk）
+disk: ថាស（不音译 ឌីស）
+image: ឯកសាររូបភាព；磁盘映像 = ឯកសាររូបភាពថាស；驱动器映像 = ឯកសាររូបភាពដ្រាយ（不单写 រូបភាព，它是图片）
+display: អេក្រង់
+directory: ថតឯកសារ（同 folder，不单写 ថត）；共享目录 = ថតឯកសារដែលបានចែករំលែក
+host: ម៉ាស៊ីនមេ（和 host-only 一致；不用 ម្ចាស់ផ្ទះ，它是房东；不单写 ម៉ាស៊ីន）
+server: ម៉ាស៊ីនបម្រើ（和 host 的 ម៉ាស៊ីនមេ 区分）
+memory: អង្គចងចាំ；RAM 保留拉丁字母
+storage: ទំហំផ្ទុក（和 memory 区分）
+boot: ចាប់ផ្ដើម；设置标签页 Boot = ការចាប់ផ្ដើមប្រព័ន្ធ（和向导标题 wizard.start.title 的 ការចាប់ផ្ដើម 区分）
+kernel: ខឺណែល
+set-up: រៀបចំ（和 install 的 ដំឡើង 区分）
+delete: លុប（永久删除）
+remove: ដកចេញ（移除快捷方式、设备、共享目录；和 delete 区分）
+eject: ច្រានចេញ；解压 Extracting = កំពុងពន្លា（三者不同词）
+read-only: បានតែអាន
+vm-actions: Start = ចាប់ផ្ដើម；Run = ដំណើរការ；Stop = បញ្ឈប់；Pause = ផ្អាក；Suspend = ព្យួរ；Resume = បន្តដំណើរការ；Restart = ចាប់ផ្ដើមឡើងវិញ；Reset = កំណត់ឡើងវិញ；Restore = ស្ដារ（从快照恢复）；Quit = ចាកចេញ
+vm-states: 进行态 កំពុង…，完成态 បាន…，例如 កំពុងចាប់ផ្ដើម、បានបញ្ឈប់、បានផ្អាក、បានព្យួរ；suspended state = ស្ថានភាពព្យួរ（不用 ផ្អាក，它是 pause）
+kill: 句中写「បញ្ចប់…ដោយបង្ខំ」；快捷指令选项 Kill = បញ្ចប់ដំណើរការ，Force = បង្ខំ，Request = ស្នើសុំ；Force kill = បង្ខំបញ្ចប់ដំណើរការ（不用 សម្លាប់，它是杀死）
+power-down: បិទថាមពល；Request power down = ស្នើសុំបិទថាមពល（不写 ស្នើសុំថាមពល）
+recovery: សង្គ្រោះ；恢复模式 = របៀបសង្គ្រោះ
+serial: ច្រកសៀរៀល（串口；单写 សៀរៀល 会读成序列号）
+interface: ចំណុចប្រទាក់；桥接网卡 Interface = ចំណុចប្រទាក់បណ្ដាញ
+capture-input: ចាប់យកការបញ្ចូល（不用 ថត，它是录制）
+scan-code: កូដស្កេន（不写 កូដស្កែន、លេខកូដស្កេន）
+modifier-key: គ្រាប់ចុចកែប្រែ
+gallery: វិចិត្រសាល；UTM Library = បណ្ណាល័យ UTM（两者不同词）
+dock: Dock（macOS 程序坞名，保留英文；不用 ចត）

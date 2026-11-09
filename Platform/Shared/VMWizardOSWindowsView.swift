@@ -23,19 +23,19 @@ struct VMWizardOSWindowsView: View {
     var body: some View {
         VMWizardContent("Windows") {
             Section {
-                Picker("安装模式", selection: $wizardState.isWindowsExpressInstall) {
-                    Text("一键安装 (全自动)").tag(true)
-                    Text("自定义配置 (逐步向导)").tag(false)
+                Picker("Installation Mode", selection: $wizardState.isWindowsExpressInstall) {
+                    Text("Express (Fully Automatic)").tag(true)
+                    Text("Custom (Step by Step)").tag(false)
                 }
                 .pickerStyle(.segmented)
             } header: {
-                Text("安装方式")
+                Text("Installation Method")
             }
 
             Section {
                 FileBrowseField(url: $wizardState.bootImageURL, isFileImporterPresented: $isFileImporterPresented, hasClearButton: false)
                 if wizardState.bootImageURL == nil {
-                    Button("从微软官网获取 Windows 11 ARM64 镜像...") {
+                    Button("Get Windows 11 ARM64 Image from Microsoft…") {
                         if let url = URL(string: "https://www.microsoft.com/software-download/windows11arm64") {
                             NSWorkspace.shared.open(url)
                         }
@@ -47,31 +47,31 @@ struct VMWizardOSWindowsView: View {
                     Spinner(size: .large)
                 }
             } header: {
-                Text("Windows ARM64 ISO 镜像")
+                Text("Windows ARM64 ISO Image")
             }
 
             if wizardState.isWindowsExpressInstall {
                 Section {
-                    TextField("用户名", text: $wizardState.windowsUnattendedUserName)
-                    SecureField("密码 (留空则免密自动登录)", text: $wizardState.windowsUnattendedPassword)
+                    TextField("Username", text: $wizardState.windowsUnattendedUserName)
+                    SecureField("Password (leave empty for automatic sign-in)", text: $wizardState.windowsUnattendedPassword)
                     HStack {
-                        Text("系统语言")
+                        Text("System Language")
                         Spacer()
-                        Text("\(wizardState.windowsDetectedLocale) (跟随宿主系统)")
+                        Text("\(wizardState.windowsDetectedLocale) (Same as Host)")
                             .foregroundColor(.secondary)
                     }
                     HStack {
-                        Text("自动硬件配置")
+                        Text("Automatic Hardware Configuration")
                         Spacer()
-                        Text("\(wizardState.systemCpuCount) 核 / \(wizardState.systemMemoryMib / 1024) GB 内存 / \(wizardState.storageSizeGib) GB NVMe")
+                        Text("\(wizardState.systemCpuCount) Cores / \(wizardState.systemMemoryMib / 1024) GB Memory / \(wizardState.storageSizeGib) GB NVMe")
                             .foregroundColor(.secondary)
                     }
                 } header: {
-                    Text("一键无人值守账户与自动配置")
+                    Text("Unattended Account and Automatic Setup")
                 }
             } else {
                 Section {
-                    Toggle("Install Windows 10 or higher", isOn: $wizardState.isWindows10OrHigher)
+                    Toggle("Install Windows 10 or later", isOn: $wizardState.isWindows10OrHigher)
                         .onChange(of: wizardState.isWindows10OrHigher) { newValue in
                             if newValue {
                                 wizardState.systemBootUefi = true
@@ -85,7 +85,7 @@ struct VMWizardOSWindowsView: View {
                         }
                     Toggle("Install Guest Tools", isOn: $wizardState.isGuestToolsInstallRequested)
                 } header: {
-                    Text("自定义安装选项")
+                    Text("Custom Installation Options")
                 }
             }
         }

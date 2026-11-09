@@ -1,0 +1,70 @@
+# fil 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。
+# 来源：amalthea（VM64 官网）的 glossary/fil.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 没有菲律宾语的官网和支持页（support.apple.com/fil-ph 返回 404，菲律宾用 en-ph 英文版）。
+# rule 是 apple 的术语，按 Apple 英文写法，再按菲律宾语语法加 na、mga。待母语者确认。
+virtual-machine: virtual machine；复数 mga virtual machine；QEMU virtual machine、macOS virtual machine（不写 virtual machine ng QEMU）
+guest: guest；客户机系统 = guest operating system；客户机工具 = guest tools（不用 client、kliyente）
+emulate: mag-emulate；emulation（不用 tularan、gayahin、simulation）
+virtualize: virtualization
+native: native；接近原生的速度 = halos native na bilis（不用 katutubo）
+architecture: arkitektura
+backend: backend；QEMU backend、Apple backend
+apple-silicon: Apple silicon；Apple 芯片的 Mac = Mac na may Apple silicon  # https://support.apple.com/en-ph/116943
+intel-mac: Intel-based na Mac  # https://support.apple.com/en-ph/116943（「Intel-based Mac」）
+snapshot: snapshot；复数 mga snapshot
+disposable-mode: disposable mode
+shut-down: mag-shut down
+new-vm-wizard: wizard para sa bagong virtual machine
+installer-image: installer image（不用 imahe、larawan）
+license: lisensya
+secure-boot: Secure Boot  # support.microsoft.com/fil-ph 只有英文版，已列入 doubts
+or-later: o mas bago（不用 o mas mataas）
+experimental: pang-eksperimentong feature
+auto-resolution: awtomatikong pag-adjust ng resolution
+shared-clipboard: shared clipboard；共享剪贴板（动作）= pagbabahagi ng clipboard
+shared-folder: shared folder
+sharing: Pagbabahagi
+shared-network: Shared Network
+host-only: Host Only
+bridged: Bridged
+emulated-vlan: Emulated VLAN
+port-forwarding: port forwarding
+lan: local network
+shortcuts: Shortcuts  # https://support.apple.com/en-ph/guide/shortcuts-mac/welcome/mac
+command-line-tool: command-line tool
+clone: i-clone
+fingerprint: fingerprint
+hardware-reset: hardware reset
+mount: i-mount
+shared-library: shared library
+capture-mouse: i-capture ang mouse；捕获鼠标按钮 = Capture Mouse button
+keys: Control key、Option key  # https://support.apple.com/en-ph/102650
+toolbar: toolbar
+settings: mga setting
+classic-systems: mga klasikong system
+cpu: CPU
+rosetta: Rosetta  # https://support.apple.com/en-ph/102527
+
+# 界面术语：审校 UTM 时新定，terms.yml 还没有。是否补进 terms.yml 由主代理决定。
+drive: drive；复数 mga drive；以大小命名的驱动器 = %@ na Drive（不用 magmaneho）
+image: image；disk image、drive image、boot image、kernel image、ISO image（不用 imahe、larawan，和 installer-image 同规则）
+display: display；复数 mga display
+directory: direktoryo；共享目录 = shared directory（不用 nakabahaging direktoryo，和 shared-folder 同规则）
+configuration: configuration（不用 pagsasaayos）
+state: estado；挂起状态 = naka-suspend na estado
+status: status（不用 katayuan）
+device: device；复数 mga device
+path: path（不用 landas）
+enable: 按钮 = Paganahin；状态 = naka-enable、naka-disable；if enabled = Kung naka-enable
+start: 按钮 = Simulan；状态 = Nagsisimula、Nagsimula；向导首页标题 = Simula
+stop: 按钮 = Ihinto（不用 itigil）；状态 = Humihinto、Nakahinto
+pause: 按钮 = I-pause；状态 = Nagpo-pause、Naka-pause
+suspend: 按钮 = I-suspend；状态 = Naka-suspend（和 pause 区分，不用 nasuspinde）
+resume: 按钮 = Ipagpatuloy；状态 = Nagpapatuloy
+restore: 从快照恢复 = Ibalik；状态 = Ibinabalik（和 resume 区分）
+quit: 退出 UTM = Umalis；kapag umalis sa UTM（不用 huminto，huminto 是 stop）
+kill: 强制结束进程 = patayin；Force kill = Sapilitang patayin；停止方式 = Hilingin、Pilitin、Patayin
+memory: Memory（和 storage 区分）
+storage: storage
+capture-input: i-capture ang input；名词 = pag-capture ng input（不用 makuha、pagkuha）
+recovery: recovery；recovery mode、recovery IPSW、IPSW recovery image（不用 pagbawi）

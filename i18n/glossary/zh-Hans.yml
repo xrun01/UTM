@@ -1,0 +1,58 @@
+# zh-Hans 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。取自 terms.yml 的 zh 列。
+virtual-machine: 虚拟机
+guest: 客户机
+emulate: 模拟
+virtualize: 虚拟化
+native: 原生
+architecture: 架构
+backend: 后端
+apple-silicon: Apple 芯片
+intel-mac: Intel Mac
+snapshot: 快照
+disposable-mode: 一次性模式
+shut-down: 关机
+new-vm-wizard: 新建向导
+installer-image: 安装镜像
+license: 许可证
+secure-boot: 安全启动  # https://support.microsoft.com/zh-cn/windows/windows-11-和安全启动-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: 或更高版本
+experimental: 实验功能
+auto-resolution: 自动调整分辨率
+shared-clipboard: 共享剪贴板
+shared-folder: 共享文件夹
+sharing: 共享
+shared-network: 共享网络
+host-only: 仅主机
+bridged: 桥接
+emulated-vlan: 模拟 VLAN
+port-forwarding: 端口转发
+lan: 局域网
+shortcuts: 快捷指令
+command-line-tool: 命令行工具
+clone: 克隆
+fingerprint: 指纹
+hardware-reset: 硬件复位
+mount: 挂载
+shared-library: 共享库
+capture-mouse: 捕获鼠标
+keys: Control 键、Option 键
+toolbar: 工具栏
+settings: 设置
+rosetta: Rosetta
+cpu: CPU
+classic-systems: 经典系统
+# 以下是补译批次中出现 3 次以上、terms.yml 还没有的界面术语
+key: 按键；keystrokes = 击键；modifier key = 修饰键；Caps Lock = 大写锁定键  # https://support.apple.com/zh-cn/102650
+# 以下是复审批次中出现 3 次以上、terms.yml 还没有的界面术语
+drive: 驱动器；External Drive = 外部驱动器；Removable Drive = 可移除驱动器
+host: 主机；host operating system = 主机操作系统
+image: 映像；disk image = 磁盘映像；installer image 见 installer-image（安装镜像）
+recovery-mode: 恢复模式；recovery IPSW = IPSW 恢复映像
+full-screen: 全屏幕
+account: 账户
+screenshot: 截图（不是快照 snapshot）
+restore: 恢复（恢复快照）；Resume = 继续
+gallery: 虚拟机下载页（UTM 官网的在线虚拟机下载页，不是 Library「资源库」）；UTM Gallery = UTM 虚拟机下载页
+# 以下是 75 种语言审校批次中出现 3 次以上、terms.yml 还没有的界面术语
+scan-code: 扫描码（键盘扫描码；不是「扫码」「扫描代码」）
+click: 点击（鼠标点击；同组不混用「单击」）

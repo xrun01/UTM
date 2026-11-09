@@ -1,0 +1,54 @@
+# it 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。
+virtual-machine: macchina virtuale
+guest: guest；客户机系统 = sistema operativo guest；客户机工具 = strumenti guest
+emulate: emulare；emulazione
+virtualize: virtualizzare；virtualizzazione
+native: nativo；接近原生的速度 = velocità quasi nativa
+architecture: architettura
+backend: backend；backend QEMU、backend Apple
+apple-silicon: chip Apple；Apple 芯片的 Mac = Mac con chip Apple  # https://support.apple.com/it-it/116943（正文「dotati di chip Apple」，标题用「processore Apple」）
+intel-mac: Mac con processore Intel  # https://support.apple.com/it-it/116943
+snapshot: istantanea
+disposable-mode: modalità usa e getta
+shut-down: spegnere；spegnimento
+new-vm-wizard: procedura guidata per nuove macchine virtuali
+installer-image: immagine di installazione
+license: licenza；自备许可证 = licenza propria
+secure-boot: avvio protetto  # https://support.microsoft.com/it-it/windows/windows-11-e-avvio-protetto-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: o versioni successive  # https://support.apple.com/it-it/102552（「macOS Ventura o versioni successive」）
+experimental: funzionalità sperimentale
+auto-resolution: regolazione automatica della risoluzione
+shared-clipboard: Appunti condivisi；共享剪贴板（动作）= condividere gli Appunti  # Apple 意大利语把剪贴板写成大写的「Appunti」
+shared-folder: cartella condivisa
+sharing: Condivisione
+shared-network: Rete condivisa
+host-only: Solo host
+bridged: Bridge
+emulated-vlan: VLAN emulata
+port-forwarding: inoltro delle porte
+lan: rete locale
+shortcuts: Comandi Rapidi  # https://support.apple.com/it-it/guide/shortcuts-mac/welcome/mac
+command-line-tool: strumento da riga di comando
+clone: clonare
+fingerprint: impronta digitale
+hardware-reset: reset hardware
+mount: montare
+shared-library: libreria condivisa
+capture-mouse: catturare il mouse；捕获鼠标按钮 = pulsante Cattura mouse
+keys: tasto Control、tasto Opzione；键名 = Comando (⌘)、Opzione (⌥)、Control (⌃)、Maiuscole (⇧)、Blocco maiuscole (⇪)、Esc (⎋)；Keyboard shortcuts = Abbreviazioni da tastiera  # https://support.apple.com/it-it/102650
+toolbar: barra degli strumenti
+settings: impostazioni
+classic-systems: sistemi classici
+rosetta: Rosetta  # https://support.apple.com/it-it/102527
+cpu: CPU  # Monitoraggio Attività（it）：「Uso CPU」
+drive: disco；Drive Image = Immagine disco；External Drive = Disco esterno  # Utility Disco（it）：「Immagine disco」；目录已有 Drives = Dischi
+boot: avvio；Boot Device = Dispositivo di avvio
+recovery: Recovery（macOS Recovery 原样保留）；recovery mode = modalità Recovery；Run Recovery = Avvia in Recovery；recovery IPSW = file IPSW di ripristino  # https://support.apple.com/it-it/102518
+display: schermo；Displays = Schermi  # 系统设置（it）：「Schermi」
+ramdisk: ramdisk（阳性）；Initial Ramdisk = Ramdisk iniziale
+delete: eliminare（永久删除）；Delete = Elimina
+remove: rimuovere（只移除，不删除数据）；Remove = Rimuovi。必须和 delete 区分
+gallery: Galleria（UTM 官网的在线虚拟机下载页）；必须和 UTM Library（Libreria UTM）区分
+dock: Dock  # Apple 意大利语写大写的 Dock
+sleep: standby；Prevent … from sleeping = Impedisci lo standby  # https://support.apple.com/it-it/102650（「Abbreviazioni per standby, logout e spegnimento」）
+vm-state: 进行中状态写「… in corso」，例如 Avvio in corso、Messa in pausa in corso；完成状态写 Avviata、In pausa、Sospesa

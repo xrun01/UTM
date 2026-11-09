@@ -1,0 +1,66 @@
+# zh-HK 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。用香港 Apple（support.apple.com/zh-hk）的用词，不照搬台湾用词。
+virtual-machine: 虛擬機
+guest: 客體；客户机系统 = 客體作業系統；客户机工具 = 客體工具；guest account = 客體帳户（不写「客户端」，那是 client）  # https://learn.microsoft.com/zh-tw/virtualization/hyper-v-on-windows/about/（Microsoft 香港沿用台湾版「客體作業系統」）
+emulate: 模擬
+virtualize: 虛擬化
+native: 原生
+architecture: 架構
+backend: 後端
+apple-silicon: Apple 晶片；Apple 芯片的 Mac = 配備 Apple 晶片的 Mac  # https://support.apple.com/zh-hk/116943
+intel-mac: 配備 Intel 處理器的 Mac  # https://support.apple.com/zh-hk/116943
+snapshot: 快照
+disposable-mode: 一次性模式
+shut-down: 關機
+new-vm-wizard: 新增虛擬機輔助程式
+installer-image: 安裝映像檔
+license: 許可協議
+secure-boot: 安全開機  # https://support.microsoft.com/zh-hk/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+experimental: 試驗性功能
+auto-resolution: 動態解像度
+or-later: 或以上版本  # 未查到 Apple 香港中文规格页；按现有译文多数写法
+shared-clipboard: 剪貼板；复制 = 拷貝，粘贴 = 貼上  # https://support.apple.com/zh-hk/guide/mac-help/mchl70368996/mac
+shared-folder: 分享資料夾；folder = 資料夾；directory = 目錄  # https://support.apple.com/zh-hk/guide/mac-help/mh17131/mac（「檔案分享」「共享資料夾」，Apple 香港用「資料夾」不用「檔案夾」）
+sharing: 分享  # https://support.apple.com/zh-hk/guide/mac-help/mh17131/mac（「分享」設定、「檔案分享」）
+shared-network: 分享的網絡
+host-only: 僅主機
+bridged: 橋接
+emulated-vlan: 模擬 VLAN
+port-forwarding: 連接埠轉送
+lan: 區域網絡
+shortcuts: 「捷徑」
+command-line-tool: 命令列工具
+clone: 製作副本（UTM 的 Clone 和 Duplicate 是同一操作，同用「製作副本」；按钮 Copy = 複製）
+fingerprint: 指紋
+hardware-reset: 硬件重設
+mount: 裝載
+shared-library: 共用程式庫
+capture-mouse: 擷取輸入；捕获鼠标按钮 = 「擷取輸入」按鈕
+keys: Control 鍵、Option 鍵；keyboard shortcuts = 鍵盤快捷鍵  # https://support.apple.com/zh-hk/102650
+toolbar: 工具列
+settings: 設定
+classic-systems: 經典系統
+rosetta: Rosetta
+cpu: CPU；cores（个数）= 核心數，例如 CPU Cores = CPU 核心數；kernel = 核心（核心个数必须带「數」，与 kernel 区分）
+# 以下是复审批次中出现 3 次以上、terms.yml 还没有的界面术语
+mouse: 滑鼠
+key: 按鍵；keystrokes = 按鍵輸入；modifier key = 修飾鍵
+power: 電源
+drive: 磁碟
+image: 映像檔
+display: 顯示器；Displays（工具列）= 顯示器
+configuration: 設定
+boot: 啟動；Boot ISO Image = 可啟動的 ISO 映像檔  # https://support.apple.com/zh-hk/102518（「啟動磁碟」「從『macOS 還原』啟動」）
+recovery: 還原；recovery mode = 還原模式；restore = 還原  # https://support.apple.com/zh-hk/102518（「macOS 還原」「從時光機備份還原」）
+serial: 序列埠
+optional: 可留空；required = 必填
+mac-address: MAC 位址
+mouse-button: 左鍵、中鍵、右鍵
+suspend: 擱置；suspended = 已擱置；suspended state = 擱置狀態；pause = 暫停（suspend 先保存状态再挂起，必须和 pause 区分）  # https://download.parallels.com/desktop/v18/docs/zh_TW.lproj/32827.htm（Parallels Desktop 繁体中文版「擱置」）
+kill: 強制結束（Quit = 結束，kill 必须带「強制」）
+import: 匯入（Apple 香港写「輸入」，但本 App 设置里 Input = 輸入（输入设备），回译分不开，所以改用「匯入」，与 zh-Hant 一致）
+create: 製作
+run: 執行（running = 正在執行；不用「運行」）
+send: 傳送（快捷指令的 Send Keystrokes、Send Scan Code、Send Mouse Click 同用「傳送」；不用「發送」）
+scan-code: 掃描碼（不写「掃碼」，那是扫二维码）
+resume: 繼續；Resume Virtual Machine = 繼續執行虛擬機（不用「恢復」「復原」，与 restore = 還原 区分）
+built-in: 內置（按已审校译文 Built-in Terminal = 內置終端機；不用台湾的「內建」）

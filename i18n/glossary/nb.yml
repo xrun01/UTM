@@ -1,0 +1,61 @@
+# nb（bokmål）定下的译法。规则见 i18n/glossary/terms.yml。
+# 来源：amalthea（VM64 官网）的 glossary/no.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+virtual-machine: virtuell maskin；复数 virtuelle maskiner
+guest: gjest；客户机系统 = gjestesystem，客户机工具 = gjesteverktøy
+emulate: emulere；emulering
+virtualize: virtualisere；virtualisering
+native: native；接近原生的速度 = nesten native hastighet
+architecture: arkitektur
+backend: backend；复数 backender；QEMU-backend、Apple-backend
+apple-silicon: Apple-chip；Apple 芯片的 Mac = Mac med Apple-chip，复数 Macer med Apple-chip  # https://support.apple.com/no-no/116943
+intel-mac: Mac med Intel-prosessor；复数 Macer med Intel-prosessor  # https://support.apple.com/no-no/116943
+snapshot: øyeblikksbilde；复数 øyeblikksbilder
+disposable-mode: engangsmodus
+shut-down: slå av
+new-vm-wizard: veiviseren for nye virtuelle maskiner
+installer-image: installasjonsbilde
+license: lisens
+secure-boot: sikker oppstart  # https://support.microsoft.com/nb-no/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: eller nyere  # https://support.apple.com/no-no/102552（「macOS Ventura eller nyere」）
+experimental: eksperimentell funksjon
+auto-resolution: automatisk justering av oppløsningen
+shared-clipboard: delt utklippstavle；共享剪贴板（动作）= dele utklippstavlen；粘贴 = lime inn  # https://support.apple.com/no-no/guide/mac-help/mchlp1012/mac（「Kopier og lim inn mellom enheter」）
+shared-folder: delt mappe；共享文件夹（动作）= dele mapper
+sharing: Deling
+shared-network: Delt nettverk
+host-only: Kun vert
+bridged: Brokoblet
+emulated-vlan: Emulert VLAN
+port-forwarding: portvideresending
+lan: lokalt nettverk
+shortcuts: Snarveier  # https://support.apple.com/no-no/guide/shortcuts-mac/welcome/mac
+command-line-tool: kommandolinjeverktøy
+clone: klone
+fingerprint: fingeravtrykk
+hardware-reset: tilbakestilling av maskinvare
+mount: montere
+shared-library: delt bibliotek；复数 delte biblioteker
+capture-mouse: fange musen；捕获鼠标按钮 = knappen Fang mus
+keys: Kontroll-tasten、Tilvalg-tasten；同时写 2 个键 = Kontroll- og Tilvalg-tasten  # https://support.apple.com/no-no/102650
+toolbar: verktøylinje
+settings: innstillinger
+classic-systems: klassiske systemer
+# Mac 的定指形式按 Apple 写 Macen，不写 Mac-en。
+cpu: CPU；CPU 核心 = CPU-kjerner（未查到 Apple nb 官方页面核对）
+rosetta: Rosetta
+# 以下是待审条目中出现 3 次以上、terms.yml 没有的界面术语（2026-11 审校时定）
+vm: VM；定指 VM-en，复数 VM-er，复数定指 VM-ene；英文写 VM 时保留，写 virtual machine 时译 virtuell maskin
+drive: stasjon；可移动驱动器 = flyttbar stasjon，外部驱动器 = ekstern stasjon
+disk-image: diskbilde；驱动器映像 drive image = stasjonsbilde；ISO 映像 = ISO-bilde
+display: skjerm；复数 skjermer
+screenshot: skjermbilde  # https://support.apple.com/no-no/102650（「Ta et skjermbilde」）
+shared-directory: delt katalog；directory = katalog，folder = mappe，按英文区分
+boot: oppstart；动词 starte opp；启动映像 = oppstartsbilde
+recovery: gjenoppretting；恢复模式 = gjenopprettingsmodus
+input: inndata；output = utdata；捕获输入 = fange inndata
+power-down: avslåing；请求关机 = be om avslåing
+suspend: sette i dvale；状态 Satt i dvale；挂起状态 = dvaletilstand。必须和 Pause（sette på pause）区分  # Mac 睡眠按 Apple nb 也写 dvale
+resume-restore: Resume = fortsette（状态 Fortsetter）；Restore = gjenopprette（状态 Gjenoppretter）
+kill: avslutte umiddelbart；快捷指令停止方式 Request = Anmod，Force = Tving，Kill = Avslutt umiddelbart
+dock: Dock（大写）；Dock-ikon
+# 标点：英文 “…” 写 «…»；英文 '…' 保留单引号。省略号 … 紧跟前一个词，不加空格。

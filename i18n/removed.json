@@ -1,0 +1,1120 @@
+[
+  {
+    "table": "Localizable",
+    "key": "An USB device containing the installer will be mounted in the virtual machine. Only macOS Sequoia (15.0) and newer guests are supported.",
+    "source": "An USB device containing the installer will be mounted in the virtual machine. Only macOS Sequoia (15.0) and newer guests are supported.",
+    "translations": {
+      "ar": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "سيتم تثبيت جهاز USB يحتوي على برنامج التثبيت في الجهاز الظاهري. يتم دعم نظام التشغيل macOS Sequoia (15.0) والضيوف الجدد فقط."
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "Ein USB-Gerät mit dem Installationsprogramm wird in der virtuellen Maschine bereitgestellt. Es werden nur macOS Sequoia (15.0) und neuere Gäste unterstützt."
+        }
+      },
+      "es-419": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "Se montará un dispositivo USB que contiene el instalador en la máquina virtual. Solo se admiten macOS Sequoia (15.0) e invitados más recientes."
+        }
+      },
+      "fi": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "Asennusohjelman sisältävä USB-laite asennetaan virtuaalikoneeseen. Vain macOS Sequoia (15.0) ja uudemmat vierailijat ovat tuettuja."
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "Un périphérique USB contenant le programme d'installation sera monté dans la machine virtuelle. Seuls macOS Sequoia (15.0) et les invités plus récents sont pris en charge."
+        }
+      },
+      "it": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "Un dispositivo USB contenente il programma di installazione verrà montato nella macchina virtuale. Sono supportati solo macOS Sequoia (15.0) e guest più recenti."
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "インストーラを含むUSBデバイスが仮想マシンにマウントされます。macOS Sequoia（15.0）以降のゲストにのみ対応しています。"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "설치 프로그램이 포함된 USB 장치가 가상 머신에 마운트됩니다. macOS Sequoia (15.0) 이상의 게스트만 지원됩니다."
+        }
+      },
+      "pl": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "Urządzenie USB zawierające instalator zostanie zamontowane na maszynie wirtualnej. Obsługiwane są tylko macOS Sequoia (15.0) i nowsze wersje gości."
+        }
+      },
+      "ru": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "USB-устройство, содержащее программу установки, будет подключено к виртуальной машине. Поддерживаются только macOS Sequoia (15.0) и более новые версии."
+        }
+      },
+      "zh-HK": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "包含安裝程式的 USB 裝置將裝載至虛擬機。只支援 macOS Sequoia (15.0) 或以上版本的客體。"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "包含安装程序的 USB 设备将挂载到虚拟机中。仅支持 macOS Sequoia (15.0) 及更新版本的客户机。"
+        }
+      },
+      "zh-Hant": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "包含安裝程式的 USB 裝置將安裝在虛擬機器中。僅支援 macOS Sequoia (15.0) 和更高版本的客戶機。"
+        }
+      }
+    },
+    "removedOn": "2026-11-05"
+  },
+  {
+    "table": "Localizable",
+    "key": "Boot arguments",
+    "source": "Boot arguments",
+    "translations": {
+      "ar": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "وسيطات التمهيد"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Boot-Argumente"
+        }
+      },
+      "es-419": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Argumentos de arranque"
+        }
+      },
+      "fi": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Käynnistysargumentit"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Arguments de démarrage"
+        }
+      },
+      "it": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Argomenti di avvio"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "起動引数"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "부팅 파라미터"
+        }
+      },
+      "pl": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Parametry uruchamiania"
+        }
+      },
+      "ru": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Аргументы загрузки"
+        }
+      },
+      "zh-HK": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "啟動引數"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "启动参数"
+        }
+      },
+      "zh-Hant": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "開機引數"
+        }
+      }
+    },
+    "removedOn": "2026-11-05"
+  },
+  {
+    "table": "Localizable",
+    "key": "Calculating current size...",
+    "source": "Calculating current size...",
+    "translations": {
+      "ar": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "يتم حساب الحجم الحالي..."
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "Aktuelle Größe berechnen..."
+        }
+      },
+      "es-419": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "Calculando el tamaño actual..."
+        }
+      },
+      "fi": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "Lasketaan nykyistä kokoa..."
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Calcul de la taille actuelle…"
+        }
+      },
+      "it": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "Calcolo della dimensione attuale..."
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "現在のサイズを計算中…"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "현재 크기 계산 중…"
+        }
+      },
+      "pl": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Obliczam obecny rozmiar..."
+        }
+      },
+      "ru": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "Вычисление текущего размера..."
+        }
+      },
+      "zh-HK": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "計算現時大小…"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "正在计算当前大小…"
+        }
+      },
+      "zh-Hant": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "正在計算目前大小…"
+        }
+      }
+    },
+    "removedOn": "2026-11-05"
+  },
+  {
+    "table": "Localizable",
+    "key": "Cannot find AltServer for JIT enable. You cannot run VMs until JIT is enabled.",
+    "source": "Cannot find AltServer for JIT enable. You cannot run VMs until JIT is enabled.",
+    "translations": {
+      "ar": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "لا يمكن العثور على AltServer لتمكين JIT. لا يمكنك تشغيل الآلات الافتراضية حتى يتم تمكين JIT."
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Der AltServer für JIT wurde nicht gefunden. Die VMs können nicht starten, bis JIT aktiviert wurde."
+        }
+      },
+      "es-419": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "No se encuentra AltServer para habilitar JIT. No puedes ejecutar VMs hasta que JIT esté habilitado."
+        }
+      },
+      "fi": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "JIT:n käyttöönottoon tarvittavaa AltServeria ei löydy. Et voi suorittaa virtuaalikoneita, ennen kuin JIT on käytössä."
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Impossible de trouver AltServer pour activation JIT. Vous ne pouvez pas démarrer de VM tant que JIT n’est pas activé."
+        }
+      },
+      "it": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Impossibile trovare AltServer per l'abilitazione di JIT. Non è possibile eseguire macchine virtuali senza che JIT sia abilitato."
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "JITを有効にするためのAltServerを見つけられません。JITが有効になるまで仮想マシンを実行できません。"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "JIT 활성화를 위한 AltServer를 찾을 수 없습니다. JIT가 활성화되기 전까지는 가상 머신을 실행할 수 없습니다."
+        }
+      },
+      "pl": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Nie udało się znaleźć AltServer do włączenia JIT. Uruchamianie maszyn wirtualnych nie będzie możliwe, dopóki JIT nie zostanie włączony."
+        }
+      },
+      "ru": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Не удается найти AltServer для включения JIT. Запуск виртуальных машин невозможен до тех пор, пока не будет включена функция JIT."
+        }
+      },
+      "zh-HK": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "找不到用於啟用 JIT 的 AltServer。在啟用 JIT 之前，你無法執行虛擬機。"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "找不到用于启用 JIT 的 AltServer。在启用 JIT 之前，你将无法运行虚拟机。"
+        }
+      },
+      "zh-Hant": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "找不到用來啟用 JIT 的 AltServer。啟用 JIT 後您才可以啟動虛擬機器。"
+        }
+      }
+    },
+    "removedOn": "2026-11-05"
+  },
+  {
+    "table": "Localizable",
+    "key": "Delete this shortcut. The underlying data will not be deleted.",
+    "source": "Delete this shortcut. The underlying data will not be deleted.",
+    "translations": {
+      "ar": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "حذف هذا الاختصار. البيانات الأساسية لن تحذف."
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "Löschen Sie diese Verknüpfung. Die zugrunde liegenden Daten werden nicht gelöscht."
+        }
+      },
+      "es-419": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Eliminar este acceso directo. Los datos subyacentes no se eliminarán."
+        }
+      },
+      "fi": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "Poista tämä pikakuvake. Taustalla olevia tietoja ei poisteta."
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Supprime ce raccourci. Les données associées ne seront pas supprimées."
+        }
+      },
+      "it": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Elimina questa scorciatoia. I dati originali non saranno eliminati."
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "このショートカットを削除します。リンク先のデータは削除されません。"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "이 바로 가기를 제거합니다. 데이터는 삭제되지 않습니다."
+        }
+      },
+      "pl": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Usuń ten skrót. Dane, do których się odwołuje, nie zostaną usunięte."
+        }
+      },
+      "ru": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Удалить этот ярлык. При этом основные данные не будут удалены."
+        }
+      },
+      "zh-HK": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "刪除此捷徑。它指向的資料不會被刪除。"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "删除此快捷方式。快捷方式背后指向的数据不会被删除。"
+        }
+      },
+      "zh-Hant": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "刪除這個捷徑。不會刪除它指向的資料。"
+        }
+      }
+    },
+    "removedOn": "2026-11-05"
+  },
+  {
+    "table": "Localizable",
+    "key": "Disposible",
+    "source": "Disposible",
+    "translations": {
+      "ar": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "وضع الاستخدام لمرة واحدة"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Wegwerfmodus"
+        }
+      },
+      "es-419": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Desechable"
+        }
+      },
+      "fi": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Kertakäyttötila"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Mode jetable"
+        }
+      },
+      "it": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Usa e getta"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "使い捨て"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "일회용 모드"
+        }
+      },
+      "pl": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Tryb jednorazowy"
+        }
+      },
+      "ru": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Одноразовый режим"
+        }
+      },
+      "zh-HK": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "一次性模式"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "一次性模式"
+        }
+      },
+      "zh-Hant": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "一次性模式"
+        }
+      }
+    },
+    "removedOn": "2026-11-05"
+  },
+  {
+    "table": "Localizable",
+    "key": "If checked, the drive image will be stored with the VM.",
+    "source": "If checked, the drive image will be stored with the VM.",
+    "translations": {
+      "ar": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "إذا تم تحديده، ستُخزن صورة القرص مع الآلة الافتراضية."
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "Wenn diese Option aktiviert ist, wird das Laufwerksimage mit der VM gespeichert."
+        }
+      },
+      "es-419": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "Si está marcada, la imagen de la unidad se almacenará con la VM."
+        }
+      },
+      "fi": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "Jos tämä on valittuna, aseman kuva tallennetaan virtuaalikoneeseen."
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Si coché, l’image de lecteur sera stockée avec la VM."
+        }
+      },
+      "it": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Se attivo, l'immagine disco sarà salvata insieme alla VM."
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "チェックを入れると、ドライブイメージが仮想マシンに保存されます。"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "활성화하면 드라이브 이미지가 가상 머신과 함께 저장됩니다."
+        }
+      },
+      "pl": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Jeśli zaznaczone, obraz dysku będzie przechowywany wraz z maszyną wirtualną."
+        }
+      },
+      "ru": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "Если этот флажок установлен, образ диска будет храниться вместе с виртуальной машиной."
+        }
+      },
+      "zh-HK": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "如選擇，磁碟映像檔將會與虛擬機一起儲存。"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "若选中，驱动器映像将和虚拟机一起存储。"
+        }
+      },
+      "zh-Hant": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "核取後，磁碟機映像檔會和虛擬機器存放在一起。"
+        }
+      }
+    },
+    "removedOn": "2026-11-05"
+  },
+  {
+    "table": "Localizable",
+    "key": "Install Windows 10 or higher",
+    "source": "Install Windows 10 or higher",
+    "translations": {
+      "ar": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "تثبيت Windows 10 أو إصدار أحدث"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "Installieren Sie Windows 10 oder höher"
+        }
+      },
+      "es-419": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Instalar Windows 10 o posterior"
+        }
+      },
+      "fi": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "Asenna Windows 10 tai uudempi"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Installer Windows 10 ou version ultérieure"
+        }
+      },
+      "it": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Installa Windows 10 o versioni successive"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Windows 10以降をインストール"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Windows 10 이상 설치"
+        }
+      },
+      "pl": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Zainstaluj system Windows 10 lub nowszy"
+        }
+      },
+      "ru": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Установить Windows 10 или более поздней версии"
+        }
+      },
+      "zh-HK": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "安裝 Windows 10 或以上版本"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "安装 Windows 10 或更高版本"
+        }
+      },
+      "zh-Hant": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "安裝 Windows 10 或以上版本"
+        }
+      }
+    },
+    "removedOn": "2026-11-05"
+  },
+  {
+    "table": "Localizable",
+    "key": "Killing",
+    "source": "Killing",
+    "translations": {
+      "ar": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "فرض الإنهاء"
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Sofort beenden"
+        }
+      },
+      "es-419": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Terminar proceso"
+        }
+      },
+      "fi": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Prosessin lopetus"
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Fin forcée du processus"
+        }
+      },
+      "it": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Terminazione"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "強制終了"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "강제 종료"
+        }
+      },
+      "pl": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Zakończenie procesu"
+        }
+      },
+      "ru": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Завершение процесса"
+        }
+      },
+      "zh-HK": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "強制結束"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "强制终止"
+        }
+      },
+      "zh-Hant": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "強制中止"
+        }
+      }
+    },
+    "removedOn": "2026-11-05"
+  },
+  {
+    "table": "Localizable",
+    "key": "Querying USB devices...",
+    "source": "Querying USB devices...",
+    "translations": {
+      "ar": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "يتم الاستعلام عن أجهزة USB..."
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "USB-Geräte werden abgerufen…"
+        }
+      },
+      "es-419": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Consultando dispositivos USB…"
+        }
+      },
+      "fi": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "Kysellään USB-laitteita..."
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Recherche des périphériques USB…"
+        }
+      },
+      "it": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Verifica dello stato dei dispositivi USB…"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "USBデバイスを確認中…"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "USB 장치 조회 중…"
+        }
+      },
+      "pl": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Zbieranie informacji o statusie urządzeń USB..."
+        }
+      },
+      "ru": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Опрос USB-устройств…"
+        }
+      },
+      "zh-HK": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "正在查詢 USB 裝置…"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "正在查询 USB 设备…"
+        }
+      },
+      "zh-Hant": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "正在查詢 USB 裝置…"
+        }
+      }
+    },
+    "removedOn": "2026-11-05"
+  },
+  {
+    "table": "Localizable",
+    "key": "Querying drives status...",
+    "source": "Querying drives status...",
+    "translations": {
+      "ar": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "يتم الاستعلام عن حالة الأقراص..."
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Status der Laufwerke wird abgerufen…"
+        }
+      },
+      "es-419": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Consultando el estado de las unidades…"
+        }
+      },
+      "fi": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "Asemien tilaa kysytään..."
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Recherche du statut des lecteurs…"
+        }
+      },
+      "it": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Verifica dello stato dei dischi…"
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "ドライブの状態を確認中…"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "드라이브 상태 조회 중…"
+        }
+      },
+      "pl": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Zbieranie informacji o statusie dysków..."
+        }
+      },
+      "ru": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Опрос состояния дисков…"
+        }
+      },
+      "zh-HK": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "正在查詢磁碟狀態…"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "正在查询驱动器状态…"
+        }
+      },
+      "zh-Hant": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "正在查詢磁碟機狀態…"
+        }
+      }
+    },
+    "removedOn": "2026-11-05"
+  },
+  {
+    "table": "Localizable",
+    "key": "Requires restarting UTM to take affect.",
+    "source": "Requires restarting UTM to take affect.",
+    "translations": {
+      "ar": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "يتطلب إعادة تشغيل UTM ليصبح ساري المفعول."
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "Um wirksam zu werden, ist ein Neustart von UTM erforderlich."
+        }
+      },
+      "es-419": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "Requiere reiniciar UTM para que surta efecto."
+        }
+      },
+      "fi": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "Vaatii UTM:n uudelleenkäynnistyksen, jotta se tulee voimaan."
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Vous devez redémarrer UTM pour que cela prenne effet."
+        }
+      },
+      "it": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Richiede il riavvio di UTM."
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "変更を適用するには、UTMを再起動する必要があります。"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "적용하려면 UTM을 다시 시작해야 합니다."
+        }
+      },
+      "pl": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "Wymaga ponownego uruchomienia UTM, aby zastosować zmiany."
+        }
+      },
+      "ru": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "Требуется перезапуск UTM, чтобы изменения вступили в силу."
+        }
+      },
+      "zh-HK": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "需要重新啟動 UTM 以生效。"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "需要重新打开 UTM 以生效。"
+        }
+      },
+      "zh-Hant": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "需要重新啟動 UTM 使之生效。"
+        }
+      }
+    },
+    "removedOn": "2026-11-05"
+  },
+  {
+    "table": "Localizable",
+    "key": "Setting up the guest automatically requires a macOS virtual machine and macOS 27 or later on Apple Silicon.",
+    "source": "Setting up the guest automatically requires a macOS virtual machine and macOS 27 or later on Apple Silicon.",
+    "translations": {
+      "ar": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "يتطلب إعداد الضيف تلقائيًا جهازًا افتراضيًا يعمل بنظام macOS ونظام التشغيل macOS 27 أو إصدار أحدث على Apple Silicon."
+        }
+      },
+      "de": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "Für die automatische Einrichtung des Gastes sind eine virtuelle macOS-Maschine und macOS 27 oder höher auf Apple Silicon erforderlich."
+        }
+      },
+      "es-419": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "La configuración automática del invitado requiere una máquina virtual macOS y macOS 27 o posterior en Apple Silicon."
+        }
+      },
+      "fi": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "Vieraan automaattinen käyttöönotto edellyttää macOS-virtuaalikonetta ja macOS 27:ää tai uudempaa Apple Siliconissa."
+        }
+      },
+      "fr": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "La configuration automatique de l'invité nécessite une machine virtuelle macOS et macOS 27 ou version ultérieure sur Apple Silicon."
+        }
+      },
+      "it": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "La configurazione dell'ospite richiede automaticamente una macchina virtuale macOS e macOS 27 o versione successiva su Apple Silicon."
+        }
+      },
+      "ja": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "ゲストを自動的にセットアップするには、Apple Silicon 上の macOS 仮想マシンと macOS 27 以降が必要です。"
+        }
+      },
+      "ko": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "게스트를 자동으로 설정하려면 macOS 가상 머신과 Apple Silicon의 macOS 27 이상이 필요합니다."
+        }
+      },
+      "pl": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "Automatyczna konfiguracja gościa wymaga maszyny wirtualnej z systemem macOS oraz systemu macOS 27 lub nowszego na platformie Apple Silicon."
+        }
+      },
+      "ru": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "Для автоматической настройки гостя требуется виртуальная машина macOS и macOS 27 или более поздней версии на Apple Silicon."
+        }
+      },
+      "zh-HK": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "自動設定客體需要 macOS 虛擬機，以及 Apple 晶片上的 macOS 27 或以上版本。"
+        }
+      },
+      "zh-Hans": {
+        "stringUnit": {
+          "state": "translated",
+          "value": "自动设置客户机需要 macOS 虚拟机及 Apple 芯片上的 macOS 27 或更高版本。"
+        }
+      },
+      "zh-Hant": {
+        "stringUnit": {
+          "state": "needs_review",
+          "value": "自動設定訪客需要 macOS 虛擬機器以及 Apple Silicon 上的 macOS 27 或更高版本。"
+        }
+      }
+    },
+    "removedOn": "2026-11-05"
+  }
+]

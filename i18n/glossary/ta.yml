@@ -1,0 +1,95 @@
+# ta 定下的译法。规则见 i18n/glossary/terms.yml。
+# 来源：amalthea（VM64 官网）的 glossary/ta.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 只有泰米尔语的 iPhone 使用手册，Mac 使用手册的 ta-in 页面是英文。rule 是 apple 的术语，能在 iPhone 使用手册里核对的写出 URL，其余写「未查到」。
+# 拉丁字母名称后的格词尾直接连写，不加空格，不加连字符：Macஇல்、iPhoneஐ、Rosettaஐயும்、Windowsக்கு。独立后置词（உடன்、மூலம்、இருந்து）分开写。以句点结尾的缩写（Apple Inc.）后面空 1 格再写词尾  # https://support.apple.com/ta-in/guide/iphone/iph9374b7411/27/ios/27（「Macஇல்」「iPhoneஐ」「Siriஐ」「Musicக்கு」「CarPlay உடன்」）
+# 「系统」统一写 சிஸ்டம்。不用 அமைப்பு（和「设置」அமைப்புகள் 同词根），不用 கணினி（电脑）  # Apple 泰米尔语 iPhone 使用手册用 சிஸ்டம்
+virtual-machine: மெய்நிகர் இயந்திரம்（不用 மெய்நிகர் கணினி）
+guest: விருந்தினர்；客户机系统 = விருந்தினர் சிஸ்டம்，客户机工具 = விருந்தினர் கருவிகள்（不用 கிளையன்ட்、வாடிக்கையாளர்）
+emulate: எமுலேட் செய்தல்；எமுலேஷன்（不用 பின்பற்று、உருவகப்படுத்து）
+virtualize: மெய்நிகராக்குதல்；மெய்நிகராக்கம்
+native: நேட்டிவ்；接近原生的速度 = கிட்டத்தட்ட நேட்டிவ் வேகம்（不用 சொந்த வேகம்）
+architecture: கட்டமைப்பு（不用 கட்டிடக்கலை）
+backend: பின்தளம்；QEMU பின்தளம்，Apple பின்தளம்
+apple-silicon: Apple சிப்；Apple 芯片的 Mac = Apple சிப் கொண்ட Mac（不用 Apple சிலிக்கான்）  # 未查到 Apple 泰米尔语 Mac 写法，待母语者确认
+intel-mac: Intel அடிப்படையிலான Mac（不写 Intel Macs）  # 未查到 Apple 泰米尔语写法，参照 Apple 英文 Intel-based Mac
+cpu: CPU（不音译）
+rosetta: Rosetta；格词尾直接连写，例如 Rosettaஐ、Rosettaஐயும்
+snapshot: ஸ்னாப்ஷாட்
+disposable-mode: டிஸ்போசபிள் பயன்முறை（不用 ஒரு-ஷாட் முறை、த்ரோவே）；「பயன்முறை」= 模式  # https://support.apple.com/ta-in/guide/iphone/iph9374b7411/27/ios/27（「ஆஃப்லைன் பயன்முறை」）
+shut-down: ஷட் டவுன் செய்தல்
+new-vm-wizard: மெய்நிகர் இயந்திரத்தை உருவாக்கும் வழிகாட்டி
+installer-image: நிறுவல் இமேஜ்（不用 படம்，படம் 是图片）
+license: உரிமம்；自备许可证 = உங்கள் சொந்த உரிமம் தேவை
+secure-boot: Secure Boot  # Microsoft 泰米尔语支持页未本地化（support.microsoft.com/ta-in 跳到 en-us），UEFI 和 Windows 设置显示英文，待母语者确认
+or-later: அல்லது அதற்குப் பிந்தைய பதிப்பு  # https://support.apple.com/ta-in/guide/iphone/iph505911a40/27/ios/27（「macOS 15 அல்லது அதற்குப் பிந்தைய பதிப்பிலும்」）
+experimental: சோதனை அம்சம்
+auto-resolution: தானியங்கு தெளிவுத்திறன் சரிசெய்தல்
+shared-clipboard: பகிர்ந்த கிளிப்போர்டு；共享剪贴板（动作）= கிளிப்போர்டைப் பகிர்தல்  # https://support.apple.com/ta-in/guide/iphone/iph220ea8dca/27/ios/27（「கிளிப்போர்டு」）
+shared-folder: பகிர்ந்த கோப்புறை；共享文件夹（动作）= கோப்புறைகளைப் பகிர்தல்
+sharing: பகிர்தல்
+shared-network: பகிர்ந்த நெட்வொர்க்
+host-only: ஹோஸ்ட் மட்டும்
+bridged: பிரிட்ஜ்டு
+emulated-vlan: எமுலேட்டட் VLAN
+port-forwarding: போர்ட் ஃபார்வர்டிங்
+lan: உள்ளூர் நெட்வொர்க்（不用 LAN）  # Apple 泰米尔语 iPhone 使用手册用「உள்ளூர் நெட்வொர்க்」
+shortcuts: சுருக்கவழிகள்；正文写 சுருக்கவழிகள் செயலி，和键盘快捷键区分  # https://support.apple.com/ta-in/guide/iphone/iph47e1c9d7d/27/ios/27
+command-line-tool: கட்டளை வரி கருவி
+clone: குளோன் செய்தல்
+fingerprint: ஃபிங்கர்பிரின்ட்（不用 கைரேகை，கைரேகை 是手指的指纹）
+hardware-reset: வன்பொருள் மீட்டமைப்பு
+mount: மவுண்ட் செய்தல்
+shared-library: பகிரப்பட்ட நூலகம்
+capture-mouse: மவுஸைக் கேப்சர் செய்தல்；捕获鼠标按钮 = மவுஸ் கேப்சர் பட்டன்
+keys: கண்ட்ரோல் கீ、ஆப்ஷன் கீ  # Apple 泰米尔语把按键名音译，例如「கமாண்ட்-C」https://support.apple.com/ta-in/guide/iphone/iph220ea8dca/27/ios/27；Control、Option 本身未查到，待母语者确认
+toolbar: கருவிப்பட்டி  # 未查到 Apple 泰米尔语写法，沿用原译（Windows 泰米尔语界面的通行说法）
+settings: அமைப்புகள்  # https://support.apple.com/ta-in/guide/iphone/iph079e1fe9d/27/ios/27
+classic-systems: கிளாசிக் சிஸ்டம்
+
+# 审校待审条目时新定的界面术语（出现 3 次以上，terms.yml 没有）
+# macOS 没有泰米尔语界面，系统里的名称（Finder、Dock、Virtual Machine Accessories）按用户看到的英文原样保留
+drive: இயக்ககம்（不用 இயக்கி，இயக்கி 是驱动程序 driver；不用 ஓட்டு）
+driver: இயக்கி
+image: இமேஜ்；disk image = வட்டு இமேஜ்，drive image = இயக்கக இமேஜ்，boot image = துவக்க இமேஜ்（不用 படம்、படிமம்）
+boot: துவக்கம்（名词）、துவக்கு（动词）；recovery mode = மீட்பு பயன்முறை。启动 App（launch）写 தொடங்கு，不用 துவக்கம்
+configuration: உள்ளமைவு（不用 கட்டமைப்பு，கட்டமைப்பு 是 architecture）
+operating-system: இயக்க முறைமை（不用 இயங்குதளம்）；guest operating system 按 guest 写 விருந்தினர் சிஸ்டம்
+platform: தளம்
+host: ஹோஸ்ட்
+device: சாதனம்
+display: டிஸ்ப்ளே；Displays = டிஸ்ப்ளேக்கள்
+directory: கோப்பகம்；shared directory = பகிர்ந்த கோப்பகம்（不用 அடைவு、பகிரப்பட்ட கோப்பகம்）
+memory: நினைவகம்；RAM 原样写 RAM（不用 ரேம்）
+storage: சேமிப்பகம்（和 memory 区分）
+vm: VM（拉丁字母，格词尾直接连写：VMஐ、VMகள்、VMஇன்）
+install: நிறுவு；installation = நிறுவல்；installer = நிறுவி
+import: இறக்குமதி செய்
+delete: நீக்கு（永久删除）
+remove: அகற்று（移除快捷方式、共享目录），和 delete 区分
+eject: வெளியேற்று
+read-only: படிக்க மட்டும்
+start: தொடங்கு；状态 Starting = தொடங்கப்படுகிறது，Started = தொடங்கப்பட்டது；向导标题 Start = தொடக்கம்
+stop: நிறுத்து；Stopping = நிறுத்தப்படுகிறது，Stopped = நிறுத்தப்பட்டது
+pause: இடைநிறுத்து；Pausing = இடைநிறுத்தப்படுகிறது，Paused = இடைநிறுத்தப்பட்டது
+suspend: சஸ்பெண்ட் செய்；Suspended = சஸ்பெண்ட் செய்யப்பட்டது；suspended state = சஸ்பெண்ட் நிலை（不用 இடைநிறுத்தப்பட்ட நிலை，和 pause 区分）
+resume: மீண்டும் தொடர்；Resuming = மீண்டும் தொடரப்படுகிறது（不用 மீண்டும் தொடங்கு，那是重新开始）
+restart: மறுதொடக்கம் செய்
+restore: மீட்டெடு；Restoring = மீட்டெடுக்கப்படுகிறது（从快照恢复）
+reset: மீட்டமை
+kill: முடிவுறுத்து；force kill = கட்டாயமாக முடிவுறுத்து（不用 அழி、கொல்）
+save-state: நிலையைச் சேமி（不用 மாநிலம்，மாநிலம் 是行政区「邦」）
+power-down: பவர் டவுன்；power button = பவர் பட்டன்
+button: பட்டன்（不用 பொத்தான்）
+key: கீ；modifier key = மாடிஃபையர் கீ；keystroke = கீ அழுத்தம்（不用 விசை；keyboard 仍写 விசைப்பலகை）
+capture-input: உள்ளீட்டைக் கேப்சர் செய்；input capture = உள்ளீட்டுக் கேப்சர்（不用 பிடி，和 capture-mouse 一致）
+serial: சீரியல் போர்ட்（不用 தொடர்，தொடர் 是「继续、系列」）
+interface: இடைமுகம்；network interface = நெட்வொர்க் இடைமுகம்（不用 பிணையம்）
+network: நெட்வொர்க்
+share: பகிர்；virtiofs share（名词）= பகிர்வு
+shortcut: குறுக்குவழி（指向虚拟机的快捷方式，和 shortcuts 快捷指令 சுருக்கவழிகள் 区分）
+removable: கழற்றக்கூடிய（不用 நீக்கக்கூடிய，நீக்கு 是 delete）；external drive = வெளிப்புற இயக்ககம்
+generic: பொதுவான（和 default இயல்புநிலை 区分）
+optional: (விரும்பினால்)；required = (தேவை)
+automatic: தானியங்கு（和 auto-resolution 一致，不用 தானியங்கி）
+built-in: உள்ளமைந்த（不用 உள்ளமைக்கப்பட்ட，那是「已配置的」，和 configuration 同词根）
+keyboard-shortcut: விசைப்பலகைக் குறுக்குவழி

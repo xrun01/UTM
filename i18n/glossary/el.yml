@@ -1,0 +1,65 @@
+# el 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。专有名词保留拉丁字母；Mac 在 Apple 希腊语里是中性（το Mac，复数 τα Mac）。
+# 来源：amalthea（VM64 官网）的 glossary/el.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+virtual-machine: εικονική μηχανή；复数 εικονικές μηχανές
+guest: επισκέπτης；客户机系统 = σύστημα επισκέπτη；客户机工具 = εργαλεία επισκέπτη（不用 πελάτη，那是客户端）
+emulate: εξομοιώνω；εξομοίωση（不用 προσομοίωση、μιμούμαι）
+virtualize: εικονικοποίηση
+native: εγγενής；接近原生的速度 = σχεδόν εγγενής ταχύτητα
+architecture: αρχιτεκτονική
+backend: μηχανισμός εκτέλεσης；QEMU 后端 = μηχανισμός εκτέλεσης QEMU（不用拉丁字母 backend，不用 σύστημα υποστήριξης）
+apple-silicon: Apple Silicon；Apple 芯片的 Mac = Mac με Apple Silicon  # https://support.apple.com/el-gr/116943
+intel-mac: Mac με επεξεργαστή Intel  # https://support.apple.com/el-gr/116943
+snapshot: στιγμιότυπο
+disposable-mode: λειτουργία μίας χρήσης
+shut-down: τερματισμός λειτουργίας
+new-vm-wizard: οδηγός δημιουργίας εικονικών μηχανών
+installer-image: εικόνα εγκατάστασης（εικόνα 在希腊语里是磁盘映像的通行说法，例如 εικόνα ISO）
+license: άδεια χρήσης；自备许可证 = δική σας άδεια χρήσης
+secure-boot: Ασφαλής εκκίνηση  # https://support.microsoft.com/el-gr/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: ή νεότερη έκδοση  # https://support.apple.com/el-gr/108964（「macOS Catalina ή νεότερη έκδοση」）
+experimental: πειραματική δυνατότητα
+auto-resolution: αυτόματη προσαρμογή ανάλυσης
+shared-clipboard: κοινόχρηστο πρόχειρο；粘贴 = επικόλληση
+shared-folder: κοινόχρηστος φάκελος
+sharing: Κοινή χρήση
+shared-network: Κοινόχρηστο δίκτυο
+host-only: Μόνο κεντρικός υπολογιστής
+bridged: Γεφύρωση
+emulated-vlan: Εξομοιωμένο VLAN
+port-forwarding: προώθηση θυρών
+lan: τοπικό δίκτυο
+shortcuts: Συντομεύσεις（阴性复数，τις Συντομεύσεις）  # https://support.apple.com/el-gr/guide/shortcuts-mac/welcome/mac
+command-line-tool: εργαλείο γραμμής εντολών
+clone: κλωνοποιώ；κλωνοποίηση
+fingerprint: αποτύπωμα（不写 δακτυλικό αποτύπωμα）
+hardware-reset: επαναφορά υλικού
+mount: προσαρτώ；προσάρτηση
+shared-library: κοινόχρηστη βιβλιοθήκη
+capture-mouse: δέσμευση ποντικιού；捕获鼠标按钮 = κουμπί «Δέσμευση ποντικιού»；退出 = απελευθερώνω το ποντίκι
+keys: πλήκτρο Control、πλήκτρο Option  # https://support.apple.com/el-gr/102650
+toolbar: γραμμή εργαλείων  # https://support.apple.com/el-gr/102650
+settings: ρυθμίσεις
+classic-systems: κλασικά συστήματα
+cpu: CPU（不变格，复数也写 CPU；「30 多种 CPU」= περισσότεροι από 30 τύποι CPU）
+rosetta: Rosetta（中性，το Rosetta，不变格）  # https://support.apple.com/el-gr/102527
+# 以下是 terms.yml 没有、但待审条目中出现 3 次以上的界面术语（2026-11-05 审校时定）。
+# 写法规则：引号用 «»；按钮、菜单项、开关、帮助提示和快捷指令说明用名词形式（Προσθήκη、Διαγραφή…），不用命令式；标题用句首大写；不用缩写 VM。
+drive: μονάδα δίσκου；复数 μονάδες δίσκου（不写 δίσκος，那是 disk）
+disk-image: εικόνα δίσκου；映像统称 εικόνα（不用 είδωλο）
+install: εγκατάσταση；εγκαθιστώ
+host: κεντρικός υπολογιστής
+display: οθόνη；Displays 菜单 = Οθόνες
+directory: κατάλογος；共享目录 = κοινόχρηστος κατάλογος（folder 是 φάκελος）
+storage: χώρος αποθήκευσης（和 memory = μνήμη 区分）
+start-stop: Start = Εκκίνηση；Stop = Διακοπή；Restart = Επανεκκίνηση；Run = Εκτέλεση
+pause-suspend: Pause = Παύση，Paused = Σε παύση；Suspend = Αναστολή，Suspended = Σε αναστολή，suspended state = κατάσταση αναστολής
+resume-restore: Resume = Συνέχιση；Restore（快照）= Επαναφορά；Reset = Επαναφορά
+vm-states: 进行中 = Γίνεται + 名词（Γίνεται εκκίνηση、Γίνεται διακοπή）；Started = Σε λειτουργία；Stopped = Σταματημένη
+remove-delete-eject: Remove = Αφαίρεση；Delete = Διαγραφή；Eject = Εξαγωγή；Extracting… = Αποσυμπίεση…
+kill: 强制终止进程 = αναγκαστικός τερματισμός διεργασίας；Kill 选项 = Τερματισμός διεργασίας；Force = Εξαναγκασμός；Request = Αίτημα
+power-down: απενεργοποίηση；Request power down = Αίτημα απενεργοποίησης
+capture-input: δέσμευση εισόδου（和 capture-mouse 一致；不用 καταγραφή、λήψη）
+guest-account: λογαριασμός στο σύστημα επισκέπτη（不写 λογαριασμός επισκέπτη，会读成 macOS 访客账户）
+dock: Dock；Dock 图标 = εικονίδιο στο Dock
+gallery-library: UTM Gallery = Συλλογή UTM；UTM Library = Βιβλιοθήκη UTM
+serial: σειριακή θύρα（不是 σειρά、σειριακός αριθμός）

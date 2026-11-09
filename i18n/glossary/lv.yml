@@ -1,0 +1,71 @@
+# lv 定下的译法。规则见 i18n/glossary/terms.yml。
+# 来源：amalthea（VM64 官网）的 glossary/lv.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 的 lv 支持文章多为英文，macOS 界面也没有 lv 本地化。Apple 写法以 lv 版 Mac mini 入门手册为准。
+virtual-machine: virtuālā mašīna
+guest: viesis；客户机系统 = viesa sistēma；客户机工具 = viesa rīki（不用 klienta）
+emulate: emulēt；emulācija（不用 simulēt、atdarināt、imitēt）
+virtualize: virtualizēt；virtualizācija
+native: natīvs；接近原生的速度 = gandrīz natīvs ātrums（不用 vietējais、sākotnējais、dabiskais）
+architecture: arhitektūra；CPU 架构 = procesora arhitektūra
+backend: aizmugursistēma；QEMU aizmugursistēma、Apple aizmugursistēma（不用 aizmugure）
+apple-silicon: Apple mikroshēma；Apple 芯片的 Mac = Mac dators ar Apple mikroshēmu；在 Apple 芯片上 = Apple mikroshēmā（不用 Apple silīcijs、Apple silicon、Apple Mac čips）  # https://support.apple.com/lv-lv/guide/mac-mini/welcome/mac（「Mac mini modeļiem ar M6 un M5 Pro mikroshēmām」）
+intel-mac: Mac dators ar Intel procesoru（不用 Intel Mac）
+snapshot: momentuzņēmums
+disposable-mode: vienreizlietošanas režīms（不用 viena kadra režīms、izmešanas režīms）
+shut-down: izslēgt；izslēgšana
+new-vm-wizard: jaunas virtuālās mašīnas vednis
+installer-image: instalācijas attēls
+license: licence；自备许可证 = nepieciešama sava licence  # https://support.microsoft.com/lv-lv/windows/activate-windows-c39005d4-95ee-b91e-b399-2820fda32227
+secure-boot: drošā sāknēšana  # https://support.microsoft.com/lv-lv/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: vai jaunāka versija  # https://support.apple.com/lv-lv/102552（「Operētājsistēmā macOS Ventura vai jaunākā versijā」）
+experimental: eksperimentāla funkcija
+auto-resolution: automātiska izšķirtspējas pielāgošana
+shared-clipboard: koplietota starpliktuve；共享剪贴板（动作）= starpliktuves koplietošana；复制和粘贴 = kopēt un ielīmēt
+shared-folder: koplietota mape；共享文件夹（动作）= koplietot mapes（不用 kopīgot）
+sharing: Koplietošana（不用形容词 koplietots）
+shared-network: Koplietots tīkls
+host-only: Tikai resursdators
+bridged: Tilta savienojums
+emulated-vlan: Emulēts VLAN
+port-forwarding: portu pāradresācija
+lan: lokālais tīkls（不用 LAN）
+shortcuts: lietotne Shortcuts（App 名不翻译，不用 saīsnes）  # https://support.apple.com/lv-lv/guide/mac-mini/welcome/mac（「Lietotne Shortcuts」）
+command-line-tool: komandrindas rīks
+clone: klonēt
+fingerprint: digitālais nospiedums（不用 pirkstu nospiedums，避免读成手指指纹）
+hardware-reset: aparatūras atiestatīšana
+mount: montēt（不用 uzstādīt，避免和安装混淆）
+shared-library: koplietojamā bibliotēka
+capture-mouse: notvert peli；捕获鼠标按钮 = poga Notvert peli（待确认 App 界面）
+keys: taustiņš Control、taustiņš Option；同时按 = taustiņus Control un Option（不用 vadības taustiņš、opciju taustiņš）  # https://support.apple.com/lv-lv/guide/mac-mini/welcome/mac（「nospiediet taustiņu Control」）
+toolbar: rīkjosla
+settings: iestatījumi
+rosetta: Rosetta，不变格（izmantojot Rosetta、ieslēdziet Rosetta）
+cpu: procesors；CPU 核心 = procesora kodols；30 多种 CPU = vairāk nekā 30 veidu procesori
+classic-systems: klasiskās sistēmas
+
+# 界面术语：待审条目中出现 3 次以上、terms.yml 没有的词（2026-11-05 审校定稿）。按钮、开关、工具提示用不定式
+drive: disks；Drives = Diski；Removable Drive = Noņemams disks；External Drive = Ārējs disks（不用 diskdzinis）
+disk-image: diska attēls；Boot Image = Sāknēšanas attēls
+display: displejs；Displays = Displeji
+host: resursdators；Host Networks = Resursdatora tīkli（不用 saimniekdators）
+boot: sāknēt；sāknēšana；Bootloader = Sāknēšanas ielādētājs
+storage: krātuve；internal storage = iekšējā krātuve（Memory = atmiņa，两者不能同词）
+start: Startēt（按钮）；Started = Startēta；新建向导首页标题 = Sākums
+stop: Apturēt；Stopped = Apturēta（Pause、Suspend 不用 apturēt）
+pause: Pauzēt；Paused = Pauzēta
+suspend: Iemidzināt；Suspended = Iemidzināta；suspended state = iemidzināšanas stāvoklis
+resume: Atsākt；Resuming = Notiek atsākšana（Restore = Atjaunot，Restoring = Notiek atjaunošana）
+vm-state: 进行中的状态写 Notiek …，例如 Notiek startēšana、Notiek apturēšana、Notiek saglabāšana
+kill: piespiedu kārtā pārtraukt（进程）；Force kill = Pārtraukt piespiedu kārtā（不用 iznīcināt，读成销毁）
+quit: Iziet；Quitting UTM = Izejot no UTM
+eject: Izstumt（Delete = Dzēst，Remove = Noņemt，Extracting… = Notiek izpakošana…）
+capture-input: notvert ievadi；input capture = ievades notveršana（不用 tvert、uztvert、uzņemt）
+keystroke: taustiņsitiens；Send Keystrokes = Sūtīt taustiņsitienus
+serial: seriālais ports（不用 sērija）
+interface: saskarne（网卡、磁盘接口；不用 interfeiss）
+kernel: kodols；Kernel Image = Kodola attēls
+select: atlasīt；Please select … = Lūdzu, atlasiet …
+shortcut-alias: saīsne（主窗口中指向外部虚拟机的快捷方式）
+share-sheet: Kopīgot（用系统共享面板分享虚拟机；共享文件夹用 koplietot）
+directory: mape（shared directory 和 shared folder 同译 koplietota mape）

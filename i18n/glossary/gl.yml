@@ -1,0 +1,75 @@
+# gl 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。
+# 来源：amalthea（VM64 官网）的 glossary/gl.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 没有加利西亚语页面。rule 是 apple 的术语参照 Apple es-ES 的写法结构，改用加利西亚语词形，见 proposal.json 的 doubts。
+# 称呼：tu（Executa、Descarga、teu），统一现有译文里混用的 usted。Mac 是阳性（o Mac）。
+# 标题：卡片标题、要求条目名用不定式；页面主标题、步骤标题、CTA 用 tu 祈使句；按钮和导航用不定式。
+# app 译文（UTM 界面）按加利西亚语软件界面的通行写法，官网的标题规则不约束 app：
+#   按钮、菜单项、工具栏项、复选框、快捷指令动作名用不定式（Engadir、Gardar、Cancelar、Pausar a máquina virtual）。
+#   控件的说明文字、快捷指令动作的说明用 tu 祈使式，等同第 3 人称现在时（Crea…、Elimina…、Envía…、Obtén…）。
+#   对用户说话的提示、问题、操作指引用 tu（Queres…、Selecciona…、Podes…），不用 usted（Seleccione、Teña en conta）。
+#   状态标签：进行中用副动词（Iniciando、Detendo）；结果用阴性形容词，主语是 máquina virtual（Detida、Suspendida、En pausa）。
+#   快捷指令「停止方式」的 3 个选项用不定式：Solicitar、Forzar、Finalizar o proceso。
+virtual-machine: máquina virtual
+guest: convidado；客户机系统 = sistema convidado；客户机工具 = ferramentas de convidado（不用 cliente）
+emulate: emular；emulación（不用 simular）
+virtualize: virtualizar；virtualización
+native: nativo；接近原生的速度 = velocidade case nativa
+architecture: arquitectura；CPU 架构 = arquitectura de CPU
+backend: backend；QEMU 后端 = backend QEMU，Apple 后端 = backend de Apple
+apple-silicon: chip de Apple；Apple 芯片的 Mac = Mac con chip de Apple（不用 Apple Silicon、silicio de Apple）  # 参照 es-ES：https://support.apple.com/es-es/116943
+intel-mac: Mac con procesador Intel  # 参照 es-ES：https://support.apple.com/es-es/116943
+snapshot: instantánea
+disposable-mode: modo desbotable（不用西班牙语词 desechable）
+shut-down: apagar；ao apagalas
+new-vm-wizard: asistente de creación de máquinas virtuais
+installer-image: imaxe de instalación
+license: licenza；自备许可证 = necesitas a túa propia licenza
+secure-boot: arranque seguro  # support.microsoft.com/gl-es 回落到西班牙语页面，按 Windows gl 界面通行写法
+or-later: ou posterior（不用 ou superior）  # 参照 es-ES「o posterior」
+experimental: función experimental
+auto-resolution: axuste automático da resolución
+shared-clipboard: portapapeis compartido；共享剪贴板 = compartir o portapapeis
+shared-folder: cartafol compartido
+sharing: Uso compartido
+shared-network: Rede compartida
+host-only: Só anfitrión
+bridged: Ponte
+emulated-vlan: VLAN emulada
+port-forwarding: reenvío de portos
+lan: rede local（不用 LAN）
+shortcuts: Atallos  # Apple 没有 gl 页面，参照 es-ES 的 App 名 Atajos，见 doubts
+command-line-tool: ferramenta de liña de comandos
+clone: clonar
+fingerprint: pegada dixital（不用 impresión dixital）
+hardware-reset: restablecemento do hardware
+mount: montar
+shared-library: biblioteca compartida
+capture-mouse: capturar o rato；捕获鼠标按钮 = botón Capturar rato
+keys: tecla Control、tecla Opción  # 参照 es-ES：https://support.apple.com/es-es/102650
+toolbar: barra de ferramentas
+settings: configuración  # Apple es-ES 写 Ajustes，见 doubts
+rosetta: Rosetta
+cpu: CPU
+classic-systems: sistemas clásicos
+# 以下是 app 界面中反复出现、terms.yml 中没有的术语（2026-11 审校 needs_review 和缺译条目时定下）
+drive: unidade；drive image = imaxe de unidade；外部驱动器 = unidade externa；可移动驱动器 = unidade extraíble
+display: pantalla；复数 pantallas
+host: anfitrión；host machine = máquina anfitrioa（不用 host）
+kernel: núcleo；kernel image = imaxe do núcleo
+boot: arranque；boot image = imaxe de arranque；arrancar（动词）
+ramdisk: disco RAM；initial ramdisk = disco RAM inicial
+delete-remove: Delete = eliminar；Remove = quitar；Eject = expulsar；Extracting = extraendo
+download: descargar；descarga
+pause-suspend: Pause = pausar（En pausa）；Suspend = suspender（Suspendida）；Resume = retomar；Restore = restaurar；Stop = deter（Detida）
+kill: forzar a finalización；Kill 选项 = Finalizar o proceso（不用 matar）
+serial: porto serie（不用 serie 单独作名词）
+dock: Dock（不用 peirao、dock）
+enable: activar（不用 habilitar）
+scan-code: código de escaneado
+path: ruta（不用 camiño）
+folder-directory: folder = cartafol；directory = directorio
+window: xanela（不用 ventá）
+menu-bar: barra de menús
+mouse: rato；mouse button = botón do rato
+keys-extra: Comando (⌘)、Maiúsculas (⇧)、Bloq Maiús (⇪)、Esc (⎋)；key = tecla（不用 chave）
+gallery-library: UTM Gallery = Galería de UTM；UTM Library = Biblioteca de UTM

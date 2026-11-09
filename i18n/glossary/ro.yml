@@ -1,0 +1,59 @@
+# ro 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。用敬称（dumneavoastră）祈使式；ș、ț 用逗号下加符（U+0219、U+021B），不用软音符 ş、ţ。
+# 来源：amalthea（VM64 官网）的 glossary/ro.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+virtual-machine: mașină virtuală；复数 mașini virtuale
+guest: invitat；客户机系统 = sistem invitat（复数 sisteme invitate）；客户机工具 = instrumentele pentru sistemul invitat（不用 client）
+emulate: emula；emulare（不用 simula、simulare）
+virtualize: virtualiza；virtualizare
+native: nativ；接近原生的速度 = viteză aproape nativă
+architecture: arhitectură
+backend: backend；backendul、复数 backenduri（QEMU 后端 = backendul QEMU）
+apple-silicon: cip Apple；Apple 芯片的 Mac = Mac cu cip Apple（复数 computerele Mac cu cip Apple）  # https://support.apple.com/ro-ro/116943
+intel-mac: Mac cu procesor Intel  # https://support.apple.com/ro-ro/116943
+snapshot: instantaneu；复数 instantanee
+disposable-mode: modul de unică folosință
+shut-down: oprire
+new-vm-wizard: asistentul de creare a mașinilor virtuale
+installer-image: imagine de instalare
+license: licență；自备许可证 = licență proprie
+secure-boot: bootare sigură  # https://support.microsoft.com/ro-ro/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: sau o versiune ulterioară  # https://support.apple.com/ro-ro/108964（「macOS Catalina sau o versiune ulterioară」）
+experimental: funcționalitate experimentală
+auto-resolution: ajustarea automată a rezoluției
+shared-clipboard: clipboard partajat；粘贴 = lipi（不用 insera）
+shared-folder: dosar partajat（Apple 罗马尼亚语用 dosar，不用 folder）
+sharing: Partajare
+shared-network: Rețea partajată
+host-only: Doar gazdă
+bridged: Punte de rețea
+emulated-vlan: VLAN emulat
+port-forwarding: redirecționarea porturilor
+lan: rețea locală
+shortcuts: Scurtături  # https://support.apple.com/ro-ro/guide/shortcuts-mac/welcome/mac
+command-line-tool: instrument de linie de comandă
+clone: clona；clonare
+fingerprint: amprentă（不写 amprentă digitală）
+hardware-reset: resetare hardware
+mount: monta；montare
+shared-library: bibliotecă partajată
+capture-mouse: capturare mouse；捕获鼠标按钮 = butonul „Capturare mouse”；退出 = eliberez mouse-ul
+keys: tasta Control、tasta Opțiune  # https://support.apple.com/ro-ro/102650（正文「tasta Opțiune」）
+toolbar: bara de instrumente  # https://support.apple.com/ro-ro/108964
+settings: configurări  # Apple 罗马尼亚语「Configurări sistem」：https://support.apple.com/ro-ro/guide/mac-help/mchlp1225/mac
+classic-systems: sisteme clasice
+cpu: CPU（不变格；「30 多种 CPU」= peste 30 de tipuri de CPU）
+rosetta: Rosetta（阴性，例如 Rosetta este disponibilă、trebuie instalată Rosetta）  # https://support.apple.com/ro-ro/102527
+# 下面是 75 种语言审校时补的界面术语，terms.yml 中还没有
+vm: 英文缩写 VM 也译 mașină virtuală（阴性，例如 această mașină virtuală、mașina virtuală selectată），不用 VM、VM-ul
+ui-style: 按钮、菜单项、工具栏标签、设置开关、快捷指令动作名用 Apple 的第二人称单数命令式（Anulează、Șterge、Afișează pictograma în Dock）；完整句子、提示和说明用敬称（Selectați…、Doriți să…?）
+drive: unitate；Drives = Unități；drive image = imagine de unitate；disk image = imagine de disc
+kernel: kernel（不用 nucleu，nucleu 留给 CPU 核心：%lld nuclee、Nuclee CPU）
+boot: pornire；Boot Image = Imagine de pornire，UEFI Boot = Pornire UEFI（不用 boot）；Secure Boot 按术语表写 bootare sigură
+read-only: doar citire；Read Only = Doar citire；read-only drive images = imagini de unitate doar pentru citire  # Finder「Doar citire」
+display: afișaj；Displays = Afișaje
+directory: director（Shared Directory = Director partajat）；folder 按术语表写 dosar
+host: gazdă；Host Networks = Rețele gazdă
+vm-state: 完成状态用阴性（Pornită、Oprită、Întreruptă、Suspendată），进行中状态写「Se …」（Se pornește、Se oprește、Se reia、Se restaurează）
+pause-suspend: Pause = Întrerupe，Suspend = Suspendă，Resume = Reia，Restore = Restaurează；Eject = Scoate，Delete = Șterge，Remove = Elimină
+gallery: Galeria UTM（官网下载页）；UTM Library = Biblioteca UTM
+dock: Dock（pictograma din Dock，不用 andocare）
+stop-method: Request = Solicitare oprire，Force = Oprire forțată，Kill = Terminare forțată（名词，同组一致）

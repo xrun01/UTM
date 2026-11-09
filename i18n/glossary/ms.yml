@@ -1,0 +1,82 @@
+# ms 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。
+# 来源：amalthea（VM64 官网）的 glossary/ms.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+virtual-machine: mesin maya
+guest: tetamu；客户机系统 = sistem tetamu；客户机工具 = alatan tetamu
+emulate: mengemulasi；emulasi（不用 meniru、simulasi）
+virtualize: virtualisasi
+native: asli；接近原生的速度 = kelajuan hampir asli
+architecture: seni bina
+backend: backend；backend QEMU、backend Apple（不用 bahagian belakang）
+apple-silicon: Apple silicon；Apple 芯片的 Mac = Mac dengan Apple silicon  # https://support.apple.com/ms-my/guide/mac-help/welcome/mac（「komputer Mac dengan Apple silicon」）
+intel-mac: Mac berasaskan Intel  # https://support.apple.com/ms-my/guide/mac-help/welcome/mac（「Mac berasaskan Intel」）
+snapshot: syot kilat
+disposable-mode: mod pakai buang
+shut-down: mematikan；关机后 = selepas dimatikan（不用 ditutup）
+new-vm-wizard: wizard penciptaan mesin maya
+installer-image: imej pemasangan
+license: lesen  # support.microsoft.com/ms-my 没有马来语版，按马来语通行写法
+secure-boot: Secure Boot  # support.microsoft.com/ms-my 只有英文版，查不到 Windows 马来语界面写法，已列入 doubts
+or-later: atau lebih baharu  # https://support.apple.com/ms-my/guide/mac-help/welcome/mac（「macOS 26 atau lebih baharu」）
+experimental: ciri percubaan
+auto-resolution: pelarasan resolusi automatik
+shared-clipboard: papan klip kongsi；共享剪贴板（动作）= berkongsi papan klip；粘贴 = tampal  # https://support.apple.com/ms-my/guide/mac-help/welcome/mac（「Papan Klip Universal」「Salin dan tampal」）
+shared-folder: folder kongsi
+sharing: Perkongsian
+shared-network: Rangkaian Kongsi
+host-only: Hos Sahaja
+bridged: Jambatan
+emulated-vlan: VLAN Emulasi
+port-forwarding: pemajuan port
+lan: rangkaian setempat
+shortcuts: Pintasan  # https://support.apple.com/ms-my/guide/shortcuts-mac/welcome/mac
+command-line-tool: alat baris arahan
+clone: klon
+fingerprint: cap jari
+hardware-reset: tetapan semula perkakasan
+mount: lekap（不用 pasang，pasang 也指安装）
+shared-library: pustaka kongsi
+capture-mouse: tangkap tetikus；捕获鼠标按钮 = butang Tangkap Tetikus
+keys: kekunci Control、kekunci Option  # https://support.apple.com/ms-my/guide/mac-help/welcome/mac（「kekunci Option」）
+toolbar: bar alat  # https://support.apple.com/ms-my/guide/mac-help/welcome/mac
+settings: seting（不用 tetapan）  # https://support.apple.com/ms-my/guide/mac-help/mchlp1225/mac
+classic-systems: sistem klasik
+cpu: CPU  # https://support.apple.com/ms-my/guide/mac-help/welcome/mac（「aktiviti CPU」）
+rosetta: Rosetta  # Apple 马来语页面不翻译 Rosetta：https://support.apple.com/ms-my/102527
+# 以下是 terms.yml 里没有、在待审条目中出现 3 次以上的界面术语
+button-style: 按钮、菜单项、工具栏项、快捷指令动作名用动词原形（Tambah、Padam、Batal、Simpan、Teruskan）；分组标题用名词；大小写跟英文一致（英文每词大写时，马来语实词首字母大写）
+status-labels: 进行中的状态用 me- 动词（Memulakan、Menjeda、Menyimpan）；完成的状态用 di- 被动形式（Dimulakan、Dijeda、Digantung、Dihentikan）
+vm: 英文写 VM 时保留 VM；马来语语序 VM macOS（不写 macOS VM）
+drive: pemacu；可移动驱动器 = pemacu boleh tanggal；外部驱动器 = pemacu luaran；驱动程序 driver = pemacu peranti（和 drive 区分）
+disk-image: imej cakera；drive image = imej pemacu
+image: imej（imej ISO、imej kernel、imej but）；中心词在前：Imej %@
+boot: but（But、imej but、peranti but、But UEFI）；bootloader = pemuat but；Secure Boot 保留英文
+kernel: kernel（imej kernel、Kernel Linux）
+configuration: konfigurasi
+directory: direktori（shared directory = direktori kongsi，不用 dikongsi）；folder 保留 folder（folder kongsi）
+display: paparan（Display 和 Displays 都写 Paparan）
+memory: memori；RAM 保留
+storage: storan
+core: teras（CPU 核心）
+start-run: Start = Mulakan（Mulakan、Memulakan、Dimulakan）；Run = Jalankan；向导首页标题 wizard.start.title = Permulaan
+pause: jeda（Jeda、Dijeda、Menjeda）
+suspend: gantung（Gantung、Digantung、keadaan digantung）；和 jeda 必须区分
+resume: sambung semula（Sambung Semula、Menyambung Semula）；restore = pulihkan（Pulihkan、Memulihkan）
+state: keadaan（Simpan Keadaan、Keadaan Semasa）；不用 negeri（州）
+save: simpan
+delete: padam（Padam、Padamkan）；remove = alih keluar；eject = keluarkan；extract = nyahmampat（Menyahmampat…）
+quit: keluar（Keluar，退出 App）  # Apple 马来语 Force Quit = Paksa Keluar
+restart: mulakan semula；reset = set semula
+power-down: matikan kuasa（Minta Matikan Kuasa、permintaan matikan kuasa）
+kill-request-force: 停止方式 3 个选项 = Minta、Paksa、Tamatkan；Force kill = Tamatkan paksa；kill 不用 bunuh、matikan
+capture-input: tangkap input（Tangkap Input），和 capture-mouse 一致
+keystroke: ketukan kekunci；Send Key = Hantar Kekunci
+modifier-keys: kekunci pengubah suai；Mac 键名保留键帽写法（Command、Control、Option、Shift、Caps Lock、Escape）
+scan-code: kod imbasan
+serial: port bersiri（Serial、Serial (TTY)、Serial %lld）；不用 siri（系列）
+vm-shortcut: pintasan（UTM 列表里指向别处虚拟机的条目）
+recovery-mode: mod pemulihan；recovery IPSW = IPSW pemulihan
+default-generic: Default = Lalai；Generic = Generik；两者必须区分
+gallery-library: Gallery = Galeri（Galeri UTM，官网下载页）；UTM Library = Pustaka UTM（主窗口）
+operation: operasi
+host: hos（mesin hos、Rangkaian Hos、'Hos'）
+dock: Dock（保留 Apple 组件名，不写 dok）

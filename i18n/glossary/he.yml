@@ -1,0 +1,59 @@
+# he 定下的译法。规则见 i18n/glossary/terms.yml。拉丁字母名称加前缀用连字符（ב-Mac），不加 Bidi 控制字符，不加元音符号（niqqud）。
+# 来源：amalthea（VM64 官网）的 glossary/iw.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# 称呼：正文用阳性单数（אתה、תוכל、祈使式 הורד、פתח）；标题、按钮、导航用名词形式（הורדה、סגירה、הרצת VM64）。
+virtual-machine: מכונה וירטואלית；复数 מכונות וירטואליות；加 ה 写 הווירטואלית（不用 מחשב וירטואלי）
+guest: אורח；客户机系统 = מערכת הפעלה אורחת；客户机工具 = כלי אורח（不用 לקוח）
+emulate: לבצע אמולציה；אמולציה（不用 לחקות、הדמיה）
+virtualize: וירטואליזציה  # https://support.microsoft.com/he-il/windows/enable-virtualization-on-windows-c5578302-6e43-4b4b-a449-8ced115f58e1
+native: מקורי；接近原生的速度 = מהירות כמעט מקורית
+architecture: ארכיטקטורה
+backend: מנוע；מנוע QEMU、מנוע Apple（不用 הקצה האחורי）
+apple-silicon: Apple Silicon；Apple 芯片的 Mac = Mac עם Apple Silicon；复数 מחשבי Mac עם Apple Silicon  # https://support.apple.com/he-il/116943
+intel-mac: Mac עם מעבד Intel；复数 מחשבי Mac עם מעבד Intel  # https://support.apple.com/he-il/116943
+cpu: CPU（不用 מעבד，מעבד 只用在 Intel Mac 里）
+rosetta: Rosetta（阴性）；ב-Rosetta、את Rosetta  # https://support.apple.com/he-il/102527
+snapshot: תמונת מצב；复数 תמונות מצב
+disposable-mode: מצב חד-פעמי
+shut-down: כיבוי
+new-vm-wizard: אשף יצירת המכונה הווירטואלית
+installer-image: תמונת התקנה
+license: רישיון；自备许可证 = רישיון משלך  # https://support.microsoft.com/he-il/windows/activate-windows-c39005d4-95ee-b91e-b399-2820fda32227
+secure-boot: אתחול מאובטח  # https://support.microsoft.com/he-il/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: ואילך  # https://support.apple.com/he-il/102552（「macOS Ventura ואילך」）
+experimental: תכונה ניסיונית
+auto-resolution: התאמה אוטומטית של הרזולוציה
+shared-clipboard: לוח העריכה；共享剪贴板 = שיתוף לוח העריכה；复制粘贴 = העתקה והדבקה  # https://support.apple.com/he-il/102430
+shared-folder: תיקייה משותפת；共享文件夹 = שיתוף תיקיות
+sharing: שיתוף
+shared-network: רשת משותפת
+host-only: מארח בלבד
+bridged: גישור
+emulated-vlan: VLAN באמולציה
+port-forwarding: הפניית פורטים
+lan: רשת מקומית  # https://support.apple.com/he-il/102229
+shortcuts: ״קיצורים״  # https://support.apple.com/he-il/guide/shortcuts-mac/welcome/mac
+command-line-tool: כלי שורת הפקודה
+clone: שכפול；动词 לשכפל
+fingerprint: טביעת אצבע
+hardware-reset: איפוס חומרה
+mount: לעגן (mount)
+shared-library: ספרייה משותפת；复数 ספריות משותפות
+capture-mouse: לכידת העכבר；捕获鼠标按钮 = הכפתור ״לכידת העכבר״
+keys: מקש Control、מקש Option  # https://support.apple.com/he-il/102650
+toolbar: סרגל הכלים  # https://support.apple.com/he-il/guide/mac-help/mchlp1225/mac
+settings: הגדרות
+classic-systems: מערכות קלאסיות
+# 以下是审校 needs_review 和缺译条目时新定的界面写法（terms.yml 没有这些术语）。
+# 语体：开关（Toggle）标签用祈使式（הצג、השתמש ב-）；按钮、菜单项、窗口和分组标题用名词形式（הוספה、שמירה）；快捷指令的动作名按 Apple 快捷指令用祈使式（שלח הקשות）。
+# 状态标签用阳性：进行中写 ב+名词（בהפעלה、בעצירה），完成态写分词或形容词（הופעל、נעצר、מושהה、מושעה）；带「…」的进度文字用阳性现在分词（מכין…）。
+drive: כונן；复数 כוננים；drive image = תמונת כונן
+display: תצוגה；复数 תצוגות
+device: התקן；复数 התקנים；USB 设备 = התקן USB（不用 מכשיר；只有指 Mac、iPhone 这类实体设备时用 מכשיר）
+disk-image: תמונת דיסק；boot image = תמונת אתחול
+directory: תיקייה；复数 תיקיות；shared directory = תיקייה משותפת（不用 ספרייה，避免和 shared-library 撞词）
+icon: צלמית；复数 צלמיות（不用 סמל）  # https://support.apple.com/he-il/guide/mac-help/mh35859/mac
+menu-bar: שורת התפריטים  # https://support.apple.com/he-il/guide/mac-help/mh35859/mac
+dock: Dock；ב-Dock（保留拉丁字母，不用 מזח、רציף）  # https://support.apple.com/he-il/guide/mac-help/mh35859/mac
+serial: יציאה טורית（串口设备；不用 סדרתי）
+vm: 英文写 VM 时保留 VM，按阳性变位：ה-VM הזה、VM פועל；复数也写 VM（不写 VMs、מחשבי VM）
+host-machine: 指运行 UTM 的本机时，machine 写 מחשב：במחשב שלך、במחשב זה

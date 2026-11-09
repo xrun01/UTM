@@ -1,0 +1,66 @@
+# ko 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。
+virtual-machine: 가상 머신
+guest: 게스트；客户机系统 = 게스트 운영 체제；客户机工具 = 게스트 도구
+emulate: 에뮬레이트；에뮬레이션
+virtualize: 가상화
+native: 네이티브；接近原生的速度 = 네이티브에 가까운 속도（不用「기본」）
+architecture: 아키텍처
+backend: 백엔드
+apple-silicon: Apple Silicon；Apple 芯片的 Mac = Apple Silicon이 탑재된 Mac  # https://support.apple.com/ko-kr/116943
+intel-mac: Intel 기반 Mac  # https://support.apple.com/ko-kr/116943
+snapshot: 스냅샷
+disposable-mode: 일회용 모드
+shut-down: 종료
+new-vm-wizard: 가상 머신 생성 마법사
+installer-image: 설치 이미지
+license: 라이선스；自备许可证 = 라이선스는 직접 준비해야 합니다
+secure-boot: 보안 부팅  # https://support.microsoft.com/ko-kr/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+experimental: 실험적 기능
+auto-resolution: 해상도 자동 조정
+or-later: 이후 버전  # https://www.apple.com/kr/final-cut-pro/specs/（「macOS 15.6 이후 버전」）
+shared-clipboard: 공유 클립보드；复制和粘贴 = 복사하여 붙여넣기  # https://support.apple.com/ko-kr/guide/mac-help/mchl70368996/mac
+shared-folder: 공유 폴더
+sharing: 공유
+shared-network: 공유 네트워크
+host-only: 호스트 전용
+bridged: 브리지
+emulated-vlan: 에뮬레이트된 VLAN
+port-forwarding: 포트 포워딩
+lan: LAN
+shortcuts: 단축어  # https://support.apple.com/ko-kr/guide/shortcuts-mac/welcome/mac
+command-line-tool: 명령줄 도구
+clone: 복제
+fingerprint: 지문
+hardware-reset: 하드웨어 재설정
+mount: 마운트
+shared-library: 공유 라이브러리
+capture-mouse: 마우스 캡처；捕获鼠标按钮 = 마우스 캡처 버튼
+keys: Control 키, Option 키  # https://support.apple.com/ko-kr/102650
+toolbar: 도구 막대
+settings: 설정
+classic-systems: 클래식 시스템
+rosetta: Rosetta  # https://support.apple.com/ko-kr/102527
+cpu: CPU  # https://support.apple.com/ko-kr/guide/activity-monitor/actmntr43452/mac
+
+# 不在 terms.yml 中、缺译批次中出现 3 次以上的界面术语
+key: 키（Send Key = 키 보내기、keystrokes = 키 입력、Keyboard shortcuts = 키보드 단축키）；键名保留拉丁字母，例如 Caps Lock(⇪)  # https://support.apple.com/ko-kr/102650
+modifier-key: 보조 키；Modifiers 也写 보조 키  # https://support.apple.com/ko-kr/102650
+display: 디스플레이；monitor 也写 디스플레이（Displays 菜单、Monitor Number = 디스플레이 번호）  # https://support.apple.com/ko-kr/guide/mac-help/mchl126ad5ba/mac
+power: 전원（显示窗口工具栏和菜单的 Power）
+
+# 复审（全部 translated 条目）时新定的界面术语
+stop: 중지（Stopped = 중지됨、Stopping = 중지 중）；和 Pause 的「일시 정지」区分
+pause: 일시 정지（Paused = 일시 정지됨、Pausing = 일시 정지 중）
+suspend: 일시 중단（保存状态后挂起；Suspended = 일시 중단됨、suspend state = 일시 중단 상태）。不用「일시 중지」，读者分不开它和 Pause 的「일시 정지」
+delete: 삭제（删除数据或列表项）；Remove = 제거（只移除引用，例如快捷方式）
+removable: 이동식（Removable Drive = 이동식 드라이브）。不用「제거 가능」，它读成「可以删除」
+operating-system: 운영 체제（中间空格）
+eject: 꺼내기
+
+# needs_review 审校（75 种语言批次）时新定的界面术语
+vm: 가상 머신（缩写 VM 也写「가상 머신」，已审校译文都不用缩写）
+menu-bar: 메뉴 막대（不用「메뉴 표시줄」「메뉴 바」）  # https://support.apple.com/ko-kr/guide/mac-help/mchlp1446/mac
+restart: 재시작（Restart = 재시작、Restarts the VM = 가상 머신을 재시작합니다）
+custom: 사용자 지정（不用「사용자 정의」）
+express-install: 빠른 설치（Express (Fully Automatic) = 빠른 설치(완전 자동)）
+asif: Apple 분할 이미지（Apple Sparse Image Format = Apple 분할 이미지 형식）  # https://support.apple.com/ko-kr/guide/disk-utility/dskutl11888/mac

@@ -1,0 +1,72 @@
+# cy 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。称呼统一用 chi（命令式 -wch），标题和按钮用动名词。
+# 来源：amalthea（VM64 官网）的 glossary/cy.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 和 Microsoft 都没有威尔士语页面（support.apple.com/cy-gb、support.microsoft.com/cy-gb 都跳转到英文），rule 是 apple、microsoft 的术语参照 de、it 的结构，或用威尔士语软件的通行说法。
+# 「共享的 X」写成 X a rennir。界面名（网络模式名、按钮名）不做辅音音变。
+virtual-machine: peiriant rhithwir；复数 peiriannau rhithwir
+guest: gwestai；客户机系统 = system westai；客户机工具 = offer gwestai
+emulate: efelychu；efelychiad
+virtualize: rhithwiroli
+native: brodorol；接近原生的速度 = cyflymder bron yn frodorol
+architecture: pensaernïaeth；复数 pensaernïaethau
+backend: backend；backend Apple
+apple-silicon: sglodyn Apple；复数 sglodion Apple；Apple 芯片的 Mac = Mac gyda sglodyn Apple（照 de、it 的 Apple 结构）
+intel-mac: Mac gyda phrosesydd Intel（照 de、it 的 Apple 结构）
+snapshot: ciplun；复数 cipluniau
+disposable-mode: modd tafladwy
+shut-down: cau i lawr
+new-vm-wizard: y dewin ar gyfer peiriannau rhithwir newydd
+installer-image: delwedd osod；复数 delweddau gosod
+license: trwydded；自备许可证 = mae angen eich trwydded eich hun arnoch
+secure-boot: Secure Boot（没有查到 Windows 威尔士语界面的写法）
+or-later: neu ddiweddarach
+experimental: nodwedd arbrofol
+auto-resolution: addasu cydraniad yn awtomatig
+shared-clipboard: clipfwrdd a rennir；共享剪贴板（动作）= rhannu'r clipfwrdd
+shared-folder: ffolder a rennir；复数 ffolderi a rennir
+sharing: Rhannu
+shared-network: Rhwydwaith a rennir
+host-only: Gwesteiwr yn unig
+bridged: Pontio
+emulated-vlan: VLAN wedi'i efelychu
+port-forwarding: anfon porth ymlaen
+lan: rhwydwaith lleol
+shortcuts: Shortcuts（macOS 没有威尔士语界面，App 显示英文名）
+command-line-tool: offeryn llinell orchymyn
+clone: clonio
+fingerprint: ôl bys；复数 olion bysedd
+hardware-reset: ailosod caledwedd；ailosodiad caledwedd
+mount: mowntio（不用 gosod，gosod 是「安装」）
+shared-library: llyfrgell a rennir；复数 llyfrgelloedd a rennir
+capture-mouse: dal y llygoden；捕获鼠标按钮 = botwm Dal y Llygoden
+keys: bysell Control、bysell Option（按 Mac 键帽）
+toolbar: bar offer
+settings: gosodiadau
+rosetta: Rosetta
+cpu: CPU；30 多种 CPU = mwy na 30 math o CPU
+classic-systems: systemau clasurol
+# 以下是审校待审条目时新定的界面术语（terms.yml 没有，条目中出现 3 次以上）。
+drive: gyriant；复数 gyriannau；驱动器镜像 = delwedd gyriant（不用 dreif，不残留 Drive）
+disk-image: delwedd ddisg
+display: dangosydd；复数 dangosyddion（不用 arddangosfa）
+configuration: ffurfweddiad（不用 cyfluniad）
+save: cadw（不用 arbed）
+quit: gadael（不用 rhoi'r gorau iddi，那是「放弃」）
+cancel: diddymu
+start: cychwyn（启动按钮和 Start Virtual Machine）；新建向导首页标题 wizard.start.title = Dechrau
+boot: cychwyn；启动镜像 = delwedd gychwyn（不用 cist，那是「箱子」）
+stop: stopio（不用 atal，atal 留给 suspend）
+pause: seibio；状态 Wedi seibio、Wrthi'n seibio
+suspend: atal dros dro；挂起状态 = cyflwr atal dros dro（不用 crog、ataliedig）
+resume: ailddechrau；Restore（快照）= adfer；恢复模式 = modd adfer
+power-down: diffodd；请求关机 = gofyn am ddiffodd（不写 pŵer i lawr）
+remove: tynnu；delete = dileu；eject = alldaflu；解压（Extracting）= datgywasgu
+operation: gweithrediad（不用 llawdriniaeth，那是「外科手术」）
+capture-input: dal mewnbwn（不用 cipio）
+keystroke: trawiad bysell；复数 trawiadau bysell；修饰键 = bysellau addasu
+vm-shortcut: llwybr byr（指向 VM 存放位置的快捷方式）
+default: rhagosodiad；Generic = generig
+host: gwesteiwr；复数 gwesteiwyr
+download: lawrlwytho
+screenshot: sgrinlun；复数 sgrinluniau
+serial: cyfresol（串口，不用 cyfres）
+application: rhaglen（不用 cais，那是「请求」）

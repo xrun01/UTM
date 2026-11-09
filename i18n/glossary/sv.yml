@@ -1,0 +1,69 @@
+# sv 定下的译法。规则见 i18n/glossary/terms.yml。
+# 来源：amalthea（VM64 官网）的 glossary/sv.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+virtual-machine: virtuell maskin；复数 virtuella maskiner
+guest: gäst；客户机系统 = gästsystem，客户机工具 = gästverktyg
+emulate: emulera；emulering
+virtualize: virtualisera；virtualisering
+native: native；接近原生的速度 = nästan native hastighet
+architecture: arkitektur
+backend: backend；复数 backends；QEMU-backend、Apple-backend
+apple-silicon: Apple-chip；Apple 芯片的 Mac = Mac med Apple-chip，复数 Mac-datorer med Apple-chip  # https://support.apple.com/sv-se/116943
+intel-mac: Mac med Intel-processor；复数 Mac-datorer med Intel-processor  # https://support.apple.com/sv-se/116943
+snapshot: ögonblicksbild；复数 ögonblicksbilder
+disposable-mode: engångsläge
+shut-down: stänga av；名词 avstängning
+new-vm-wizard: assistenten för nya virtuella maskiner
+installer-image: installationsavbildning
+license: licens
+secure-boot: säker start  # https://support.microsoft.com/sv-se/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: eller senare  # https://support.apple.com/sv-se/102552（「macOS Ventura eller senare」）
+experimental: experimentell funktion
+auto-resolution: automatisk justering av upplösningen
+shared-clipboard: delat urklipp；共享剪贴板（动作）= dela urklippet；粘贴 = klistra in  # https://support.apple.com/sv-se/guide/mac-help/mchlp1012/mac（「Kopiera och klistra in mellan enheter」）
+shared-folder: delad mapp；共享文件夹（动作）= dela mappar
+sharing: Delning
+shared-network: Delat nätverk
+host-only: Endast värd
+bridged: Bryggat
+emulated-vlan: Emulerat VLAN
+port-forwarding: portvidarebefordran
+lan: lokalt nätverk
+shortcuts: Genvägar  # https://support.apple.com/sv-se/guide/shortcuts-mac/welcome/mac
+command-line-tool: kommandoradsverktyg
+clone: klona
+fingerprint: fingeravtryck
+hardware-reset: hårdvaruåterställning
+mount: montera
+shared-library: delat bibliotek；复数 delade bibliotek
+capture-mouse: fånga musen；捕获鼠标按钮 = knappen Fånga mus
+keys: Kontroll-tangenten、Alternativtangenten；同时写 2 个键 = Kontroll- och Alternativtangenten  # https://support.apple.com/sv-se/102650
+toolbar: verktygsfält
+settings: inställningar
+classic-systems: klassiska system
+rosetta: Rosetta  # https://support.apple.com/sv-se/102527
+cpu: CPU；CPU Cores = CPU-kärnor；Core = kärna
+# 以下不在 terms.yml，在 needs_review 和缺译批次中反复出现，由改稿代理定下（2026-11）
+# 称呼用 du。引号用 ”…”（U+201D）。按钮和菜单项用祈使式（Radera、Hämta），状态标签用现在时动词或过去分词（Startar、Startad）。
+drive: disk（不用 enhet，enhet 留给 device）；Drives = Diskar；External Drive = Extern disk，Removable Drive = Flyttbar disk（两者不能同词）
+image: avbildning（与 installationsavbildning 一致，不用 bild）；disk image、drive image = diskavbildning；boot image = startavbildning；kernel image = kärnavbildning
+device: enhet；USB-enhet
+display: skärm；Displays = Skärmar；monitor 也写 skärm
+download: hämta；名词 hämtning（不用 ladda ner）
+delete-remove: Delete = Radera；Remove = Ta bort；Eject = Mata ut
+pause-suspend: Pause = Pausa，Paused = Pausad；Suspend = Försätt i viloläge，Suspended = I viloläge，suspend state、suspended state = (sparat) viloläge；Stop = Stoppa（三者不能同词）；Mac 睡眠按 Apple 写 gå i vila
+restore-resume: Restore（从快照恢复）= Återskapa，Restoring = Återskapar；Resume = Återuppta，Resuming = Återupptar；Reset = Återställ；regenerate = generera nya
+recovery: återställningsläge（macOS-återställning）；Run Recovery = Kör i återställningsläge
+kill: tvångsavsluta（不用 döda）；停止方式 3 个选项：Request = Begär，Force = Tvinga，Kill = Tvångsavsluta
+state: tillstånd（不用 status、läge）
+operation: åtgärd（不用 operation、drift）
+memory-storage: Memory = Minne；Storage = Lagring；internal storage = intern lagring（不用 internminne）
+boot: start；Boot Arguments = Startargument，Boot Device = Startenhet，UEFI Boot = UEFI-start，Bootloader = Starthanterare
+kernel: kärna（Linux-kärna）；ramdisk = RAM-disk
+host: värd；host machine = värddator
+hardware: hårdvara（与 hårdvaruåterställning 一致）
+serial: seriell port（Serial %lld = Seriell port %lld）
+input: inmatning（不用 indata）；Capture Input = Fånga inmatning；input capture = infångning av inmatning；音频 Input/Output = Ingång/Utgång
+icon: symbol（Visa symbol i Dock、Visa symbol i menyraden）
+keys-extra: Command = Kommando，Shift = Skift，Caps Lock = Skiftlås，Escape = Esc；modifier key = modifieringstangent；keyboard shortcuts = kortkommandon；Left/Middle/Right（鼠标按钮）= Vänsterknapp/Mittenknapp/Högerknapp
+vm-shortcut: genväg（指向别处虚拟机的快捷方式，小写；Apple 的 App 名是 Genvägar）
+gallery-library: Gallery = galleri（UTM-galleriet、Galleri för virtuella maskiner）；UTM Library = UTM-bibliotek（两者不能同词）

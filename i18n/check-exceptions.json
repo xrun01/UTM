@@ -1,0 +1,30 @@
+[
+  {
+    "table": "Localizable",
+    "key": "Nintendo",
+    "lang": "ja",
+    "rule": "keep-source",
+    "reason": "任天堂 是 Nintendo 的官方日文名"
+  },
+  {
+    "table": "Localizable",
+    "key": "Windows 9x",
+    "lang": "ja",
+    "rule": "keep-source",
+    "reason": "日文习惯写法「Windows 9x系」"
+  },
+  {
+    "table": "Localizable",
+    "key": "Elementary OS",
+    "lang": "ja",
+    "rule": "keep-source",
+    "reason": "elementary OS 的官方写法是小写"
+  },
+  {
+    "table": "Localizable",
+    "key": "Elementary OS",
+    "lang": "ko",
+    "rule": "keep-source",
+    "reason": "elementary OS 的官方写法是小写"
+  }
+]

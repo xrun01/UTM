@@ -1,0 +1,72 @@
+# jv 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。
+# 来源：amalthea（VM64 官网）的 glossary/jv.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 和 Microsoft 都没有爪哇语的网站和界面（爪哇语用户多用印尼语界面，support.microsoft.com/jv-id 返回 404）。
+# rule 是 apple、microsoft 的术语，参照 glossary/id.yml 的 Apple 写法，再按爪哇语语法组织。待母语者确认。
+virtual-machine: mesin virtual
+guest: tamu；客户机系统 = sistem tamu；客户机工具 = alat tamu（不用 klien，klien 是客户端）
+emulate: ngemulasi；emulasi（不用 niru、simulasi）
+virtualize: virtualisasi
+native: asli；接近原生的速度 = kacepetan sing cedhak karo asli（不用 native）
+architecture: arsitektur
+backend: backend；backend QEMU、backend Apple
+apple-silicon: Apple silicon；Apple 芯片的 Mac = Mac kanthi Apple silicon（不用 Kripik Apple、silikon Apple）  # 参照 https://support.apple.com/id-id/116943
+intel-mac: Mac adhedhasar Intel  # 参照 https://support.apple.com/id-id/116943（「Mac berbasis Intel」）
+snapshot: snapshot（不用 gambar、jepretan、potret）
+disposable-mode: mode sepisan pakai
+shut-down: mateni；关机后 = sawise dipateni
+new-vm-wizard: wizard nggawe mesin virtual
+installer-image: citra instalasi（不用 gambar）
+license: lisensi
+secure-boot: Secure Boot  # Windows 没有爪哇语界面，已列入 doubts
+or-later: utawa luwih anyar（不用 utawa luwih dhuwur）
+experimental: fitur eksperimental
+auto-resolution: penyetelan resolusi otomatis
+shared-clipboard: clipboard bareng；共享剪贴板（动作）= enggo bareng clipboard；粘贴 = tempel
+shared-folder: folder bareng
+sharing: Enggo bareng（不用 nuduhake，nuduhake 首义是「展示」）
+shared-network: Jaringan Bareng
+host-only: Mung Host
+bridged: Jembatan
+emulated-vlan: VLAN Emulasi
+port-forwarding: penerusan port
+lan: jaringan lokal（不用 LAN）
+shortcuts: Pintasan（App 名，参照 Apple 印尼语写法；不用 trabasan）  # https://support.apple.com/id-id/guide/shortcuts-mac/welcome/mac
+command-line-tool: alat baris perintah
+clone: kloning
+fingerprint: sidik jari
+hardware-reset: reset hardware
+mount: mount（不用 pasang，pasang 也指安装）
+shared-library: pustaka bareng（不用 perpustakaan，perpustakaan 是图书馆）
+capture-mouse: nangkep mouse；捕获鼠标按钮 = tombol Tangkap Mouse
+keys: tombol Control、tombol Option（不翻译键名）  # 参照 https://support.apple.com/id-id/102650
+toolbar: bar alat  # 参照 https://support.apple.com/id-id/guide/mac-help/welcome/mac
+settings: setelan
+classic-systems: sistem klasik
+cpu: CPU；核心 = inti
+rosetta: Rosetta
+# 「运行」不是 terms.yml 的术语，全站统一：nglakokake；（系统）运行 = mlaku（不用 mbukak，mbukak 是「打开」）
+
+# 以下是 2026-11-05 审校 UTM 界面时补充的译法（terms.yml 中没有，待审条目中出现 3 次以上）。是否补进 terms.yml 由主代理决定。
+image: citra；citra disk、citra drive、citra ISO、citra boot、citra kernel（不用 gambar，gambar 是图片；和 installer-image 同规则）
+screenshot: gambar layar（不用 screenshot、jepretan）
+drive: drive；Drive Eksternal；Drive sing Bisa Dicopot；以大小命名的驱动器 = Drive %@
+display: layar；Display、Displays（设置、工具栏、菜单）= Layar
+host: host（不用 inang）；host macOS、mesin host
+state: kahanan（不用 negara、status）；挂起状态 = kahanan sing ditundha；当前状态 = kahanan saiki；Status 字段 = Status
+valid: valid；invalid = ora valid（不用 ora bener，bener 是「正确」）
+file: file（不用 berkas）
+memory-storage: Memory = Memori；Storage = Panyimpenan
+default-generic: Default = Gawan；Generic = Umum
+delete-remove-eject: Delete = Busak；Remove = Copot（移除快捷方式、设备、共享目录，不删数据）；Eject = Wetokake；Extracting… = Ngekstrak…
+vm-actions: Start = Wiwiti、Run = Lakokake、Stop = Mandhegake、Pause = Jeda（不用 ngaso）、Suspend = Tundha、Resume = Terusake、Restart = Wiwiti Maneh、Restore = Pulihake；向导首页标题 = Wiwitan
+vm-states: Lagi diwiwiti / Wis diwiwiti、Lagi dimandhegake / Mandheg、Lagi dijeda / Dijeda、Ditundha、Lagi diterusake、Lagi dipulihake、Lagi disimpen
+power-down: 关机 = mateni；Request power down = Jaluk dipateni；Force shut down = Peksa mateni；Force kill = Peksa pungkasi；停止方式 = Jaluk、Peksa、Pungkasi（kill 不写 mateni，stop 不写 mungkasi）
+quit: 退出 UTM = metu（不用 mandheg，mandheg 是 stop）
+shortcut: trabasan（主窗口里指向别处虚拟机的快捷方式；和 App 名 Pintasan 区分）；keyboard shortcuts = pintasan papan ketik
+keyboard: papan ketik；keystroke = ketukan tombol；scan code = kode pindai；modifier key = tombol pangowah
+serial: Port Serial（串口，不用 seri）
+path: jalur（不用 dalan）
+icon-dock: ikon（不用 lambang）；Dock、bar menu
+custom: Khusus
+command: prentah（不用 printah）
+download: undhuh；ngundhuh（不用 download、ndownload）

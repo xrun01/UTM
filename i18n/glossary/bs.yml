@@ -1,0 +1,67 @@
+# bs 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。用拉丁字母和 ijekavica，不用塞尔维亚语形式（zahtevaju、promene、takođe）。
+# 来源：amalthea（VM64 官网）的 glossary/bs.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple、Microsoft 没有 bs 本地化，rule 是 apple、microsoft 的术语参照 hr 的官方写法。
+virtual-machine: virtuelna mašina（不写 virtualna）
+guest: gostujući；客户机系统 = gostujući sistem；客户机工具 = alati za gostujući sistem
+emulate: emulirati；emulacija（不写 simulirati）
+virtualize: virtuelizirati；virtuelizacija
+native: izvorni；接近原生的速度 = brzina bliska izvornoj
+architecture: arhitektura；CPU 架构 = CPU arhitektura
+backend: backend；QEMU 后端 = QEMU backend，Apple 后端 = Apple backend
+apple-silicon: čip Apple Silicon；Apple 芯片的 Mac = Mac računar s čipom Apple Silicon  # 参照 https://support.apple.com/hr-hr/102527
+intel-mac: Mac računar s Intelovim procesorom  # 参照 https://support.apple.com/hr-hr/116943
+snapshot: snimak；复数 snimci
+disposable-mode: jednokratni način rada
+shut-down: isključivanje
+new-vm-wizard: čarobnjak za kreiranje virtuelnih mašina
+installer-image: instalacijska slika
+license: licenca；自备许可证 = vlastita licenca
+secure-boot: sigurno pokretanje  # Microsoft 没有 bs 页面，参照 https://support.microsoft.com/hr-hr/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: ili noviji  # 参照 https://support.apple.com/hr-hr/102552
+experimental: eksperimentalna funkcija
+auto-resolution: automatsko prilagođavanje rezolucije
+shared-clipboard: dijeljeni međuspremnik；共享剪贴板（动作）= dijeljenje međuspremnika  # 参照 https://support.apple.com/hr-hr/102650
+shared-folder: dijeljeni folder（不写 fascikla、mapa）
+sharing: dijeljenje
+shared-network: Dijeljena mreža
+host-only: Samo host
+bridged: Premošćena mreža
+emulated-vlan: Emulirani VLAN
+port-forwarding: prosljeđivanje portova
+lan: lokalna mreža（不写 LAN）
+shortcuts: aplikacija Prečaci  # 参照 https://support.apple.com/hr-hr/guide/shortcuts-mac/welcome/mac
+command-line-tool: alat komandne linije
+clone: klonirati
+fingerprint: otisak（不写 otisak prsta）
+hardware-reset: resetiranje hardvera
+mount: montirati
+shared-library: dijeljena biblioteka
+capture-mouse: uhvatiti miš；捕获鼠标按钮 = dugme „Uhvati miš“
+keys: tipka Control、tipka Option  # 参照 https://support.apple.com/hr-hr/102650
+toolbar: alatna traka（不写 traka sa alatkama）
+settings: postavke
+classic-systems: klasični sistemi
+cpu: CPU（保留；30 多种 CPU = više od 30 vrsta CPU-a；CPU 核心 = CPU jezgro）
+rosetta: Rosetta（参照 Apple hr 变格：Rosettu、Rosette）  # 参照 https://support.apple.com/hr-hr/102527
+# 以下不在 terms.yml，在本批 needs_review 和缺译条目中出现 3 次以上，由改稿代理定下
+vm-abbreviation: 不用缩写 VM，一律写 virtuelna mašina 并按格变化（VM 状态标签用阴性，例如 Pokrenuta、Zaustavljena）
+drive: disk；复数 diskovi（不写 pogon、disk jedinica）；External Drive = Vanjski disk，Removable Drive = Prenosivi disk
+image: slika；disk image = slika diska，ISO image = ISO slika，kernel image = slika kernela，boot image = slika za pokretanje
+boot: pokretanje（名词）；Boot = Pokretanje sistema，Boot Device = Uređaj za pokretanje，recovery mode = način oporavka
+file: datoteka（不写 fajl）
+directory: direktorij；shared directory = dijeljeni direktorij（不写 zajednički）
+display: ekran；Displays = Ekrani；full screen = prikaz preko cijelog ekrana；screenshot = snimak ekrana（snapshot 单独写 snimak）
+save: sačuvati；状态 Saving = Čuvanje；unsaved = nesačuvan（不混用 spremiti）
+host: host（不写 domaćin）
+kernel: kernel（不写 jezgra）
+key: tipka（不写 ključ、taster）；keystroke = pritisak tipke，复数 pritisci tipki；scan code = scan kod；modifier key = modifikatorska tipka
+capture-input: uhvatiti unos；名词 hvatanje unosa（不写 snimati，snimati 是录制）
+interface: interfejs（不写 sučelje）
+memory-storage: Memory = Memorija（RAM）；Storage = Prostor za pohranu（两者不能同词）
+vm-state: Pause = Pauziraj，Paused = Pauzirana；Suspend = Suspendiraj，Suspended = Suspendirana，suspended state = suspendirano stanje；Stop = Zaustavi；Resume = Nastavi，Resuming = Nastavljanje；Restore = Vrati，Restoring = Vraćanje；进行中的状态用动名词
+stop-method: Request = Zahtjev za isključenje，Force = Prisilno isključenje，Kill = Prisilni prekid；kill = prisilno prekinuti（不写 ubiti）
+command: komanda（和 command-line-tool 的 alat komandne linije 一致，不写 naredba）
+driver: drajver（不写 upravljački program）
+optional: opcionalno（不写 opciono）
+valid: važeći；invalid = nevažeći（不写 valjan）
+imperative: 按钮、菜单项、开关、工具栏和按钮提示、快捷指令动作名用第 2 人称单数祈使（Pokreni、Izbriši）；选择器选项用名词短语（Pokretanje s ISO slike）；带句号的说明句和对话框提示可以用第 2 人称复数（Pokrenite …、Odaberite datoteku.）

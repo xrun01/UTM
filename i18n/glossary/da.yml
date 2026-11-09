@@ -1,0 +1,68 @@
+# da 定下的译法。规则见 i18n/glossary/terms.yml。
+# 来源：amalthea（VM64 官网）的 glossary/da.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+virtual-machine: virtuel maskine；复数 virtuelle maskiner
+guest: gæst；客户机系统 = gæstesystem，客户机工具 = gæsteværktøjer
+emulate: emulere；emulering
+virtualize: virtualisere；virtualisering
+native: native；接近原生的速度 = næsten native hastighed
+architecture: arkitektur
+backend: backend；复数 backends；QEMU-backend、Apple-backend
+apple-silicon: Apple Silicon（S 大写）；Apple 芯片的 Mac = Mac med Apple Silicon，复数 Mac-computere med Apple Silicon  # https://support.apple.com/da-dk/116943
+intel-mac: Mac med Intel-processor；复数 Mac-computere med Intel-processor  # https://support.apple.com/da-dk/116943
+snapshot: snapshot；复数 snapshots
+disposable-mode: engangstilstand
+shut-down: lukke ned；名词 nedlukning
+new-vm-wizard: guiden til nye virtuelle maskiner
+installer-image: installationsbillede
+license: licens
+secure-boot: sikker bootstart  # https://support.microsoft.com/da-dk/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: eller nyere  # https://support.apple.com/da-dk/102552（「macOS Ventura eller nyere」）
+experimental: eksperimentel funktion
+auto-resolution: automatisk justering af opløsningen
+shared-clipboard: delt udklipsholder；共享剪贴板（动作）= dele udklipsholderen；粘贴 = indsætte  # https://support.apple.com/da-dk/guide/mac-help/mchlp1012/mac
+shared-folder: delt mappe；共享文件夹（动作）= dele mapper
+sharing: Deling
+shared-network: Delt netværk
+host-only: Kun vært
+bridged: Brokoblet
+emulated-vlan: Emuleret VLAN
+port-forwarding: portvideresendelse
+lan: lokalt netværk
+shortcuts: Genveje  # https://support.apple.com/da-dk/guide/shortcuts-mac/welcome/mac
+command-line-tool: kommandolinjeværktøj
+clone: klone
+fingerprint: fingeraftryk
+hardware-reset: hardwarenulstilling
+mount: montere
+shared-library: delt bibliotek；复数 delte biblioteker
+capture-mouse: fange musen；捕获鼠标按钮 = knappen Fang mus
+keys: Ctrl-tasten、Alternativtasten；同时写 2 个键 = Ctrl- og Alternativtasten  # https://support.apple.com/da-dk/102650
+toolbar: værktøjslinje
+settings: indstillinger
+classic-systems: klassiske systemer
+rosetta: Rosetta  # https://support.apple.com/da-dk/102527
+cpu: CPU；CPU Cores = CPU-kerner；Core = kerne
+# 以下不在 terms.yml，在 needs_review 和缺译批次中反复出现，由改稿代理定下（2026-11）
+# 称呼用 du。按钮和菜单项用祈使式（Slet、Fjern），状态标签用现在时或过去分词（Starter、Startet）。
+vm: VM；定指 VM'en，复数 VM'er；英文写 VM 时保留，写 virtual machine 时译 virtuel maskine
+drive: drev；Drives = Drev；External Drive = Eksternt drev，Removable Drive = Flytbart drev（两者不能同词）
+image: billede（与 installationsbillede 一致）；disk image = diskbillede；drive image = drevbillede；boot image = startbillede；kernel image = kernebillede；ISO image = ISO-billede
+boot: 复合词用 start-（startbillede、startenhed、startargumenter、UEFI-start）；设置分组 Boot = Opstart；Secure Boot 例外，按 secure-boot 写 sikker bootstart  # Apple da 系统设置写「Startdisk」
+display: skærm；Displays = Skærme；monitor 也写 skærm
+download: download；动词 downloade（沿用现有译文，不用 hente）
+delete-remove: Delete = Slet；Remove = Fjern；Eject = Skub ud；Extracting = Udpakker
+pause-suspend: Pause = Sæt på pause，Paused = Sat på pause；Suspend = Sæt i dvale，Suspended = I dvale，suspend state、suspended state = dvaletilstand；Stop = Stop（三者不能同词）；Mac 睡眠按 Apple 写 vågeblus，不写 dvale
+restore-resume: Restore（从快照恢复）= Gendan，Restoring = Gendanner；Resume = Genoptag，Resuming = Genoptager；Reset = Nulstil；regenerate = generere nye
+recovery: gendannelse；recovery mode = gendannelsestilstand；Run Recovery = Kør i gendannelsestilstand
+kill: tvangsafslutte（不用 dræbe）；停止方式 3 个选项：Request = Anmod，Force = Tving，Kill = Tvangsafslut
+operation: handling（不用 betjening、operation）
+memory-storage: Memory = Hukommelse；Storage = Lagring；internal storage = intern lagring
+input: input；Capture Input = Fang input；input capture = indfangning af input（不用 optage，optage 是录制）；音频 Input/Output = Input/Output
+keys-extra: Command = Kommando，Option = Alternativ，Control = Ctrl，Shift = Skift，Caps Lock = Caps Lock，Escape = Esc；modifier key = ændringstast；keyboard shortcuts = tastaturgenveje；Left/Middle/Right（鼠标按钮）= Venstre knap/Midterste knap/Højre knap  # https://support.apple.com/da-dk/102650
+shared-directory: delt mappe；directory 和 folder 都写 mappe
+interface: 桥接网卡 Interface = Netværksgrænseflade，Bridge Interface = Brogrænseflade；disk interface = diskgrænseflade
+serial: seriel port（Serial %lld = Seriel port %lld）
+vm-shortcut: genvej（指向别处虚拟机的快捷方式，小写；Apple 的 App 名是 Genveje）
+gallery-library: Gallery = galleri（UTM-galleriet、Galleri med virtuelle maskiner）；UTM Library = UTM-bibliotek（两者不能同词）
+dock: Dock（大写）；Dock-ikon
+ramdisk: RAM-disk；initial ramdisk = indledende RAM-disk

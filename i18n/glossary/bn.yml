@@ -1,0 +1,66 @@
+# bn 定下的译法。规则见 i18n/glossary/terms.yml。
+# 来源：amalthea（VM64 官网）的 glossary/bn.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# Apple 只有孟加拉语的 iPhone 使用手册，没有孟加拉语的 Mac 文档。rule 是 apple 的术语，能在 iPhone 使用手册里核对的写出 URL，其余写「未查到」。
+# 拉丁字母名称后的词尾按 Apple 写法加连字符：Mac-এ、Mac-এর、Windows-এর、Rosetta-ও  # https://support.apple.com/bn-in/guide/iphone/iph9374b7411/27/ios/27（「iPhone-এর」「Mac-এ」）
+virtual-machine: ভার্চুয়াল মেশিন
+guest: গেস্ট；客户机系统 = গেস্ট সিস্টেম，客户机工具 = গেস্ট টুল
+emulate: এমুলেট করা；এমুলেশন
+virtualize: ভার্চুয়ালাইজ করা；ভার্চুয়ালাইজেশন
+native: নেটিভ；接近原生的速度 = প্রায় নেটিভ গতি
+architecture: আর্কিটেকচার
+backend: ব্যাকএন্ড；QEMU ব্যাকএন্ড，Apple ব্যাকএন্ড
+apple-silicon: Apple চিপ；Apple 芯片的 Mac = Apple চিপযুক্ত Mac  # 未查到 Apple 孟加拉语 Mac 写法，待母语者确认
+intel-mac: Intel-ভিত্তিক Mac  # 未查到 Apple 孟加拉语写法，参照 Apple 英文 Intel-based Mac
+cpu: CPU（不音译成 সিপিইউ）
+rosetta: Rosetta；词尾加连字符，例如 Rosetta-ও
+snapshot: স্ন্যাপশট
+disposable-mode: ডিসপোজেবল মোড
+shut-down: শাট ডাউন করা
+new-vm-wizard: ভার্চুয়াল মেশিন তৈরির উইজার্ড
+installer-image: ইনস্টলার ইমেজ
+license: লাইসেন্স；自备许可证 = নিজের লাইসেন্স লাগবে
+secure-boot: নিরাপদ বুট  # Microsoft 孟加拉语支持页未本地化，沿用原译，待母语者确认
+or-later: অথবা এর পরবর্তী ভার্সন  # https://support.apple.com/bn-in/guide/iphone/iph9374b7411/27/ios/27（「iOS 17 অথবা এর পরবর্তী ভার্সন」）
+experimental: পরীক্ষামূলক ফিচার
+auto-resolution: স্বয়ংক্রিয় রেজোলিউশন অ্যাডজাস্টমেন্ট
+shared-clipboard: শেয়ার করা ক্লিপবোর্ড；共享剪贴板（动作）= ক্লিপবোর্ড শেয়ার করা  # 未查到 Apple 孟加拉语 Mac 写法；「শেয়ার」参照 https://support.apple.com/bn-in/guide/iphone/iph023f98729/27/ios/27
+shared-folder: শেয়ার করা ফোল্ডার；共享文件夹（动作）= ফোল্ডার শেয়ার করা
+sharing: শেয়ারিং
+shared-network: শেয়ার্ড নেটওয়ার্ক
+host-only: শুধু হোস্ট
+bridged: ব্রিজড
+emulated-vlan: এমুলেটেড VLAN
+port-forwarding: পোর্ট ফরওয়ার্ডিং
+lan: ল্যান
+shortcuts: শর্টকাট；正文写 শর্টকাট অ্যাপ，和键盘快捷键区分  # https://support.apple.com/bn-in/guide/iphone/iph9374b7411/27/ios/27（目录「শর্টকাট」）
+command-line-tool: কমান্ড-লাইন টুল
+clone: ক্লোন করা
+fingerprint: ফিঙ্গারপ্রিন্ট（不用 আঙুলের ছাপ）
+hardware-reset: হার্ডওয়্যার রিসেট
+mount: মাউন্ট করা
+shared-library: শেয়ার্ড লাইব্রেরি
+capture-mouse: মাউস ক্যাপচার করা；捕获鼠标按钮 = মাউস ক্যাপচার বোতাম
+keys: Control কী、Option কী  # 未查到 Apple 孟加拉语 Mac 写法，保留键帽上的英文
+toolbar: টুলবার  # 未查到 Apple 孟加拉语 Mac 写法
+settings: সেটিংস  # https://support.apple.com/bn-in/guide/iphone/iph9374b7411/27/ios/27
+classic-systems: ক্লাসিক সিস্টেম
+# 以下不在 terms.yml，在 needs_review 和补译批次中出现 3 次以上，由改稿代理定下。
+drive: ড্রাইভ；驱动器映像 = ড্রাইভ ইমেজ
+image: ইমেজ；磁盘映像 = ডিস্ক ইমেজ（不用 চিত্র、ছবি，那是图画、照片）
+display: ডিসপ্লে
+directory: ডিরেক্টরি；共享目录 = শেয়ার করা ডিরেক্টরি（和 shared-folder 写法一致）
+version: ভার্সন（不用 সংস্করণ）  # https://support.apple.com/bn-in/guide/iphone/iph9374b7411/27/ios/27（「iOS 17 অথবা এর পরবর্তী ভার্সন」）
+recovery: রিকভারি；恢复模式 = রিকভারি মোড，恢复 IPSW = রিকভারি IPSW（পুনরুদ্ধার 只用于从快照恢复 Restore）
+status: স্থিতি（status）；state（状态）= অবস্থা
+vm-actions: Start = চালু করুন；Run = চালান；Stop = বন্ধ করুন；Pause = বিরতি দিন；Suspend = স্থগিত করুন；Resume = চালিয়ে যান；Restart = রিস্টার্ট করুন；Restore = পুনরুদ্ধার করুন
+vm-states: 进行态用「…হচ্ছে」，完成态用「…হয়েছে」，例如 চালু হচ্ছে、চালু হয়েছে、বিরতি দেওয়া হয়েছে、স্থগিত করা হয়েছে
+remove: অপসারণ করুন；Move = সরান；Delete = মুছুন；Eject = বের করুন；Clear = সাফ করুন
+read-only: শুধুমাত্র পঠনযোগ্য
+full-screen: পূর্ণ স্ক্রিন
+built-in: বিল্ট-ইন
+process: প্রসেস；强制结束进程 = কিল করা
+text: টেক্সট（不用 পাঠ্য）
+storage: স্টোরেজ（存储空间）；Memory = মেমরি
+import: আমদানি করুন
+serial: সিরিয়াল পোর্ট（单写 সিরিয়াল 读成序号）
+finder: Finder（Apple App 名，保留拉丁字母）

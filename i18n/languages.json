@@ -1,0 +1,308 @@
+{
+  "source": "en",
+  "languages": [
+    {
+      "code": "zh-Hans",
+      "api": "zh"
+    },
+    {
+      "code": "zh-Hant",
+      "api": "zh-TW"
+    },
+    {
+      "code": "zh-HK",
+      "derive": {
+        "from": "zh-Hant",
+        "opencc": "tw-hk"
+      }
+    },
+    {
+      "code": "ja",
+      "api": "ja"
+    },
+    {
+      "code": "ko",
+      "api": "ko"
+    },
+    {
+      "code": "fr",
+      "api": "fr"
+    },
+    {
+      "code": "fi",
+      "api": "fi"
+    },
+    {
+      "code": "es-419",
+      "api": "es"
+    },
+    {
+      "code": "de",
+      "api": "de"
+    },
+    {
+      "code": "pl",
+      "api": "pl"
+    },
+    {
+      "code": "ru",
+      "api": "ru"
+    },
+    {
+      "code": "it",
+      "api": "it"
+    },
+    {
+      "code": "ar",
+      "api": "ar"
+    },
+    {
+      "code": "hi",
+      "api": "hi"
+    },
+    {
+      "code": "id",
+      "api": "id"
+    },
+    {
+      "code": "tr",
+      "api": "tr"
+    },
+    {
+      "code": "nl",
+      "api": "nl"
+    },
+    {
+      "code": "sv",
+      "api": "sv"
+    },
+    {
+      "code": "nb",
+      "api": "no"
+    },
+    {
+      "code": "th",
+      "api": "th"
+    },
+    {
+      "code": "vi",
+      "api": "vi"
+    },
+    {
+      "code": "ceb",
+      "api": "ceb"
+    },
+    {
+      "code": "bn",
+      "api": "bn"
+    },
+    {
+      "code": "fa",
+      "api": "fa"
+    },
+    {
+      "code": "ms",
+      "api": "ms"
+    },
+    {
+      "code": "mr",
+      "api": "mr"
+    },
+    {
+      "code": "af",
+      "api": "af"
+    },
+    {
+      "code": "da",
+      "api": "da"
+    },
+    {
+      "code": "ro",
+      "api": "ro"
+    },
+    {
+      "code": "ur",
+      "api": "ur"
+    },
+    {
+      "code": "cs",
+      "api": "cs"
+    },
+    {
+      "code": "ta",
+      "api": "ta"
+    },
+    {
+      "code": "pt-BR",
+      "api": "pt"
+    },
+    {
+      "code": "kn",
+      "api": "kn"
+    },
+    {
+      "code": "ca",
+      "api": "ca"
+    },
+    {
+      "code": "gu",
+      "api": "gu"
+    },
+    {
+      "code": "kk",
+      "api": "kk"
+    },
+    {
+      "code": "el",
+      "api": "el"
+    },
+    {
+      "code": "hu",
+      "api": "hu"
+    },
+    {
+      "code": "uk",
+      "api": "uk"
+    },
+    {
+      "code": "te",
+      "api": "te"
+    },
+    {
+      "code": "sk",
+      "api": "sk"
+    },
+    {
+      "code": "sw",
+      "api": "sw"
+    },
+    {
+      "code": "bg",
+      "api": "bg"
+    },
+    {
+      "code": "cy",
+      "api": "cy"
+    },
+    {
+      "code": "eu",
+      "api": "eu"
+    },
+    {
+      "code": "hr",
+      "api": "hr"
+    },
+    {
+      "code": "lb",
+      "api": "lb"
+    },
+    {
+      "code": "si",
+      "api": "si"
+    },
+    {
+      "code": "az",
+      "api": "az"
+    },
+    {
+      "code": "lt",
+      "api": "lt"
+    },
+    {
+      "code": "or",
+      "api": "or"
+    },
+    {
+      "code": "sr",
+      "api": "sr"
+    },
+    {
+      "code": "be",
+      "api": "be"
+    },
+    {
+      "code": "gl",
+      "api": "gl"
+    },
+    {
+      "code": "my",
+      "api": "my"
+    },
+    {
+      "code": "sd",
+      "api": "sd"
+    },
+    {
+      "code": "sl",
+      "api": "sl"
+    },
+    {
+      "code": "as",
+      "api": "as"
+    },
+    {
+      "code": "et",
+      "api": "et"
+    },
+    {
+      "code": "lv",
+      "api": "lv"
+    },
+    {
+      "code": "km",
+      "api": "km"
+    },
+    {
+      "code": "ne",
+      "api": "ne"
+    },
+    {
+      "code": "hy",
+      "api": "hy"
+    },
+    {
+      "code": "bs",
+      "api": "bs"
+    },
+    {
+      "code": "ka",
+      "api": "ka"
+    },
+    {
+      "code": "is",
+      "api": "is"
+    },
+    {
+      "code": "lo",
+      "api": "lo"
+    },
+    {
+      "code": "mk",
+      "api": "mk"
+    },
+    {
+      "code": "mt",
+      "api": "mt"
+    },
+    {
+      "code": "sq",
+      "api": "sq"
+    },
+    {
+      "code": "fil",
+      "api": "fil"
+    },
+    {
+      "code": "he",
+      "api": "iw"
+    },
+    {
+      "code": "jv",
+      "api": "jv"
+    },
+    {
+      "code": "uz",
+      "api": "uz"
+    }
+  ]
+}

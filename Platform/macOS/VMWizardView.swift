@@ -99,7 +99,7 @@ struct VMWizardView: View {
                         wizardState.next()
                     }
                 } else if wizardState.currentPage == .windowsBoot && wizardState.isWindowsExpressInstall {
-                    Button("一键安装") {
+                    Button("Express Install") {
                         guard wizardState.bootImageURL != nil else {
                             wizardState.alertMessage = AlertMessage(NSLocalizedString("Please select a boot image.", comment: "VMWizardState"))
                             return

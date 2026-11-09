@@ -1,0 +1,65 @@
+# nl 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。称呼统一用 u。
+# 来源：amalthea（VM64 官网）的 glossary/nl.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+virtual-machine: virtuele machine
+guest: gast；客户机系统 = gastsysteem；客户机工具 = gasttools
+emulate: emuleren；emulatie
+virtualize: virtualiseren；virtualisatie
+native: native；接近原生的速度 = bijna-native snelheid
+architecture: architectuur
+backend: backend；QEMU-backend、Apple-backend
+apple-silicon: Apple silicon；Apple 芯片的 Mac = Mac met Apple silicon  # https://support.apple.com/nl-nl/116943
+intel-mac: Intel-Mac  # https://support.apple.com/nl-nl/116943（「Een Intel-Mac is geen Mac met Apple silicon」）
+snapshot: snapshot
+disposable-mode: wegwerpmodus
+shut-down: uitschakelen
+new-vm-wizard: assistent voor nieuwe virtuele machines
+installer-image: installatiekopie
+license: licentie；自备许可证 = eigen licentie
+secure-boot: Beveiligd opstarten  # https://support.microsoft.com/nl-nl/windows/windows-11-en-beveiligd-opstarten-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: of nieuwer  # https://support.apple.com/nl-nl/102552（「macOS Ventura of nieuwer」）
+experimental: experimentele functie
+auto-resolution: automatische aanpassing van de resolutie
+shared-clipboard: gedeeld klembord；共享剪贴板（动作）= het klembord delen
+shared-folder: gedeelde map
+sharing: Delen
+shared-network: Gedeeld netwerk
+host-only: Alleen host
+bridged: Overbrugd
+emulated-vlan: Geëmuleerd VLAN
+port-forwarding: port forwarding
+lan: lokaal netwerk
+shortcuts: Opdrachten  # https://support.apple.com/nl-nl/guide/shortcuts-mac/welcome/mac
+command-line-tool: opdrachtregeltool
+clone: klonen
+fingerprint: vingerafdruk
+hardware-reset: hardwarereset
+mount: mounten
+shared-library: gedeelde bibliotheek
+capture-mouse: muis vangen；捕获鼠标按钮 = knop Muis vangen（vastleggen 常被读成「记录」，主代理定稿）
+keys: Control-toets、Option-toets  # https://support.apple.com/nl-nl/102650
+toolbar: knoppenbalk  # Apple 荷兰语 macOS 菜单「Weergave > Pas knoppenbalk aan」
+settings: instellingen
+classic-systems: klassieke systemen
+rosetta: Rosetta  # https://support.apple.com/nl-nl/102527
+cpu: CPU；CPU 核心 = CPU-kernen  # Apple 荷兰语技术规格页写「CPU」
+# 以下是 terms.yml 里没有、在待审条目中出现 3 次以上的界面术语
+button-style: 按钮、菜单项、工具栏项、复选框和快捷指令动作名用祈使式（Annuleer、Bewaar、Verwijder、Voeg toe、Ga door、Schakel … in），和 Apple 荷兰语 macOS 一致；分组标题用名词
+status-labels: 进行中的状态用「Wordt …」（Wordt gestart、Wordt gepauzeerd）；带「…」的进度提示用「… wordt …」（Huidige grootte wordt berekend…）
+drive: schijf；可移动驱动器 = verwisselbare schijf；外部驱动器 = externe schijf
+disk-image: schijfkopie（disk image 和 drive image 都用这个）  # Apple 荷兰语「Schijfhulpprogramma」
+image: image（ISO-image、kernelimage、opstartimage、IPSW-herstelimage）；不用 afbeelding（图片）
+display: beeldscherm；复数 beeldschermen  # https://support.apple.com/nl-nl/102650（「externe beeldscherm」）
+memory: geheugen；RAM 保留
+storage: opslag
+pause: pauzeren（Pauzeer、Gepauzeerd、Wordt gepauzeerd）
+suspend: opschorten（Schort op、Opgeschort、opgeschorte status）；和 pauzeren 必须区分
+resume: hervatten（Hervat、Wordt hervat）；restore = herstellen（Herstel、Wordt hersteld）
+save: bewaren（按钮 Bewaar、Bewaar status）；句子里可以写 opslaan
+delete: verwijderen；remove 也是 verwijderen（Apple 荷兰语同词）；「数据不会被删除」写 gewist，避免和 remove 同词
+eject: uitwerpen（Werp uit）
+capture-input: invoer vangen（Vang invoer），和 capture-mouse 一致；不用 vastleggen
+modifier-keys: speciale toetsen；Escape 键 = Esc  # https://support.apple.com/nl-nl/102650
+serial: seriële poort
+vm-shortcut: snelkoppeling（UTM 列表里指向别处虚拟机的条目）
+recovery-mode: herstelmodus
+quit: stoppen（Stop，退出 App）；重新启动 = Herstart  # https://support.apple.com/nl-nl/102650（「Zet uit」「Herstart」）

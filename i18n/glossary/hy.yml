@@ -1,0 +1,67 @@
+# hy 定下的译法。规则见 i18n/glossary/terms.yml。Apple 和 Microsoft 都没有 hy 页面（support.apple.com/hy-am、support.microsoft.com/hy-am 回退到英文），apple、microsoft 规则的术语按亚美尼亚语软件界面的通行说法。
+# 来源：amalthea（VM64 官网）的 glossary/hy.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+# 句号用 ։（U+0589），不用英文冒号或句点；疑问句在重读词上加 ՞（Ինչո՞ւ、Ինչպե՞ս）。专有名词保留拉丁字母，用连字符加词尾：Mac-ը、Mac-ում、Mac-եր（不用 Mac-ներ）。
+virtual-machine: վիրտուալ մեքենա
+guest: հյուր；客户机系统 = հյուր համակարգ；客户机工具 = հյուր գործիքներ（不用 հաճախորդ）
+emulate: էմուլյացիա կատարել；էմուլյացիա（不用 ընդօրինակել、նմանակել、մոդելավորել、սիմուլյացիա）
+virtualize: վիրտուալացնել；վիրտուալացում
+native: բնիկ；接近原生的速度 = բնիկին մոտ արագություն（不用 մայրենի）
+architecture: ճարտարապետություն；CPU 架构 = պրոցեսորի ճարտարապետություն
+backend: շարժիչ；QEMU շարժիչ、Apple շարժիչ（待母语者确认）
+apple-silicon: Apple չիպ；Apple 芯片的 Mac = Apple չիպով Mac（不用 սիլիցիում、Apple silicon）
+intel-mac: Intel պրոցեսորով Mac
+snapshot: ակնթարթային պատկեր（不用 լուսանկար，待母语者确认）
+disposable-mode: մեկանգամյա ռեժիմ
+shut-down: անջատել；անջատում
+new-vm-wizard: նոր վիրտուալ մեքենայի ստեղծման վարպետ
+installer-image: տեղադրման պատկեր
+license: լիցենզիա
+secure-boot: Secure Boot（Microsoft 没有 hy 页面，待确认）
+or-later: կամ ավելի նոր տարբերակ（不用 ավելի բարձր、ավելի ուշ）
+experimental: փորձնական գործառույթ
+auto-resolution: լուծաչափի ավտոմատ կարգավորում（不用 լուծում）
+shared-clipboard: համօգտագործվող սեղմատախտակ
+shared-folder: համօգտագործվող թղթապանակ
+sharing: Համօգտագործում
+shared-network: Mac-ի ցանցի համօգտագործում（不用 Ընդհանուր ցանց，它会读成「公共网络」）
+host-only: Միայն հոսթ
+bridged: Կամուրջ
+emulated-vlan: Էմուլյացված VLAN
+port-forwarding: պորտերի վերահասցեավորում（不用 նավահանգիստ）
+lan: տեղային ցանց（不用 LAN）
+shortcuts: Shortcuts（macOS 没有 hy 界面，保留 App 原名；不用 դյուրանցումներ）
+command-line-tool: հրամանային տողի գործիք
+clone: կլոնավորել
+fingerprint: մատնահետք
+hardware-reset: ապարատային վերակայում
+mount: մոնտաժել（不用 տեղադրել，避免和安装混淆）
+shared-library: ընդհանուր գրադարան
+capture-mouse: գրավել մկնիկը；捕获鼠标按钮 = «Գրավել մկնիկը» կոճակ（待确认 App 界面）
+keys: Control ստեղն、Option ստեղն（键名不翻译）
+toolbar: գործիքագոտի
+settings: կարգավորումներ
+rosetta: Rosetta，用连字符加词尾：Rosetta-ն、Rosetta-ի
+cpu: պրոցեսոր；CPU 核心 = պրոցեսորային միջուկ
+classic-systems: դասական համակարգեր
+# 以下是审校界面文案时新定的译法（不在 terms.yml 中）
+vm-abbreviation: VM 写全称 վիրտուալ մեքենա（不用 VM、ՎՄ）；快捷指令搜索关键词 vm 写 վմ
+host: հոսթ；主机 = հոսթ մեքենա，主机系统 = հոսթ օպերացիոն համակարգ（不用 հյուրընկալող，它和 guest 的 հյուր 同词根）
+drive: սկավառակ；Removable Drive = Շարժական սկավառակ，External Drive = Արտաքին սկավառակ（不用 դրայվ、կրիչ）；驱动程序 driver = դրայվեր
+image: պատկեր（磁盘或安装映像）；disk image = սկավառակի պատկեր，boot image = բեռնման պատկեր；snapshot 必须写全 ակնթարթային պատկեր，不单写 պատկեր
+boot: բեռնում；Boot Device = Բեռնման սարք，Bootloader = Բեռնիչ（不用 բեռնախցիկ，它是汽车后备箱）
+configuration: կազմաձև（不用 կոնֆիգուրացիա）
+display: էկրան；Displays = Էկրաններ
+memory: հիշողություն；storage = պահեստ，internal storage = ներքին պահեստ，两者区分
+input: ներածում；output = արտածում；Capture Input = Գրավել ներածումը（不用 մուտքագրում、նկարել）
+interface: ինտերֆեյս（硬件或网络接口）；网络接口选择器写 Ցանցային ինտերֆեյս（不用 միջերես）
+console: կոնսոլ（不用 վահանակ）
+serial: Սերիական պորտ（不用 Սերիա）
+directory: գրացուցակ（和 folder = թղթապանակ 区分，不用 դիրեկտորիա）
+share: 分享按钮 Share = Կիսվել；共享功能用 համօգտագործել（不用 ընդհանուր）
+vm-actions: Start/Run = Գործարկել，Stop = Կանգնեցնել，Pause = Դադար（动词 դադար տալ），Suspend = Կասեցնել，Resume = Շարունակել，Restart = Վերագործարկել，Restore = Վերականգնել
+vm-states: Started = Գործարկված է，Starting = Գործարկվում է，Stopped = Կանգնեցված է，Paused = Դադարի մեջ է，Suspended = Կասեցված է，Resuming = Շարունակվում է，Restoring = Վերականգնվում է
+stop-method: Request = Անջատման հարցում，Force = Հարկադիր անջատում，Kill = Գործընթացի ավարտ；停止菜单项写动词：Ուղարկել անջատման հարցում、Անջատել հարկադրաբար、Ավարտել գործընթացը հարկադրաբար
+generic-default: Generic = Ստանդարտ，Default = Կանխադրված，Custom = Անհատական
+keystroke: ստեղնահարում；scan code = սկան-կոդ；modifier key = մոդիֆիկատոր ստեղն
+macos-ui: Dock 保留原名（Dock-ի պատկերակ）；menu bar = ընտրացանկի գոտի；macOS 没有亚美尼亚语界面，系统菜单名（Virtual Machine Accessories）保留英文
+ui-style: 按钮、菜单项、开关、操作说明用动词不定式（Ստեղծել、Ջնջել）；对用户的指令用命令式（Ընտրեք）；数词后的名词用单数（4 միջուկ）；GiB = ԳիԲ，MiB = ՄիԲ

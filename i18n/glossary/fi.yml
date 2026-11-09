@@ -1,0 +1,62 @@
+# fi 定下的译法。规则见 i18n/glossary/terms.yml。
+virtual-machine: virtuaalikone（不用缩写 VM；VM screenshot = virtuaalikoneen kuvakaappaus）
+guest: vieras；客户机系统 = vierasjärjestelmä；客户机工具 = vierastyökalut
+emulate: emuloida；emulointi
+virtualize: virtualisoida；virtualisointi
+native: natiivi；接近原生的速度 = lähes natiivi nopeus
+architecture: arkkitehtuuri；CPU 架构 = prosessoriarkkitehtuuri
+backend: taustajärjestelmä；QEMU-taustajärjestelmä、Apple-taustajärjestelmä
+apple-silicon: Applen siru；Apple 芯片的 Mac = Applen sirulla varustettu Mac（复数 Applen sirulla varustetut Mac-tietokoneet）  # https://support.apple.com/fi-fi/116943
+intel-mac: Intel-pohjainen Mac（复数 Intel-pohjaiset Mac-tietokoneet）  # https://support.apple.com/fi-fi/116943
+snapshot: tilannevedos
+disposable-mode: kertakäyttötila
+shut-down: sammuttaa；sammutus
+new-vm-wizard: uuden virtuaalikoneen ohjattu toiminto
+installer-image: asennuslevykuva
+license: käyttöoikeus  # https://support.microsoft.com/fi-fi/windows/aktivoi-windows-c39005d4-95ee-b91e-b399-2820fda32227
+secure-boot: suojattu käynnistys  # https://support.microsoft.com/fi-fi/windows/windows-11-and-secure-boot-a8ff1202-c0d9-42f5-940f-843abef64fad
+or-later: tai uudempi  # https://support.apple.com/fi-fi/102552（「macOS Ventura tai uudempi」）
+experimental: kokeellinen ominaisuus
+auto-resolution: resoluution automaattinen säätö
+shared-clipboard: jaettu leikepöytä；复制和粘贴 = kopioida ja sijoittaa（不用 liittää）  # https://support.apple.com/fi-fi/guide/mac-help/mchl70368996/mac（「Muokkaa > Sijoita」）
+shared-folder: jaettu kansio；共享文件夹 = jakaa kansioita virtuaalikoneelle
+sharing: Jakaminen
+shared-network: Jaettu verkko
+host-only: Vain isäntä
+bridged: Sillattu
+emulated-vlan: Emuloitu VLAN
+port-forwarding: portin edelleenlähetys
+lan: lähiverkko
+shortcuts: Pikakomennot；用快捷指令 = Pikakomennot-apilla  # https://support.apple.com/fi-fi/guide/shortcuts-mac/welcome/mac
+command-line-tool: komentorivityökalu
+clone: kloonata
+fingerprint: sormenjälki
+hardware-reset: laitteistonollaus
+mount: liittää tiedostojärjestelmään（不单写 liittää，避免和连接 USB 设备混淆）
+shared-library: jaettu kirjasto
+capture-mouse: kaapata hiiri；工具栏按钮 Capture Input = Kaappaa syöte（捕获鼠标和键盘，不写 hiiri）、Capture input devices = Kaappaa syötelaitteet
+keys: Control-näppäin、Optio-näppäin；按键名 = Control (⌃)、Optio (⌥)、Vaihto (⇧)、Komento (⌘)、Caps Lock (⇪)、Esc (⎋)；modifier key = muuntonäppäin（https://support.apple.com/fi-fi/guide/mac-help/mchlp1011/mac「Muuntonäppäimet」）  # https://support.apple.com/fi-fi/102650（「Optio (tai alt) ⌥ Vaihto ⇧ Caps Lock ⇪ Komento (tai cmd) ⌘ Esc (Escape) ⎋」）
+toolbar: työkalupalkki
+settings: asetukset
+rosetta: Rosetta，按芬兰语加词尾：Rosettan、Rosettaa、Rosetta käyttöön
+cpu: prosessori；CPU 架构 = prosessoriarkkitehtuuri；CPU 核心 = prosessoriydin  # https://support.apple.com/fi-fi/guide/activity-monitor/actmntr43452/mac（「Prosessori」）
+classic-systems: klassiset järjestelmät
+
+# 不在 terms.yml 中、待审条目出现 3 次以上的界面术语
+drive: asema；(New Drive) = (Uusi asema)、External Drive = Ulkoinen asema
+disk-image: levykuva；Drive Image = Aseman levykuva、Floppy Image = Levykkeen levykuva
+display: näyttö；Displays = Näytöt（显示器列表，不是 Windows 系统）
+pause-suspend: Pause = tauota（Paused = Tauolla、Pausing = Tauotetaan）；Suspend = siirtää lepotilaan（保存状态后停止，可以恢复；Suspend = Siirrä lepotilaan、Suspended = Lepotilassa；不用 keskeyttää，它读作「中断」）
+scan-code: skannauskoodi（PC AT 键盘扫描码；不用 näppäinkoodi，那是 key code）；参数标题 Scan Code = Näppäimen skannauskoodi
+ramdisk: RAM-levy（不用 muistilevy）；Initial Ramdisk（initrd）= alku-RAM-levy（不用 alkuperäinen）  # https://fi.wikipedia.org/wiki/RAM-levy
+network-interface: verkkoliitäntä（网卡；Interface 选择器 = Verkkoliitäntä，Bridge Interface = Siltaliitäntä；不用 käyttöliittymä，那是用户界面）
+serial: sarjaportti（串口设备；Serial = Sarjaportti、Serial (TTY) = Sarjaportti (TTY)；不用 sarjanumero，那是序列号）
+eject: poistaa näkyvistä（弹出驱动器；Eject = Poista näkyvistä；不单写 Poista，它和 Delete/Remove 同词）  # https://support.apple.com/fi-fi/102650（「Komento-E: poista valittu levy tai taltio näkyvistä」）
+audio-input-output: äänitulo、äänilähtö（音频设备；Input Only = Vain äänitulo、Output Only = Vain äänilähtö）  # https://support.apple.com/fi-fi/guide/mac-help/mchlp2567/mac
+configuration: kokoonpano（虚拟机的配置；configuration file = kokoonpanotiedosto；不用 konfiguraatio；配置动作 Automatic Hardware Configuration 仍写 määritys）
+power-down: sammutuspyyntö（向客户机发送关机请求；Request Power Down = Pyydä sammutusta；不用 virrankatkaisu，它读作「断电」）
+kill: prosessin lopetus（强制结束虚拟机进程；kill the VM = lopettaa virtuaalikoneen prosessin；不用 tappaa）
+suspended-state: lepotilan tallennettu tila（Suspend 保存的状态；save suspend state = tallentaa tila lepotilaa varten）
+terminal: terminaali（Built-in Terminal = Sisäänrakennettu terminaali；不用 pääte）
+menu-bar: valikkorivi（不用 valikkopalkki）  # https://support.apple.com/fi-fi/guide/mac-help/mchlp1446/mac（「Työpöytä, valikkorivi ja Dock」）
+dock: Dock（Dock icon = Dock-kuvake；不译成 telakka）  # https://support.apple.com/fi-fi/guide/mac-help/mchlp1446/mac

@@ -1,0 +1,57 @@
+# de 定下的译法。键是 i18n/glossary/terms.yml 的术语 id。
+virtual-machine: virtuelle Maschine
+guest: Gast；客户机系统 = Gastsystem；客户机工具 = Gast-Tools
+emulate: emulieren；Emulation
+virtualize: virtualisieren；Virtualisierung
+native: nativ
+architecture: Architektur
+backend: Backend
+apple-silicon: Apple-Chip；Apple 芯片的 Mac = Mac mit Apple-Chip  # https://support.apple.com/de-de/116943
+intel-mac: Mac mit Intel-Prozessor  # https://support.apple.com/de-de/116943
+snapshot: Snapshot
+disposable-mode: Wegwerfmodus
+shut-down: herunterfahren
+new-vm-wizard: Assistent für neue virtuelle Maschinen
+installer-image: Installationsimage
+license: Lizenz  # https://support.microsoft.com/de-de/windows/aktivieren-von-windows-c39005d4-95ee-b91e-b399-2820fda32227
+secure-boot: sicherer Start  # https://support.microsoft.com/de-de/windows/windows-11-und-sicherer-start-a8ff1202-c0d9-42f5-940f-843abef64fad
+experimental: experimentelle Funktion
+auto-resolution: automatische Anpassung der Auflösung
+shared-clipboard: gemeinsame Zwischenablage（不用 teilen）；粘贴 = einsetzen  # Apple 德语界面菜单「Bearbeiten > Einsetzen」；https://support.apple.com/de-de/guide/mac-help/mchlp1012/mac（「Zwischen Geräten kopieren und einsetzen」）
+shared-folder: freigegebener Ordner；共享文件夹 = Ordner freigeben（不用 teilen）
+sharing: Freigabe
+shared-network: Gemeinsames Netzwerk
+host-only: Nur Host
+bridged: Netzwerkbrücke
+emulated-vlan: Emuliertes VLAN
+port-forwarding: Portweiterleitung
+lan: lokales Netzwerk
+shortcuts: Kurzbefehle  # https://support.apple.com/de-de/guide/shortcuts-mac/welcome/mac
+command-line-tool: Befehlszeilentool
+clone: klonen
+fingerprint: Fingerabdruck
+hardware-reset: Hardware-Reset
+mount: mounten
+shared-library: gemeinsam genutzte Bibliothek
+capture-mouse: Maus erfassen
+keys: Control-Taste、Wahltaste；Command = Befehlstaste、Shift = Umschalttaste、Caps Lock = Feststelltaste、Escape = Esc；modifier keys = Sondertasten  # https://support.apple.com/de-de/102650
+toolbar: Symbolleiste
+settings: Einstellungen
+classic-systems: klassische Systeme
+or-later: oder neuer  # Apple 德语页面写系统要求用「oder neuer」，例如 https://support.apple.com/de-de/102552（「macOS Ventura oder neuer」）
+image: Image（Installationsimage、Laufwerksimage、Boot-Image、Kernel-Image；不用 Abbild）
+boot: Boot（Boot-Gerät、Boot-Argumente、UEFI-Boot；Secure Boot 例外，按 secure-boot 写 sicherer Start）
+drive: Laufwerk（Externes Laufwerk、Laufwerksimage）
+cpu: Prozessor（CPU Cores = Prozessor-Kerne；Core = Kern）  # https://support.apple.com/de-de/guide/activity-monitor/actmntr43452/mac（Apple 德语页面混用 CPU 和 Prozessor，界面标签统一用 Prozessor）
+rosetta: Rosetta  # https://support.apple.com/de-de/102527
+display: Display；复数 Displays（工具栏项、菜单都用 Displays，不用 Bildschirm、Fenster）
+vm-shortcut: Verknüpfung（指向 VM 存放位置的快捷方式；不是 Kurzbefehle）
+memory: Arbeitsspeicher（虚拟机内存 RAM；Storage = Datenspeicher，不用单独的 Speicher）  # https://support.apple.com/de-de/guide/mac-help/syspr35536/mac（「Informationen über den Arbeitsspeicher deines Computers」）
+disk-image: Laufwerksimage（disk image 和 drive image 同译；不用 Disk-Image、Festplatten-Image、Laufwerksbild）
+vm-state: Zustand（虚拟机状态：Save State = Zustand speichern、Current State = Aktueller Zustand；Status 只用于 status）
+stop-vm: ausschalten（Stop = Ausschalten、Stopped = Ausgeschaltet；Stop Method = Stoppmethode）
+pause-vm: pausieren（Pause = Pause、Paused = Pausiert；不用 anhalten）
+suspend-vm: aussetzen（Suspend = Aussetzen、Suspended = Ausgesetzt；suspended state = ausgesetzter Zustand）
+power-down: Herunterfahren（Request Power Down = Herunterfahren anfordern；不用 Abschaltung）
+directory: Ordner（Shared Directory = Freigegebener Ordner；不用 Verzeichnis）
+share-vm: teilen（分享 VM 副本：Share… = Teilen…；freigeben 只用于共享文件夹）

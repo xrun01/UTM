@@ -128,3 +128,45 @@ jobs:
           name: UTM.app
           path: UTM.app.tar.zst
           compression-level: 0
+
+  # 本地化检查不需要 Windows 客户机工具：用空的驱动目录构建 app，只为得到提取结果
+  # 不依赖 build-win-guest，这样 Windows 构建失败时，本地化仍能在每个 PR 上得到验证
+  check-localizations:
+    name: Check Localizations
+    runs-on: macos-latest
+    needs: [build-mac-engine]
+    steps:
+      - name: Select latest Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest
+      - name: Checkout UTM repository
+        uses: actions/checkout@v7
+        with:
+          path: git/UTM
+      - name: Checkout vm repository
+        uses: actions/checkout@v7
+        with:
+          repository: xrun01/vm
+          token: ${{ secrets.GH_TOKEN }}
+          path: git/vm
+      - name: Download macOS VM SDK
+        uses: actions/download-artifact@v8
+        with:
+          name: mac-vm-sdk
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+      - name: Build UTM.app for String Extraction
+        run: |
+          which zstd || brew install zstd
+          mkdir -p git/vm/engine/build/GuestTools/stage git/UTM/lib
+          zstd -d -c mac-vm-sdk.tar.zst | tar -C git/UTM/lib -xf -
+          chmod +x git/UTM/lib/vm-mcp git/UTM/lib/libMonitorArm.dylib
+          touch git/UTM/lib/libvmkit.a git/UTM/lib/vm-mcp git/UTM/lib/libMonitorArm.dylib git/UTM/lib/efia64.bin
+          bun git/vm/script/buildApp.js
+      - name: Test and Check Localizations
+        working-directory: git/UTM/scripts/i18n
+        run: |
+          bun install
+          bun test
+          bun check.js --ci

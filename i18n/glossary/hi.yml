@@ -1,0 +1,73 @@
+# hi 定下的译法。规则见 i18n/glossary/terms.yml。
+# 来源：amalthea（VM64 官网）的 glossary/hi.yml，commit b724790。去掉了官网专用的 ui-* 术语。
+virtual-machine: वर्चुअल मशीन
+guest: गेस्ट；客户机系统 = गेस्ट सिस्टम，客户机工具 = गेस्ट टूल
+emulate: इम्यूलेट करना；इम्यूलेशन
+virtualize: वर्चुअलाइज़ करना；वर्चुअलाइज़ेशन
+native: नेटिव；接近原生的速度 = लगभग नेटिव गति
+architecture: आर्किटेक्चर
+backend: बैकएंड；QEMU बैकएंड，Apple बैकएंड
+apple-silicon: Apple silicon；Apple 芯片的 Mac = Apple silicon वाला Mac  # https://support.apple.com/hi-in/guide/mac-help/mchl82829c17/mac
+intel-mac: Intel-आधारित Mac  # https://support.apple.com/hi-in/guide/mac-help/mchl338cf9a8/mac
+cpu: CPU（不音译成 सीपीयू）
+rosetta: Rosetta；可加印地语后置词，例如 Rosetta से
+snapshot: स्नैपशॉट
+disposable-mode: डिस्पोज़ेबल मोड
+shut-down: शट डाउन करना  # https://support.apple.com/hi-in/guide/mac-help/mchl82829c17/mac
+new-vm-wizard: वर्चुअल मशीन बनाने का विज़ार्ड
+installer-image: इंस्टॉलर इमेज（不用 छवि，छवि 是图片）
+license: लाइसेंस；自备许可证 = लाइसेंस आपको खुद लेना होगा
+secure-boot: सिक्योर बूट  # Microsoft 印地语支持页未本地化，沿用原译，待母语者确认
+or-later: या उसके बाद का संस्करण  # https://support.apple.com/hi-in/guide/mac-help/mh35860/mac（「macOS 12 या उसके बाद के संस्करण पर」）
+experimental: प्रायोगिक फ़ीचर
+auto-resolution: स्वचालित रिज़ॉल्यूशन समायोजन
+shared-clipboard: शेयर्ड क्लिपबोर्ड；共享剪贴板（动作）= क्लिपबोर्ड शेयर करना  # https://support.apple.com/hi-in/guide/mac-help/mchl70368996/mac
+shared-folder: शेयर्ड फ़ोल्डर；共享文件夹（动作）= फ़ोल्डर शेयर करना
+sharing: शेयरिंग
+shared-network: शेयर्ड नेटवर्क
+host-only: केवल होस्ट
+bridged: ब्रिज्ड
+emulated-vlan: इम्यूलेटेड VLAN
+port-forwarding: पोर्ट फ़ॉरवर्डिंग
+lan: लोकल नेटवर्क
+shortcuts: शॉर्टकट；正文写 शॉर्टकट ऐप，和键盘快捷键区分  # https://support.apple.com/hi-in/guide/shortcuts-mac/welcome/mac
+command-line-tool: कमांड-लाइन टूल
+clone: क्लोन करना
+fingerprint: फ़िंगरप्रिंट（不用 उंगलियों के निशान）
+hardware-reset: हार्डवेयर रीसेट
+mount: माउंट करना
+shared-library: शेयर्ड लाइब्रेरी
+capture-mouse: माउस कैप्चर करना；捕获鼠标按钮 = माउस कैप्चर बटन
+keys: कंट्रोल की、ऑप्शन की  # https://support.apple.com/hi-in/guide/mac-help/mchlp2262/mac（「शिफ़्ट, कमांड या कंट्रोल」「ऑप्शन और शिफ़्ट」）
+toolbar: टूलबार  # https://support.apple.com/hi-in/guide/mac-help/mchl82829c17/mac
+settings: सेटिंग्ज़  # https://support.apple.com/hi-in/guide/mac-help/mh15217/mac
+classic-systems: क्लासिक सिस्टम
+
+# 审校待审条目时新定的界面术语（出现 3 次以上，terms.yml 没有）
+host: होस्ट（不用 मेजबान）
+image: इमेज（阴性；disk image = डिस्क इमेज，不用 छवि）
+drive: ड्राइव（阴性）
+device: डिवाइस（不用 उपकरण）
+display: डिस्प्ले
+directory: डायरेक्टरी；shared directory = शेयर्ड डायरेक्टरी（不用 निर्देशिका）
+storage: स्टोरेज；和 memory 区分
+memory: मेमोरी
+vm: VM（不音译成 वीएम，按 वर्चुअल मशीन 用阴性）
+install: इंस्टॉल करना；installation = इंस्टॉलेशन（不用 स्थापित करना）
+import: इंपोर्ट करना（不用 आयात）
+delete: डिलीट करना（永久删除）
+remove: हटाना（移除快捷方式、共享目录），和 delete 区分
+read-only: रीड-ओनली
+recovery: रिकवरी；recovery mode = रिकवरी मोड
+save: सहेजना；save state = स्थिति सहेजना
+start: शुरू करना；状态 Starting = शुरू हो रही है，Started = चालू
+stop: रोकना；状态 Stopping = रुक रही है，Stopped = बंद
+pause: पॉज़ करना；Paused = पॉज़ है（和 Stop 区分）
+suspend: सस्पेंड करना；Suspended = सस्पेंड है；suspended state = सस्पेंड की गई स्थिति（和 pause 区分）
+resume: जारी रखना；状态 Resuming = जारी रखी जा रही है（不用 जारी की जा रही है，是 जारी करना「签发」的被动式；不用 फिर से शुरू करना 或 फिर से चालू करना，会读成重启）
+restart: रीस्टार्ट करना
+restore: रीस्टोर करना（从快照恢复，和 resume 区分）
+kill: समाप्त करना；force kill = बलपूर्वक समाप्त करना
+overwrite: ओवरराइट करना
+share: शेयर करना
+power-down: पावर डाउन（不用 बिजली बंद，那是断电）
