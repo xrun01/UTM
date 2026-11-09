@@ -9,6 +9,10 @@ on:
   pull_request:
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   build-win-guest:
     name: Build Windows Guest Tools
@@ -31,6 +35,17 @@ jobs:
         run: |
           [ -f "/c/Program Files/LLVM/bin/llvm-dlltool.exe" ] || which llvm-dlltool || choco install llvm -y --no-progress
           which zstd || choco install zstd -y --no-progress
+      - name: Cache Windows Guest Tools Build
+        id: cache-win-guest
+        uses: actions/cache@v4
+        with:
+          path: git/vm/engine/build/GuestTools
+          key: win-guest-${{ runner.os }}-${{ hashFiles('git/vm/engine/GuestTools/**', 'git/vm/engine/include/GuestTools/**', 'git/vm/script/**') }}
+      - name: Restore Cached Build Timestamps
+        if: steps.cache-win-guest.outputs.cache-hit == 'true'
+        shell: bash
+        run: |
+          find git/vm/engine/build/GuestTools -type f -exec touch {} +
       - name: Build Windows 11 ARM64 Guest Modules
         run: bun git/vm/script/winGuestBuild.js
       - name: Pack Windows Guest Tools with Zstd
@@ -55,8 +70,6 @@ jobs:
       - name: Checkout UTM repository
         uses: actions/checkout@v7
         with:
-          repository: xrun01/UTM
-          token: ${{ secrets.GH_TOKEN }}
           path: git/UTM
       - name: Checkout vm repository
         uses: actions/checkout@v7
@@ -70,6 +83,19 @@ jobs:
         run: |
           which ninja || brew install ninja
           which zstd || brew install zstd
+      - name: Cache macOS VM Engine Build
+        id: cache-mac-engine
+        uses: actions/cache@v4
+        with:
+          path: |
+            git/vm/engine/build/VmApp
+            git/vm/engine/build/MonitorArm
+            git/vm/src/headless/vm-mcp/target
+          key: mac-engine-${{ runner.os }}-${{ hashFiles('git/vm/engine/VmApp/**', 'git/vm/engine/MonitorArm/**', 'git/vm/engine/include/**', 'git/vm/src/**', 'git/vm/script/**') }}
+      - name: Restore Cached Engine Timestamps
+        if: steps.cache-mac-engine.outputs.cache-hit == 'true'
+        run: |
+          find git/vm/engine/build/VmApp git/vm/engine/build/MonitorArm -type f -exec touch {} + 2>/dev/null || true
       - name: Build macOS VM SDK
         env:
           XVM_JOBS: "8"
@@ -83,6 +109,48 @@ jobs:
           path: mac-vm-sdk.tar.zst
           compression-level: 0
 
+  # 本地化检查仅依赖 macOS 引擎产物，使用空客户机驱动目录完成字符串提取与校验，
+  # 不阻塞于 Windows 客户机工具构建，确保每个 PR 的多语言目录与源码保持同步
+  check-localizations:
+    name: Check Localizations
+    runs-on: macos-latest
+    needs: [build-mac-engine]
+    steps:
+      - name: Select latest Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest
+      - name: Checkout UTM repository
+        uses: actions/checkout@v7
+        with:
+          path: git/UTM
+      - name: Checkout vm repository
+        uses: actions/checkout@v7
+        with:
+          repository: xrun01/vm
+          token: ${{ secrets.GH_TOKEN }}
+          path: git/vm
+      - name: Download macOS VM SDK
+        uses: actions/download-artifact@v8
+        with:
+          name: mac-vm-sdk
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+      - name: Build UTM.app for String Extraction
+        run: |
+          which zstd || brew install zstd
+          mkdir -p git/vm/engine/build/GuestTools/stage git/UTM/lib
+          zstd -d -c mac-vm-sdk.tar.zst | tar -C git/UTM/lib -xf -
+          chmod +x git/UTM/lib/vm-mcp git/UTM/lib/libMonitorArm.dylib
+          touch git/UTM/lib/libvmkit.a git/UTM/lib/vm-mcp git/UTM/lib/libMonitorArm.dylib git/UTM/lib/efia64.bin
+          bun git/vm/script/buildApp.js
+      - name: Test and Check Localizations
+        working-directory: git/UTM/scripts/i18n
+        run: |
+          bun install
+          bun test
+          bun check.js --ci
+
   package-utm-app:
     name: Package UTM.app
     runs-on: macos-latest
@@ -95,8 +163,6 @@ jobs:
       - name: Checkout UTM repository
         uses: actions/checkout@v7
         with:
-          repository: xrun01/UTM
-          token: ${{ secrets.GH_TOKEN }}
           path: git/UTM
       - name: Checkout vm repository
         uses: actions/checkout@v7
@@ -132,45 +198,3 @@ jobs:
           name: UTM.app
           path: UTM.app.tar.zst
           compression-level: 0
-
-  check-localizations:
-    name: Check Localizations
-    runs-on: macos-latest
-    needs: [build-mac-engine]
-    steps:
-      - name: Select latest Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: latest
-      - name: Checkout UTM repository
-        uses: actions/checkout@v7
-        with:
-          repository: xrun01/UTM
-          token: ${{ secrets.GH_TOKEN }}
-          path: git/UTM
-      - name: Checkout vm repository
-        uses: actions/checkout@v7
-        with:
-          repository: xrun01/vm
-          token: ${{ secrets.GH_TOKEN }}
-          path: git/vm
-      - name: Download macOS VM SDK
-        uses: actions/download-artifact@v8
-        with:
-          name: mac-vm-sdk
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
-      - name: Build UTM.app for String Extraction
-        run: |
-          which zstd || brew install zstd
-          mkdir -p git/vm/engine/build/GuestTools/stage git/UTM/lib
-          zstd -d -c mac-vm-sdk.tar.zst | tar -C git/UTM/lib -xf -
-          chmod +x git/UTM/lib/vm-mcp git/UTM/lib/libMonitorArm.dylib
-          touch git/UTM/lib/libvmkit.a git/UTM/lib/vm-mcp git/UTM/lib/libMonitorArm.dylib git/UTM/lib/efia64.bin
-          bun git/vm/script/buildApp.js
-      - name: Test and Check Localizations
-        working-directory: git/UTM/scripts/i18n
-        run: |
-          bun install
-          bun test
-          bun check.js --ci

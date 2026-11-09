@@ -14390,7 +14390,7 @@
       }
     },
     "Add…" : {
-      "comment" : "VMDisplayAppleController",
+      "comment" : "VMDisplayAppleController\nVMDisplayVmMetalWindowController",
       "localizations" : {
         "af" : {
           "stringUnit" : {
@@ -29861,6 +29861,9 @@
           }
         }
       }
+    },
+    "CD/DVD (empty)" : {
+      "comment" : "VMDisplayVmMetalWindowController"
     },
     "CD/DVD Image" : {
       "localizations" : {
@@ -108966,6 +108969,9 @@
         }
       }
     },
+    "Install Windows Guest Tools…" : {
+      "comment" : "VMDisplayVmMetalWindowController"
+    },
     "Installation Instructions" : {
       "localizations" : {
         "af" : {
@@ -162662,7 +162668,7 @@
       }
     },
     "Read Only" : {
-      "comment" : "VMDisplayAppleController",
+      "comment" : "VMDisplayAppleController\nVMDisplayVmMetalWindowController",
       "localizations" : {
         "af" : {
           "stringUnit" : {
@@ -166755,7 +166761,7 @@
       }
     },
     "Remove…" : {
-      "comment" : "VMDisplayAppleController",
+      "comment" : "VMDisplayAppleController\nVMDisplayVmMetalWindowController",
       "localizations" : {
         "af" : {
           "stringUnit" : {
@@ -188113,7 +188119,7 @@
       }
     },
     "Select Shared Folder" : {
-      "comment" : "VMDisplayAppleWindowController",
+      "comment" : "VMDisplayAppleWindowController\nVMDisplayVmMetalWindowController",
       "localizations" : {
         "af" : {
           "stringUnit" : {

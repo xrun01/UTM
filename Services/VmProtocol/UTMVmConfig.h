@@ -119,7 +119,7 @@ struct VmXmlOpticalDriveConfig {
     uint64_t sizeBytes;                     // +0x18 镜像字节数
     char imagePath[88];                     // +0x20 镜像路径摘要
 };
-static_assert(sizeof(VmXmlOpticalDriveConfig) == 120, "光驱配置结构必须为 120 字节");
+static_assert(sizeof(VmXmlOpticalDriveConfig) == 120, "VmXmlOpticalDriveConfig size must be 120 bytes");
 
 // 296 字节磁盘配置结构 (对齐竞品 XML 配置 +0xd38 列表项尺寸 0x128)
 struct VmXmlHardDiskConfig {
@@ -135,7 +135,7 @@ struct VmXmlHardDiskConfig {
     char identifier[64];                    // +0x28 磁盘标识符
     char imagePath[192];                    // +0x68 镜像路径
 };
-static_assert(sizeof(VmXmlHardDiskConfig) == 296, "磁盘配置结构必须为 296 字节");
+static_assert(sizeof(VmXmlHardDiskConfig) == 296, "VmXmlHardDiskConfig size must be 296 bytes");
 
 // 宿主持久化 XML 配置投影结构
 // 前 0xfe0 字节与竞品 0xff8 对象内的 XML 配置数据区一一对应, 偏移证据来自
@@ -257,58 +257,58 @@ struct alignas(16) VmXmlConfigurationBlock {
     VmXmlHardDiskConfig hardDisks[4];         // 宿主侧内联 296 字节磁盘配置表
 };
 
-static_assert(offsetof(VmXmlConfigurationBlock, toolsAutoUpdatePolicy) == 0x0628, "XML 配置工具自动更新策略偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, clipboardSyncEnabled) == 0x0658, "XML 配置剪贴板同步偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, autoPauseEnabled) == 0x0682, "XML 配置自动暂停使能偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, autoPauseFlags) == 0x0683, "XML 配置自动暂停标志偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, autoPauseReason) == 0x0684, "XML 配置自动暂停原因偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, sharedFoldersEnabled) == 0x0698, "XML 配置共享目录使能偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, sharedFolderMapDriveLetters) == 0x06a7, "XML 配置共享盘符映射偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, sharedFolderCount) == 0x06ac, "XML 配置共享目录数量偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, sharedProfileConfig) == 0x06e8, "XML 配置共享用户目录偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, coherenceShowTaskbar) == 0x0734, "XML 配置融合任务栏显示偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, coherenceRelocateTaskbar) == 0x0738, "XML 配置融合任务栏重定位偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, timeSyncEnabled) == 0x0780, "XML 配置时间同步使能偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, timeSyncIntervalSeconds) == 0x0784, "XML 配置时间同步周期偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, timeSyncZoneDisabled) == 0x078c, "XML 配置时区同步禁用偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, timeSyncKeepOffset) == 0x078d, "XML 配置时间偏移保持偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, timeSyncFromHost) == 0x078e, "XML 配置宿主时间同步偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, snapshotPolicyFlags) == 0x0830, "XML 配置快照策略偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, hypervisorQuirks) == 0x0a58, "XML 配置虚拟化标志偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, adaptiveHypervisorEnabled) == 0x0a7c, "XML 配置自适应虚拟化偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, nestedVirtEnabled) == 0x0a7d, "XML 配置嵌套虚拟化偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, sharedProfileEnabled) == 0x0a7e, "XML 配置共享配置偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, hostFeatureMask0ab8) == 0x0ab8, "XML 配置宿主能力偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, cpuCount) == 0x0b30, "XML 配置核数偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, firmwareType) == 0x0b38, "XML 配置固件类型偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, guestFeatureMask0b40) == 0x0b40, "XML 配置特性掩码偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, vmFlags0b48) == 0x0b48, "XML 配置虚拟机标志偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, ramSizeMb) == 0x0b7c, "XML 配置内存容量偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, hostMemQuotaMinMb) == 0x0b88, "XML 配置配额下限偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, hostMemQuotaMaxMb) == 0x0b8c, "XML 配置配额上限偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, balloonQuotaEnabled) == 0x0b90, "XML 配置配额使能偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, vramSizeMb) == 0x0bc0, "XML 配置显存容量偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, displayFlag0c0c) == 0x0c0c, "XML 配置显示标志偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, displayConfigWidth) == 0x0c0c, "XML 配置显示宽度偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, displayConfigHeight) == 0x0c10, "XML 配置显示高度偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, dynamicResolutionEnabled) == 0x0c14, "XML 配置动态分辨率偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, hidpiEnabled) == 0x0c15, "XML 配置HiDPI偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, displayRefreshRateHz) == 0x0c16, "XML 配置显示刷新率偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, displayValue0c18) == 0x0c18, "XML 配置显示数值偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, toolgateEnabled) == 0x0c94, "XML 配置Toolgate使能偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, toolsAutoUpdateEnabled) == 0x0c95, "XML 配置工具自动更新使能偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, opticalDriveList) == 0x0d20, "XML 配置光驱列表偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, opticalDriveCount) == 0x0d28, "XML 配置光驱数量偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, hardDiskList) == 0x0d38, "XML 配置磁盘列表偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, hardDiskCount) == 0x0d40, "XML 配置磁盘数量偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, networkAdapterList) == 0x0d98, "XML 配置网络列表偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, networkAdapterCount) == 0x0da0, "XML 配置网络数量偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, deviceValue0db0) == 0x0db0, "XML 配置设备数值偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, audioDeviceCount) == 0x0db8, "XML 配置音频数量偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, usbControllerList) == 0x0dc8, "XML 配置USB列表偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, usbControllerCount) == 0x0dd0, "XML 配置USB数量偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, tpmDeviceConfigPtr) == 0x0df0, "XML 配置TPM指针偏移错误");
-static_assert(offsetof(VmXmlConfigurationBlock, networkMode) == 0x0fe0, "宿主侧投影字段起始偏移错误");
+static_assert(offsetof(VmXmlConfigurationBlock, toolsAutoUpdatePolicy) == 0x0628, "toolsAutoUpdatePolicy offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, clipboardSyncEnabled) == 0x0658, "clipboardSyncEnabled offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, autoPauseEnabled) == 0x0682, "autoPauseEnabled offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, autoPauseFlags) == 0x0683, "autoPauseFlags offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, autoPauseReason) == 0x0684, "autoPauseReason offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, sharedFoldersEnabled) == 0x0698, "sharedFoldersEnabled offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, sharedFolderMapDriveLetters) == 0x06a7, "sharedFolderMapDriveLetters offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, sharedFolderCount) == 0x06ac, "sharedFolderCount offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, sharedProfileConfig) == 0x06e8, "sharedProfileConfig offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, coherenceShowTaskbar) == 0x0734, "coherenceShowTaskbar offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, coherenceRelocateTaskbar) == 0x0738, "coherenceRelocateTaskbar offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, timeSyncEnabled) == 0x0780, "timeSyncEnabled offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, timeSyncIntervalSeconds) == 0x0784, "timeSyncIntervalSeconds offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, timeSyncZoneDisabled) == 0x078c, "timeSyncZoneDisabled offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, timeSyncKeepOffset) == 0x078d, "timeSyncKeepOffset offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, timeSyncFromHost) == 0x078e, "timeSyncFromHost offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, snapshotPolicyFlags) == 0x0830, "snapshotPolicyFlags offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, hypervisorQuirks) == 0x0a58, "hypervisorQuirks offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, adaptiveHypervisorEnabled) == 0x0a7c, "adaptiveHypervisorEnabled offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, nestedVirtEnabled) == 0x0a7d, "nestedVirtEnabled offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, sharedProfileEnabled) == 0x0a7e, "sharedProfileEnabled offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, hostFeatureMask0ab8) == 0x0ab8, "hostFeatureMask0ab8 offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, cpuCount) == 0x0b30, "cpuCount offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, firmwareType) == 0x0b38, "firmwareType offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, guestFeatureMask0b40) == 0x0b40, "guestFeatureMask0b40 offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, vmFlags0b48) == 0x0b48, "vmFlags0b48 offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, ramSizeMb) == 0x0b7c, "ramSizeMb offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, hostMemQuotaMinMb) == 0x0b88, "hostMemQuotaMinMb offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, hostMemQuotaMaxMb) == 0x0b8c, "hostMemQuotaMaxMb offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, balloonQuotaEnabled) == 0x0b90, "balloonQuotaEnabled offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, vramSizeMb) == 0x0bc0, "vramSizeMb offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, displayFlag0c0c) == 0x0c0c, "displayFlag0c0c offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, displayConfigWidth) == 0x0c0c, "displayConfigWidth offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, displayConfigHeight) == 0x0c10, "displayConfigHeight offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, dynamicResolutionEnabled) == 0x0c14, "dynamicResolutionEnabled offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, hidpiEnabled) == 0x0c15, "hidpiEnabled offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, displayRefreshRateHz) == 0x0c16, "displayRefreshRateHz offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, displayValue0c18) == 0x0c18, "displayValue0c18 offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, toolgateEnabled) == 0x0c94, "toolgateEnabled offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, toolsAutoUpdateEnabled) == 0x0c95, "toolsAutoUpdateEnabled offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, opticalDriveList) == 0x0d20, "opticalDriveList offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, opticalDriveCount) == 0x0d28, "opticalDriveCount offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, hardDiskList) == 0x0d38, "hardDiskList offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, hardDiskCount) == 0x0d40, "hardDiskCount offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, networkAdapterList) == 0x0d98, "networkAdapterList offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, networkAdapterCount) == 0x0da0, "networkAdapterCount offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, deviceValue0db0) == 0x0db0, "deviceValue0db0 offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, audioDeviceCount) == 0x0db8, "audioDeviceCount offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, usbControllerList) == 0x0dc8, "usbControllerList offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, usbControllerCount) == 0x0dd0, "usbControllerCount offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, tpmDeviceConfigPtr) == 0x0df0, "tpmDeviceConfigPtr offset mismatch");
+static_assert(offsetof(VmXmlConfigurationBlock, networkMode) == 0x0fe0, "networkMode offset mismatch");
 
 void utmVmPopulateXmlConfigBlock(VmXmlConfigurationBlock *block, UTMVmConfig *config);
 #endif
