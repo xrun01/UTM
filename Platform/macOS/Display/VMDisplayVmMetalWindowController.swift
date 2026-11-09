@@ -138,11 +138,14 @@ class VMDisplayVmMetalWindowController: VMDisplayWindowController, VMMetalViewIn
         syncDrawableScale()
         let scale = win.backingScaleFactor
         let viewBounds = metalView?.bounds.size ?? displayView.bounds.size
+        let currentRes = UTMVmBridge.shared.activeConfig?.initialDisplaySize ?? CGSize(width: 1280, height: 800)
+        let surfaceW = UTMVmBridge.shared.currentIOSurface.map { CGFloat(IOSurfaceGetWidth($0)) } ?? 0
+        let effectiveScale = (currentRes.width >= 1920.0 || currentRes.height >= 1200.0 || surfaceW >= 1920.0) ? scale : 1.0
         // 对齐 WDDM dispatchKmddWddmEntry 64 字节（16 像素）行距步幅与 EDID 偶数像素高，消除任意拖拽窗口时的黑边与模式拒绝
-        let alignedW = CGFloat((max(640, Int(round(viewBounds.width))) + 7) & ~15)
-        let alignedH = CGFloat((max(480, Int(round(viewBounds.height))) + 1) & ~1)
+        let alignedW = CGFloat((max(640, Int(round(viewBounds.width * effectiveScale))) + 7) & ~15)
+        let alignedH = CGFloat((max(480, Int(round(viewBounds.height * effectiveScale))) + 1) & ~1)
         let pixelSize = CGSize(width: alignedW, height: alignedH)
-        let dpi = UInt32(96.0 * scale)
+        let dpi = UInt32(96.0 * effectiveScale)
         UTMVmBridge.shared.dispatch(.updateDisplay(size: pixelSize, scaleFactor: scale, dpi: dpi))
     }
 
@@ -283,8 +286,8 @@ class VMDisplayVmMetalWindowController: VMDisplayWindowController, VMMetalViewIn
     }
 
     func captureMouse() {
-        metalView?.captureMouse()
-        captureMouseToolbarButton?.state = .on
+        // 对标竞品无缝指针模式: 宿主与客户机共享绝对坐标映射, 不锁定宿主光标
+        captureMouseToolbarButton?.state = .off
     }
 
     func releaseMouse() {

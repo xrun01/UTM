@@ -189,7 +189,7 @@ class VMMetalView: MTKView {
     }
     
     override func updateTrackingAreas() {
-        let trackingArea = NSTrackingArea(rect: CGRect(origin: .zero, size: frame.size), options: [.mouseMoved, .mouseEnteredAndExited, .activeInKeyWindow], owner: self, userInfo: nil)
+        let trackingArea = NSTrackingArea(rect: CGRect(origin: .zero, size: frame.size), options: [.mouseMoved, .mouseEnteredAndExited, .activeAlways, .inVisibleRect], owner: self, userInfo: nil)
         logger.debug("update tracking area: \(trackingArea.rect)")
         if let oldTrackingArea = wholeTrackingArea {
             logger.debug("remove old tracking area: \(oldTrackingArea.rect)")
@@ -204,6 +204,7 @@ class VMMetalView: MTKView {
     override func mouseEntered(with event: NSEvent) {
         logger.debug("mouse entered (first responder: \(isFirstResponder))")
         isMouseInWindow = true
+        syncUncapturedMouseLocation(with: event)
         if isFirstResponder {
             applyCurrentCursorState()
         }
@@ -286,21 +287,6 @@ class VMMetalView: MTKView {
     override func flagsChanged(with event: NSEvent) {
         let modifiers = event.modifierFlags
         logger.trace("modifers: \(modifiers)")
-        if let shouldUseCmdOptForCapture = inputDelegate?.shouldUseCmdOptForCapture {
-            let captureKeyPressed: Bool
-            if shouldUseCmdOptForCapture {
-                captureKeyPressed = modifiers.isSuperset(of: [.command, .option])
-            } else {
-                captureKeyPressed = modifiers.isSuperset(of: [.control, .option])
-            }
-            if captureKeyPressed {
-                if isMouseCaptured {
-                    inputDelegate!.releaseMouse()
-                } else {
-                    inputDelegate!.captureMouse()
-                }
-            }
-        }
         sendModifiers(lastModifiers.subtracting(modifiers), press: false)
         sendModifiers(modifiers.subtracting(lastModifiers), press: true)
         inputDelegate?.syncCapsLock(with: modifiers)
@@ -433,7 +419,7 @@ class VMMetalView: MTKView {
     }
 
     override func acceptsFirstMouse(for event: NSEvent?) -> Bool {
-        guard isHandleInitialClick && !isMouseCaptured else {
+        guard !isMouseCaptured else {
             return false
         }
         if let location = event?.locationInWindow {

@@ -278,6 +278,10 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
                 for (offset, d) in diskList.enumerated() where d.role == .bootIso {
                     d.bootOrder = offset + 1
                 }
+                if vmCfg.initialDisplaySize.width == 1280 && vmCfg.initialDisplaySize.height == 800 && screenScale > 1.0 {
+                    vmCfg.initialDisplaySize = CGSize(width: round(1280.0 * screenScale), height: round(800.0 * screenScale))
+                    vmCfg.initialScaleFactor = screenScale
+                }
             }
         }
         vmCfg.disks = diskList

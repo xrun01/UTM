@@ -223,7 +223,7 @@ class VMDisplayWindowController: NSWindowController, UTMVirtualMachineDelegate {
                 powerSegmentedControl.setEnabled(isEnabled, forSegment: PowerSegment.restart.rawValue)
                 restartMenuItem.isEnabled = isEnabled
             case .captureInput:
-                captureMouseToolbarItem.isEnabled = isEnabled
+                captureMouseToolbarItem?.isEnabled = isEnabled
             case .usb:
                 usbToolbarItem.isEnabled = isEnabled
                 usbMenuItem.isEnabled = isEnabled
@@ -267,6 +267,11 @@ class VMDisplayWindowController: NSWindowController, UTMVirtualMachineDelegate {
     }
 
     private func setupToolbarIcons() {
+        if let toolbar = window?.toolbar,
+           let captureId = captureMouseToolbarItem?.itemIdentifier,
+           let idx = toolbar.items.firstIndex(where: { $0.itemIdentifier == captureId }) {
+            toolbar.removeItem(at: idx)
+        }
         // cable.connector ships in SF Symbols 3, so the USB toolbar item
         // visually matches the surrounding system symbols.
         usbToolbarItem.image = NSImage(systemSymbolName: "cable.connector",
