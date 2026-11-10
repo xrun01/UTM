@@ -278,6 +278,23 @@ final class UTMAppleVirtualMachine: UTMVirtualMachine, @unchecked Sendable {
                 for (offset, d) in diskList.enumerated() where d.role == .bootIso {
                     d.bootOrder = offset + 1
                 }
+                if !diskList.contains(where: { $0.role == .guestToolsIso }) {
+                    var candidates: [String] = []
+                    if let resDir = Bundle.main.resourcePath {
+                        candidates.append((resDir as NSString).appendingPathComponent("GuestTools.iso"))
+                    }
+                    candidates.append((FileManager.default.currentDirectoryPath as NSString).appendingPathComponent("git/UTM/lib/GuestTools.iso"))
+                    if let toolsPath = candidates.first(where: { FileManager.default.isReadableFile(atPath: $0) }) {
+                        let toolsDisk = UTMVmDiskConfig()
+                        toolsDisk.identifier = "auto-guest-tools-iso"
+                        toolsDisk.imagePath = toolsPath
+                        toolsDisk.isReadOnly = true
+                        toolsDisk.isOptical = true
+                        toolsDisk.role = .guestToolsIso
+                        toolsDisk.bootOrder = 100
+                        diskList.append(toolsDisk)
+                    }
+                }
                 if vmCfg.initialDisplaySize.width == 1280 && vmCfg.initialDisplaySize.height == 800 && screenScale > 1.0 {
                     vmCfg.initialDisplaySize = CGSize(width: round(1280.0 * screenScale), height: round(800.0 * screenScale))
                     vmCfg.initialScaleFactor = screenScale

@@ -33,17 +33,20 @@ jobs:
           arch: x64_arm64
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
-      - name: Ensure LLVM and Zstd
+      - name: Ensure LLVM, Zstd, and Rust ARM64 Windows Target
         shell: bash
         run: |
           [ -f "/c/Program Files/LLVM/bin/llvm-dlltool.exe" ] || which llvm-dlltool || choco install llvm -y --no-progress
           which zstd || choco install zstd -y --no-progress
+          rustup target add aarch64-pc-windows-msvc
       - name: Cache Windows Guest Tools Build
         id: cache-win-guest
         uses: actions/cache@v6
         with:
-          path: git/vm/engine/build/GuestTools
-          key: win-guest-${{ runner.os }}-${{ hashFiles('git/vm/guest/**', 'git/vm/engine/include/**', 'git/vm/script/**') }}
+          path: |
+            git/vm/engine/build/GuestTools
+            git/vm/rs/setup/target
+          key: win-guest-${{ runner.os }}-${{ hashFiles('git/vm/guest/**', 'git/vm/rs/setup/**', 'git/vm/engine/include/**', 'git/vm/script/**') }}
       - name: Restore Cached Build Timestamps
         if: steps.cache-win-guest.outputs.cache-hit == 'true'
         shell: bash
@@ -152,6 +155,8 @@ jobs:
           bun install
           bun test
           bun check.js --ci
+          bun install --cwd ../../../vm/script
+          bun ../../../vm/script/i18nCheck.js
 
   package-utm-app:
     name: Package UTM.app
